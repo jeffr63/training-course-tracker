@@ -1,0 +1,88 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "ng-bootstrap Playbook",
+      "instructor": "Steve Michelotti",
+      "path": "Angular",
+      "source": "Pluralsite",
+      "yearCompleted": "2018"
+    },
+    {
+      "id": 2,
+      "title": "Angular: The Big Picture",
+      "instructor": "Joe Eames",
+      "path": "Angular",
+      "source": "Pluralsite",
+      "yearCompleted": "2017"
+    },
+    {
+      "id": 3,
+      "title": "Angular: Getting Started",
+      "instructor": "Deborah Kurata",
+      "path": "Angular",
+      "source": "Pluralsite",
+      "yearCompleted": "2017"
+    },
+    {
+      "id": 4,
+      "title": "Angular CLI",
+      "instructor": "John Pappa",
+      "path": "Angular",
+      "source": "Pluralsite",
+      "yearCompleted": "2017"
+    },
+    {
+      "yearCompleted": "2017",
+      "title": "Angular Forms",
+      "instructor": "Mark Zamoyta",
+      "path": "Angular",
+      "source": "Pluralsite",
+      "id": 5
+    }
+  ],
+  "paths": [
+    {
+      "id": 1,
+      "name": "Angular"
+    },
+    {
+      "id": 2,
+      "name": "CSS"
+    },
+    {
+      "id": 3,
+      "name": "Bootstrap"
+    },
+    {
+      "id": 4,
+      "name": "HTML5"
+    },
+    {
+      "id": 5,
+      "name": "React"
+    },
+    {
+      "id": 6,
+      "name": "Redux"
+    }
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "name": "Pluralsite"
+    },
+    {
+      "id": 2,
+      "name": "freeCodeCamp"
+    },
+    {
+      "id": 3,
+      "name": "Instructor Led"
+    },
+    {
+      "id": 4,
+      "name": "YouTube"
+    }
+  ]
+}

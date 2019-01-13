@@ -1,3 +1,50 @@
-<p>
-  course-edit works!
-</p>
+<section class="container">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+
+  <section class="card">
+    <form>
+      <fieldset class="form-group row">
+        <label class="col-form-label col-sm-2" for="title">Title</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="title" [(ngModel)]="course.title" placeholder="Enter title of course taken" />
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group row">
+        <label class="col-form-label col-sm-2" for="instructor">Instructor</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="instructor" [(ngModel)]="course.instructor" placeholder="Enter name of course's intructor" />
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group row">
+        <label class="col-form-label col-sm-2" for="path">Path</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="path" [(ngModel)]="course.path" placeholder="Enter techical path of course (ex: Angular or React)"
+            [ngbTypeahead]="pathSearch" />
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group row">
+        <label class="col-form-label col-sm-2" for="source">Source</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="source" [(ngModel)]="course.source" placeholder="Enter where the course was sourced from (ex: Pluralsite)"
+            [ngbTypeahead]="sourceSearch" />
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group row">
+        <label class="col-form-label col-sm-2" for="yearCompleted">Year Completed</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="yearCompleted" [(ngModel)]="course.yearCompleted" placeholder="Enter year the course was completed"
+            min="4" max="4" />
+        </div>
+      </fieldset>
+
+      <div class="form-group row">
+        <button class="btn btn-primary mr-sm-2" (click)="save()">Save</button>
+        <a class="btn btn-secondary" [routerLink]="['/courses']">Cancel</a>
+      </div>
+    </form>
+  </section>
+</section>
