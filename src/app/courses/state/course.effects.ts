@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError, mergeMap } from 'rxjs/operators';
 
 import * as courseActions from './course.actions';
 import { Course } from '../course';
@@ -29,7 +29,7 @@ export class CourseEffects {
   @Effect()
   totalCourses$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.GetTotalCourses),
-    switchMap(() => this.courseService.getCoursesUnsorted().pipe(
+    mergeMap(() => this.courseService.getCoursesUnsorted().pipe(
       map((courses: Course[]) => (new courseActions.GetTotalCoursesSuccessAction(courses))),
       catchError(err => of(new courseActions.GetTotalCoursesFailAction(err)))
     ))

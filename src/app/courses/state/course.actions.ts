@@ -5,17 +5,15 @@ import { Course } from '../course';
 export enum CourseActionTypes {
   GetTotalCourses = '[Courses] Get Total Courses',
   GetTotalCoursesSuccess = '[Courses] Get Total Courses Success',
-  GetTotalCoursesFail = '[Courses] Get Total Courses Success',
+  GetTotalCoursesFail = '[Courses] Get Total Courses Fail',
 
   GetCourse = '[Courses] Get Course',
   GetCourseSuccess = '[Courses] Get Course Success',
   GetCourseFail = '[Courses] Get Course Fail',
 
-  NewCourse = '[Courses] New Course',
-
   SaveCourse = '[Courses] Save Course',
   SaveCourseSuccess = '[Courses] Save Course Success',
-  SaveCourseFail = '[Courses] Save Course File',
+  SaveCourseFail = '[Courses] Save Course Fail',
 
   DeleteCourse = '[Courses] Delete Course',
   DeleteCourseSuccess = '[Courses] Delete Course Succes',
@@ -23,7 +21,7 @@ export enum CourseActionTypes {
 
   LoadCourses = '[Courses] Load Courses',
   LoadCoursesSuccess = '[Courses] Load Courses Success',
-  LoadCoursesFail = '[Courses] Load Courses Failed',
+  LoadCoursesFail = '[Courses] Load Courses Fail',
 }
 
 // totalCourses actions
@@ -60,10 +58,6 @@ export class GetCourseFailAction implements Action {
   readonly type = CourseActionTypes.GetCourseFail;
 
   constructor(public payload: string) { }
-}
-
-export class NewCourseAction implements Action {
-  readonly type = CourseActionTypes.NewCourse;
 }
 
 export class DeleteCourseAction implements Action {
@@ -121,10 +115,10 @@ export class LoadCoursesFailAction implements Action {
 
 export type CourseActions = GetTotalCoursesAction
   | GetTotalCoursesSuccessAction
+  | GetTotalCoursesFailAction
   | GetCourseAction
   | GetCourseSuccessAction
   | GetCourseFailAction
-  | NewCourseAction
   | DeleteCourseAction
   | DeleteCourseSuccessAction
   | DeleteCourseFailAction
