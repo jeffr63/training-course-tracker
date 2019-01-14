@@ -2,7 +2,7 @@
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 
   <section class="card">
-    <form>
+    <form *ngIf="course">
       <fieldset class="form-group row">
         <label class="col-form-label col-sm-2" for="title">Title</label>
         <div class="col-sm-6">

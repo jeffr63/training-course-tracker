@@ -89,6 +89,8 @@ export class SaveCourseAction implements Action {
 
 export class SaveCourseSuccessAction implements Action {
   readonly type = CourseActionTypes.SaveCourseSuccess;
+
+  constructor(public payload: Course) { }
 }
 
 export class SaveCourseFailAction implements Action {

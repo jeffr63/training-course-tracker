@@ -44,11 +44,13 @@ export class CourseEffects {
   @Effect()
   saveCourse$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.SaveCourse),
-    mergeMap((action: courseActions.SaveCourseAction) => this.courseService.saveCourse(action.payload)),
-    switchMap(_res => [
-      new courseActions.GetTotalCoursesAction(),
-      new courseActions.SaveCourseSuccessAction()
-    ])
+    map((action: courseActions.SaveCourseAction) => action.payload),
+    switchMap((payload: Course) => this.courseService.saveCourse(payload).pipe(
+      switchMap(_res => [
+        new courseActions.GetTotalCoursesAction(),
+        new courseActions.SaveCourseSuccessAction(payload)
+      ])
+    ))
   );
 
   @Effect()

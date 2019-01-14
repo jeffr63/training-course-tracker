@@ -49,6 +49,7 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return state;
 
     case CourseActionTypes.GetCourseSuccess:
+      console.log(action.payload);
       return {
         ...state,
         currentCourse: action.payload
@@ -68,8 +69,11 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       };
 
     case CourseActionTypes.SaveCourseSuccess:
+      const updatedCourses = state.courses.map(
+        item => action.payload.id === item.id ? action.payload : item);
       return {
         ...state,
+        courses: updatedCourses,
         currentCourse: null
       };
 
