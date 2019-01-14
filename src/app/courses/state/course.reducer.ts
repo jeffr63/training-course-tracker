@@ -49,32 +49,9 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return state;
 
     case CourseActionTypes.GetCourseSuccess:
-      console.log(action.payload);
       return {
         ...state,
         currentCourse: action.payload
-      };
-
-    case CourseActionTypes.NewCourse:
-      return {
-        ...state,
-        currentCourse: {
-          id: 0,
-          title: '',
-          instructor: '',
-          path: '',
-          source: '',
-          yearCompleted: ''
-        }
-      };
-
-    case CourseActionTypes.SaveCourseSuccess:
-      const updatedCourses = state.courses.map(
-        item => action.payload.id === item.id ? action.payload : item);
-      return {
-        ...state,
-        courses: updatedCourses,
-        currentCourse: null
       };
 
     case CourseActionTypes.GetTotalCoursesSuccess:
@@ -87,6 +64,15 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return {
         ...state,
         courses: action.payload
+      };
+
+    case CourseActionTypes.SaveCourseSuccess:
+      const updatedCourses = state.courses.map(
+        item => action.payload.id === item.id ? action.payload : item);
+      return {
+        ...state,
+        courses: updatedCourses,
+        currentCourse: null
       };
 
     default:
