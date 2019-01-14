@@ -8,8 +8,8 @@
     <section class="card-body">
       <header class="row">
         <div class="col">
-          <ngb-pagination [collectionSize]="totalCourses" boundaryLinks="true" [pageSize]="pageSize" maxSize="5" rotate="true"
-            [(page)]="current" (pageChange)="refreshTable()"></ngb-pagination>
+          <ngb-pagination [collectionSize]="totalCourses$ | async" boundaryLinks="true" [pageSize]="pageSize" maxSize="5"
+            rotate="true" [(page)]="current" (pageChange)="refreshTable()"></ngb-pagination>
         </div>
       </header>
       <table class="table table-striped">
@@ -21,7 +21,7 @@
           <th>Year Completed</th>
         </thead>
         <tbody>
-          <tr *ngFor="let course of courses">
+          <tr *ngFor="let course of courses$ | async">
             <td>{{course.title}}</td>
             <td>{{course.instructor}}</td>
             <td>{{course.path}}</td>

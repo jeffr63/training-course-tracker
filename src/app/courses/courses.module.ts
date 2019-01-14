@@ -3,11 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { EffectsModule } from '@ngrx/effects';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
 
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseListComponent } from './course-list/course-list.component';
+import { reducer } from './state/course.reducer';
+import { CourseEffects } from './state/course.effects';
 
 const routes = [
   { path: 'courses', component: CourseListComponent },
@@ -24,6 +28,8 @@ const routes = [
     FormsModule,
     NgbModule,
     NgxLoadingModule,
+    StoreModule.forFeature('courses', reducer),
+    EffectsModule.forFeature([CourseEffects]),
     RouterModule.forChild(routes)
   ]
 })

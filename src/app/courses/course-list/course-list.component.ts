@@ -1,42 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Store, select } from '@ngrx/store';
 
 import { Course } from '../course';
-import { CoursesService } from '../courses.service';
+import * as fromCourse from '../state/course.reducer';
+import * as courseActions from '../state/course.actions';
+import { takeWhile } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements OnInit {
-  public courses = <Course[]>[];
-  public current = 1;
-  public loading = false;
-  public pageSize = 5;
-  public totalCourses = 1;
+export class CourseListComponent implements OnInit, OnDestroy {
+  courses$: Observable<Course[]>;
+  selectCourse = <Course>{};
+  current = 1;
+  loading = false;
+  pageSize = 3;
+  totalCourses$: Observable<number>;
+  componentActive = true;
 
-  constructor(private coursesService: CoursesService) { }
+  constructor(
+    private store: Store<fromCourse.State>
+  ) { }
 
   ngOnInit() {
-    this.loading = true;
-    this.refreshTable();
+    this.store.dispatch(new courseActions.LoadCoursesAction({ 'current': this.current, 'pageSize': this.pageSize }));
+    this.store.dispatch(new courseActions.GetTotalCoursesAction());
+    this.courses$ = this.store.pipe(select(fromCourse.getCourses));
+    this.totalCourses$ = this.store.pipe(select(fromCourse.getTotalCourses));
+  }
+
+  ngOnDestroy() {
+    this.componentActive = false;
   }
 
   deleteCourse(id) {
-    this.coursesService.deleteCourse(id).subscribe(data => this.refreshTable());
+    this.store.dispatch(new courseActions.DeleteCourseAction({ 'id': id, 'current': this.current, 'pageSize': this.pageSize }));
   }
 
   refreshTable() {
-    this.coursesService.getCoursesUnsorted().subscribe((data => {
-      this.totalCourses = data.length;
-    }));
-
-    this.coursesService.getCoursesPaged(this.current, this.pageSize).subscribe(data => {
-      this.courses = data;
-      this.loading = false;
-    }, _error => {
-      this.loading = false;
-    });
+    this.store.dispatch(new courseActions.LoadCoursesAction({ 'current': this.current, 'pageSize': this.pageSize }));
   }
-
 }

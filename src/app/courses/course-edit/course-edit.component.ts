@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, tap, switchMap } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
 import * as _ from 'lodash';
 
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, tap, switchMap, takeWhile } from 'rxjs/operators';
+
 import { Course } from '../course';
+import * as fromCourse from '../state/course.reducer';
+import * as courseActions from '../state/course.actions';
 import { CoursesService } from '../courses.service';
 
 @Component({
@@ -13,30 +17,34 @@ import { CoursesService } from '../courses.service';
   templateUrl: './course-edit.component.html',
   styleUrls: ['./course-edit.component.scss']
 })
-export class CourseEditComponent implements OnInit {
-  public course = <Course>{};
-  public loading = false;
+export class CourseEditComponent implements OnInit, OnDestroy {
+  course = <Course>{};
+  loading = false;
+  componentActive = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private coursesService: CoursesService) { }
+    private store: Store<fromCourse.State>,
+    private coursesService: CoursesService
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params.id !== 'new') {
-        this.loading = true;
-        this.coursesService.getCourse(params.id).subscribe(data => {
-          this.course = data;
-          this.loading = false;
-        }, _error => {
-          this.loading = false;
-        });
+        this.store.dispatch(new courseActions.GetCourseAction(params.id));
+        this.store.pipe(select(fromCourse.getCourse), takeWhile(() => this.componentActive))
+          .subscribe((course: Course) => this.course = course);
       } else {
         const year = new Date().getFullYear();
         this.course.yearCompleted = year.toString();
       }
     });
+
+  }
+
+  ngOnDestroy() {
+    this.componentActive = false;
   }
 
   pathSearch = (text$: Observable<string>) =>
@@ -56,14 +64,8 @@ export class CourseEditComponent implements OnInit {
     )
 
   save() {
-    this.loading = true;
-    this.coursesService.saveCourse(this.course).subscribe(data => {
-      this.loading = false;
-      this.router.navigate(['/courses']);
-    }, _error => {
-      this.loading = false;
-    });
-
+    this.store.dispatch(new courseActions.SaveCourseAction(this.course));
+    this.router.navigate(['/courses']);
   }
 
 }

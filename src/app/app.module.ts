@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 // third party modules
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxLoadingModule } from 'ngx-loading';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 // custom components
 import { AppComponent } from './app.component';
@@ -25,6 +27,8 @@ import { MenuComponent } from './menu/menu.component';
     HttpClientModule,
     NgbModule.forRoot(),
     NgxLoadingModule.forRoot({}),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     AppRoutingModule
   ],
   providers: [],
