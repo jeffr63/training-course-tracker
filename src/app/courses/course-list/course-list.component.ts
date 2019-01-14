@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import { Course } from '../course';
 import * as fromCourse from '../state/course.reducer';
 import * as courseActions from '../state/course.actions';
-import { takeWhile } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course-list',
@@ -20,9 +20,11 @@ export class CourseListComponent implements OnInit {
   loading = false;
   pageSize = 3;
   totalCourses$: Observable<number>;
+  closedResult = '';
 
   constructor(
-    private store: Store<fromCourse.State>
+    private store: Store<fromCourse.State>,
+    private modal: NgbModal
   ) { }
 
   ngOnInit() {
@@ -32,8 +34,13 @@ export class CourseListComponent implements OnInit {
     this.totalCourses$ = this.store.pipe(select(fromCourse.getTotalCourses));
   }
 
-  deleteCourse(id) {
-    this.store.dispatch(new courseActions.DeleteCourseAction({ 'id': id, 'current': this.current, 'pageSize': this.pageSize }));
+  deleteCourse(id, deleteModal) {
+    this.modal.open(deleteModal).result.then(result => {
+      this.closedResult = `Closed with ${result}`;
+      this.store.dispatch(new courseActions.DeleteCourseAction({ 'id': id, 'current': this.current, 'pageSize': this.pageSize }));
+    }, (reason) => {
+      this.closedResult = `Dismissed with ${reason}`;
+    });
   }
 
   refreshTable() {

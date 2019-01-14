@@ -29,7 +29,7 @@
             <td>{{course.yearCompleted}}</td>
             <td>
               <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm mr-2">Edit</a>
-              <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)">Delete</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id,deleteModal)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -37,5 +37,20 @@
     </section>
 
   </section>
+
+  <ng-template #deleteModal let-modal>
+    <div class="modal-header">
+      <span class="modal-title">Delete?</span>
+    </div>
+    <div class="modal-body">
+      <p><strong>Are you sure you want to delete this course?</strong></p>
+      <p>All information associated to this course will be permanently deleted.
+        <span class="text-danger">This operation can not be undone.</span></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" (click)="modal.close()">Delete</button>
+      <button class="btn btn-danger" (click)="modal.dismiss()">Cancel</button>
+    </div>
+  </ng-template>
 
 </section>
