@@ -13,14 +13,13 @@ import { Observable } from 'rxjs';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements OnInit, OnDestroy {
+export class CourseListComponent implements OnInit {
   courses$: Observable<Course[]>;
   selectCourse = <Course>{};
   current = 1;
   loading = false;
   pageSize = 3;
   totalCourses$: Observable<number>;
-  componentActive = true;
 
   constructor(
     private store: Store<fromCourse.State>
@@ -31,10 +30,6 @@ export class CourseListComponent implements OnInit, OnDestroy {
     this.store.dispatch(new courseActions.GetTotalCoursesAction());
     this.courses$ = this.store.pipe(select(fromCourse.getCourses));
     this.totalCourses$ = this.store.pipe(select(fromCourse.getTotalCourses));
-  }
-
-  ngOnDestroy() {
-    this.componentActive = false;
   }
 
   deleteCourse(id) {
