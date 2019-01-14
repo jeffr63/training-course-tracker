@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

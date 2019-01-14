@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, switchMap, catchError, mergeMap } from 'rxjs/operators';
+import { map, switchMap, catchError, mergeMap, concatMap } from 'rxjs/operators';
 
 import * as courseActions from './course.actions';
 import { Course } from '../course';
@@ -20,7 +20,7 @@ export class CourseEffects {
   loadCourse$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.LoadCourses),
     map((action: courseActions.LoadCoursesAction) => action.payload),
-    switchMap((payload) => this.courseService.getCoursesPaged(payload.current, payload.pageSize).pipe(
+    concatMap((payload) => this.courseService.getCoursesPaged(payload.current, payload.pageSize).pipe(
       map((courses: Course[]) => (new courseActions.LoadCoursesSuccessAction(courses))),
       catchError(err => of(new courseActions.LoadCoursesFailAction(err)))
     ))
@@ -29,7 +29,7 @@ export class CourseEffects {
   @Effect()
   totalCourses$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.GetTotalCourses),
-    mergeMap(() => this.courseService.getCoursesUnsorted().pipe(
+    concatMap(() => this.courseService.getCoursesUnsorted().pipe(
       map((courses: Course[]) => (new courseActions.GetTotalCoursesSuccessAction(courses))),
       catchError(err => of(new courseActions.GetTotalCoursesFailAction(err)))
     ))
@@ -38,7 +38,8 @@ export class CourseEffects {
   @Effect()
   getCourse$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.GetCourse),
-    switchMap((action: courseActions.GetCourseAction) => this.courseService.getCourse(action.payload).pipe(
+    map((action: courseActions.GetCourseAction) => action.payload),
+    concatMap((courseId) => this.courseService.getCourse(courseId).pipe(
       map((course: Course) => (new courseActions.GetCourseSuccessAction(course))),
       catchError(err => of(new courseActions.GetCourseFailAction(err)))
     ))
@@ -48,10 +49,10 @@ export class CourseEffects {
   saveCourse$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.SaveCourse),
     map((action: courseActions.SaveCourseAction) => action.payload),
-    switchMap((payload: Course) => this.courseService.saveCourse(payload).pipe(
-      switchMap(_res => [
+    concatMap((course: Course) => this.courseService.saveCourse(course).pipe(
+      concatMap(_res => [
         new courseActions.GetTotalCoursesAction(),
-        new courseActions.SaveCourseSuccessAction(payload)
+        new courseActions.SaveCourseSuccessAction(course)
       ]),
       catchError(err => of(new courseActions.SaveCourseFailAction(err)))
     ))
@@ -61,9 +62,9 @@ export class CourseEffects {
   deleteCourse$ = this.actions.pipe(
     ofType(courseActions.CourseActionTypes.DeleteCourse),
     map((action: courseActions.DeleteCourseAction) => action.payload),
-    switchMap((payload) => this.courseService.deleteCourse(payload.id).pipe(
-      switchMap(_res => [
-        new courseActions.LoadCoursesAction({ 'current': payload.current, 'pageSize': payload.pageSize }),
+    concatMap(({ id, current, pageSize }) => this.courseService.deleteCourse(id).pipe(
+      concatMap(_res => [
+        new courseActions.LoadCoursesAction({ 'current': current, 'pageSize': pageSize }),
         new courseActions.GetTotalCoursesAction(),
         new courseActions.DeleteCourseSuccessAction()
       ]),
