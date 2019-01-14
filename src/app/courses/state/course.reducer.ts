@@ -1,7 +1,7 @@
-import { createFeatureSelector, createSelector, StateObservable } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { Course } from '../course';
 import * as fromRoot from '../../state/app.state';
+import { Course } from '../course';
 import { CourseActions, CourseActionTypes } from '../state/course.actions';
 
 export interface State extends fromRoot.State {
@@ -12,12 +12,14 @@ export interface CourseState {
   courses: Course[];
   currentCourse: Course;
   totalCourses: number;
+  error: string;
 }
 
 const initialState: CourseState = {
   courses: [],
   currentCourse: null,
-  totalCourses: 0
+  totalCourses: 0,
+  error: ''
 };
 
 const getCourseFeatureState = createFeatureSelector<CourseState>('courses');
@@ -44,26 +46,64 @@ export const getTotalCourses = createSelector(
 
 export function reducer(state = initialState, action: CourseActions): CourseState {
   switch (action.type) {
+    case CourseActionTypes.DeleteCourseFail:
+      return {
+        ...state,
+        error: action.payload
+      };
 
     case CourseActionTypes.DeleteCourseSuccess:
-      return state;
+      return {
+        ...state,
+        error: ''
+      };
+
+    case CourseActionTypes.GetCourseFail:
+      return {
+        ...state,
+        currentCourse: null,
+        error: action.payload
+      };
 
     case CourseActionTypes.GetCourseSuccess:
       return {
         ...state,
-        currentCourse: action.payload
+        currentCourse: action.payload,
+        error: ''
+      };
+
+    case CourseActionTypes.GetTotalCoursesFail:
+      return {
+        ...state,
+        totalCourses: 0,
+        error: ''
       };
 
     case CourseActionTypes.GetTotalCoursesSuccess:
       return {
         ...state,
-        totalCourses: action.payload.length
+        totalCourses: action.payload.length,
+        error: ''
+      };
+
+    case CourseActionTypes.LoadCoursesFail:
+      return {
+        ...state,
+        courses: [],
+        error: action.payload
       };
 
     case CourseActionTypes.LoadCoursesSuccess:
       return {
         ...state,
-        courses: action.payload
+        courses: action.payload,
+        error: ''
+      };
+
+    case CourseActionTypes.SaveCourseFail:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     case CourseActionTypes.SaveCourseSuccess:
@@ -72,7 +112,8 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return {
         ...state,
         courses: updatedCourses,
-        currentCourse: null
+        currentCourse: null,
+        error: ''
       };
 
     default:

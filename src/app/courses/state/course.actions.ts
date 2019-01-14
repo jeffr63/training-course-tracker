@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+
 import { Course } from '../course';
 
 export enum CourseActionTypes {
@@ -95,6 +96,8 @@ export class SaveCourseSuccessAction implements Action {
 
 export class SaveCourseFailAction implements Action {
   readonly type = CourseActionTypes.SaveCourseFail;
+
+  constructor(public payload: string) { }
 }
 
 // course list actions
@@ -118,7 +121,6 @@ export class LoadCoursesFailAction implements Action {
 
 export type CourseActions = GetTotalCoursesAction
   | GetTotalCoursesSuccessAction
-  | GetTotalCoursesFailAction
   | GetCourseAction
   | GetCourseSuccessAction
   | GetCourseFailAction
