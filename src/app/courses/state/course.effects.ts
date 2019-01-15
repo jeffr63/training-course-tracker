@@ -64,7 +64,7 @@ export class CourseEffects {
     map((action: courseActions.DeleteCourseAction) => action.payload),
     concatMap(({ id, current, pageSize }) => this.courseService.deleteCourse(id).pipe(
       concatMap(_res => [
-        new courseActions.LoadCoursesAction({ 'current': current, 'pageSize': pageSize }),
+        new courseActions.LoadCoursesAction({ current, pageSize }),
         new courseActions.GetTotalCoursesAction(),
         new courseActions.DeleteCourseSuccessAction()
       ]),

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import * as _ from 'lodash';
@@ -24,7 +25,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private location: Location,
     private store: Store<fromCourse.State>,
     private coursesService: CoursesService
   ) { }
@@ -65,7 +66,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
 
   save() {
     this.store.dispatch(new courseActions.SaveCourseAction(this.course));
-    this.router.navigate(['/courses']);
+    this.location.back();
   }
 
 }
