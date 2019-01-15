@@ -3,6 +3,10 @@ import { Action } from '@ngrx/store';
 import { Course } from '../course';
 
 export enum CourseActionTypes {
+  DeleteCourse = '[Courses] Delete Course',
+  DeleteCourseSuccess = '[Courses] Delete Course Succes',
+  DeleteCourseFail = '[Courses] Delete Course Fail',
+
   GetTotalCourses = '[Courses] Get Total Courses',
   GetTotalCoursesSuccess = '[Courses] Get Total Courses Success',
   GetTotalCoursesFail = '[Courses] Get Total Courses Fail',
@@ -11,17 +15,21 @@ export enum CourseActionTypes {
   GetCourseSuccess = '[Courses] Get Course Success',
   GetCourseFail = '[Courses] Get Course Fail',
 
-  SaveCourse = '[Courses] Save Course',
-  SaveCourseSuccess = '[Courses] Save Course Success',
-  SaveCourseFail = '[Courses] Save Course Fail',
-
-  DeleteCourse = '[Courses] Delete Course',
-  DeleteCourseSuccess = '[Courses] Delete Course Succes',
-  DeleteCourseFail = '[Courses] Delete Course Fail',
-
   LoadCourses = '[Courses] Load Courses',
   LoadCoursesSuccess = '[Courses] Load Courses Success',
   LoadCoursesFail = '[Courses] Load Courses Fail',
+
+  LookupCoursePaths = '[Courses] Lookup Paths',
+  LookupCoursePathsSuccess = '[Courses] Lookup Paths Success',
+  LookupCoursePathsFail = '[Courses] Lookup Paths Fail',
+
+  LookupCourseSources = '[Courses] Lookup Sources',
+  LookupCourseSourcesSuccess = '[Courses] Lookup Sources Success',
+  LookupCourseSourcesFail = '[Courses] Lookup Sources Fail',
+
+  SaveCourse = '[Courses] Save Course',
+  SaveCourseSuccess = '[Courses] Save Course Success',
+  SaveCourseFail = '[Courses] Save Course Fail',
 }
 
 // totalCourses actions
@@ -113,18 +121,59 @@ export class LoadCoursesFailAction implements Action {
   constructor(public payload: string) { }
 }
 
-export type CourseActions = GetTotalCoursesAction
+// course paths lookup actions
+export class LookupCoursePathsAction implements Action {
+  readonly type = CourseActionTypes.LookupCoursePaths;
+}
+
+export class LookupCoursePathsSuccessAction implements Action {
+  readonly type = CourseActionTypes.LookupCoursePathsSuccess;
+
+  constructor(public payload: any[]) { }
+}
+
+export class LookupCoursePathsFailAction implements Action {
+  readonly type = CourseActionTypes.LookupCoursePathsFail;
+
+  constructor(public payload: string) { }
+}
+
+// course sources lookup actions
+export class LookupCourseSourcesAction implements Action {
+  readonly type = CourseActionTypes.LookupCourseSources;
+}
+
+export class LookupCourseSourcesSuccessAction implements Action {
+  readonly type = CourseActionTypes.LookupCourseSourcesSuccess;
+
+  constructor(public payload: any[]) { }
+}
+
+export class LookupCourseSourcesFailAction implements Action {
+  readonly type = CourseActionTypes.LookupCourseSourcesFail;
+
+  constructor(public payload: string) { }
+}
+
+
+export type CourseActions = DeleteCourseAction
+  | DeleteCourseSuccessAction
+  | DeleteCourseFailAction
+  | GetTotalCoursesAction
   | GetTotalCoursesSuccessAction
   | GetTotalCoursesFailAction
   | GetCourseAction
   | GetCourseSuccessAction
   | GetCourseFailAction
-  | DeleteCourseAction
-  | DeleteCourseSuccessAction
-  | DeleteCourseFailAction
-  | SaveCourseAction
-  | SaveCourseSuccessAction
-  | SaveCourseFailAction
   | LoadCoursesAction
   | LoadCoursesSuccessAction
-  | LoadCoursesFailAction;
+  | LoadCoursesFailAction
+  | LookupCoursePathsAction
+  | LookupCoursePathsFailAction
+  | LookupCoursePathsSuccessAction
+  | LookupCourseSourcesAction
+  | LookupCourseSourcesFailAction
+  | LookupCourseSourcesSuccessAction
+  | SaveCourseAction
+  | SaveCourseSuccessAction
+  | SaveCourseFailAction;

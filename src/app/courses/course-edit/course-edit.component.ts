@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import * as _ from 'lodash';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, tap, switchMap, takeWhile } from 'rxjs/operators';
 
 import { Course } from '../course';
@@ -22,12 +22,13 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   course = <Course>{};
   loading = false;
   componentActive = true;
+  paths$: Observable<any[]>;
+  sources$: Observable<any[]>;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private store: Store<fromCourse.State>,
-    private coursesService: CoursesService
+    private store: Store<fromCourse.State>
   ) { }
 
   ngOnInit() {
@@ -42,27 +43,16 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.store.dispatch(new courseActions.LookupCoursePathsAction());
+    this.paths$ = this.store.pipe(select(fromCourse.getPaths));
+
+    this.store.dispatch(new courseActions.LookupCourseSourcesAction());
+    this.sources$ = this.store.pipe(select(fromCourse.getSource));
   }
 
   ngOnDestroy() {
     this.componentActive = false;
   }
-
-  pathSearch = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(100),
-      distinctUntilChanged(),
-      switchMap(term => this.coursesService.searchPaths(term)),
-      map(paths => _.map(paths, 'name'))
-    )
-
-  sourceSearch = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(100),
-      distinctUntilChanged(),
-      switchMap(term => this.coursesService.searchSources(term)),
-      map(sources => _.map(sources, 'name'))
-    )
 
   save() {
     this.store.dispatch(new courseActions.SaveCourseAction(this.course));

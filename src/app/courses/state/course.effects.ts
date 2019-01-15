@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, switchMap, catchError, mergeMap, concatMap } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 import * as courseActions from './course.actions';
 import { Course } from '../course';
@@ -69,6 +70,24 @@ export class CourseEffects {
         new courseActions.DeleteCourseSuccessAction()
       ]),
       catchError(err => of(new courseActions.DeleteCourseFailAction(err)))
+    ))
+  );
+
+  @Effect()
+  lookupCoursePaths$ = this.actions.pipe(
+    ofType(courseActions.CourseActionTypes.LookupCoursePaths),
+    switchMap(() => this.courseService.getPaths().pipe(
+      map((paths: any[]) => (new courseActions.LookupCoursePathsSuccessAction(_.map(paths, 'name')))),
+      catchError(err => of(new courseActions.LookupCoursePathsFailAction(err)))
+    ))
+  );
+
+  @Effect()
+  lookupCourseSource$ = this.actions.pipe(
+    ofType(courseActions.CourseActionTypes.LookupCourseSources),
+    switchMap(() => this.courseService.getSources().pipe(
+      map((sources: any[]) => (new courseActions.LookupCourseSourcesSuccessAction(_.map(sources, 'name')))),
+      catchError(err => of(new courseActions.LookupCourseSourcesFailAction(err)))
     ))
   );
 }

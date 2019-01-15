@@ -13,13 +13,17 @@ export interface CourseState {
   currentCourse: Course;
   totalCourses: number;
   error: string;
+  paths: any[];
+  sources: any[];
 }
 
 const initialState: CourseState = {
   courses: [],
   currentCourse: null,
   totalCourses: 0,
-  error: ''
+  error: '',
+  paths: [],
+  sources: []
 };
 
 const getCourseFeatureState = createFeatureSelector<CourseState>('courses');
@@ -34,6 +38,16 @@ export const getCourse = createSelector(
   state => state.currentCourse
 );
 
+export const getPaths = createSelector(
+  getCourseFeatureState,
+  state => state.paths
+);
+
+export const getSource = createSelector(
+  getCourseFeatureState,
+  state => state.sources
+);
+
 export const saveCourse = createSelector(
   getCourseFeatureState,
   state => state.currentCourse
@@ -42,6 +56,16 @@ export const saveCourse = createSelector(
 export const getTotalCourses = createSelector(
   getCourseFeatureState,
   state => state.totalCourses
+);
+
+export const lookupCoursePaths = createSelector(
+  getCourseFeatureState,
+  state => state.paths
+);
+
+export const lookupCourseSources = createSelector(
+  getCourseFeatureState,
+  state => state.sources
 );
 
 export function reducer(state = initialState, action: CourseActions): CourseState {
@@ -97,6 +121,34 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return {
         ...state,
         courses: action.payload,
+        error: ''
+      };
+
+    case CourseActionTypes.LookupCoursePathsFail:
+      return {
+        ...state,
+        paths: [],
+        error: action.payload
+      };
+
+    case CourseActionTypes.LookupCoursePathsSuccess:
+      return {
+        ...state,
+        paths: action.payload,
+        error: ''
+      };
+
+    case CourseActionTypes.LookupCourseSourcesFail:
+      return {
+        ...state,
+        sources: [],
+        error: action.payload
+      };
+
+    case CourseActionTypes.LookupCourseSourcesSuccess:
+      return {
+        ...state,
+        sources: action.payload,
         error: ''
       };
 
