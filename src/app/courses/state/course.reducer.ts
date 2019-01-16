@@ -70,95 +70,95 @@ export const lookupCourseSources = createSelector(
 
 export function reducer(state = initialState, action: CourseActions): CourseState {
   switch (action.type) {
-    case CourseActionTypes.DeleteCourseFail:
+    case CourseActionTypes.DELETE_FAIL:
       return {
         ...state,
         error: action.payload
       };
 
-    case CourseActionTypes.DeleteCourseSuccess:
+    case CourseActionTypes.DELETE_SUCCESS:
       return {
         ...state,
         error: ''
       };
 
-    case CourseActionTypes.GetCourseFail:
+    case CourseActionTypes.COURSE_FAIL:
       return {
         ...state,
         currentCourse: null,
         error: action.payload
       };
 
-    case CourseActionTypes.GetCourseSuccess:
+    case CourseActionTypes.COURSE_SUCCESS:
       return {
         ...state,
         currentCourse: action.payload,
         error: ''
       };
 
-    case CourseActionTypes.GetTotalCoursesFail:
+    case CourseActionTypes.TOTAL_FAIL:
       return {
         ...state,
         totalCourses: 0,
         error: ''
       };
 
-    case CourseActionTypes.GetTotalCoursesSuccess:
+    case CourseActionTypes.TOTAL_SUCCESS:
       return {
         ...state,
         totalCourses: action.payload.length,
         error: ''
       };
 
-    case CourseActionTypes.LoadCoursesFail:
+    case CourseActionTypes.LOAD_FAIL:
       return {
         ...state,
         courses: [],
         error: action.payload
       };
 
-    case CourseActionTypes.LoadCoursesSuccess:
+    case CourseActionTypes.LOAD_SUCCESS:
       return {
         ...state,
         courses: action.payload,
         error: ''
       };
 
-    case CourseActionTypes.LookupCoursePathsFail:
+    case CourseActionTypes.PATHS_FAIL:
       return {
         ...state,
         paths: [],
         error: action.payload
       };
 
-    case CourseActionTypes.LookupCoursePathsSuccess:
+    case CourseActionTypes.PATHS_SUCCESS:
       return {
         ...state,
         paths: action.payload,
         error: ''
       };
 
-    case CourseActionTypes.LookupCourseSourcesFail:
+    case CourseActionTypes.SOURCES_FAIL:
       return {
         ...state,
         sources: [],
         error: action.payload
       };
 
-    case CourseActionTypes.LookupCourseSourcesSuccess:
+    case CourseActionTypes.SOURCES_SUCCESS:
       return {
         ...state,
         sources: action.payload,
         error: ''
       };
 
-    case CourseActionTypes.SaveCourseFail:
+    case CourseActionTypes.SAVE_FAIL:
       return {
         ...state,
         error: action.payload,
       };
 
-    case CourseActionTypes.SaveCourseSuccess:
+    case CourseActionTypes.SAVE_SUCCESS:
       const updatedCourses = state.courses.map(
         item => action.payload.id === item.id ? action.payload : item);
       return {

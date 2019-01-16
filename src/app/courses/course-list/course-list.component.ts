@@ -28,8 +28,8 @@ export class CourseListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new courseActions.LoadCoursesAction({ 'current': this.current, 'pageSize': this.pageSize }));
-    this.store.dispatch(new courseActions.GetTotalCoursesAction());
+    this.store.dispatch(new courseActions.Load({ 'current': this.current, 'pageSize': this.pageSize }));
+    this.store.dispatch(new courseActions.GetTotal());
     this.courses$ = this.store.pipe(select(fromCourse.getCourses));
     this.totalCourses$ = this.store.pipe(select(fromCourse.getTotalCourses));
   }
@@ -37,13 +37,13 @@ export class CourseListComponent implements OnInit {
   deleteCourse(id, deleteModal) {
     this.modal.open(deleteModal).result.then(result => {
       this.closedResult = `Closed with ${result}`;
-      this.store.dispatch(new courseActions.DeleteCourseAction({ 'id': id, 'current': this.current, 'pageSize': this.pageSize }));
+      this.store.dispatch(new courseActions.Delete({ 'id': id, 'current': this.current, 'pageSize': this.pageSize }));
     }, (reason) => {
       this.closedResult = `Dismissed with ${reason}`;
     });
   }
 
   refreshTable() {
-    this.store.dispatch(new courseActions.LoadCoursesAction({ 'current': this.current, 'pageSize': this.pageSize }));
+    this.store.dispatch(new courseActions.Load({ 'current': this.current, 'pageSize': this.pageSize }));
   }
 }

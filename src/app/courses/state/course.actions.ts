@@ -3,177 +3,177 @@ import { Action } from '@ngrx/store';
 import { Course } from '../course';
 
 export enum CourseActionTypes {
-  DeleteCourse = '[Courses] Delete Course',
-  DeleteCourseSuccess = '[Courses] Delete Course Succes',
-  DeleteCourseFail = '[Courses] Delete Course Fail',
+  DELETE = '[Courses] Delete Course',
+  DELETE_SUCCESS = '[Courses] Delete Course Succes',
+  DELETE_FAIL = '[Courses] Delete Course Fail',
 
-  GetTotalCourses = '[Courses] Get Total Courses',
-  GetTotalCoursesSuccess = '[Courses] Get Total Courses Success',
-  GetTotalCoursesFail = '[Courses] Get Total Courses Fail',
+  TOTAL = '[Courses] Get Total Courses',
+  TOTAL_SUCCESS = '[Courses] Get Total Courses Success',
+  TOTAL_FAIL = '[Courses] Get Total Courses Fail',
 
-  GetCourse = '[Courses] Get Course',
-  GetCourseSuccess = '[Courses] Get Course Success',
-  GetCourseFail = '[Courses] Get Course Fail',
+  COURSE = '[Courses] Get Course',
+  COURSE_SUCCESS = '[Courses] Get Course Success',
+  COURSE_FAIL = '[Courses] Get Course Fail',
 
-  LoadCourses = '[Courses] Load Courses',
-  LoadCoursesSuccess = '[Courses] Load Courses Success',
-  LoadCoursesFail = '[Courses] Load Courses Fail',
+  LOAD = '[Courses] Load Courses',
+  LOAD_SUCCESS = '[Courses] Load Courses Success',
+  LOAD_FAIL = '[Courses] Load Courses Fail',
 
-  LookupCoursePaths = '[Courses] Lookup Paths',
-  LookupCoursePathsSuccess = '[Courses] Lookup Paths Success',
-  LookupCoursePathsFail = '[Courses] Lookup Paths Fail',
+  PATHS = '[Courses] Lookup Paths',
+  PATHS_SUCCESS = '[Courses] Lookup Paths Success',
+  PATHS_FAIL = '[Courses] Lookup Paths Fail',
 
-  LookupCourseSources = '[Courses] Lookup Sources',
-  LookupCourseSourcesSuccess = '[Courses] Lookup Sources Success',
-  LookupCourseSourcesFail = '[Courses] Lookup Sources Fail',
+  SAVE = '[Courses] Save Course',
+  SAVE_SUCCESS = '[Courses] Save Course Success',
+  SAVE_FAIL = '[Courses] Save Course Fail',
 
-  SaveCourse = '[Courses] Save Course',
-  SaveCourseSuccess = '[Courses] Save Course Success',
-  SaveCourseFail = '[Courses] Save Course Fail',
+  SOURCES = '[Courses] Lookup Sources',
+  SOURCES_SUCCESS = '[Courses] Lookup Sources Success',
+  SOURCES_FAIL = '[Courses] Lookup Sources Fail',
 }
 
 // totalCourses actions
-export class GetTotalCoursesAction implements Action {
-  readonly type = CourseActionTypes.GetTotalCourses;
+export class GetTotal implements Action {
+  readonly type = CourseActionTypes.TOTAL;
 }
 
-export class GetTotalCoursesSuccessAction implements Action {
-  readonly type = CourseActionTypes.GetTotalCoursesSuccess;
+export class GetTotalSuccess implements Action {
+  readonly type = CourseActionTypes.TOTAL_SUCCESS;
 
   constructor(public payload: Course[]) { }
 }
 
-export class GetTotalCoursesFailAction implements Action {
-  readonly type = CourseActionTypes.GetTotalCoursesFail;
+export class GetTotalFail implements Action {
+  readonly type = CourseActionTypes.TOTAL_FAIL;
 
   constructor(public payload: string) { }
 }
 
 // course edit actions
-export class GetCourseAction implements Action {
-  readonly type = CourseActionTypes.GetCourse;
+export class GetCourse implements Action {
+  readonly type = CourseActionTypes.COURSE;
 
   constructor(public payload: number) { }
 }
 
-export class GetCourseSuccessAction implements Action {
-  readonly type = CourseActionTypes.GetCourseSuccess;
+export class GetCourseSuccess implements Action {
+  readonly type = CourseActionTypes.COURSE_SUCCESS;
 
   constructor(public payload: Course) { }
 }
 
-export class GetCourseFailAction implements Action {
-  readonly type = CourseActionTypes.GetCourseFail;
+export class GetCourseFail implements Action {
+  readonly type = CourseActionTypes.COURSE_FAIL;
 
   constructor(public payload: string) { }
 }
 
-export class DeleteCourseAction implements Action {
-  readonly type = CourseActionTypes.DeleteCourse;
+export class Delete implements Action {
+  readonly type = CourseActionTypes.DELETE;
 
   constructor(public payload: { 'id': number, 'current': number, 'pageSize': number }) { }
 }
 
-export class DeleteCourseSuccessAction implements Action {
-  readonly type = CourseActionTypes.DeleteCourseSuccess;
+export class DeleteSuccess implements Action {
+  readonly type = CourseActionTypes.DELETE_SUCCESS;
 }
 
-export class DeleteCourseFailAction implements Action {
-  readonly type = CourseActionTypes.DeleteCourseFail;
+export class DeleteFail implements Action {
+  readonly type = CourseActionTypes.DELETE_FAIL;
 
   constructor(public payload: string) { }
 }
 
-export class SaveCourseAction implements Action {
-  readonly type = CourseActionTypes.SaveCourse;
+export class Save implements Action {
+  readonly type = CourseActionTypes.SAVE;
 
   constructor(public payload: Course) { }
 }
 
-export class SaveCourseSuccessAction implements Action {
-  readonly type = CourseActionTypes.SaveCourseSuccess;
+export class SaveSuccess implements Action {
+  readonly type = CourseActionTypes.SAVE_SUCCESS;
 
   constructor(public payload: Course) { }
 }
 
-export class SaveCourseFailAction implements Action {
-  readonly type = CourseActionTypes.SaveCourseFail;
+export class SaveFail implements Action {
+  readonly type = CourseActionTypes.SAVE_FAIL;
 
   constructor(public payload: string) { }
 }
 
 // course list actions
-export class LoadCoursesAction implements Action {
-  readonly type = CourseActionTypes.LoadCourses;
+export class Load implements Action {
+  readonly type = CourseActionTypes.LOAD;
 
   constructor(public payload: { 'current': number, 'pageSize': number }) { }
 }
 
-export class LoadCoursesSuccessAction implements Action {
-  readonly type = CourseActionTypes.LoadCoursesSuccess;
+export class LoadSuccess implements Action {
+  readonly type = CourseActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Course[]) { }
 }
 
-export class LoadCoursesFailAction implements Action {
-  readonly type = CourseActionTypes.LoadCoursesFail;
+export class LoadFail implements Action {
+  readonly type = CourseActionTypes.LOAD_FAIL;
 
   constructor(public payload: string) { }
 }
 
 // course paths lookup actions
-export class LookupCoursePathsAction implements Action {
-  readonly type = CourseActionTypes.LookupCoursePaths;
+export class GetPaths implements Action {
+  readonly type = CourseActionTypes.PATHS;
 }
 
-export class LookupCoursePathsSuccessAction implements Action {
-  readonly type = CourseActionTypes.LookupCoursePathsSuccess;
+export class GetPathsSuccess implements Action {
+  readonly type = CourseActionTypes.PATHS_SUCCESS;
 
   constructor(public payload: any[]) { }
 }
 
-export class LookupCoursePathsFailAction implements Action {
-  readonly type = CourseActionTypes.LookupCoursePathsFail;
+export class GetPathsFail implements Action {
+  readonly type = CourseActionTypes.PATHS_FAIL;
 
   constructor(public payload: string) { }
 }
 
 // course sources lookup actions
-export class LookupCourseSourcesAction implements Action {
-  readonly type = CourseActionTypes.LookupCourseSources;
+export class GetSources implements Action {
+  readonly type = CourseActionTypes.SOURCES;
 }
 
-export class LookupCourseSourcesSuccessAction implements Action {
-  readonly type = CourseActionTypes.LookupCourseSourcesSuccess;
+export class GetSourcesSuccess implements Action {
+  readonly type = CourseActionTypes.SOURCES_SUCCESS;
 
   constructor(public payload: any[]) { }
 }
 
-export class LookupCourseSourcesFailAction implements Action {
-  readonly type = CourseActionTypes.LookupCourseSourcesFail;
+export class GetSourcesFail implements Action {
+  readonly type = CourseActionTypes.SOURCES_FAIL;
 
   constructor(public payload: string) { }
 }
 
 
-export type CourseActions = DeleteCourseAction
-  | DeleteCourseSuccessAction
-  | DeleteCourseFailAction
-  | GetTotalCoursesAction
-  | GetTotalCoursesSuccessAction
-  | GetTotalCoursesFailAction
-  | GetCourseAction
-  | GetCourseSuccessAction
-  | GetCourseFailAction
-  | LoadCoursesAction
-  | LoadCoursesSuccessAction
-  | LoadCoursesFailAction
-  | LookupCoursePathsAction
-  | LookupCoursePathsFailAction
-  | LookupCoursePathsSuccessAction
-  | LookupCourseSourcesAction
-  | LookupCourseSourcesFailAction
-  | LookupCourseSourcesSuccessAction
-  | SaveCourseAction
-  | SaveCourseSuccessAction
-  | SaveCourseFailAction;
+export type CourseActions = Delete
+  | DeleteFail
+  | DeleteSuccess
+  | GetCourse
+  | GetCourseSuccess
+  | GetCourseFail
+  | GetPaths
+  | GetPathsFail
+  | GetPathsSuccess
+  | GetSources
+  | GetSourcesFail
+  | GetSourcesSuccess
+  | GetTotal
+  | GetTotalSuccess
+  | GetTotalFail
+  | Load
+  | LoadSuccess
+  | LoadFail
+  | Save
+  | SaveSuccess
+  | SaveFail;

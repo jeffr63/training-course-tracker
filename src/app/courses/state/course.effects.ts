@@ -19,75 +19,75 @@ export class CourseEffects {
 
   @Effect()
   loadCourse$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.LoadCourses),
-    map((action: courseActions.LoadCoursesAction) => action.payload),
+    ofType(courseActions.CourseActionTypes.LOAD),
+    map((action: courseActions.Load) => action.payload),
     concatMap((payload) => this.courseService.getCoursesPaged(payload.current, payload.pageSize).pipe(
-      map((courses: Course[]) => (new courseActions.LoadCoursesSuccessAction(courses))),
-      catchError(err => of(new courseActions.LoadCoursesFailAction(err)))
+      map((courses: Course[]) => (new courseActions.LoadSuccess(courses))),
+      catchError(err => of(new courseActions.LoadFail(err)))
     ))
   );
 
   @Effect()
   totalCourses$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.GetTotalCourses),
+    ofType(courseActions.CourseActionTypes.TOTAL),
     concatMap(() => this.courseService.getCoursesUnsorted().pipe(
-      map((courses: Course[]) => (new courseActions.GetTotalCoursesSuccessAction(courses))),
-      catchError(err => of(new courseActions.GetTotalCoursesFailAction(err)))
+      map((courses: Course[]) => (new courseActions.GetTotalSuccess(courses))),
+      catchError(err => of(new courseActions.GetTotalFail(err)))
     ))
   );
 
   @Effect()
   getCourse$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.GetCourse),
-    map((action: courseActions.GetCourseAction) => action.payload),
+    ofType(courseActions.CourseActionTypes.COURSE),
+    map((action: courseActions.GetCourse) => action.payload),
     concatMap((courseId) => this.courseService.getCourse(courseId).pipe(
-      map((course: Course) => (new courseActions.GetCourseSuccessAction(course))),
-      catchError(err => of(new courseActions.GetCourseFailAction(err)))
+      map((course: Course) => (new courseActions.GetCourseSuccess(course))),
+      catchError(err => of(new courseActions.GetCourseFail(err)))
     ))
   );
 
   @Effect()
   saveCourse$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.SaveCourse),
-    map((action: courseActions.SaveCourseAction) => action.payload),
+    ofType(courseActions.CourseActionTypes.SAVE),
+    map((action: courseActions.Save) => action.payload),
     concatMap((course: Course) => this.courseService.saveCourse(course).pipe(
       concatMap(_res => [
-        new courseActions.GetTotalCoursesAction(),
-        new courseActions.SaveCourseSuccessAction(course)
+        new courseActions.GetTotal(),
+        new courseActions.SaveSuccess(course)
       ]),
-      catchError(err => of(new courseActions.SaveCourseFailAction(err)))
+      catchError(err => of(new courseActions.SaveFail(err)))
     ))
   );
 
   @Effect()
   deleteCourse$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.DeleteCourse),
-    map((action: courseActions.DeleteCourseAction) => action.payload),
+    ofType(courseActions.CourseActionTypes.DELETE),
+    map((action: courseActions.Delete) => action.payload),
     concatMap(({ id, current, pageSize }) => this.courseService.deleteCourse(id).pipe(
       concatMap(_res => [
-        new courseActions.LoadCoursesAction({ current, pageSize }),
-        new courseActions.GetTotalCoursesAction(),
-        new courseActions.DeleteCourseSuccessAction()
+        new courseActions.Load({ current, pageSize }),
+        new courseActions.GetTotal(),
+        new courseActions.DeleteSuccess()
       ]),
-      catchError(err => of(new courseActions.DeleteCourseFailAction(err)))
+      catchError(err => of(new courseActions.DeleteFail(err)))
     ))
   );
 
   @Effect()
   lookupCoursePaths$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.LookupCoursePaths),
+    ofType(courseActions.CourseActionTypes.PATHS),
     switchMap(() => this.courseService.getPaths().pipe(
-      map((paths: any[]) => (new courseActions.LookupCoursePathsSuccessAction(_.map(paths, 'name')))),
-      catchError(err => of(new courseActions.LookupCoursePathsFailAction(err)))
+      map((paths: any[]) => (new courseActions.GetPathsSuccess(_.map(paths, 'name')))),
+      catchError(err => of(new courseActions.GetPathsFail(err)))
     ))
   );
 
   @Effect()
   lookupCourseSource$ = this.actions.pipe(
-    ofType(courseActions.CourseActionTypes.LookupCourseSources),
+    ofType(courseActions.CourseActionTypes.SOURCES),
     switchMap(() => this.courseService.getSources().pipe(
-      map((sources: any[]) => (new courseActions.LookupCourseSourcesSuccessAction(_.map(sources, 'name')))),
-      catchError(err => of(new courseActions.LookupCourseSourcesFailAction(err)))
+      map((sources: any[]) => (new courseActions.GetSourcesSuccess(_.map(sources, 'name')))),
+      catchError(err => of(new courseActions.GetSourcesFail(err)))
     ))
   );
 }
