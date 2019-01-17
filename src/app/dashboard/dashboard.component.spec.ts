@@ -8,9 +8,9 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [DashboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +21,13 @@ describe('DashboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render title in a h1 tag', () => {
+    // tslint:disable-next-line:no-shadowed-variable
+    const fixture = TestBed.createComponent(DashboardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Training Courses Tracker');
   });
 });

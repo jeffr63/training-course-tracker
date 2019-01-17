@@ -1,15 +1,23 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+
 import { AppComponent } from './app.component';
+import { MenuComponent } from './menu/menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppRoutingModule } from './app-routing.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        NgbModule.forRoot(),
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        DashboardComponent,
+        MenuComponent,
       ],
     }).compileComponents();
   }));
@@ -20,16 +28,4 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'course-list'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('course-list');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to course-list!');
-  });
 });
