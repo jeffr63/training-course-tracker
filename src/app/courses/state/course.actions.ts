@@ -32,50 +32,10 @@ export enum CourseActionTypes {
   TOTAL_FAIL = '[Courses] Get Total Courses Fail',
 }
 
-// totalCourses actions
-export class GetTotal implements Action {
-  readonly type = CourseActionTypes.TOTAL;
-}
-
-export class GetTotalSuccess implements Action {
-  readonly type = CourseActionTypes.TOTAL_SUCCESS;
-
-  constructor(public payload: Course[]) { }
-}
-
-export class GetTotalFail implements Action {
-  readonly type = CourseActionTypes.TOTAL_FAIL;
-
-  constructor(public payload: string) { }
-}
-
-// course edit actions
-export class GetCourse implements Action {
-  readonly type = CourseActionTypes.COURSE;
-
-  constructor(public payload: number) { }
-}
-
-export class GetCourseSuccess implements Action {
-  readonly type = CourseActionTypes.COURSE_SUCCESS;
-
-  constructor(public payload: Course) { }
-}
-
-export class GetCourseFail implements Action {
-  readonly type = CourseActionTypes.COURSE_FAIL;
-
-  constructor(public payload: string) { }
-}
-
 export class Delete implements Action {
   readonly type = CourseActionTypes.DELETE;
 
   constructor(public payload: { 'id': number, 'current': number, 'pageSize': number }) { }
-}
-
-export class DeleteSuccess implements Action {
-  readonly type = CourseActionTypes.DELETE_SUCCESS;
 }
 
 export class DeleteFail implements Action {
@@ -84,14 +44,96 @@ export class DeleteFail implements Action {
   constructor(public payload: string) { }
 }
 
-export class Save implements Action {
-  readonly type = CourseActionTypes.SAVE;
+export class DeleteSuccess implements Action {
+  readonly type = CourseActionTypes.DELETE_SUCCESS;
+}
+
+export class GetCourse implements Action {
+  readonly type = CourseActionTypes.COURSE;
+
+  constructor(public payload: number) { }
+}
+
+export class GetCourseFail implements Action {
+  readonly type = CourseActionTypes.COURSE_FAIL;
+
+  constructor(public payload: string) { }
+}
+
+export class GetCourseSuccess implements Action {
+  readonly type = CourseActionTypes.COURSE_SUCCESS;
 
   constructor(public payload: Course) { }
 }
 
-export class SaveSuccess implements Action {
-  readonly type = CourseActionTypes.SAVE_SUCCESS;
+export class GetPaths implements Action {
+  readonly type = CourseActionTypes.PATHS;
+}
+
+export class GetPathsFail implements Action {
+  readonly type = CourseActionTypes.PATHS_FAIL;
+
+  constructor(public payload: string) { }
+}
+
+export class GetPathsSuccess implements Action {
+  readonly type = CourseActionTypes.PATHS_SUCCESS;
+
+  constructor(public payload: any[]) { }
+}
+
+export class GetSources implements Action {
+  readonly type = CourseActionTypes.SOURCES;
+}
+
+export class GetSourcesFail implements Action {
+  readonly type = CourseActionTypes.SOURCES_FAIL;
+
+  constructor(public payload: string) { }
+}
+
+export class GetSourcesSuccess implements Action {
+  readonly type = CourseActionTypes.SOURCES_SUCCESS;
+
+  constructor(public payload: any[]) { }
+}
+
+export class GetTotal implements Action {
+  readonly type = CourseActionTypes.TOTAL;
+}
+
+export class GetTotalFail implements Action {
+  readonly type = CourseActionTypes.TOTAL_FAIL;
+
+  constructor(public payload: string) { }
+}
+
+export class GetTotalSuccess implements Action {
+  readonly type = CourseActionTypes.TOTAL_SUCCESS;
+
+  constructor(public payload: Course[]) { }
+}
+
+export class Load implements Action {
+  readonly type = CourseActionTypes.LOAD;
+
+  constructor(public payload: { 'current': number, 'pageSize': number }) { }
+}
+
+export class LoadFail implements Action {
+  readonly type = CourseActionTypes.LOAD_FAIL;
+
+  constructor(public payload: string) { }
+}
+
+export class LoadSuccess implements Action {
+  readonly type = CourseActionTypes.LOAD_SUCCESS;
+
+  constructor(public payload: Course[]) { }
+}
+
+export class Save implements Action {
+  readonly type = CourseActionTypes.SAVE;
 
   constructor(public payload: Course) { }
 }
@@ -102,57 +144,10 @@ export class SaveFail implements Action {
   constructor(public payload: string) { }
 }
 
-// course list actions
-export class Load implements Action {
-  readonly type = CourseActionTypes.LOAD;
+export class SaveSuccess implements Action {
+  readonly type = CourseActionTypes.SAVE_SUCCESS;
 
-  constructor(public payload: { 'current': number, 'pageSize': number }) { }
-}
-
-export class LoadSuccess implements Action {
-  readonly type = CourseActionTypes.LOAD_SUCCESS;
-
-  constructor(public payload: Course[]) { }
-}
-
-export class LoadFail implements Action {
-  readonly type = CourseActionTypes.LOAD_FAIL;
-
-  constructor(public payload: string) { }
-}
-
-// course paths lookup actions
-export class GetPaths implements Action {
-  readonly type = CourseActionTypes.PATHS;
-}
-
-export class GetPathsSuccess implements Action {
-  readonly type = CourseActionTypes.PATHS_SUCCESS;
-
-  constructor(public payload: any[]) { }
-}
-
-export class GetPathsFail implements Action {
-  readonly type = CourseActionTypes.PATHS_FAIL;
-
-  constructor(public payload: string) { }
-}
-
-// course sources lookup actions
-export class GetSources implements Action {
-  readonly type = CourseActionTypes.SOURCES;
-}
-
-export class GetSourcesSuccess implements Action {
-  readonly type = CourseActionTypes.SOURCES_SUCCESS;
-
-  constructor(public payload: any[]) { }
-}
-
-export class GetSourcesFail implements Action {
-  readonly type = CourseActionTypes.SOURCES_FAIL;
-
-  constructor(public payload: string) { }
+  constructor(public payload: Course) { }
 }
 
 

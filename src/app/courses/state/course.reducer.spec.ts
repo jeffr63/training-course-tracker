@@ -1,10 +1,9 @@
 import * as fromCourses from './course.reducer';
 import * as fromActions from './course.actions';
 import { Course } from '../course';
-import { initTransferState } from '@angular/platform-browser/src/browser/transfer_state';
 
-describe('CoursesReducer', () => {
-  it('undefined action', () => {
+describe('Courses Reducer', () => {
+  it('should return state when passed an undefined action', () => {
     const { initialState } = fromCourses;
     const action = {} as any;
     const state = fromCourses.reducer(undefined, action);
