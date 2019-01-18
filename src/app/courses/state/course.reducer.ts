@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import * as fromRoot from '../../state/app.state';
+import { CourseActionTypes, CourseActions } from '../state/course.actions';
 import { Course } from '../course';
-import { CourseActions, CourseActionTypes } from '../state/course.actions';
 
 export interface State extends fromRoot.State {
   courses: CourseState;
@@ -17,7 +17,7 @@ export interface CourseState {
   sources: any[];
 }
 
-const initialState: CourseState = {
+export const initialState: CourseState = {
   courses: [],
   currentCourse: null,
   totalCourses: 0,
@@ -100,7 +100,7 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return {
         ...state,
         totalCourses: 0,
-        error: ''
+        error: action.payload
       };
 
     case CourseActionTypes.TOTAL_SUCCESS:
@@ -155,7 +155,7 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
     case CourseActionTypes.SAVE_FAIL:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload
       };
 
     case CourseActionTypes.SAVE_SUCCESS:
@@ -167,8 +167,7 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
         currentCourse: null,
         error: ''
       };
-
-    default:
-      return state;
   }
+
+  return state;
 }

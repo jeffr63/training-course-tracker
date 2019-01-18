@@ -3,17 +3,13 @@ import { Action } from '@ngrx/store';
 import { Course } from '../course';
 
 export enum CourseActionTypes {
-  DELETE = '[Courses] Delete Course',
-  DELETE_SUCCESS = '[Courses] Delete Course Succes',
-  DELETE_FAIL = '[Courses] Delete Course Fail',
-
-  TOTAL = '[Courses] Get Total Courses',
-  TOTAL_SUCCESS = '[Courses] Get Total Courses Success',
-  TOTAL_FAIL = '[Courses] Get Total Courses Fail',
-
   COURSE = '[Courses] Get Course',
   COURSE_SUCCESS = '[Courses] Get Course Success',
   COURSE_FAIL = '[Courses] Get Course Fail',
+
+  DELETE = '[Courses] Delete Course',
+  DELETE_SUCCESS = '[Courses] Delete Course Succes',
+  DELETE_FAIL = '[Courses] Delete Course Fail',
 
   LOAD = '[Courses] Load Courses',
   LOAD_SUCCESS = '[Courses] Load Courses Success',
@@ -30,6 +26,10 @@ export enum CourseActionTypes {
   SOURCES = '[Courses] Lookup Sources',
   SOURCES_SUCCESS = '[Courses] Lookup Sources Success',
   SOURCES_FAIL = '[Courses] Lookup Sources Fail',
+
+  TOTAL = '[Courses] Get Total Courses',
+  TOTAL_SUCCESS = '[Courses] Get Total Courses Success',
+  TOTAL_FAIL = '[Courses] Get Total Courses Fail',
 }
 
 // totalCourses actions
