@@ -232,3 +232,104 @@ describe('Courses Reducer', () => {
   });
 
 });
+
+describe(`Course Reducer Selectors`, () => {
+  describe(`getCourses selector`, () => {
+    it('should return courses', () => {
+      const courses: Course[] = [
+        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' },
+        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D', yearCompleted: '2019' }
+      ];
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          courses
+        }
+      };
+
+      const payload = fromCourses.getCourses(previousState);
+
+      expect(payload).toEqual(courses);
+    });
+  });
+
+  describe(`getCourse selector`, () => {
+    it('should return currentCourse', () => {
+      const currentCourse = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          currentCourse
+        }
+      };
+
+      const payload = fromCourses.getCourse(previousState);
+
+      expect(payload).toEqual(currentCourse);
+    });
+  });
+
+  describe(`getPaths selector`, () => {
+    it('should return paths', () => {
+      const paths = ['ABC', 'DEF'];
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          paths
+        }
+      };
+
+      const payload = fromCourses.getPaths(previousState);
+
+      expect(payload).toEqual(paths);
+    });
+  });
+
+  describe(`getSources selector`, () => {
+    it('should return sources', () => {
+      const sources = ['ABC', 'DEF'];
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          sources
+        }
+      };
+
+      const payload = fromCourses.getSource(previousState);
+
+      expect(payload).toEqual(sources);
+    });
+  });
+
+  describe(`saveCourse selector`, () => {
+    it('should return currentCourse', () => {
+      const currentCourse = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          currentCourse
+        }
+      };
+
+      const payload = fromCourses.saveCourse(previousState);
+
+      expect(payload).toEqual(currentCourse);
+    });
+  });
+
+  describe(`getTotalCourses selector`, () => {
+    it('should return totalCourses', () => {
+      const totalCourses = 10;
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          totalCourses
+        }
+      };
+
+      const payload = fromCourses.getTotalCourses(previousState);
+
+      expect(payload).toEqual(totalCourses);
+    });
+  });
+});

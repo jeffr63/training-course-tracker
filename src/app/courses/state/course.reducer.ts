@@ -58,16 +58,6 @@ export const getTotalCourses = createSelector(
   state => state.totalCourses
 );
 
-export const lookupCoursePaths = createSelector(
-  getCourseFeatureState,
-  state => state.paths
-);
-
-export const lookupCourseSources = createSelector(
-  getCourseFeatureState,
-  state => state.sources
-);
-
 export function reducer(state = initialState, action: CourseActions): CourseState {
   switch (action.type) {
     case CourseActionTypes.DELETE_FAIL:
