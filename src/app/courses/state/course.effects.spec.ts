@@ -36,7 +36,7 @@ export function getActions() {
 class MockCoursesService {
   deleteCourse = jasmine.createSpy('deleteCourse');
   getCourse = jasmine.createSpy('getCourse');
-  getCoursesUnsorted = jasmine.createSpy('getCoursesUnsorted');
+  getCourses = jasmine.createSpy('getCoursesUnsorted');
   getCoursesPaged = jasmine.createSpy('getCoursesPaged');
   saveCourse = jasmine.createSpy('saveCourse');
   getPaths = jasmine.createSpy('getPaths');
@@ -48,7 +48,7 @@ describe(`Course Effects`, () => {
   let effects: CourseEffects;
   let coursesService: MockCoursesService;
 
-  beforeAll(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         CourseEffects,
@@ -263,7 +263,7 @@ describe(`Course Effects`, () => {
       actions$.stream = hot('-a', { a: action });
       const response = cold('-b|', { b: courses });
       const expected = cold('--c', { c: completion });
-      coursesService.getCoursesUnsorted.and.returnValue(response);
+      coursesService.getCourses.and.returnValue(response);
 
       expect(effects.totalCourses$).toBeObservable(expected);
     });
@@ -276,7 +276,7 @@ describe(`Course Effects`, () => {
       actions$.stream = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
-      coursesService.getCoursesUnsorted.and.returnValue(response);
+      coursesService.getCourses.and.returnValue(response);
 
       expect(effects.totalCourses$).toBeObservable(expected);
     });

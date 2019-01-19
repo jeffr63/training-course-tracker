@@ -94,7 +94,7 @@ export class CourseEffects {
   @Effect()
   totalCourses$ = this.actions.pipe(
     ofType<GetTotal>(CourseActionTypes.TOTAL),
-    concatMap(() => this.courseService.getCoursesUnsorted().pipe(
+    concatMap(() => this.courseService.getCourses().pipe(
       map((courses: Course[]) => (new GetTotalSuccess(courses))),
       catchError(err => of(new GetTotalFail(err)))
     ))

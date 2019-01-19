@@ -26,11 +26,11 @@ export class CoursesService {
   }
 
   getCourses() {
-    return this.http.get<Course[]>(`${this.baseUrl}/courses?_sort=title&_order=asc`);
+    return this.http.get<Course[]>(`${this.baseUrl}/courses`);
   }
 
-  getCoursesUnsorted() {
-    return this.http.get<Course[]>(`${this.baseUrl}/courses`);
+  getCoursesSorted() {
+    return this.http.get<Course[]>(`${this.baseUrl}/courses?_sort=title&_order=asc`);
   }
 
   getCoursesPaged(current, pageSize) {

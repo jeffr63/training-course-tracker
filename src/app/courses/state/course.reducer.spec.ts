@@ -140,6 +140,21 @@ describe('Courses Reducer', () => {
     });
   });
 
+  describe(`SAVE_FAIL action`, () => {
+    it(`should set error`, () => {
+      const { initialState } = fromCourses;
+      const action = new fromActions.SaveFail('Error');
+      const state = fromCourses.reducer(initialState, action);
+
+      expect(state.error).toEqual('Error');
+      expect(state.courses).toEqual(initialState.courses);
+      expect(state.currentCourse).toEqual(initialState.currentCourse);
+      expect(state.paths).toEqual(initialState.paths);
+      expect(state.sources).toEqual(initialState.sources);
+      expect(state.totalCourses).toEqual(initialState.totalCourses);
+    });
+  });
+
   describe('SAVE action', () => {
     it(`should update courses array with saved course information and clear error`, () => {
       const newState = {
