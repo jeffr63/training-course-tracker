@@ -86,20 +86,6 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
         error: ''
       };
 
-    case CourseActionTypes.TOTAL_FAIL:
-      return {
-        ...state,
-        totalCourses: 0,
-        error: action.payload
-      };
-
-    case CourseActionTypes.TOTAL_SUCCESS:
-      return {
-        ...state,
-        totalCourses: action.payload.length,
-        error: ''
-      };
-
     case CourseActionTypes.LOAD_FAIL:
       return {
         ...state,
@@ -155,6 +141,20 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
         ...state,
         courses: updatedCourses,
         currentCourse: null,
+        error: ''
+      };
+
+    case CourseActionTypes.TOTAL_FAIL:
+      return {
+        ...state,
+        totalCourses: 0,
+        error: action.payload
+      };
+
+    case CourseActionTypes.TOTAL_SUCCESS:
+      return {
+        ...state,
+        totalCourses: action.payload.length,
         error: ''
       };
   }

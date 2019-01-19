@@ -49,16 +49,8 @@ export class CoursesService {
     return this.http.get<any[]>(`${this.baseUrl}/paths`);
   }
 
-  searchPaths(searchTerm) {
-    return this.http.get<any[]>(`${this.baseUrl}/paths?q=${searchTerm}`);
-  }
-
   getSources() {
     return this.http.get<any[]>(`${this.baseUrl}/sources`);
-  }
-
-  searchSources(searchTerm) {
-    return this.http.get<any[]>(`${this.baseUrl}/sources?q=${searchTerm}`);
   }
 
   updateCourse(course: Course) {
