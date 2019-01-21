@@ -21,7 +21,8 @@ export const reducers: ActionReducerMap<State> = {
   sources: fromSources.reducer
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<State>[] = [];
+// export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
 
 // paths selectors
 export const selectPathsState = createFeatureSelector<fromPaths.State>('paths');

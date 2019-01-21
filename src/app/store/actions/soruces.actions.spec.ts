@@ -1,7 +1,76 @@
 import * as fromActions from './sources.actions';
 
 describe('Sources Actions', () => {
-  describe('GetSources', () => {
+  describe('Delete', () => {
+    it(`should create an action`, () => {
+      const payload = 1;
+       const action = new fromActions.Delete(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.DELETE,
+        payload
+      });
+    });
+  });
+
+  describe('DeleteFail', () => {
+    it(`should create an action`, () => {
+      const payload = 'Error';
+      const action = new fromActions.DeleteFail(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.DELETE_FAIL,
+        payload
+      });
+    });
+  });
+
+  describe('DeleteSuccess', () => {
+    it(`should create an action`, () => {
+      const payload = 1;
+      const action = new fromActions.DeleteSuccess(payload);
+
+      expect(action.type).toEqual(fromActions.SourcesActionTypes.DELETE_SUCCESS);
+    });
+  });
+
+  describe('Get', () => {
+    it(`should create an action`, () => {
+      const payload = 1;
+      const action = new fromActions.Get(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.GET,
+        payload
+      });
+    });
+  });
+
+  describe('GetFail', () => {
+    it(`should create an action`, () => {
+      const payload = 'Error';
+      const action = new fromActions.GetFail(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.GET_FAIL,
+        payload
+      });
+    });
+  });
+
+  describe('GetSuccess', () => {
+    it(`should create an action`, () => {
+      const payload = { id: 1, name: 'ABC' };
+      const action = new fromActions.GetSuccess(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.GET_SUCCESS,
+        payload
+      });
+    });
+  });
+
+  describe('Load', () => {
     it(`should create an action`, () => {
       const action = new fromActions.Load();
 
@@ -9,7 +78,7 @@ describe('Sources Actions', () => {
     });
   });
 
-  describe('GetSourcesFail', () => {
+  describe('LoadFail', () => {
     it(`should create an action`, () => {
       const payload = 'Error';
       const action = new fromActions.LoadFail(payload);
@@ -21,7 +90,7 @@ describe('Sources Actions', () => {
     });
   });
 
-  describe('GetSourcesSuccess', () => {
+  describe('LoadSuccess', () => {
     it(`should create an action`, () => {
       const payload = [
         { id: 1, name: 'ABC' },
@@ -31,6 +100,42 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: fromActions.SourcesActionTypes.LOAD_SUCCESS,
+        payload
+      });
+    });
+  });
+
+  describe('Save', () => {
+    it(`should create an action`, () => {
+      const payload = { id: 1, name: 'ABC' };
+      const action = new fromActions.Save(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.SAVE,
+        payload
+      });
+    });
+  });
+
+  describe('SaveFail', () => {
+    it(`should create an action`, () => {
+      const payload = 'Error';
+      const action = new fromActions.SaveFail(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.SAVE_FAIL,
+        payload
+      });
+    });
+  });
+
+  describe('SaveSuccess', () => {
+    it(`should create an action`, () => {
+      const payload = { id: 1, name: 'ABC' };
+      const action = new fromActions.SaveSuccess(payload);
+
+      expect({ ...action }).toEqual({
+        type: fromActions.SourcesActionTypes.SAVE_SUCCESS,
         payload
       });
     });

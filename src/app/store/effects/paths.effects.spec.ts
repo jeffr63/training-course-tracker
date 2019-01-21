@@ -10,7 +10,10 @@ import { Path } from '../../services/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
 import {
-  Load, LoadFail, LoadSuccess
+  Delete, DeleteFail, DeleteSuccess,
+  Get, GetFail, GetSuccess,
+  Load, LoadFail, LoadSuccess,
+  Save, SaveFail, SaveSuccess
 } from '../actions/paths.actions';
 
 export class TestActions extends Actions {
@@ -28,7 +31,10 @@ export function getActions() {
 }
 
 class MockCoursesService {
+  delete = jasmine.createSpy('delete');
+  get = jasmine.createSpy('get');
   load = jasmine.createSpy('load');
+  save = jasmine.createSpy('save');
 }
 
 describe(`Paths Effects`, () => {
@@ -49,6 +55,62 @@ describe(`Paths Effects`, () => {
     effects = TestBed.get(PathsEffects);
     pathsService = TestBed.get(PathsService);
     actions$ = TestBed.get(Actions);
+  });
+
+  describe(`deletePath$ effect`, () => {
+    it(`should return DeleteSuccess, with course, on success`, () => {
+      const action = new Delete(1);
+      const completion = new DeleteSuccess(1);
+
+      actions$.stream = hot('-a', { a: action });
+      const response = cold('-b|', { b: 1 });
+      const expected = cold('--c', { c: completion });
+      pathsService.delete.and.returnValue(response);
+
+      expect(effects.deletePath$).toBeObservable(expected);
+    });
+
+    it(`should return DeleteFail, with error, on failure`, () => {
+      const error = 'Error';
+      const action = new Delete(1);
+      const completion = new DeleteFail(error);
+
+      actions$.stream = hot('-a', { a: action });
+      const response = cold('-#|', {}, error);
+      const expected = cold('--b', { b: completion });
+      pathsService.delete.and.returnValue(response);
+
+      expect(effects.deletePath$).toBeObservable(expected);
+    });
+  });
+
+  describe(`getPath$ effect`, () => {
+    it(`should return GetSuccess, with path, on success`, () => {
+      const path: Path = { id: 1, name: 'ABC' };
+
+      const action = new Get(1);
+      const completion = new GetSuccess(path);
+
+      actions$.stream = hot('-a', { a: action });
+      const response = cold('-b|', { b: path });
+      const expected = cold('--c', { c: completion });
+      pathsService.get.and.returnValue(response);
+
+      expect(effects.getPath$).toBeObservable(expected);
+    });
+
+    it(`should return GetFail, with error, on failure`, () => {
+      const error = 'Error';
+      const action = new Get(1);
+      const completion = new GetFail(error);
+
+      actions$.stream = hot('-a', { a: action });
+      const response = cold('-#|', {}, error);
+      const expected = cold('--b', { b: completion });
+      pathsService.get.and.returnValue(response);
+
+      expect(effects.getPath$).toBeObservable(expected);
+    });
   });
 
   describe(`loadPaths$ effect`, () => {
@@ -80,6 +142,37 @@ describe(`Paths Effects`, () => {
       pathsService.load.and.returnValue(response);
 
       expect(effects.loadPaths$).toBeObservable(expected);
+    });
+  });
+
+  describe(`savePath$ effect`, () => {
+    it(`should return SaveSuccess, with path, on success`, () => {
+      const path: Path = { id: 1, name: 'ABC' };
+
+      const action = new Save(path);
+      const load = new Load();
+      const completion = new SaveSuccess(path);
+
+      actions$.stream = hot('-a', { a: action });
+      const response = cold('-b|', { b: path });
+      const expected = cold('--(cd)', { c: load, d: completion });
+      pathsService.save.and.returnValue(response);
+
+      expect(effects.savePath$).toBeObservable(expected);
+    });
+
+    it(`should return SaveFail, with error, on failure`, () => {
+      const path: Path = { id: 1, name: 'ABC' };
+      const error = 'Error';
+      const action = new Save(path);
+      const completion = new SaveFail(error);
+
+      actions$.stream = hot('-a', { a: action });
+      const response = cold('-#|', {}, error);
+      const expected = cold('--b', { b: completion });
+      pathsService.save.and.returnValue(response);
+
+      expect(effects.savePath$).toBeObservable(expected);
     });
   });
 });

@@ -37,7 +37,7 @@ describe('CourseService', () => {
   });
 
   describe('deleteCourse', () => {
-    it('should return deleted course with a get call to the correct URL', () => {
+    it('should return deleted course with a delete call to the correct URL', () => {
       const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
 
       service.deleteCourse(1).subscribe((data: Course) => {

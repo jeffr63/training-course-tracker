@@ -20,7 +20,7 @@ import { SourcesService } from '../../services/sources.service';
 export class SourcesEffects {
 
   @Effect()
-  deletePath$: Observable<Action> = this.actions$.pipe(
+  deleteSource$: Observable<Action> = this.actions$.pipe(
     ofType<Delete>(SourcesActionTypes.DELETE),
     map((action: Delete) => action.payload),
     switchMap((id) => this.sourcesService.delete(id).pipe(
@@ -30,7 +30,7 @@ export class SourcesEffects {
   );
 
   @Effect()
-  getPath$: Observable<Action> = this.actions$.pipe(
+  getSource$: Observable<Action> = this.actions$.pipe(
     ofType<Get>(SourcesActionTypes.GET),
     map((action: Get) => action.payload),
     concatMap((id) => this.sourcesService.get(id).pipe(
@@ -50,7 +50,7 @@ export class SourcesEffects {
   );
 
   @Effect()
-  savePath$: Observable<Action> = this.actions$.pipe(
+  saveSource$: Observable<Action> = this.actions$.pipe(
     ofType<Save>(SourcesActionTypes.SAVE),
     map((action: Save) => action.payload),
     concatMap((source: Source) => this.sourcesService.save(source).pipe(
