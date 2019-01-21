@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
-import { NgxLoadingModule } from 'ngx-loading';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
@@ -27,7 +26,6 @@ const routes = [
     CommonModule,
     FormsModule,
     NgbModule,
-    NgxLoadingModule,
     StoreModule.forFeature('courses', reducer),
     EffectsModule.forFeature([CourseEffects]),
     RouterModule.forChild(routes)

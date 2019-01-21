@@ -6,12 +6,15 @@ import { Store, select } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, tap, switchMap, takeWhile } from 'rxjs/operators';
+import { takeWhile } from 'rxjs/operators';
 
 import { Course } from '../course';
+import * as fromRoot from '../../store/reducers';
 import * as fromCourse from '../state/course.reducer';
 import * as courseActions from '../state/course.actions';
-import { CoursesService } from '../courses.service';
+import * as fromPaths from '../../store/actions/paths.actions';
+import * as fromSources from '../../store/actions/sources.actions';
+
 
 @Component({
   selector: 'app-course-edit',
@@ -43,11 +46,11 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.store.dispatch(new courseActions.GetPaths());
-    this.paths$ = this.store.pipe(select(fromCourse.getPaths));
+    this.store.dispatch(new fromPaths.Load());
+    this.paths$ = this.store.pipe(select(fromRoot.getPaths));
 
-    this.store.dispatch(new courseActions.GetSources());
-    this.sources$ = this.store.pipe(select(fromCourse.getSource));
+    this.store.dispatch(new fromSources.Load());
+    this.sources$ = this.store.pipe(select(fromRoot.getSources));
   }
 
   ngOnDestroy() {

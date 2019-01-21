@@ -45,14 +45,6 @@ export class CoursesService {
     }
   }
 
-  getPaths() {
-    return this.http.get<any[]>(`${this.baseUrl}/paths`);
-  }
-
-  getSources() {
-    return this.http.get<any[]>(`${this.baseUrl}/sources`);
-  }
-
   updateCourse(course: Course) {
     return this.http.put(`${this.baseUrl}/courses/${course.id}`, course);
   }

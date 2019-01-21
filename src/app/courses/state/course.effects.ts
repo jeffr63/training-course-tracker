@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, switchMap, catchError, concatMap } from 'rxjs/operators';
+import { map, catchError, concatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import {
   CourseActionTypes,
   Delete, DeleteFail, DeleteSuccess,
   GetCourse, GetCourseFail, GetCourseSuccess,
-  GetPaths, GetPathsFail, GetPathsSuccess,
-  GetSources, GetSourcesFail, GetSourcesSuccess,
   GetTotal, GetTotalFail, GetTotalSuccess,
   Load, LoadFail, LoadSuccess,
   Save, SaveFail, SaveSuccess,
@@ -57,24 +55,6 @@ export class CourseEffects {
     concatMap((payload) => this.courseService.getCoursesPaged(payload.current, payload.pageSize).pipe(
       map((courses: Course[]) => (new LoadSuccess(courses))),
       catchError(err => of(new LoadFail(err)))
-    ))
-  );
-
-  @Effect()
-  lookupCoursePaths$ = this.actions.pipe(
-    ofType<GetPaths>(CourseActionTypes.PATHS),
-    switchMap(() => this.courseService.getPaths().pipe(
-      map((paths: any[]) => (new GetPathsSuccess(_.map(paths, 'name')))),
-      catchError(err => of(new GetPathsFail(err)))
-    ))
-  );
-
-  @Effect()
-  lookupCourseSource$ = this.actions.pipe(
-    ofType<GetSources>(CourseActionTypes.SOURCES),
-    switchMap(() => this.courseService.getSources().pipe(
-      map((sources: any[]) => (new GetSourcesSuccess(_.map(sources, 'name')))),
-      catchError(err => of(new GetSourcesFail(err)))
     ))
   );
 

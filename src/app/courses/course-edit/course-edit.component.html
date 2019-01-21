@@ -1,6 +1,4 @@
 <section class="container">
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
-
   <section class="card">
     <form *ngIf="course">
       <fieldset class="form-group row">
@@ -23,7 +21,7 @@
           <input type="text" class="form-control" name="path" [(ngModel)]="course.path" list="path-helpers" placeholder="Enter techical path of course (ex: Angular or React)" />
           <datalist id="path-helpers">
             <div *ngFor="let path of paths$ | async">
-              <option value="{{path}}"></option>
+              <option value="{{path.name}}"></option>
             </div>
           </datalist>
         </div>
@@ -36,7 +34,7 @@
             placeholder="Enter where the course was sourced from (ex: Pluralsite)" />
           <datalist id="source-helpers">
             <div *ngFor="let source of sources$ | async">
-              <option value="{{source}}"></option>
+              <option value="{{source.name}}"></option>
             </div>
           </datalist>
         </div>
@@ -50,7 +48,7 @@
         </div>
       </fieldset>
 
-      <div class="form-group row">
+      <div class="form-group row form-buttons">
         <button class="btn btn-primary mr-sm-2" (click)="save()">Save</button>
         <a class="btn btn-secondary" [routerLink]="['/courses']">Cancel</a>
       </div>

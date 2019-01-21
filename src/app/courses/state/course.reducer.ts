@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromRoot from '../../state/app.state';
+import * as fromRoot from '../../store/reducers';
 import { CourseActionTypes, CourseActions } from '../state/course.actions';
 import { Course } from '../course';
 
@@ -13,8 +13,6 @@ export interface CourseState {
   currentCourse: Course;
   totalCourses: number;
   error: string;
-  paths: any[];
-  sources: any[];
 }
 
 export const initialState: CourseState = {
@@ -22,8 +20,6 @@ export const initialState: CourseState = {
   currentCourse: null,
   totalCourses: 0,
   error: '',
-  paths: [],
-  sources: []
 };
 
 const getCourseFeatureState = createFeatureSelector<CourseState>('courses');
@@ -36,16 +32,6 @@ export const getCourses = createSelector(
 export const getCourse = createSelector(
   getCourseFeatureState,
   state => state.currentCourse
-);
-
-export const getPaths = createSelector(
-  getCourseFeatureState,
-  state => state.paths
-);
-
-export const getSource = createSelector(
-  getCourseFeatureState,
-  state => state.sources
 );
 
 export const saveCourse = createSelector(
@@ -97,34 +83,6 @@ export function reducer(state = initialState, action: CourseActions): CourseStat
       return {
         ...state,
         courses: action.payload,
-        error: ''
-      };
-
-    case CourseActionTypes.PATHS_FAIL:
-      return {
-        ...state,
-        paths: [],
-        error: action.payload
-      };
-
-    case CourseActionTypes.PATHS_SUCCESS:
-      return {
-        ...state,
-        paths: action.payload,
-        error: ''
-      };
-
-    case CourseActionTypes.SOURCES_FAIL:
-      return {
-        ...state,
-        sources: [],
-        error: action.payload
-      };
-
-    case CourseActionTypes.SOURCES_SUCCESS:
-      return {
-        ...state,
-        sources: action.payload,
         error: ''
       };
 

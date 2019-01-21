@@ -1,6 +1,4 @@
 <section>
-  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
-
   <section class="card">
     <header>
       <h1 class="card-header">Training Courses</h1>
@@ -11,6 +9,7 @@
           <ngb-pagination [collectionSize]="totalCourses$ | async" boundaryLinks="true" [pageSize]="pageSize" maxSize="5"
             rotate="true" [(page)]="current" (pageChange)="refreshTable()"></ngb-pagination>
         </div>
+        <div class="col"><a [routerLink]="['/courses/new']" class="btn btn-success">Add Course</a></div>
       </header>
       <table class="table table-striped">
         <thead>
