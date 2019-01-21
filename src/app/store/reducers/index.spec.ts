@@ -63,13 +63,13 @@ describe(`Main Reducer Selectors`, () => {
     it('should return source', () => {
       const currentSource: Source = { id: 1, name: 'ABC' };
       const previousState = {
-        paths: {
-          ...fromPaths.initialState,
+        sources: {
+          ...fromSources.initialState,
           currentSource
         }
       };
 
-      const payload = fromMain.getCurrentPath(previousState);
+      const payload = fromMain.getCurrentSource(previousState);
 
       expect(payload).toEqual(currentSource);
     });
