@@ -30,9 +30,19 @@ export const getPaths = createSelector(
   fromPaths.getPaths
 );
 
+export const getCurrentPath = createSelector(
+  selectPathsState,
+  fromPaths.getCurrentPath
+);
+
 // sources selectors
 export const selectSourcesState = createFeatureSelector<fromSources.State>('sources');
 export const getSources = createSelector(
   selectSourcesState,
   fromSources.getSources
+);
+
+export const getCurrentSource = createSelector(
+  selectSourcesState,
+  fromSources.getCurrentSource
 );

@@ -32,7 +32,7 @@ describe('SourcesService', () => {
         expect(data).toEqual(sources);
       });
 
-      const req = httpTestingController.expectOne(`${baseUrl}/sources`);
+      const req = httpTestingController.expectOne(`${baseUrl}/sources?_sort=name&_order=asc`);
       req.flush(sources);
       expect(req.request.method).toBe('GET');
       httpTestingController.verify();

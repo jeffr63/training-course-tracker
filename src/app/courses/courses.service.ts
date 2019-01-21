@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import * as _ from 'lodash';
-
 import { Course } from './course';
 
 @Injectable({

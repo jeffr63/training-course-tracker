@@ -32,7 +32,7 @@ describe('PathsService', () => {
         expect(data).toEqual(paths);
       });
 
-      const req = httpTestingController.expectOne(`${baseUrl}/paths`);
+      const req = httpTestingController.expectOne(`${baseUrl}/paths?_sort=name&_order=asc`);
       req.flush(paths);
       expect(req.request.method).toBe('GET');
       httpTestingController.verify();

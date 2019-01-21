@@ -3,9 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
-import * as _ from 'lodash';
-
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 import { Course } from '../course';

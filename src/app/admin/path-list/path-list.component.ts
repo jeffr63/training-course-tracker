@@ -31,7 +31,7 @@ export class PathListComponent implements OnInit {
   deletePath(id, deleteModal) {
     this.modal.open(deleteModal).result.then(result => {
       this.closedResult = `Closed with ${result}`;
-      //      this.store.dispatch(new appActions.DeletePath({ 'id': id }));
+      this.store.dispatch(new pathsActions.Delete(id));
     }, (reason) => {
       this.closedResult = `Dismissed with ${reason}`;
     });

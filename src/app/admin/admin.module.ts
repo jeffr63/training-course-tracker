@@ -7,6 +7,8 @@ import { PathListComponent } from './path-list/path-list.component';
 import { PathEditComponent } from './path-edit/path-edit.component';
 import { SourceListComponent } from './source-list/source-list.component';
 import { SourceEditComponent } from './source-edit/source-edit.component';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes = [
   {
@@ -30,6 +32,8 @@ const routes = [
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    NgbModule,
     RouterModule.forChild(routes)
   ]
 })

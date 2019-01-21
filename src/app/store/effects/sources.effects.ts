@@ -3,14 +3,42 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
-import { switchMap, catchError, map } from 'rxjs/operators';
-import * as _ from 'lodash';
+import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import { SourcesActionTypes, Load, LoadFail, LoadSuccess } from '../actions/sources.actions';
+import { Source } from './../../services/sources';
+
+import {
+  SourcesActionTypes,
+  Get, GetFail, GetSuccess,
+  Delete, DeleteFail, DeleteSuccess,
+  Load, LoadFail, LoadSuccess,
+  Save, SaveFail, SaveSuccess
+} from '../actions/sources.actions';
 import { SourcesService } from '../../services/sources.service';
 
 @Injectable()
 export class SourcesEffects {
+
+  @Effect()
+  deletePath$: Observable<Action> = this.actions$.pipe(
+    ofType<Delete>(SourcesActionTypes.DELETE),
+    map((action: Delete) => action.payload),
+    switchMap((id) => this.sourcesService.delete(id).pipe(
+      map((source: Source) => (new DeleteSuccess(id))),
+      catchError(err => of(new DeleteFail(err)))
+    ))
+  );
+
+  @Effect()
+  getPath$: Observable<Action> = this.actions$.pipe(
+    ofType<Get>(SourcesActionTypes.GET),
+    map((action: Get) => action.payload),
+    concatMap((id) => this.sourcesService.get(id).pipe(
+      map((source: Source) => (new GetSuccess(source))),
+      catchError(err => of(new GetFail(err)))
+    ))
+  );
+
 
   @Effect()
   loadSources$: Observable<Action> = this.actions$.pipe(
@@ -18,6 +46,19 @@ export class SourcesEffects {
     switchMap(() => this.sourcesService.load().pipe(
       map((sources: any[]) => (new LoadSuccess(sources))),
       catchError(err => of(new LoadFail(err)))
+    ))
+  );
+
+  @Effect()
+  savePath$: Observable<Action> = this.actions$.pipe(
+    ofType<Save>(SourcesActionTypes.SAVE),
+    map((action: Save) => action.payload),
+    concatMap((source: Source) => this.sourcesService.save(source).pipe(
+      concatMap(_res => [
+        new Load(),
+        new SaveSuccess(source)
+      ]),
+      catchError(err => of(new SaveFail(err)))
     ))
   );
 
