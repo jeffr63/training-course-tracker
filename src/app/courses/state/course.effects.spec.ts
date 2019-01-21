@@ -13,8 +13,6 @@ import {
   Delete, DeleteFail, DeleteSuccess,
   GetCourse, GetCourseFail, GetCourseSuccess,
   Load, LoadFail, LoadSuccess,
-  GetPaths, GetPathsFail, GetPathsSuccess,
-  GetSources, GetSourcesFail, GetSourcesSuccess,
   GetTotal, GetTotalFail, GetTotalSuccess,
   Save, SaveFail, SaveSuccess
 } from './course.actions';
@@ -39,8 +37,6 @@ class MockCoursesService {
   getCourses = jasmine.createSpy('getCoursesUnsorted');
   getCoursesPaged = jasmine.createSpy('getCoursesPaged');
   saveCourse = jasmine.createSpy('saveCourse');
-  getPaths = jasmine.createSpy('getPaths');
-  getSources = jasmine.createSpy('getSources');
 }
 
 describe(`Course Effects`, () => {
@@ -150,72 +146,6 @@ describe(`Course Effects`, () => {
       coursesService.getCoursesPaged.and.returnValue(response);
 
       expect(effects.loadCourse$).toBeObservable(expected);
-    });
-  });
-
-  describe(`lookupCoursePaths$ effect`, () => {
-    it(`should return GetPathsSuccess, with paths, on success`, () => {
-      const impPaths = [
-        { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
-      ];
-      const retPaths = ['ABC', 'DEF'];
-
-      const action = new GetPaths();
-      const completion = new GetPathsSuccess(retPaths);
-
-      actions$.stream = hot('-a', { a: action });
-      const response = cold('-b|', { b: impPaths });
-      const expected = cold('--c', { c: completion });
-      coursesService.getPaths.and.returnValue(response);
-
-      expect(effects.lookupCoursePaths$).toBeObservable(expected);
-    });
-
-    it(`should return GetPathsFail, with error, on failure`, () => {
-      const error = 'Error';
-      const action = new GetPaths();
-      const completion = new GetPathsFail(error);
-
-      actions$.stream = hot('-a', { a: action });
-      const response = cold('-#|', {}, error);
-      const expected = cold('--b', { b: completion });
-      coursesService.getPaths.and.returnValue(response);
-
-      expect(effects.lookupCoursePaths$).toBeObservable(expected);
-    });
-  });
-
-  describe(`lookupCourseSource$ effect`, () => {
-    it(`should return GetSourcesSuccess, with sources, on success`, () => {
-      const impSources = [
-        { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
-      ];
-      const retSources = ['ABC', 'DEF'];
-
-      const action = new GetSources();
-      const completion = new GetSourcesSuccess(retSources);
-
-      actions$.stream = hot('-a', { a: action });
-      const response = cold('-b|', { b: impSources });
-      const expected = cold('--c', { c: completion });
-      coursesService.getSources.and.returnValue(response);
-
-      expect(effects.lookupCourseSource$).toBeObservable(expected);
-    });
-
-    it(`should return GetSourcesFail, with error, on failure`, () => {
-      const error = 'Error';
-      const action = new GetSources();
-      const completion = new GetSourcesFail(error);
-
-      actions$.stream = hot('-a', { a: action });
-      const response = cold('-#|', {}, error);
-      const expected = cold('--b', { b: completion });
-      coursesService.getSources.and.returnValue(response);
-
-      expect(effects.lookupCourseSource$).toBeObservable(expected);
     });
   });
 

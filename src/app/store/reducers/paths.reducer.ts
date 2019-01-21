@@ -1,7 +1,8 @@
 import * as fromPaths from '../actions/paths.actions';
+import { Path } from './../../services/paths';
 
 export interface State {
-  paths: any[];
+  paths: Path[];
   error: string;
 }
 

@@ -13,7 +13,7 @@ import { SourcesService } from '../../services/sources.service';
 export class SourcesEffects {
 
   @Effect()
-  loadPaths$: Observable<Action> = this.actions$.pipe(
+  loadSources$: Observable<Action> = this.actions$.pipe(
     ofType<Load>(SourcesActionTypes.LOAD),
     switchMap(() => this.sourcesService.load().pipe(
       map((sources: any[]) => (new LoadSuccess(sources))),

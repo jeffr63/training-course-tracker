@@ -24,8 +24,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('Error');
       expect(state.courses).toEqual(newState.courses);
       expect(state.totalCourses).toEqual(newState.totalCourses);
-      expect(state.paths).toEqual(newState.paths);
-      expect(state.sources).toEqual(newState.sources);
     });
   });
 
@@ -40,8 +38,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('');
       expect(state.courses).toEqual(initialState.courses);
       expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
     });
   });
 
@@ -55,8 +51,6 @@ describe('Courses Reducer', () => {
       expect(state.courses).toEqual(initialState.courses);
       expect(state.currentCourse).toEqual(initialState.currentCourse);
       expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
     });
   });
 
@@ -70,8 +64,6 @@ describe('Courses Reducer', () => {
       expect(state.courses).toEqual(initialState.courses);
       expect(state.currentCourse).toEqual(initialState.currentCourse);
       expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
     });
   });
 
@@ -85,8 +77,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('Error');
       expect(state.currentCourse).toEqual(initialState.currentCourse);
       expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
     });
   });
 
@@ -104,39 +94,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('');
       expect(state.currentCourse).toEqual(initialState.currentCourse);
       expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
-    });
-  });
-
-  describe(`PATHS_FAIL action`, () => {
-    it(`should clear paths and set error`, () => {
-      const { initialState } = fromCourses;
-      const action = new fromActions.GetPathsFail('Error');
-      const state = fromCourses.reducer(initialState, action);
-
-      expect(state.paths).toEqual([]);
-      expect(state.error).toEqual('Error');
-      expect(state.courses).toEqual(initialState.courses);
-      expect(state.currentCourse).toEqual(initialState.currentCourse);
-      expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.sources).toEqual(initialState.sources);
-    });
-  });
-
-  describe(`PATHS_SUCCESS action`, () => {
-    it(`should populate paths from the array and clear error`, () => {
-      const { initialState } = fromCourses;
-      const paths: any = ['ABC', 'DEF'];
-      const action = new fromActions.GetPathsSuccess(paths);
-      const state = fromCourses.reducer(initialState, action);
-
-      expect(state.paths).toEqual(paths);
-      expect(state.error).toEqual('');
-      expect(state.courses).toEqual(initialState.courses);
-      expect(state.currentCourse).toEqual(initialState.currentCourse);
-      expect(state.totalCourses).toEqual(initialState.totalCourses);
-      expect(state.sources).toEqual(initialState.sources);
     });
   });
 
@@ -149,8 +106,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('Error');
       expect(state.courses).toEqual(initialState.courses);
       expect(state.currentCourse).toEqual(initialState.currentCourse);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
       expect(state.totalCourses).toEqual(initialState.totalCourses);
     });
   });
@@ -172,40 +127,7 @@ describe('Courses Reducer', () => {
       expect(state.courses[1]).toEqual(course);
       expect(state.error).toEqual('');
       expect(state.currentCourse).toEqual(newState.currentCourse);
-      expect(state.paths).toEqual(newState.paths);
-      expect(state.sources).toEqual(newState.paths);
       expect(state.totalCourses).toEqual(newState.totalCourses);
-    });
-  });
-
-  describe(`SOURCES_FAIL action`, () => {
-    it(`should clear sources and set error`, () => {
-      const { initialState } = fromCourses;
-      const action = new fromActions.GetSourcesFail('Error');
-      const state = fromCourses.reducer(initialState, action);
-
-      expect(state.sources).toEqual([]);
-      expect(state.error).toEqual('Error');
-      expect(state.courses).toEqual(initialState.courses);
-      expect(state.currentCourse).toEqual(initialState.currentCourse);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.totalCourses).toEqual(initialState.totalCourses);
-    });
-  });
-
-  describe(`SOURCES_SUCCESS action`, () => {
-    it(`should populate sources from the array and clear error`, () => {
-      const { initialState } = fromCourses;
-      const sources: any = ['123', '456'];
-      const action = new fromActions.GetSourcesSuccess(sources);
-      const state = fromCourses.reducer(initialState, action);
-
-      expect(state.sources).toEqual(sources);
-      expect(state.error).toEqual('');
-      expect(state.courses).toEqual(initialState.courses);
-      expect(state.currentCourse).toEqual(initialState.currentCourse);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.totalCourses).toEqual(initialState.totalCourses);
     });
   });
 
@@ -222,8 +144,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('Error');
       expect(state.courses).toEqual(newState.courses);
       expect(state.currentCourse).toEqual(null);
-      expect(state.paths).toEqual(newState.paths);
-      expect(state.sources).toEqual(newState.sources);
     });
   });
 
@@ -241,8 +161,6 @@ describe('Courses Reducer', () => {
       expect(state.error).toEqual('');
       expect(state.courses).toEqual(initialState.courses);
       expect(state.currentCourse).toEqual(initialState.currentCourse);
-      expect(state.paths).toEqual(initialState.paths);
-      expect(state.sources).toEqual(initialState.sources);
     });
   });
 
@@ -281,38 +199,6 @@ describe(`Course Reducer Selectors`, () => {
       const payload = fromCourses.getCourse(previousState);
 
       expect(payload).toEqual(currentCourse);
-    });
-  });
-
-  describe(`getPaths selector`, () => {
-    it('should return paths', () => {
-      const paths = ['ABC', 'DEF'];
-      const previousState = {
-        courses: {
-          ...fromCourses.initialState,
-          paths
-        }
-      };
-
-      const payload = fromCourses.getPaths(previousState);
-
-      expect(payload).toEqual(paths);
-    });
-  });
-
-  describe(`getSources selector`, () => {
-    it('should return sources', () => {
-      const sources = ['ABC', 'DEF'];
-      const previousState = {
-        courses: {
-          ...fromCourses.initialState,
-          sources
-        }
-      };
-
-      const payload = fromCourses.getSource(previousState);
-
-      expect(payload).toEqual(sources);
     });
   });
 

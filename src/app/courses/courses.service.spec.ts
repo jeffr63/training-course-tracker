@@ -188,44 +188,6 @@ describe('CourseService', () => {
     });
   });
 
-  describe('getPaths', () => {
-    it('should return paths, with a get call to the correct URL', () => {
-      const paths = [
-        { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' },
-      ];
-
-      service.getPaths().subscribe((data: any[]) => {
-        expect(data.length).toBe(2);
-        expect(data).toEqual(paths);
-      });
-
-      const req = httpTestingController.expectOne(`${baseUrl}/paths`);
-      req.flush(paths);
-      expect(req.request.method).toBe('GET');
-      httpTestingController.verify();
-    });
-  });
-
-  describe('getSources', () => {
-    it('should return sources, with a get call to the correct URL', () => {
-      const sources = [
-        { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' },
-      ];
-
-      service.getSources().subscribe((data: any[]) => {
-        expect(data.length).toBe(2);
-        expect(data).toEqual(sources);
-      });
-
-      const req = httpTestingController.expectOne(`${baseUrl}/sources`);
-      req.flush(sources);
-      expect(req.request.method).toBe('GET');
-      httpTestingController.verify();
-    });
-  });
-
   describe('updateCourse', () => {
     it('should return updated course with a put call to the correct URL', () => {
       const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };

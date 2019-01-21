@@ -33,10 +33,10 @@ import { SourcesEffects } from './store/effects/sources.effects';
     CoursesModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 5, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects, PathsEffects, SourcesEffects])
+    EffectsModule.forRoot([AppEffects, PathsEffects, SourcesEffects]),
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

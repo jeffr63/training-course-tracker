@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { AdminComponent } from './admin/admin.component';
 import { PathListComponent } from './path-list/path-list.component';
 import { PathEditComponent } from './path-edit/path-edit.component';
 import { SourceListComponent } from './source-list/source-list.component';
 import { SourceEditComponent } from './source-edit/source-edit.component';
-import { AdminComponent } from './admin/admin.component';
-import { RouterModule } from '@angular/router';
 
 const routes = [
   {
