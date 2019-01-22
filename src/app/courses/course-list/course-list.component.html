@@ -9,7 +9,7 @@
           <ngb-pagination [collectionSize]="totalCourses$ | async" boundaryLinks="true" [pageSize]="pageSize" maxSize="5"
             rotate="true" [(page)]="current" (pageChange)="refreshTable()"></ngb-pagination>
         </div>
-        <div class="col"><a [routerLink]="['/courses/new']" class="btn btn-success">Add Course</a></div>
+        <div class="col" *ngIf="auth.isLoggedIn"><a [routerLink]="['/courses/new']" class="btn btn-success">Add Course</a></div>
       </header>
       <table class="table table-striped">
         <thead>
@@ -26,7 +26,7 @@
             <td>{{course.path}}</td>
             <td>{{course.source}}</td>
             <td>{{course.yearCompleted}}</td>
-            <td>
+            <td *ngIf="auth.isLoggedIn">
               <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm mr-2">Edit</a>
               <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id,deleteModal)">Delete</button>
             </td>

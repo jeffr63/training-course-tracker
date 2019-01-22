@@ -9,6 +9,7 @@ import { SourceListComponent } from './source-list/source-list.component';
 import { SourceEditComponent } from './source-edit/source-edit.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CanActivateAdmin } from '../auth/canActiveateAdmin.guard';
 
 const routes = [
   {
@@ -18,7 +19,8 @@ const routes = [
       { path: 'sources/:id', component: SourceEditComponent },
       { path: 'paths', component: PathListComponent },
       { path: 'paths/:id', component: PathEditComponent },
-    ]
+    ],
+    canActivate: [CanActivateAdmin]
   },
 ];
 

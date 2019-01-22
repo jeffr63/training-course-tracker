@@ -20,12 +20,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/effects/app.effects';
 import { PathsEffects } from './store/effects/paths.effects';
 import { SourcesEffects } from './store/effects/sources.effects';
+import { CallbackComponent } from './callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    MenuComponent
+    MenuComponent,
+    CallbackComponent,
   ],
   imports: [
     AdminModule,

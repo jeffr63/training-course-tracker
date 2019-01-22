@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Course } from '../course';
 import * as fromCourse from '../state/course.reducer';
 import * as courseActions from '../state/course.actions';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -24,7 +25,8 @@ export class CourseListComponent implements OnInit {
 
   constructor(
     private store: Store<fromCourse.State>,
-    private modal: NgbModal
+    private modal: NgbModal,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {

@@ -11,10 +11,11 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { reducer } from './state/course.reducer';
 import { CourseEffects } from './state/course.effects';
+import { CanActivateEdit } from '../auth/canActiveateEdit.guard';
 
 const routes = [
   { path: 'courses', component: CourseListComponent },
-  { path: 'courses/:id', component: CourseEditComponent }
+  { path: 'courses/:id', component: CourseEditComponent, canActivate: [CanActivateEdit] }
 ];
 
 @NgModule({
