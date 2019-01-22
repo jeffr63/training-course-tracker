@@ -1,4 +1,4 @@
-# CourseList
+# Training Course Tracker
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
 
@@ -27,7 +27,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 
-# JSON-SERVER
+## JSON-SERVER
   1. npm install -g json-server
-  2. md data directory and create db.json file
-  3. cd into data directory and then run json-sever db.json
+  2. run command '.\apiserver' to start json-server
+
+
+## User Id's and passwords:
+  1. joe@joe.com - admin.  Password: Test!123
+  2. sam@joe.com - user.  Password: Test!123
