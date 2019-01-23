@@ -8,8 +8,8 @@ import { takeWhile } from 'rxjs/operators';
 
 import { Course } from '../course';
 import * as fromRoot from '../../store/reducers';
-import * as fromCourse from '../state/course.reducer';
-import * as courseActions from '../state/course.actions';
+import * as fromCourse from '../store/reducer';
+import * as courseActions from '../store/actions/course.actions';
 import * as fromPaths from '../../store/actions/paths.actions';
 import * as fromSources from '../../store/actions/sources.actions';
 

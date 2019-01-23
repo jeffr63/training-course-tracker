@@ -9,8 +9,8 @@ import { StoreModule } from '@ngrx/store';
 
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { reducer } from './state/course.reducer';
-import { CourseEffects } from './state/course.effects';
+import { reducer } from './store/reducer/course.reducer';
+import { CourseEffects } from './store/effects/course.effects';
 import { CanActivateEdit } from '../auth/canActiveateEdit.guard';
 
 const routes = [

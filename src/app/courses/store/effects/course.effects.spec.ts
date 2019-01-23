@@ -6,16 +6,16 @@ import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { empty } from 'rxjs';
 
-import { Course } from '../course';
+import { Course } from '../../course';
 import { CourseEffects } from './course.effects';
-import { CoursesService } from '../courses.service';
+import { CoursesService } from '../../courses.service';
 import {
   Delete, DeleteFail, DeleteSuccess,
   GetCourse, GetCourseFail, GetCourseSuccess,
   Load, LoadFail, LoadSuccess,
   GetTotal, GetTotalFail, GetTotalSuccess,
   Save, SaveFail, SaveSuccess
-} from './course.actions';
+} from '../actions/course.actions';
 
 export class TestActions extends Actions {
   constructor() {

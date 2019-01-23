@@ -12,9 +12,9 @@ import {
   GetTotal, GetTotalFail, GetTotalSuccess,
   Load, LoadFail, LoadSuccess,
   Save, SaveFail, SaveSuccess,
-} from './course.actions';
-import { Course } from '../course';
-import { CoursesService } from '../courses.service';
+} from '../actions/course.actions';
+import { Course } from '../../course';
+import { CoursesService } from '../../courses.service';
 
 @Injectable()
 export class CourseEffects {

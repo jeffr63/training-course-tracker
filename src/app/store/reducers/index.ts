@@ -1,5 +1,4 @@
 import {
-  ActionReducer,
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
@@ -9,7 +8,7 @@ import {
 import * as fromPaths from './paths.reducer';
 import * as fromSources from './sources.reducer';
 
-import { environment } from '../../../environments/environment.prod';
+// import { environment } from '../../../environments/environment.prod';
 
 export interface State {
   paths: fromPaths.State;

@@ -5,8 +5,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Course } from '../course';
-import * as fromCourse from '../state/course.reducer';
-import * as courseActions from '../state/course.actions';
+import * as fromCourse from '../store/reducer';
+import * as courseActions from '../store/actions/course.actions';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
