@@ -19,7 +19,7 @@ export class CourseListComponent implements OnInit {
   selectCourse = <Course>{};
   current = 1;
   loading = false;
-  pageSize = 3;
+  pageSize = 10;
   totalCourses$: Observable<number>;
   closedResult = '';
 

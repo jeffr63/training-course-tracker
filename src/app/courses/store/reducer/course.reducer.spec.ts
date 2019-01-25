@@ -14,7 +14,7 @@ describe('Courses Reducer', () => {
     it(`should clear currentCourse and set error`, () => {
       const newState = {
         ...initialState,
-        currentCourse: { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' }
+        currentCourse: { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' }
       };
       const action = new fromActions.GetCourseFail('Error');
       const state = reducer(newState, action);
@@ -28,7 +28,7 @@ describe('Courses Reducer', () => {
 
   describe('COURSE_SUCCESS action', () => {
     it(`should clear error`, () => {
-      const course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' };
       const action = new fromActions.GetCourseSuccess(course);
       const state = reducer(initialState, action);
 
@@ -78,8 +78,8 @@ describe('Courses Reducer', () => {
   describe('LOAD_SUCCESS action', () => {
     it(`should populate courses from the array`, () => {
       const courses: Course[] = [
-        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D', yearCompleted: '2019' }
+        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
+        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
       ];
       const action = new fromActions.LoadSuccess(courses);
       const state = reducer(initialState, action);
@@ -108,11 +108,11 @@ describe('Courses Reducer', () => {
       const newState = {
         ...initialState,
         courses: [
-          { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' },
-          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D', yearCompleted: '2019' }
+          { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
+          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
         ]
       };
-      const course = { id: 2, title: 'Update Course 2', instructor: 'John', path: 'A', source: 'D', yearCompleted: '2019' };
+      const course = { id: 2, title: 'Update Course 2', instructor: 'John', path: 'A', source: 'D' };
       const action = new fromActions.SaveSuccess(course);
       const state = reducer(newState, action);
 
@@ -143,8 +143,8 @@ describe('Courses Reducer', () => {
   describe('TOTAL_SUCCESS action', () => {
     it(`should set totalCourses and clear error`, () => {
       const courses: Course[] = [
-        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D', yearCompleted: '2019' }
+        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
+        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
       ];
       const action = new fromActions.GetTotalSuccess(courses);
       const state = reducer(initialState, action);
@@ -162,8 +162,8 @@ describe(`Course Reducer Selectors`, () => {
   describe(`getCourses selector`, () => {
     it('should return courses', () => {
       const courses: Course[] = [
-        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D', yearCompleted: '2019' }
+        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
+        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
       ];
       const previousState = {
         ...initialState,
@@ -180,8 +180,8 @@ describe(`Course Reducer Selectors`, () => {
     describe(`getCourses selector`, () => {
       it('should return courses', () => {
         const courses: Course[] = [
-          { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' },
-          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D', yearCompleted: '2019' }
+          { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
+          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
         ];
         const previousState = {
           ...initialState,
@@ -210,7 +210,7 @@ describe(`Course Reducer Selectors`, () => {
 
     describe(`getCurrentCourse selector`, () => {
       it('should return course', () => {
-        const currentCourse: Course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+        const currentCourse: Course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' };
         const previousState = {
           ...initialState,
           currentCourse

@@ -4,5 +4,4 @@ export interface Course {
   instructor: string;
   path: string;
   source: string;
-  yearCompleted: string;
 }

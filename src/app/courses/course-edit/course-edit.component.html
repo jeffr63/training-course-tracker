@@ -40,14 +40,6 @@
         </div>
       </fieldset>
 
-      <fieldset class="form-group row">
-        <label class="col-form-label col-sm-2" for="yearCompleted">Year Completed</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" name="yearCompleted" [(ngModel)]="course.yearCompleted" placeholder="Enter year the course was completed"
-            min="4" max="4" />
-        </div>
-      </fieldset>
-
       <div class="form-group row form-buttons">
         <button class="btn btn-primary mr-sm-2" (click)="save()">Save</button>
         <a class="btn btn-secondary" [routerLink]="['/courses']">Cancel</a>

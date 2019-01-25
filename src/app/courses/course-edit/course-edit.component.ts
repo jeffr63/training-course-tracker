@@ -38,9 +38,6 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.store.dispatch(new courseActions.GetCourse(params.id));
         this.store.pipe(select(fromCourse.getCourse), takeWhile(() => this.componentActive))
           .subscribe((course: Course) => this.course = course);
-      } else {
-        const year = new Date().getFullYear();
-        this.course.yearCompleted = year.toString();
       }
     });
 
