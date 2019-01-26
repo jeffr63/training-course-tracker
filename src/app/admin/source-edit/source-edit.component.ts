@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
+import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import { Source } from '../../services/sources';
 import * as fromRoot from '../../store/reducers';
@@ -17,6 +18,8 @@ import * as sourcesActions from '../../store/actions/sources.actions';
 export class SourceEditComponent implements OnInit, OnDestroy {
   source = <Source>{};
   componentActive = true;
+  faSave = faSave;
+  faBan = faBan;
 
   constructor(
     private route: ActivatedRoute,

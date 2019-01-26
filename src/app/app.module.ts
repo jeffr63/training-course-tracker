@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 // third party modules
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // custom components
 import { AdminModule } from './admin/admin.module';
@@ -33,6 +34,7 @@ import { CallbackComponent } from './callback.component';
     AdminModule,
     BrowserModule,
     CoursesModule,
+    FontAwesomeModule,
     HttpClientModule,
     NgbModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),

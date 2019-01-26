@@ -6,7 +6,12 @@
     <section class="card-body">
       <header class="row">
         <div class="col">&nbsp;</div>
-        <div class="col"><a [routerLink]="['/admin/paths/new']" class="btn btn-success">Add Path</a></div>
+        <div class="col">
+          <a [routerLink]="['/admin/paths/new']" title="Add Path">
+            <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
+            <span class="sr-only">Add Path</span>
+          </a>
+        </div>
       </header>
       <table class="table table-striped">
         <thead>
@@ -17,8 +22,14 @@
           <tr *ngFor="let path of paths$ | async">
             <td>{{path.name}}</td>
             <td>
-              <a [routerLink]="['/admin/paths', path.id]" class="btn btn-info btn-sm mr-2">Edit</a>
-              <button class="btn btn-danger btn-sm" (click)="deletePath(path.id,deleteModal)">Delete</button>
+              <a [routerLink]="['/admin/paths', path.id]" class="btn btn-info btn-sm mr-2" title="Edit">
+                <fa-icon [icon]="faPencilAlt"></fa-icon>
+                <span class="sr-only">Edit</span>
+              </a>
+              <button class="btn btn-danger btn-sm" (click)="deletePath(path.id,deleteModal)" title="Delete">
+                <fa-icon [icon]="faTrashAlt"></fa-icon>
+                <span class="sr-only">Delete</span>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -37,8 +48,12 @@
         <span class="text-danger">This operation can not be undone.</span></p>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-success" (click)="modal.close()">Delete</button>
-      <button class="btn btn-danger" (click)="modal.dismiss()">Cancel</button>
+      <button class="btn btn-success" (click)="modal.close()" title="Delete">
+        <fa-icon [icon]="faTrashAlt"></fa-icon> Delete
+      </button>
+      <button class="btn btn-danger" (click)="modal.dismiss()" title="Cancel">
+        <fa-icon [icon]="faBan"></fa-icon> Cancel
+      </button>
     </div>
   </ng-template>
 

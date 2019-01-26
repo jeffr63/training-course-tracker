@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
+
 
 import { Course } from '../course';
 import * as fromCourse from '../store/reducer';
@@ -22,6 +24,10 @@ export class CourseListComponent implements OnInit {
   pageSize = 10;
   totalCourses$: Observable<number>;
   closedResult = '';
+  faPencilAlt = faPencilAlt;
+  faTrashAlt = faTrashAlt;
+  faPlusCircle = faPlusCircle;
+  faBan = faBan;
 
   constructor(
     private store: Store<fromCourse.State>,

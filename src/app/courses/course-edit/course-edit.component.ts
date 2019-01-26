@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
+import { faSave, faBan, faAddressBook } from '@fortawesome/free-solid-svg-icons';
 
 import { Course } from '../course';
 import * as fromRoot from '../../store/reducers';
@@ -25,6 +26,8 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   componentActive = true;
   paths$: Observable<any[]>;
   sources$: Observable<any[]>;
+  faSave = faSave;
+  faBan = faBan;
 
   constructor(
     private route: ActivatedRoute,

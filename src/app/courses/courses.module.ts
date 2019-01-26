@@ -4,14 +4,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
+import { CanActivateEdit } from '../auth/canActiveateEdit.guard';
 import { CourseEditComponent } from './course-edit/course-edit.component';
+import { CourseEffects } from './store/effects/course.effects';
 import { CourseListComponent } from './course-list/course-list.component';
 import { reducer } from './store/reducer/course.reducer';
-import { CourseEffects } from './store/effects/course.effects';
-import { CanActivateEdit } from '../auth/canActiveateEdit.guard';
 
 const routes = [
   { path: 'courses', component: CourseListComponent },
@@ -25,6 +26,7 @@ const routes = [
   ],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     FormsModule,
     NgbModule,
     StoreModule.forFeature('courses', reducer),

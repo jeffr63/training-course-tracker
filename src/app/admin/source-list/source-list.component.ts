@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import { Source } from './../../services/sources';
 import * as fromRoot from '../../store/reducers';
@@ -17,6 +18,10 @@ export class SourceListComponent implements OnInit {
   source$: Observable<any[]>;
   selectPath = <Source>{};
   closedResult = '';
+  faPencilAlt = faPencilAlt;
+  faTrashAlt = faTrashAlt;
+  faPlusCircle = faPlusCircle;
+  faBan = faBan;
 
   constructor(
     private store: Store<fromRoot.State>,

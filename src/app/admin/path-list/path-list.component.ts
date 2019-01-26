@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import { Path } from '../../services/paths';
 import * as fromRoot from '../../store/reducers';
@@ -17,6 +18,10 @@ export class PathListComponent implements OnInit {
   paths$: Observable<any[]>;
   selectPath = <Path>{};
   closedResult = '';
+  faPencilAlt = faPencilAlt;
+  faTrashAlt = faTrashAlt;
+  faPlusCircle = faPlusCircle;
+  faBan = faBan;
 
   constructor(
     private store: Store<fromRoot.State>,
