@@ -2,9 +2,23 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
 
+## Technologies included
+
+Angular, RxJs, NgRx, jasmine-marbles, lodash, auth0, ng-bootstrap, angular-fontawesome, fontawesome
+
+## JSON-SERVER
+
+1. npm install -g json-server
+2. run command '.\apiserver' to start json-server
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## User Id's and passwords:
+
+1. joe@joe.com - admin.  Password: Test!123
+2. sam@joe.com - user.  Password: Test!123
 
 ## Code scaffolding
 
@@ -25,13 +39,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-
-## JSON-SERVER
-  1. npm install -g json-server
-  2. run command '.\apiserver' to start json-server
-
-
-## User Id's and passwords:
-  1. joe@joe.com - admin.  Password: Test!123
-  2. sam@joe.com - user.  Password: Test!123
