@@ -860,6 +860,27 @@
       "path": "JavaScript",
       "source": "freeCodeCamp",
       "id": 126
+    },
+    {
+      "title": "JavaScript: Getting Started",
+      "instructor": "Mark Zamoyta",
+      "id": 127,
+      "path": "JavaScript",
+      "source": "Pluralsite"
+    },
+    {
+      "title": "JavaScript Fundamentals",
+      "instructor": "Mark Zamoyta",
+      "path": "JavaScript",
+      "source": "Pluralsite",
+      "id": 128
+    },
+    {
+      "title": "Angular Architecture and Best Practices",
+      "instructor": "Dan Wahlin",
+      "path": "Angular",
+      "source": "Pluralsite",
+      "id": 129
     }
   ],
   "paths": [
