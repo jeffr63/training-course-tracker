@@ -9,11 +9,8 @@ import { AuthService } from '../auth/auth.service';
 export class MenuComponent implements OnInit {
   public isNavbarCollapsed = true;
 
-  constructor(
-    public auth: AuthService
-  ) { }
+  constructor(public auth: AuthService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

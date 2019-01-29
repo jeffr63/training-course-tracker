@@ -22,7 +22,7 @@ const routes = [
       { path: 'paths', component: PathListComponent },
       { path: 'paths/:id', component: PathEditComponent },
     ],
-    // canActivate: [CanActivateAdmin]
+    canActivate: [CanActivateAdmin]
   },
 ];
 
