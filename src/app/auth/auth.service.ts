@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 
 import { environment } from '../../environments/environment';
-import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
 @Injectable({
   'providedIn': 'root'
@@ -27,7 +25,12 @@ export class AuthService {
   isAdmin: boolean;
 
   constructor(private router: Router) {
-    this.getAccessToken();
+    // temp - until Auth0 fixed
+
+    // this.getAccessToken();
+
+    this.isAdmin = true;
+    this.authenticated = true;
   }
 
   login() {
@@ -90,6 +93,8 @@ export class AuthService {
   get isLoggedIn(): boolean {
     // Check if current date is before token
     // expiration and user is signed in locally
-    return Date.now() < this.expiresAt && this.authenticated;
+
+    // temp - return Date.now() < this.expiresAt && this.authenticated;
+    return true;
   }
 }
