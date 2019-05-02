@@ -958,6 +958,27 @@
       "path": "Angular",
       "source": "Pluralsite",
       "id": 137
+    },
+    {
+      "title": "Web Accessibility: Getting Started",
+      "instructor": "Brain Treese",
+      "path": "HTML",
+      "source": "Pluralsite",
+      "id": 138
+    },
+    {
+      "title": "Play by Play: Angular Internationalization with John Papa and Brian Clark",
+      "instructor": "John Papa and Brian Clark",
+      "path": "AngularJS",
+      "source": "Pluralsite",
+      "id": 139
+    },
+    {
+      "title": "Vue Fundamentals",
+      "instructor": "Jim Cooper",
+      "path": "Vue",
+      "source": "Pluralsite",
+      "id": 140
     }
   ],
   "paths": [
