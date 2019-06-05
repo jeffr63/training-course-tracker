@@ -15,8 +15,12 @@ import { CourseListComponent } from './course-list/course-list.component';
 import { reducer } from './store/reducer/course.reducer';
 
 const routes = [
-  { path: 'courses', component: CourseListComponent },
-  { path: 'courses/:id', component: CourseEditComponent, canActivate: [CanActivateEdit] }
+  {
+    path: '', children: [
+      { path: '', component: CourseListComponent },
+      { path: ':id', component: CourseEditComponent, canActivate: [CanActivateEdit] }
+    ]
+  }
 ];
 
 @NgModule({
