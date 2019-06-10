@@ -1,34 +1,13 @@
+import { Source } from './../../shared/sources';
 import { TestBed } from '@angular/core/testing';
 
-import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { hot, cold } from 'jasmine-marbles';
+import { hot, cold, addMatchers, initTestScheduler, getTestScheduler, resetTestScheduler } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { empty } from 'rxjs';
 
-import { Source } from '../../shared/sources';
+import * as sourcesActions from '../actions/sources.actions';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '../../services/sources.service';
-import {
-  Delete, DeleteFail, DeleteSuccess,
-  Get, GetFail, GetSuccess,
-  Load, LoadFail, LoadSuccess,
-  Save, SaveFail, SaveSuccess
-} from '../actions/sources.actions';
-
-export class TestActions extends Actions {
-  constructor() {
-    super(empty());
-  }
-
-  set stream(source: Observable<any>) {
-    this.source = source;
-  }
-}
-
-export function getActions() {
-  return new TestActions();
-}
 
 class MockCoursesService {
   delete = jasmine.createSpy('delete');
@@ -37,8 +16,23 @@ class MockCoursesService {
   save = jasmine.createSpy('save');
 }
 
+// work around to issue with Jasmine and Angular 8 - was not initializing and marbles was failing
+jasmine.getEnv().beforeAll(() => {
+  return addMatchers();
+});
+
+jasmine.getEnv().beforeEach(() => {
+  initTestScheduler();
+});
+
+jasmine.getEnv().afterEach(() => {
+  getTestScheduler().flush();
+  resetTestScheduler();
+});
+// -----------------------------------------------------------------------------------------------
+
 describe(`Sources Effects`, () => {
-  let actions$: TestActions;
+  let actions$: Observable<any>;
   let effects: SourcesEffects;
   let sourcesService: MockCoursesService;
 
@@ -48,21 +42,19 @@ describe(`Sources Effects`, () => {
         SourcesEffects,
         provideMockActions(() => actions$),
         { provide: SourcesService, useClass: MockCoursesService },
-        { provide: Actions, useFactory: getActions },
       ]
     });
 
     effects = TestBed.get(SourcesEffects);
     sourcesService = TestBed.get(SourcesService);
-    actions$ = TestBed.get(Actions);
   });
 
   describe(`deleteSource$ effect`, () => {
-    it(`should return DeleteSuccess, with course, on success`, () => {
-      const action = new Delete(1);
-      const completion = new DeleteSuccess(1);
+    it(`should return DeleteSourceSuccess, with id, on success`, () => {
+      const action = sourcesActions.deleteSource({ id: 1 });
+      const completion = sourcesActions.deleteSourceSuccess({ id: 1 });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: 1 });
       const expected = cold('--c', { c: completion });
       sourcesService.delete.and.returnValue(response);
@@ -70,12 +62,12 @@ describe(`Sources Effects`, () => {
       expect(effects.deleteSource$).toBeObservable(expected);
     });
 
-    it(`should return DeleteFail, with error, on failure`, () => {
+    it(`should return DeleteSourceFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Delete(1);
-      const completion = new DeleteFail(error);
+      const action = sourcesActions.deleteSource({ id: 1 });
+      const completion = sourcesActions.deleteSourceFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       sourcesService.delete.and.returnValue(response);
@@ -85,13 +77,13 @@ describe(`Sources Effects`, () => {
   });
 
   describe(`getSource$ effect`, () => {
-    it(`should return GetSuccess, with path, on success`, () => {
+    it(`should return GetSourceSuccess, with source, on success`, () => {
       const source: Source = { id: 1, name: 'ABC' };
 
-      const action = new Get(1);
-      const completion = new GetSuccess(source);
+      const action = sourcesActions.getSource({ id: 1 });
+      const completion = sourcesActions.getSourceSuccess({ source });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: source });
       const expected = cold('--c', { c: completion });
       sourcesService.get.and.returnValue(response);
@@ -99,12 +91,12 @@ describe(`Sources Effects`, () => {
       expect(effects.getSource$).toBeObservable(expected);
     });
 
-    it(`should return GetFail, with error, on failure`, () => {
+    it(`should return GetSourceFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Get(1);
-      const completion = new GetFail(error);
+      const action = sourcesActions.getSource({ id: 1 });
+      const completion = sourcesActions.getSourceFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       sourcesService.get.and.returnValue(response);
@@ -114,16 +106,16 @@ describe(`Sources Effects`, () => {
   });
 
   describe(`loadSource$ effect`, () => {
-    it(`should return LoadSuccess, with paths, on success`, () => {
-      const sources = [
+    it(`should return LoadSuccess, with sources, on success`, () => {
+      const sources: Source[] = [
         { id: 1, name: 'ABC' },
         { id: 2, name: 'DEF' }
       ];
 
-      const action = new Load();
-      const completion = new LoadSuccess(sources);
+      const action = sourcesActions.loadSources();
+      const completion = sourcesActions.loadSourcesSuccess({ sources });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: sources });
       const expected = cold('--c', { c: completion });
       sourcesService.load.and.returnValue(response);
@@ -133,10 +125,10 @@ describe(`Sources Effects`, () => {
 
     it(`should return LoadFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Load();
-      const completion = new LoadFail(error);
+      const action = sourcesActions.loadSources();
+      const completion = sourcesActions.loadSourcesFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       sourcesService.load.and.returnValue(response);
@@ -149,11 +141,11 @@ describe(`Sources Effects`, () => {
     it(`should return SaveSuccess, with source, on success`, () => {
       const source: Source = { id: 1, name: 'ABC' };
 
-      const action = new Save(source);
-      const load = new Load();
-      const completion = new SaveSuccess(source);
+      const action = sourcesActions.saveSource({ source });
+      const load = sourcesActions.loadSources();
+      const completion = sourcesActions.saveSourceSuccess({ source });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: source });
       const expected = cold('--(cd)', { c: load, d: completion });
       sourcesService.save.and.returnValue(response);
@@ -164,10 +156,10 @@ describe(`Sources Effects`, () => {
     it(`should return SaveFail, with error, on failure`, () => {
       const source: Source = { id: 1, name: 'ABC' };
       const error = 'Error';
-      const action = new Save(source);
-      const completion = new SaveFail(error);
+      const action = sourcesActions.saveSource({ source });
+      const completion = sourcesActions.saveSourceFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       sourcesService.save.and.returnValue(response);

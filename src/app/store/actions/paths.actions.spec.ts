@@ -1,143 +1,148 @@
-import * as fromActions from './paths.actions';
+import * as pathActions from './paths.actions';
 
 describe('Paths Actions', () => {
 
-  describe('Delete', () => {
+  describe('DeletePath', () => {
     it(`should create an action`, () => {
-      const payload = 1;
-       const action = new fromActions.Delete(payload);
+      const id = 1;
+      const action = pathActions.deletePath({ id });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.DELETE,
-        payload
+        type: '[Paths] Delete Path',
+        id
       });
     });
   });
 
-  describe('DeleteFail', () => {
+  describe('DeletePathFail', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.DeleteFail(payload);
+      const error = 'Error';
+      const action = pathActions.deletePathFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.DELETE_FAIL,
-        payload
+        type: '[Paths] Delete Path Fail',
+        error
       });
     });
   });
 
-  describe('DeleteSuccess', () => {
+  describe('DeletePathSuccess', () => {
     it(`should create an action`, () => {
-      const payload = 1;
-      const action = new fromActions.DeleteSuccess(payload);
-
-      expect(action.type).toEqual(fromActions.PathsActionTypes.DELETE_SUCCESS);
-    });
-  });
-
-  describe('Get', () => {
-    it(`should create an action`, () => {
-      const payload = 1;
-      const action = new fromActions.Get(payload);
+      const id = 1;
+      const action = pathActions.deletePathSuccess({ id });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.GET,
-        payload
+        type: '[Paths] Delete Path Success',
+        id
       });
     });
   });
 
-  describe('GetFail', () => {
+  describe('GetPath', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.GetFail(payload);
+      const id = 1;
+      const action = pathActions.getPath({ id });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.GET_FAIL,
-        payload
+        type: '[Paths] Get Path',
+        id
       });
     });
   });
 
-  describe('GetSuccess', () => {
+  describe('GetPathFail', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, name: 'ABC' };
-      const action = new fromActions.GetSuccess(payload);
+      const error = 'Error';
+      const action = pathActions.getPathFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.GET_SUCCESS,
-        payload
+        type: '[Paths] Get Path Fail',
+        error
       });
     });
   });
 
-  describe('Load', () => {
+  describe('GetPathSuccess', () => {
     it(`should create an action`, () => {
-      const action = new fromActions.Load();
-
-      expect(action.type).toEqual(fromActions.PathsActionTypes.LOAD);
-    });
-  });
-
-  describe('LoadFail', () => {
-    it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.LoadFail(payload);
+      const path = { id: 1, name: 'ABC' };
+      const action = pathActions.getPathSuccess({ path });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.LOAD_FAIL,
-        payload
+        type: '[Paths] Get Path Success',
+        path
       });
     });
   });
 
-  describe('LoadSuccess', () => {
+  describe('LoadPaths', () => {
     it(`should create an action`, () => {
-      const payload = [
+      const action = pathActions.loadPaths();
+
+      expect({ ...action }).toEqual({
+        type: '[Paths] Load Paths'
+      });
+    });
+  });
+
+  describe('LoadPathsFail', () => {
+    it(`should create an action`, () => {
+      const error = 'Error';
+      const action = pathActions.loadPathsFail({ error });
+
+      expect({ ...action }).toEqual({
+        type: '[Paths] Load Paths Fail',
+        error
+      });
+    });
+  });
+
+  describe('LoadPathsSuccess', () => {
+    it(`should create an action`, () => {
+      const paths = [
         { id: 1, name: 'ABC' },
         { id: 2, name: 'DEF' }
       ];
-      const action = new fromActions.LoadSuccess(payload);
+      const action = pathActions.loadPathsSuccess({ paths });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.LOAD_SUCCESS,
-        payload
+        type: '[Paths] Load Paths Success',
+        paths
       });
     });
   });
 
-  describe('Save', () => {
+  describe('SavePath', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, name: 'ABC' };
-      const action = new fromActions.Save(payload);
+      const path = { id: 1, name: 'ABC' };
+      const action = pathActions.savePath({ path });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.SAVE,
-        payload
+        type: '[Paths] Save Path',
+        path
       });
     });
   });
 
-  describe('SaveFail', () => {
+  describe('SavePathFail', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.SaveFail(payload);
+      const error = 'Error';
+      const action = pathActions.savePathFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.SAVE_FAIL,
-        payload
+        type: '[Paths] Save Path Fail',
+        error
       });
     });
   });
 
-  describe('SaveSuccess', () => {
+  describe('SavePathSuccess', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, name: 'ABC' };
-      const action = new fromActions.SaveSuccess(payload);
+      const path = { id: 1, name: 'ABC' };
+      const action = pathActions.savePathSuccess({ path });
 
       expect({ ...action }).toEqual({
-        type: fromActions.PathsActionTypes.SAVE_SUCCESS,
-        payload
+        type: '[Paths] Save Path Success',
+        path
       });
     });
   });

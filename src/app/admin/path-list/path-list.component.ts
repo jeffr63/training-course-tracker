@@ -29,14 +29,14 @@ export class PathListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new pathsActions.Load());
+    this.store.dispatch(pathsActions.loadPaths());
     this.paths$ = this.store.pipe(select(fromRoot.getPaths));
   }
 
   deletePath(id, deleteModal) {
     this.modal.open(deleteModal).result.then(result => {
       this.closedResult = `Closed with ${result}`;
-      this.store.dispatch(new pathsActions.Delete(id));
+      this.store.dispatch(pathsActions.deletePath({ id: id }));
     }, (reason) => {
       this.closedResult = `Dismissed with ${reason}`;
     });

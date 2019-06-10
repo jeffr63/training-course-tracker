@@ -4,32 +4,11 @@ import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { empty } from 'rxjs';
 
+import * as courseActions from '../actions/course.actions';
 import { Course } from '../../shared/course';
 import { CourseEffects } from './course.effects';
 import { CoursesService } from '../../courses/courses.service';
-import {
-  Delete, DeleteFail, DeleteSuccess,
-  GetCourse, GetCourseFail, GetCourseSuccess,
-  Load, LoadFail, LoadSuccess,
-  GetTotal, GetTotalFail, GetTotalSuccess,
-  Save, SaveFail, SaveSuccess
-} from '../actions/course.actions';
-
-export class TestActions extends Actions {
-  constructor() {
-    super(empty());
-  }
-
-  set stream(source: Observable<any>) {
-    this.source = source;
-  }
-}
-
-export function getActions() {
-  return new TestActions();
-}
 
 class MockCoursesService {
   deleteCourse = jasmine.createSpy('deleteCourse');
@@ -40,7 +19,7 @@ class MockCoursesService {
 }
 
 describe(`Course Effects`, () => {
-  let actions$: TestActions;
+  let actions$: Observable<any>
   let effects: CourseEffects;
   let coursesService: MockCoursesService;
 
@@ -50,23 +29,21 @@ describe(`Course Effects`, () => {
         CourseEffects,
         provideMockActions(() => actions$),
         { provide: CoursesService, useClass: MockCoursesService },
-        { provide: Actions, useFactory: getActions },
       ]
     });
 
     effects = TestBed.get(CourseEffects);
     coursesService = TestBed.get(CoursesService);
-    actions$ = TestBed.get(Actions);
   });
 
   describe(`deleteCourse$ effect`, () => {
     it(`should return DeleteSuccess, with course, on success`, () => {
-      const action = new Delete({ id: 1, current: 1, pageSize: 3 });
-      const load = new Load({ current: 1, pageSize: 3 });
-      const recount = new GetTotal();
-      const completion = new DeleteSuccess();
+      const action = courseActions.deleteCourse({ id: 1, current: 1, pageSize: 3 });
+      const load = courseActions.loadCourses({ current: 1, pageSize: 3 });
+      const recount = courseActions.getTotalCourses();
+      const completion = courseActions.deleteCourseSuccess();
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: 1 });
       const expected = cold('--(cde)', { c: load, d: recount, e: completion });
       coursesService.deleteCourse.and.returnValue(response);
@@ -76,10 +53,10 @@ describe(`Course Effects`, () => {
 
     it(`should return DeleteFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Delete({ id: 1, current: 1, pageSize: 3 });
-      const completion = new DeleteFail(error);
+      const action = courseActions.deleteCourse({ id: 1, current: 1, pageSize: 3 });
+      const completion = courseActions.deleteCourseFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       coursesService.deleteCourse.and.returnValue(response);
@@ -92,10 +69,10 @@ describe(`Course Effects`, () => {
     it(`should return GetCourseSuccess, with course, on success`, () => {
       const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' };
 
-      const action = new GetCourse(1);
-      const completion = new GetCourseSuccess(course);
+      const action = courseActions.getCourse({ id: 1 });
+      const completion = courseActions.getCourseSuccess({ course });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: course });
       const expected = cold('--c', { c: completion });
       coursesService.getCourse.and.returnValue(response);
@@ -105,10 +82,10 @@ describe(`Course Effects`, () => {
 
     it(`should return GetCourseFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new GetCourse(1);
-      const completion = new GetCourseFail(error);
+      const action = courseActions.getCourse({ id: 1 });
+      const completion = courseActions.getCourseFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       coursesService.getCourse.and.returnValue(response);
@@ -120,14 +97,14 @@ describe(`Course Effects`, () => {
   describe(`loadCourse$ effect`, () => {
     it(`should return LoadSuccess, with courses, on success`, () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' } as Course,
-        { id: 1, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' } as Course
+        { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' } as Course,
+        { id: 1, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B' } as Course
       ];
 
-      const action = new Load({ current: 1, pageSize: 3 });
-      const completion = new LoadSuccess(courses);
+      const action = courseActions.loadCourses({ current: 1, pageSize: 3 });
+      const completion = courseActions.loadCoursesSuccess({ courses });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: courses });
       const expected = cold('--c', { c: completion });
       coursesService.getCoursesPaged.and.returnValue(response);
@@ -137,10 +114,10 @@ describe(`Course Effects`, () => {
 
     it(`should return LoadFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Load({ current: 1, pageSize: 3 });
-      const completion = new LoadFail(error);
+      const action = courseActions.loadCourses({ current: 1, pageSize: 3 });
+      const completion = courseActions.loadCoursesFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       coursesService.getCoursesPaged.and.returnValue(response);
@@ -153,11 +130,11 @@ describe(`Course Effects`, () => {
     it(`should return SaveSuccess, with course, on success`, () => {
       const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' };
 
-      const action = new Save(course);
-      const recount = new GetTotal();
-      const completion = new SaveSuccess(course);
+      const action = courseActions.saveCourse({ course });
+      const recount = courseActions.getTotalCourses();
+      const completion = courseActions.saveCourseSuccess({ course });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: course });
       const expected = cold('--(cd)', { c: recount, d: completion });
       coursesService.saveCourse.and.returnValue(response);
@@ -168,10 +145,10 @@ describe(`Course Effects`, () => {
     it(`should return SaveFail, with error, on failure`, () => {
       const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' };
       const error = 'Error';
-      const action = new Save(course);
-      const completion = new SaveFail(error);
+      const action = courseActions.saveCourse({ course });
+      const completion = courseActions.saveCourseFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       coursesService.saveCourse.and.returnValue(response);
@@ -183,14 +160,14 @@ describe(`Course Effects`, () => {
   describe(`totalCourses$ effect`, () => {
     it(`should return GetTotalSuccess, with courses, on success`, () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' } as Course,
-        { id: 1, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' } as Course
+        { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' } as Course,
+        { id: 1, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B' } as Course
       ];
 
-      const action = new GetTotal();
-      const completion = new GetTotalSuccess(courses);
+      const action = courseActions.getTotalCourses();
+      const completion = courseActions.getTotalCoursesSuccess({ courses });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: courses });
       const expected = cold('--c', { c: completion });
       coursesService.getCourses.and.returnValue(response);
@@ -200,10 +177,10 @@ describe(`Course Effects`, () => {
 
     it(`should return GetTotalFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new GetTotal();
-      const completion = new GetTotalFail(error);
+      const action = courseActions.getTotalCourses();
+      const completion = courseActions.getTotalCoursesFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       coursesService.getCourses.and.returnValue(response);

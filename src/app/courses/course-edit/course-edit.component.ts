@@ -38,16 +38,16 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params.id !== 'new') {
-        this.store.dispatch(new courseActions.GetCourse(params.id));
+        this.store.dispatch(courseActions.getCourse({ id: params.id }));
         this.store.pipe(select(fromCourse.getCourse), takeWhile(() => this.componentActive))
           .subscribe((course: Course) => this.course = course);
       }
     });
 
-    this.store.dispatch(new fromPaths.Load());
+    this.store.dispatch(fromPaths.loadPaths());
     this.paths$ = this.store.pipe(select(fromRoot.getPaths));
 
-    this.store.dispatch(new fromSources.Load());
+    this.store.dispatch(fromSources.loadSources());
     this.sources$ = this.store.pipe(select(fromRoot.getSources));
   }
 
@@ -56,7 +56,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.store.dispatch(new courseActions.Save(this.course));
+    this.store.dispatch(courseActions.saveCourse({ course: this.course }));
     this.location.back();
   }
 

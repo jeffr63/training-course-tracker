@@ -1,5 +1,5 @@
+import * as sourcesActions from '../actions/sources.actions';
 import { reducer, initialState, getSources, getCurrentSource, getError } from './sources.reducer';
-import * as fromActions from '../actions/sources.actions';
 import { Source } from '../../shared/sources';
 
 describe('Sources Reducer', () => {
@@ -14,7 +14,7 @@ describe('Sources Reducer', () => {
 
     describe('DELETE_FAIL action', () => {
       it(`should set error`, () => {
-        const action = new fromActions.DeleteFail('Error');
+        const action = sourcesActions.deleteSourceFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
@@ -36,7 +36,7 @@ describe('Sources Reducer', () => {
         sources: beforeSources
       };
       it(`should clear error`, () => {
-        const action = new fromActions.DeleteSuccess(1);
+        const action = sourcesActions.deleteSourceSuccess({ id: 1 });
         const state = reducer(newState, action);
 
         expect(state.error).toEqual('');
@@ -52,7 +52,7 @@ describe('Sources Reducer', () => {
           ...initialState,
           currentCourse: { id: 1, name: 'ABC' }
         };
-        const action = new fromActions.GetFail('Error');
+        const action = sourcesActions.getSourceFail({ error: 'Error' });
         const state = reducer(newState, action);
 
         expect(state.currentSource).toEqual(null);
@@ -64,7 +64,7 @@ describe('Sources Reducer', () => {
     describe('GET_SUCCESS action', () => {
       it(`should clear error`, () => {
         const source = { id: 1, name: 'ABC' };
-        const action = new fromActions.GetSuccess(source);
+        const action = sourcesActions.getSourceSuccess({ source });
         const state = reducer(initialState, action);
 
         expect(state.currentSource).toEqual(source);
@@ -76,7 +76,7 @@ describe('Sources Reducer', () => {
 
     describe(`LOAD_FAIL action`, () => {
       it(`should clear sources and set error`, () => {
-        const action = new fromActions.LoadFail('Error');
+        const action = sourcesActions.loadSourcesFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.sources).toEqual([]);
@@ -90,7 +90,7 @@ describe('Sources Reducer', () => {
           { id: 1, name: 'ABC' },
           { id: 2, name: 'DEF' }
         ];
-        const action = new fromActions.LoadSuccess(sources);
+        const action = sourcesActions.loadSourcesSuccess({ sources });
         const state = reducer(initialState, action);
 
         expect(state.sources).toEqual(sources);
@@ -101,7 +101,7 @@ describe('Sources Reducer', () => {
 
     describe(`SAVE_FAIL action`, () => {
       it(`should set error`, () => {
-        const action = new fromActions.SaveFail('Error');
+        const action = sourcesActions.saveSourceFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
@@ -120,7 +120,7 @@ describe('Sources Reducer', () => {
           ]
         };
         const source = { id: 2, name: 'GHI' };
-        const action = new fromActions.SaveSuccess(source);
+        const action = sourcesActions.saveSourceSuccess({ source });
         const state = reducer(newState, action);
 
         expect(state.sources[0]).toEqual(newState.sources[0]);

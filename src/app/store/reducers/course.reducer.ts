@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
 
-import * as fromCourses from '../actions/course.actions';
+import * as courseActions from '../actions/course.actions';
 import { Course, CourseData } from '../../shared/course';
+import { createReducer, on } from '@ngrx/store';
 
 export interface State {
   courses: Course[];
@@ -21,112 +22,90 @@ export const initialState: State = {
   error: '',
 };
 
-export function reducer(state = initialState, action: fromCourses.CourseActions): State {
-  switch (action.type) {
-    case fromCourses.CourseActionTypes.DELETE_FAIL:
+export const reducer = createReducer(
+  initialState,
+  on(courseActions.deleteCourseFail, (state, { error }) => ({
+    ...state,
+    error: error
+  })),
+  on(courseActions.deleteCourseSuccess, (state) => ({
+    ...state,
+    error: ''
+  })),
+  on(courseActions.getCourseFail, (state, { error }) => ({
+    ...state,
+    currentCourse: null,
+    error: error
+  })),
+  on(courseActions.getCourseSuccess, (state, { course }) => ({
+    ...state,
+    currentCourse: course,
+    error: ''
+  })),
+  on(courseActions.loadCoursesFail, (state, { error }) => ({
+    ...state,
+    courses: [],
+    error: error
+  })),
+  on(courseActions.loadCoursesSuccess, (state, { courses }) => ({
+    ...state,
+    courses: courses,
+    error: ''
+  })),
+  on(courseActions.saveCourseFail, (state, { error }) => ({
+    ...state,
+    error: error
+  })),
+  on(courseActions.saveCourseSuccess, (state, { course }) => ({
+    ...state,
+    courses: state.courses.map(item => course.id === item.id ? course : item),
+    error: ''
+  })),
+  on(courseActions.getTotalCoursesFail, (state, { error }) => ({
+    ...state,
+    totalCourses: 0,
+    error: error
+  })),
+  on(courseActions.getTotalCoursesSuccess, (state, { courses }) => ({
+    ...state,
+    totalCourses: courses.length,
+    coursesByPath: getByPathValue(courses),
+    coursesBySource: getBySourceValue(courses),
+    error: ''
+  })),
+
+);
+
+function getByPathValue(courses: Course[]): CourseData[] {
+  let byPath = _.chain(courses)
+    .groupBy('path')
+    .map((values, key) => {
       return {
-        ...state,
-        error: action.payload
-      };
+        'name': key,
+        'value': _.reduce(values, function (value, number) {
+          return value + 1
+        }, 0)
+      }
+    })
+    .value();
+  byPath = _.orderBy(byPath, 'value', 'desc');
+  return byPath;
+}
 
-    case fromCourses.CourseActionTypes.DELETE_SUCCESS:
+function getBySourceValue(course: Course[]): CourseData[] {
+  let bySource = _.chain(course)
+    .groupBy('source')
+    .map((values, key) => {
       return {
-        ...state,
-        error: ''
-      };
-
-    case fromCourses.CourseActionTypes.COURSE_FAIL:
-      return {
-        ...state,
-        currentCourse: null,
-        error: action.payload
-      };
-
-    case fromCourses.CourseActionTypes.COURSE_SUCCESS:
-      return {
-        ...state,
-        currentCourse: action.payload,
-        error: ''
-      };
-
-    case fromCourses.CourseActionTypes.LOAD_FAIL:
-      return {
-        ...state,
-        courses: [],
-        error: action.payload
-      };
-
-    case fromCourses.CourseActionTypes.LOAD_SUCCESS:
-      return {
-        ...state,
-        courses: action.payload,
-        error: ''
-      };
-
-    case fromCourses.CourseActionTypes.SAVE_FAIL:
-      return {
-        ...state,
-        error: action.payload
-      };
-
-    case fromCourses.CourseActionTypes.SAVE_SUCCESS:
-      const updatedCourses = state.courses.map(
-        item => action.payload.id === item.id ? action.payload : item);
-      return {
-        ...state,
-        courses: updatedCourses,
-        currentCourse: null,
-        error: ''
-      };
-
-    case fromCourses.CourseActionTypes.TOTAL_FAIL:
-        console.log('TotalFail');
-      return {
-        ...state,
-        totalCourses: 0,
-        error: action.payload
-      };
-
-    case fromCourses.CourseActionTypes.TOTAL_SUCCESS:
-      console.log('TotalSuccess');
-      let byPath = _.chain(action.payload)
-        .groupBy('path')
-        .map((values, key) => {
-          return {
-            'name': key,
-            'value': _.reduce(values, function (value, number) {
-              return value + 1
-            }, 0)
-          }
-        })
-        .value();
-      byPath = _.orderBy(byPath, 'value', 'desc');
-      console.log('reducer path: ', byPath);
-
-      let bySource = _.chain(action.payload)
-        .groupBy('source')
-        .map((values, key) => {
-          return {
-            'name': key,
-            'value': _.reduce(values, function (value, number) {
-              return value + 1
-            }, 0)
-          }
-        })
-        .value();
-      bySource = _.orderBy(bySource, 'value', 'desc');
-      console.log('reducer source: ', bySource);
-
-      return {
-        ...state,
-        totalCourses: action.payload.length,
-        coursesByPath: byPath,
-        coursesBySource: bySource,
-        error: ''
-      };
-  }
-
-  return state;
+        'name': key,
+        'value': _.reduce(values, function (value, number) {
+          return value + 1
+        }, 0)
+      }
+    })
+    .value();
+  bySource = _.orderBy(bySource, 'value', 'desc');
+  return bySource;
 }
 
 export const getCourses = (state: State) => state.courses;

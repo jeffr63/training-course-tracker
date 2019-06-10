@@ -2,16 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { of } from 'rxjs';
 import { map, catchError, concatMap } from 'rxjs/operators';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 
-import {
-  CourseActionTypes,
-  Delete, DeleteFail, DeleteSuccess,
-  GetCourse, GetCourseFail, GetCourseSuccess,
-  GetTotal, GetTotalFail, GetTotalSuccess,
-  Load, LoadFail, LoadSuccess,
-  Save, SaveFail, SaveSuccess,
-} from '../actions/course.actions';
+import * as courseActions from '../actions/course.actions'
 import { Course } from '../../shared/course';
 import { CoursesService } from '../../courses/courses.service';
 
@@ -23,59 +16,50 @@ export class CourseEffects {
     private courseService: CoursesService,
   ) { }
 
-  @Effect()
-  deleteCourse$ = this.actions.pipe(
-    ofType<Delete>(CourseActionTypes.DELETE),
-    map((action: Delete) => action.payload),
+  deleteCourse$ = createEffect(() => this.actions.pipe(
+    ofType(courseActions.deleteCourse),
     concatMap(({ id, current, pageSize }) => this.courseService.deleteCourse(id).pipe(
       concatMap(_res => [
-        new Load({ current, pageSize }),
-        new GetTotal(),
-        new DeleteSuccess()
+        courseActions.loadCourses({ current, pageSize }),
+        courseActions.getTotalCourses(),
+        courseActions.deleteCourseSuccess()
       ]),
-      catchError(err => of(new DeleteFail(err)))
+      catchError(err => of(courseActions.deleteCourseFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  getCourse$ = this.actions.pipe(
-    ofType<GetCourse>(CourseActionTypes.COURSE),
-    map((action: GetCourse) => action.payload),
-    concatMap((courseId) => this.courseService.getCourse(courseId).pipe(
-      map((course: Course) => (new GetCourseSuccess(course))),
-      catchError(err => of(new GetCourseFail(err)))
+  getCourse$ = createEffect(() => this.actions.pipe(
+    ofType(courseActions.getCourse),
+    concatMap(({ id }) => this.courseService.getCourse(id).pipe(
+      map((course: Course) => (courseActions.getCourseSuccess({ course }))),
+      catchError(err => of(courseActions.getCourseFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  loadCourse$ = this.actions.pipe(
-    ofType<Load>(CourseActionTypes.LOAD),
-    map((action: Load) => action.payload),
-    concatMap((payload) => this.courseService.getCoursesPaged(payload.current, payload.pageSize).pipe(
-      map((courses: Course[]) => (new LoadSuccess(courses))),
-      catchError(err => of(new LoadFail(err)))
+  loadCourse$ = createEffect(() => this.actions.pipe(
+    ofType(courseActions.loadCourses),
+    concatMap(({ current, pageSize }) => this.courseService.getCoursesPaged(current, pageSize).pipe(
+      map((courses: Course[]) => (courseActions.loadCoursesSuccess({ courses }))),
+      catchError(err => of(courseActions.loadCoursesFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  saveCourse$ = this.actions.pipe(
-    ofType<Save>(CourseActionTypes.SAVE),
-    map((action: Save) => action.payload),
-    concatMap((course: Course) => this.courseService.saveCourse(course).pipe(
+  saveCourse$ = createEffect(() => this.actions.pipe(
+    ofType(courseActions.saveCourse),
+    concatMap(({ course }) => this.courseService.saveCourse(course).pipe(
       concatMap(_res => [
-        new GetTotal(),
-        new SaveSuccess(course)
+        courseActions.getTotalCourses(),
+        courseActions.saveCourseSuccess({ course })
       ]),
-      catchError(err => of(new SaveFail(err)))
+      catchError(err => of(courseActions.saveCourseFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  totalCourses$ = this.actions.pipe(
-    ofType<GetTotal>(CourseActionTypes.TOTAL),
+  totalCourses$ = createEffect(() => this.actions.pipe(
+    ofType(courseActions.getTotalCourses),
     concatMap(() => this.courseService.getCourses().pipe(
-      map((courses: Course[]) => (new GetTotalSuccess(courses))),
-      catchError(err => of(new GetTotalFail(err)))
+      map((courses: Course[]) => (courseActions.getTotalCoursesSuccess({ courses }))),
+      catchError(err => of(courseActions.getTotalCoursesFail({ error: err })))
     ))
-  );
+  ));
 }

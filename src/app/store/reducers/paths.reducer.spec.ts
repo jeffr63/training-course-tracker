@@ -1,5 +1,5 @@
+import * as pathsActions from '../actions/paths.actions';
 import { reducer, initialState, getPaths, getError, getCurrentPath } from './paths.reducer';
-import * as fromActions from '../actions/paths.actions';
 import { Path } from '../../shared/paths';
 
 describe('Paths Reducer', () => {
@@ -14,7 +14,7 @@ describe('Paths Reducer', () => {
 
     describe('DELETE_FAIL action', () => {
       it(`should set error`, () => {
-        const action = new fromActions.DeleteFail('Error');
+        const action = pathsActions.deletePathFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
@@ -36,7 +36,7 @@ describe('Paths Reducer', () => {
         paths: beforePaths
       };
       it(`should clear error`, () => {
-        const action = new fromActions.DeleteSuccess(1);
+        const action = pathsActions.deletePathSuccess({ id: 1 });
         const state = reducer(newState, action);
 
         expect(state.error).toEqual('');
@@ -52,7 +52,7 @@ describe('Paths Reducer', () => {
           ...initialState,
           currentCourse: { id: 1, name: 'ABC' }
         };
-        const action = new fromActions.GetFail('Error');
+        const action = pathsActions.getPathFail({ error: 'Error' });
         const state = reducer(newState, action);
 
         expect(state.currentPath).toEqual(null);
@@ -64,7 +64,7 @@ describe('Paths Reducer', () => {
     describe('GET_SUCCESS action', () => {
       it(`should clear error`, () => {
         const path = { id: 1, name: 'ABC' };
-        const action = new fromActions.GetSuccess(path);
+        const action = pathsActions.getPathSuccess({ path });
         const state = reducer(initialState, action);
 
         expect(state.currentPath).toEqual(path);
@@ -75,7 +75,7 @@ describe('Paths Reducer', () => {
 
     describe(`LOAD_FAIL action`, () => {
       it(`should clear paths and set error`, () => {
-        const action = new fromActions.LoadFail('Error');
+        const action = pathsActions.loadPathsFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.paths).toEqual([]);
@@ -89,7 +89,7 @@ describe('Paths Reducer', () => {
           { id: 1, name: 'ABC' },
           { id: 2, name: 'DEF' }
         ];
-        const action = new fromActions.LoadSuccess(paths);
+        const action = pathsActions.loadPathsSuccess({ paths });
         const state = reducer(initialState, action);
 
         expect(state.paths).toEqual(paths);
@@ -100,7 +100,7 @@ describe('Paths Reducer', () => {
 
     describe(`SAVE_FAIL action`, () => {
       it(`should set error`, () => {
-        const action = new fromActions.SaveFail('Error');
+        const action = pathsActions.savePathFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
@@ -119,7 +119,7 @@ describe('Paths Reducer', () => {
           ]
         };
         const path = { id: 2, name: 'GHI' };
-        const action = new fromActions.SaveSuccess(path);
+        const action = pathsActions.savePathSuccess({ path: path });
         const state = reducer(newState, action);
 
         expect(state.paths[0]).toEqual(newState.paths[0]);

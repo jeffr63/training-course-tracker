@@ -9,7 +9,7 @@ import { Source } from '../../shared/sources';
 describe(`Main Reducer Selectors`, () => {
   describe(`getCourse selector`, () => {
     it('should return currentCourse', () => {
-      const currentCourse = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const currentCourse: Course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' };
       const previousState = {
         courses: {
           ...fromCourses.initialState,
@@ -25,7 +25,7 @@ describe(`Main Reducer Selectors`, () => {
 
   describe(`saveCourse selector`, () => {
     it('should return currentCourse', () => {
-      const currentCourse = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const currentCourse: Course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' };
       const previousState = {
         courses: {
           ...fromCourses.initialState,
@@ -44,32 +44,14 @@ describe(`Main Reducer Selectors`, () => {
       const totalCourses = 10;
       const previousState = {
         courses: {
-          courses: {
-            ...fromCourses.initialState,
-            totalCourses
-          }
+          ...fromCourses.initialState,
+          totalCourses
         }
       };
 
       const payload = fromMain.getTotalCourses(previousState);
 
       expect(payload).toEqual(totalCourses);
-    });
-  });
-
-  describe(`getCurrentPath selector`, () => {
-    it('should return path', () => {
-      const currentPath: Path = { id: 1, name: 'ABC' };
-      const previousState = {
-        paths: {
-          ...fromPaths.initialState,
-          currentPath
-        }
-      };
-
-      const payload = fromMain.getCurrentPath(previousState);
-
-      expect(payload).toEqual(currentPath);
     });
   });
 
@@ -80,8 +62,8 @@ describe(`Main Reducer Selectors`, () => {
         { name: 'DEF', value: 2 }
       ];
       const previousState = {
-        paths: {
-          ...fromPaths.initialState,
+        courses: {
+          ...fromCourses.initialState,
           coursesByPath: byPath
         }
       };
@@ -99,8 +81,8 @@ describe(`Main Reducer Selectors`, () => {
         { name: 'DEF', value: 2 }
       ];
       const previousState = {
-        paths: {
-          ...fromPaths.initialState,
+        courses: {
+          ...fromCourses.initialState,
           coursesBySource: bySource
         }
       };
@@ -108,6 +90,22 @@ describe(`Main Reducer Selectors`, () => {
       const payload = fromMain.getCoursesBySource(previousState);
 
       expect(payload).toEqual(bySource);
+    });
+  });
+
+  describe(`getCurrentPath selector`, () => {
+    it('should return path', () => {
+      const currentPath: Path = { id: 1, name: 'ABC' };
+      const previousState = {
+        paths: {
+          ...fromPaths.initialState,
+          currentPath
+        }
+      };
+
+      const payload = fromMain.getCurrentPath(previousState);
+
+      expect(payload).toEqual(currentPath);
     });
   });
 

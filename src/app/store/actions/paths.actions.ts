@@ -1,97 +1,60 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 import { Path } from '../../shared/paths';
 
-export enum PathsActionTypes {
-  DELETE = '[Paths] Delete Path',
-  DELETE_FAIL = '[Paths] Delete Path Fail',
-  DELETE_SUCCESS = '[Paths] Delete Path Success',
+export const deletePath = createAction(
+  '[Paths] Delete Path',
+  props<{ id: number }>()
+);
 
-  GET = '[Paths] Get Path',
-  GET_SUCCESS = '[Paths] Get Path Success',
-  GET_FAIL = '[Paths] Get Path Fail',
+export const deletePathFail = createAction(
+  '[Paths] Delete Path Fail',
+  props<{ error: string }>()
+);
 
-  LOAD = '[Paths] Load Paths',
-  LOAD_FAIL = '[Paths] Load Paths Fail',
-  LOAD_SUCCESS = '[Paths] Load Paths Success',
+export const deletePathSuccess = createAction(
+  '[Paths] Delete Path Success',
+  props<{ id: number }>()
+);
 
-  SAVE = '[Paths] Save Path',
-  SAVE_FAIL = '[Paths] Save Path Fail',
-  SAVE_SUCCESS = '[Paths] Save Path Success',
-}
+export const getPath = createAction(
+  '[Paths] Get Path',
+  props<{ id: number }>()
+);
 
-export class Delete implements Action {
-  readonly type = PathsActionTypes.DELETE;
+export const getPathFail = createAction(
+  '[Paths] Get Path Fail',
+  props<{ error: string }>()
+);
 
-  constructor(public payload: number) { }
-}
+export const getPathSuccess = createAction(
+  '[Paths] Get Path Success',
+  props<{ path: Path }>()
+);
 
-export class DeleteFail implements Action {
-  readonly type = PathsActionTypes.DELETE_FAIL;
+export const loadPaths = createAction('[Paths] Load Paths');
 
-  constructor(public payload: string) { }
-}
+export const loadPathsFail = createAction(
+  '[Paths] Load Paths Fail',
+  props<{ error: string }>()
+);
 
-export class DeleteSuccess implements Action {
-  readonly type = PathsActionTypes.DELETE_SUCCESS;
+export const loadPathsSuccess = createAction(
+  '[Paths] Load Paths Success',
+  props<{ paths: Path[] }>()
+);
 
-  constructor(public payload: number) { }
-}
+export const savePath = createAction(
+  '[Paths] Save Path',
+  props<{ path: Path }>()
+);
 
-export class Get implements Action {
-  readonly type = PathsActionTypes.GET;
+export const savePathFail = createAction(
+  '[Paths] Save Path Fail',
+  props<{ error: string }>()
+);
 
-  constructor(public payload: number) { }
-}
-
-export class GetFail implements Action {
-  readonly type = PathsActionTypes.GET_FAIL;
-
-  constructor(public payload: string) { }
-}
-
-export class GetSuccess implements Action {
-  readonly type = PathsActionTypes.GET_SUCCESS;
-
-  constructor(public payload: Path) { }
-}
-
-export class Load implements Action {
-  readonly type = PathsActionTypes.LOAD;
-}
-
-export class LoadFail implements Action {
-  readonly type = PathsActionTypes.LOAD_FAIL;
-
-  constructor(public payload: string) { }
-}
-
-export class LoadSuccess implements Action {
-  readonly type = PathsActionTypes.LOAD_SUCCESS;
-
-  constructor(public payload: Path[]) { }
-}
-
-export class Save implements Action {
-  readonly type = PathsActionTypes.SAVE;
-
-  constructor(public payload: Path) { }
-}
-
-export class SaveFail implements Action {
-  readonly type = PathsActionTypes.SAVE_FAIL;
-
-  constructor(public payload: string) { }
-}
-
-export class SaveSuccess implements Action {
-  readonly type = PathsActionTypes.SAVE_SUCCESS;
-
-  constructor(public payload: Path) { }
-}
-
-export type PathsActions =
-  Delete | DeleteFail | DeleteSuccess |
-  Get | GetFail | GetSuccess |
-  Load | LoadFail | LoadSuccess |
-  Save | SaveFail | SaveSuccess;
+export const savePathSuccess = createAction(
+  '[Paths] Save Path Success',
+  props<{ path: Path }>()
+);

@@ -1,3 +1,6 @@
+import { createReducer, on } from '@ngrx/store';
+
+import * as sourcesActions from '../actions/sources.actions';
 import { Source } from '../../shared/sources';
 
 export interface State {
@@ -5,7 +8,6 @@ export interface State {
   currentSource: Source;
   error: string;
 }
-import * as fromSources from '../actions/sources.actions';
 
 export const initialState: State = {
   sources: [],
@@ -13,71 +15,51 @@ export const initialState: State = {
   error: '',
 };
 
-export function reducer(state = initialState, action: fromSources.SourcesActions): State {
-  switch (action.type) {
-    case fromSources.SourcesActionTypes.DELETE_FAIL:
-      return {
-        ...state,
-        currentSource: null,
-        error: action.payload
-      };
+export const reducer = createReducer(
+  initialState,
+  on(sourcesActions.deleteSourceFail, (state, { error }) => ({
+    ...state,
+    currentSource: null,
+    error: error
+  })),
+  on(sourcesActions.deleteSourceSuccess, (state, { id }) => ({
+    ...state,
+    currentSource: null,
+    error: '',
+    sources: state.sources.filter(source => source.id !== id)
+  })),
+  on(sourcesActions.getSourceFail, (state, { error }) => ({
+    ...state,
+    currentSource: null,
+    error: error
+  })),
+  on(sourcesActions.getSourceSuccess, (state, { source }) => ({
+    ...state,
+    currentSource: source,
+    error: ''
+  })),
+  on(sourcesActions.loadSourcesFail, (state, { error }) => ({
+    ...state,
+    sources: [],
+    error: error
+  })),
+  on(sourcesActions.loadSourcesSuccess, (state, { sources }) => ({
+    ...state,
+    sources: sources,
+    error: ''
+  })),
+  on(sourcesActions.saveSourceFail, (state, { error }) => ({
+    ...state,
+    error: error
+  })),
+  on(sourcesActions.saveSourceSuccess, (state, { source }) => ({
+    ...state,
+    sources: state.sources.map(item => source.id === item.id ? source : item),
+    currentSource: null,
+    error: ''
+  })),
 
-    case fromSources.SourcesActionTypes.DELETE_SUCCESS:
-      return {
-        ...state,
-        currentSource: null,
-        error: '',
-        sources: state.sources.filter(source => source.id !== action.payload)
-      };
-
-    case fromSources.SourcesActionTypes.GET_FAIL:
-      return {
-        ...state,
-        currentSource: null,
-        error: action.payload
-      };
-
-    case fromSources.SourcesActionTypes.GET_SUCCESS:
-      return {
-        ...state,
-        currentSource: action.payload,
-        error: ''
-      };
-
-    case fromSources.SourcesActionTypes.LOAD_SUCCESS:
-      return {
-        ...state,
-        sources: action.payload,
-        error: ''
-      };
-
-    case fromSources.SourcesActionTypes.LOAD_FAIL:
-      return {
-        ...state,
-        sources: [],
-        error: action.payload
-      };
-
-    case fromSources.SourcesActionTypes.SAVE_FAIL:
-      return {
-        ...state,
-        error: action.payload
-      };
-
-    case fromSources.SourcesActionTypes.SAVE_SUCCESS:
-      const updatedSources = state.sources.map(
-        item => action.payload.id === item.id ? action.payload : item);
-      return {
-        ...state,
-        sources: updatedSources,
-        currentSource: null,
-        error: ''
-      };
-
-    default:
-      return state;
-  }
-}
+);
 
 export const getSources = (state: State) => state.sources;
 export const getError = (state: State) => state.error;

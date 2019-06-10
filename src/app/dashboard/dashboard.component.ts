@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new courseActions.GetTotal());
+    this.store.dispatch(courseActions.getTotalCourses());
     this.courses$ = this.store.pipe(select(fromCourse.getCoursesByPath));
     this.sources$ = this.store.pipe(select(fromCourse.getCoursesBySource));
   }

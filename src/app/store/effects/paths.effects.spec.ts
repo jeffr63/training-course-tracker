@@ -1,36 +1,15 @@
+import { Path } from './../../shared/paths';
 import { TestBed } from '@angular/core/testing';
 
-import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { empty } from 'rxjs';
 
-import { Path } from '../../shared/paths';
+import * as pathsActions from '../actions/paths.actions';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
-import {
-  Delete, DeleteFail, DeleteSuccess,
-  Get, GetFail, GetSuccess,
-  Load, LoadFail, LoadSuccess,
-  Save, SaveFail, SaveSuccess
-} from '../actions/paths.actions';
 
-export class TestActions extends Actions {
-  constructor() {
-    super(empty());
-  }
-
-  set stream(source: Observable<any>) {
-    this.source = source;
-  }
-}
-
-export function getActions() {
-  return new TestActions();
-}
-
-class MockCoursesService {
+class MockPathsService {
   delete = jasmine.createSpy('delete');
   get = jasmine.createSpy('get');
   load = jasmine.createSpy('load');
@@ -38,31 +17,29 @@ class MockCoursesService {
 }
 
 describe(`Paths Effects`, () => {
-  let actions$: TestActions;
+  let actions$: Observable<any>;
   let effects: PathsEffects;
-  let pathsService: MockCoursesService;
+  let pathsService: MockPathsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         PathsEffects,
         provideMockActions(() => actions$),
-        { provide: PathsService, useClass: MockCoursesService },
-        { provide: Actions, useFactory: getActions },
+        { provide: PathsService, useClass: MockPathsService }
       ]
     });
 
     effects = TestBed.get(PathsEffects);
     pathsService = TestBed.get(PathsService);
-    actions$ = TestBed.get(Actions);
   });
 
   describe(`deletePath$ effect`, () => {
-    it(`should return DeleteSuccess, with course, on success`, () => {
-      const action = new Delete(1);
-      const completion = new DeleteSuccess(1);
+    it(`should return DeleteSuccess, with id, on success`, () => {
+      const action = pathsActions.deletePath({ id: 1 });
+      const completion = pathsActions.deletePathSuccess({ id: 1 });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: 1 });
       const expected = cold('--c', { c: completion });
       pathsService.delete.and.returnValue(response);
@@ -72,10 +49,10 @@ describe(`Paths Effects`, () => {
 
     it(`should return DeleteFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Delete(1);
-      const completion = new DeleteFail(error);
+      const action = pathsActions.deletePath({ id: 1 });
+      const completion = pathsActions.deletePathFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       pathsService.delete.and.returnValue(response);
@@ -88,10 +65,10 @@ describe(`Paths Effects`, () => {
     it(`should return GetSuccess, with path, on success`, () => {
       const path: Path = { id: 1, name: 'ABC' };
 
-      const action = new Get(1);
-      const completion = new GetSuccess(path);
+      const action = pathsActions.getPath({ id: 1 });
+      const completion = pathsActions.getPathSuccess({ path });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: path });
       const expected = cold('--c', { c: completion });
       pathsService.get.and.returnValue(response);
@@ -101,10 +78,10 @@ describe(`Paths Effects`, () => {
 
     it(`should return GetFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Get(1);
-      const completion = new GetFail(error);
+      const action = pathsActions.getPath({ id: 1 });
+      const completion = pathsActions.getPathFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       pathsService.get.and.returnValue(response);
@@ -120,10 +97,10 @@ describe(`Paths Effects`, () => {
         { id: 2, name: 'DEF' }
       ];
 
-      const action = new Load();
-      const completion = new LoadSuccess(paths);
+      const action = pathsActions.loadPaths();
+      const completion = pathsActions.loadPathsSuccess({ paths });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: paths });
       const expected = cold('--c', { c: completion });
       pathsService.load.and.returnValue(response);
@@ -133,10 +110,10 @@ describe(`Paths Effects`, () => {
 
     it(`should return LoadFail, with error, on failure`, () => {
       const error = 'Error';
-      const action = new Load();
-      const completion = new LoadFail(error);
+      const action = pathsActions.loadPaths();
+      const completion = pathsActions.loadPathsFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       pathsService.load.and.returnValue(response);
@@ -149,11 +126,11 @@ describe(`Paths Effects`, () => {
     it(`should return SaveSuccess, with path, on success`, () => {
       const path: Path = { id: 1, name: 'ABC' };
 
-      const action = new Save(path);
-      const load = new Load();
-      const completion = new SaveSuccess(path);
+      const action = pathsActions.savePath({ path });
+      const load = pathsActions.loadPaths();
+      const completion = pathsActions.savePathSuccess({ path });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-b|', { b: path });
       const expected = cold('--(cd)', { c: load, d: completion });
       pathsService.save.and.returnValue(response);
@@ -164,10 +141,10 @@ describe(`Paths Effects`, () => {
     it(`should return SaveFail, with error, on failure`, () => {
       const path: Path = { id: 1, name: 'ABC' };
       const error = 'Error';
-      const action = new Save(path);
-      const completion = new SaveFail(error);
+      const action = pathsActions.savePath({ path });
+      const completion = pathsActions.savePathFail({ error });
 
-      actions$.stream = hot('-a', { a: action });
+      actions$ = hot('-a', { a: action });
       const response = cold('-#|', {}, error);
       const expected = cold('--b', { b: completion });
       pathsService.save.and.returnValue(response);

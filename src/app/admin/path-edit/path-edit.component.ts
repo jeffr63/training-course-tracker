@@ -30,7 +30,7 @@ export class PathEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params.id !== 'new') {
-        this.store.dispatch(new pathsActions.Get(params.id));
+        this.store.dispatch(pathsActions.getPath({ id: params.id }));
         this.store.pipe(select(fromRoot.getCurrentPath), takeWhile(() => this.componentActive))
           .subscribe((path: Path) => this.path = path);
       }
@@ -42,7 +42,7 @@ export class PathEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.store.dispatch(new pathsActions.Save(this.path));
+    this.store.dispatch(pathsActions.savePath({ path: this.path }));
     this.location.back();
   }
 

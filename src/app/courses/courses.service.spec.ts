@@ -22,7 +22,7 @@ describe('CourseService', () => {
 
   describe('addCourse', () => {
     it('should return course passed, with a post call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.addCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -38,7 +38,7 @@ describe('CourseService', () => {
 
   describe('deleteCourse', () => {
     it('should return deleted course with a delete call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.deleteCourse(1).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -54,7 +54,7 @@ describe('CourseService', () => {
 
   describe('getCourse', () => {
     it('should return requested course with a get call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.getCourse(1).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -141,7 +141,7 @@ describe('CourseService', () => {
 
   describe('saveCourse, with id', () => {
     it('should return requested course with a put call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.saveCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -157,8 +157,8 @@ describe('CourseService', () => {
 
   describe('saveCourse, without id', () => {
     it('should return requested course with a post call to the correct URL', () => {
-      const course = { id: null, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
-      const returns = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: null, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+      const returns = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.saveCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -174,7 +174,7 @@ describe('CourseService', () => {
 
   describe('deleteCourse', () => {
     it('should return requested course with a get call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.deleteCourse(1).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -190,7 +190,7 @@ describe('CourseService', () => {
 
   describe('updateCourse', () => {
     it('should return updated course with a put call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
 
       service.updateCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);

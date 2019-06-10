@@ -1,181 +1,191 @@
-import * as fromActions from './course.actions';
+import * as courseActions from './course.actions';
 
 describe('Courses Actions', () => {
 
-  describe('Delete', () => {
+  describe('DeleteCourse', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, current: 1, pageSize: 3 };
-      const action = new fromActions.Delete(payload);
+      const id = 1
+      const current = 1
+      const pageSize = 3
+      const action = courseActions.deleteCourse({ id, current, pageSize });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.DELETE,
-        payload
+        type: '[Courses] Delete Course',
+        id,
+        current,
+        pageSize
       });
     });
   });
 
-  describe('DeleteFail', () => {
+  describe('DeleteCourseFail', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.DeleteFail(payload);
+      const error = 'Error';
+      const action = courseActions.deleteCourseFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.DELETE_FAIL,
-        payload
+        type: '[Courses] Delete Course Fail',
+        error
       });
     });
   });
 
-  describe('DeleteSuccess', () => {
+  describe('DeleteCourseSuccess', () => {
     it(`should create an action`, () => {
-      const action = new fromActions.DeleteSuccess();
+      const action = courseActions.deleteCourseSuccess();
 
-      expect(action.type).toEqual(fromActions.CourseActionTypes.DELETE_SUCCESS);
+      expect({ ...action }).toEqual({
+        type: '[Courses] Delete Course Success'
+      });
     });
   });
 
   describe('GetCourse', () => {
     it(`should create an action`, () => {
-      const payload = 1;
-      const action = new fromActions.GetCourse(payload);
+      const id = 1;
+      const action = courseActions.getCourse({ id });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.COURSE,
-        payload
+        type: '[Courses] Get Course',
+        id
       });
     });
   });
 
   describe('GetCourseFail', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.GetCourseFail(payload);
+      const error = 'Error';
+      const action = courseActions.getCourseFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.COURSE_FAIL,
-        payload
+        type: '[Courses] Get Course Fail',
+        error
       });
     });
   });
 
   describe('GetCourseSuccess', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
-      const action = new fromActions.GetCourseSuccess(payload);
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+      const action = courseActions.getCourseSuccess({ course });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.COURSE_SUCCESS,
-        payload
+        type: '[Courses] Get Course Success',
+        course
       });
     });
   });
 
-  describe('GetTotal', () => {
+  describe('GetTotalCourses', () => {
     it(`should create an action`, () => {
-      const action = new fromActions.GetTotal();
-
-      expect(action.type).toEqual(fromActions.CourseActionTypes.TOTAL);
-    });
-  });
-
-  describe('GetTotalFail', () => {
-    it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.GetTotalFail(payload);
+      const action = courseActions.getTotalCourses();
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.TOTAL_FAIL,
-        payload
+        type: '[Courses] Get Total Courses'
       });
     });
   });
 
-  describe('GetTotalSuccess', () => {
+  describe('GetTotalCoursesFail', () => {
     it(`should create an action`, () => {
-      const payload = [
+      const error = 'Error';
+      const action = courseActions.getTotalCoursesFail({ error });
+
+      expect({ ...action }).toEqual({
+        type: '[Courses] Get Total Courses Fail',
+        error
+      });
+    });
+  });
+
+  describe('GetTotalCoursesSuccess', () => {
+    it(`should create an action`, () => {
+      const courses = [
         { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
         { id: 2, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' }
       ];
-      const action = new fromActions.GetTotalSuccess(payload);
+      const action = courseActions.getTotalCoursesSuccess({ courses });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.TOTAL_SUCCESS,
-        payload
+        type: '[Courses] Get Total Courses Success',
+        courses
       });
     });
   });
 
-  describe('Load', () => {
+  describe('LoadCourse', () => {
     it(`should create an action`, () => {
-      const payload = { current: 1, pageSize: 3 };
-      const action = new fromActions.Load(payload);
+      const current = 1
+      const pageSize = 3
+      const action = courseActions.loadCourses({ current, pageSize });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.LOAD,
-        payload
+        type: '[Courses] Load Courses',
+        current,
+        pageSize
       });
     });
   });
 
-  describe('LoadFail', () => {
+  describe('LoadCoursesFail', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.LoadFail(payload);
+      const error = 'Error';
+      const action = courseActions.loadCoursesFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.LOAD_FAIL,
-        payload
+        type: '[Courses] Load Courses Fail',
+        error
       });
     });
   });
 
-  describe('LoadSuccess', () => {
+  describe('LoadCoursesSuccess', () => {
     it(`should create an action`, () => {
-      const payload = [
+      const courses = [
         { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
         { id: 2, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' }
       ];
-      const action = new fromActions.LoadSuccess(payload);
+      const action = courseActions.loadCoursesSuccess({ courses });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.LOAD_SUCCESS,
-        payload
+        type: '[Courses] Load Courses Success',
+        courses
       });
     });
   });
 
-  describe('Save', () => {
+  describe('SaveCourse', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
-      const action = new fromActions.Save(payload);
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const action = courseActions.saveCourse({ course });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.SAVE,
-        payload
+        type: '[Courses] Save Course',
+        course
       });
     });
   });
 
-  describe('SaveFail', () => {
+  describe('SaveCourseFail', () => {
     it(`should create an action`, () => {
-      const payload = 'Error';
-      const action = new fromActions.SaveFail(payload);
+      const error = 'Error';
+      const action = courseActions.saveCourseFail({ error });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.SAVE_FAIL,
-        payload
+        type: '[Courses] Save Course Fail',
+        error
       });
     });
   });
 
-  describe('SaveSuccess', () => {
+  describe('SaveCourseSuccess', () => {
     it(`should create an action`, () => {
-      const payload = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
-      const action = new fromActions.SaveSuccess(payload);
+      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
+      const action = courseActions.saveCourseSuccess({ course });
 
       expect({ ...action }).toEqual({
-        type: fromActions.CourseActionTypes.SAVE_SUCCESS,
-        payload
+        type: '[Courses] Save Course Success',
+        course
       });
     });
   });

@@ -1,66 +1,52 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
+import * as sourceActions from '../actions/sources.actions'
 import { Source } from '../../shared/sources';
-
-import {
-  SourcesActionTypes,
-  Get, GetFail, GetSuccess,
-  Delete, DeleteFail, DeleteSuccess,
-  Load, LoadFail, LoadSuccess,
-  Save, SaveFail, SaveSuccess
-} from '../actions/sources.actions';
 import { SourcesService } from '../../services/sources.service';
 
 @Injectable()
 export class SourcesEffects {
 
-  @Effect()
-  deleteSource$: Observable<Action> = this.actions$.pipe(
-    ofType<Delete>(SourcesActionTypes.DELETE),
-    map((action: Delete) => action.payload),
-    switchMap((id) => this.sourcesService.delete(id).pipe(
-      map((source: Source) => (new DeleteSuccess(id))),
-      catchError(err => of(new DeleteFail(err)))
+  deleteSource$ = createEffect(() => this.actions$.pipe(
+    ofType(sourceActions.deleteSource),
+    switchMap(({ id }) => this.sourcesService.delete(id).pipe(
+      map(() => (sourceActions.deleteSourceSuccess({ id }))),
+      catchError(err => of(sourceActions.deleteSourceFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  getSource$: Observable<Action> = this.actions$.pipe(
-    ofType<Get>(SourcesActionTypes.GET),
-    map((action: Get) => action.payload),
-    concatMap((id) => this.sourcesService.get(id).pipe(
-      map((source: Source) => (new GetSuccess(source))),
-      catchError(err => of(new GetFail(err)))
+  getSource$ = createEffect(() => this.actions$.pipe(
+    ofType(sourceActions.getSource),
+    concatMap(({ id }) => this.sourcesService.get(id).pipe(
+      map((source: Source) => (sourceActions.getSourceSuccess({ source }))),
+      catchError(err => of(sourceActions.getSourceFail({ error: err })))
     ))
-  );
+  ));
 
 
-  @Effect()
-  loadSources$: Observable<Action> = this.actions$.pipe(
-    ofType<Load>(SourcesActionTypes.LOAD),
+  loadSources$ = createEffect(() => this.actions$.pipe(
+    ofType(sourceActions.loadSources),
     switchMap(() => this.sourcesService.load().pipe(
-      map((sources: any[]) => (new LoadSuccess(sources))),
-      catchError(err => of(new LoadFail(err)))
+      map((sources: Source[]) => (sourceActions.loadSourcesSuccess({ sources }))),
+      catchError(err => of(sourceActions.loadSourcesFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  saveSource$: Observable<Action> = this.actions$.pipe(
-    ofType<Save>(SourcesActionTypes.SAVE),
-    map((action: Save) => action.payload),
-    concatMap((source: Source) => this.sourcesService.save(source).pipe(
+  saveSource$ = createEffect(() => this.actions$.pipe(
+    ofType(sourceActions.saveSource),
+    concatMap(({ source }) => this.sourcesService.save(source).pipe(
       concatMap(_res => [
-        new Load(),
-        new SaveSuccess(source)
+        sourceActions.loadSources(),
+        sourceActions.saveSourceSuccess({ source })
       ]),
-      catchError(err => of(new SaveFail(err)))
+      catchError(err => of(sourceActions.saveSourceFail({ error: err })))
     ))
-  );
+  ));
 
   constructor(
     private actions$: Actions,

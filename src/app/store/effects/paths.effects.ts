@@ -1,63 +1,48 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
+import * as pathActions from '../actions/paths.actions';
 import { Path } from '../../shared/paths';
-
-import {
-  PathsActionTypes,
-  Delete, DeleteFail, DeleteSuccess,
-  Get, GetFail, GetSuccess,
-  Load, LoadFail, LoadSuccess,
-  Save, SaveFail, SaveSuccess,
-} from '../actions/paths.actions';
 import { PathsService } from '../../services/paths.service';
 
 @Injectable()
 export class PathsEffects {
 
-  @Effect()
-  deletePath$: Observable<Action> = this.actions$.pipe(
-    ofType<Delete>(PathsActionTypes.DELETE),
-    map((action: Delete) => action.payload),
-    switchMap((id) => this.pathsService.delete(id).pipe(
-      map(() => (new DeleteSuccess(id))),
-      catchError(err => of(new DeleteFail(err)))
+  deletePath$ = createEffect(() => this.actions$.pipe(
+    ofType(pathActions.deletePath),
+    switchMap(({ id }) => this.pathsService.delete(id).pipe(
+      map(() => (pathActions.deletePathSuccess({ id }))),
+      catchError(err => of(pathActions.deletePathFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  getPath$: Observable<Action> = this.actions$.pipe(
-    ofType<Get>(PathsActionTypes.GET),
-    map((action: Get) => action.payload),
-    concatMap((id) => this.pathsService.get(id).pipe(
-      map((path: Path) => (new GetSuccess(path))),
-      catchError(err => of(new GetFail(err)))
+  getPath$ = createEffect(() => this.actions$.pipe(
+    ofType(pathActions.getPath),
+    concatMap(({ id }) => this.pathsService.get(id).pipe(
+      map((path: Path) => (pathActions.getPathSuccess({ path: path }))),
+      catchError(err => of(pathActions.getPathFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  loadPaths$: Observable<Action> = this.actions$.pipe(
-    ofType<Load>(PathsActionTypes.LOAD),
+  loadPaths$ = createEffect(() => this.actions$.pipe(
+    ofType(pathActions.loadPaths),
     switchMap(() => this.pathsService.load().pipe(
-      map((paths: any[]) => (new LoadSuccess(paths))),
-      catchError(err => of(new LoadFail(err)))
+      map((paths: any[]) => (pathActions.loadPathsSuccess({ paths: paths }))),
+      catchError(err => of(pathActions.loadPathsFail({ error: err })))
     ))
-  );
+  ));
 
-  @Effect()
-  savePath$: Observable<Action> = this.actions$.pipe(
-    ofType<Save>(PathsActionTypes.SAVE),
-    map((action: Save) => action.payload),
-    concatMap((path: Path) => this.pathsService.save(path).pipe(
-      concatMap(_res => [
-        new Load(),
-        new SaveSuccess(path)
+  savePath$ = createEffect(() => this.actions$.pipe(
+    ofType(pathActions.savePath),
+    concatMap(({ path }) => this.pathsService.save(path).pipe(
+      concatMap((path: Path) => [
+        pathActions.loadPaths(),
+        pathActions.savePathSuccess({ 'path': path })
       ]),
-      catchError(err => of(new SaveFail(err)))
+      catchError(err => of(pathActions.savePathFail({ error: err }))))
     ))
   );
 

@@ -6,9 +6,9 @@ import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
 import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import { Source } from '../../shared/sources';
 import * as fromRoot from '../../store/reducers';
 import * as sourcesActions from '../../store/actions/sources.actions';
+import { Source } from '../../shared/sources';
 
 @Component({
   selector: 'app-source-edit',
@@ -30,7 +30,7 @@ export class SourceEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params.id !== 'new') {
-        this.store.dispatch(new sourcesActions.Get(params.id));
+        this.store.dispatch(sourcesActions.getSource({ id: params.id }));
         this.store.pipe(select(fromRoot.getCurrentSource), takeWhile(() => this.componentActive))
           .subscribe((source: Source) => this.source = source);
       }
@@ -42,7 +42,7 @@ export class SourceEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.store.dispatch(new sourcesActions.Save(this.source));
+    this.store.dispatch(sourcesActions.saveSource({ source: this.source }));
     this.location.back();
   }
 

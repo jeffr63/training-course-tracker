@@ -1,4 +1,6 @@
-import * as fromPaths from '../actions/paths.actions';
+import { createReducer, on } from '@ngrx/store';
+
+import * as pathsActions from '../actions/paths.actions';
 import { Path } from '../../shared/paths';
 
 export interface State {
@@ -13,71 +15,50 @@ export const initialState: State = {
   error: ''
 };
 
-export function reducer(state = initialState, action: fromPaths.PathsActions): State {
-  switch (action.type) {
-    case fromPaths.PathsActionTypes.DELETE_FAIL:
-      return {
-        ...state,
-        currentPath: null,
-        error: action.payload
-      };
-
-    case fromPaths.PathsActionTypes.DELETE_SUCCESS:
-      return {
-        ...state,
-        currentPath: null,
-        error: '',
-        paths: state.paths.filter(path => path.id !== action.payload)
-      };
-
-    case fromPaths.PathsActionTypes.GET_FAIL:
-      return {
-        ...state,
-        currentPath: null,
-        error: action.payload
-      };
-
-    case fromPaths.PathsActionTypes.GET_SUCCESS:
-      return {
-        ...state,
-        currentPath: action.payload,
-        error: ''
-      };
-
-    case fromPaths.PathsActionTypes.LOAD_FAIL:
-      return {
-        ...state,
-        paths: [],
-        error: action.payload
-      };
-
-    case fromPaths.PathsActionTypes.LOAD_SUCCESS:
-      return {
-        ...state,
-        paths: action.payload,
-        error: ''
-      };
-
-    case fromPaths.PathsActionTypes.SAVE_FAIL:
-      return {
-        ...state,
-        error: action.payload
-      };
-
-    case fromPaths.PathsActionTypes.SAVE_SUCCESS:
-      const updatedPaths = state.paths.map(
-        item => action.payload.id === item.id ? action.payload : item);
-      return {
-        ...state,
-        paths: updatedPaths,
-        currentPath: null,
-        error: ''
-      };
-
-    default:
-      return state;
-  }
-}
+export const reducer = createReducer(
+  initialState,
+  on(pathsActions.deletePathFail, (state, { error }) => ({
+    ...state,
+    currentPath: null,
+    error: error
+  })),
+  on(pathsActions.deletePathSuccess, (state, { id }) => ({
+    ...state,
+    currentPath: null,
+    error: '',
+    paths: state.paths.filter(path => path.id !== id)
+  })),
+  on(pathsActions.getPathFail, (state, { error }) => ({
+    ...state,
+    currentPath: null,
+    error: error
+  })),
+  on(pathsActions.getPathSuccess, (state, { path }) => ({
+    ...state,
+    currentPath: path,
+    error: ''
+  })),
+  on(pathsActions.loadPathsFail, (state, { error }) => ({
+    ...state,
+    paths: [],
+    error: error
+  })),
+  on(pathsActions.loadPathsSuccess, (state, { paths }) => ({
+    ...state,
+    paths: paths,
+    error: ''
+  })),
+  on(pathsActions.savePathFail, (state, { error }) => ({
+    ...state,
+    error: error
+  })),
+  on(pathsActions.savePathSuccess, (state, { path }) => ({
+    ...state,
+    paths: state.paths.map(item => path.id === item.id ? path : item),
+    currentPath: null,
+    error: ''
+  }))
+);
 
 export const getPaths = (state: State) => state.paths;
 export const getError = (state: State) => state.error;
