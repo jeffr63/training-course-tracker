@@ -6,9 +6,9 @@ import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { empty } from 'rxjs';
 
-import { Course } from '../../course';
+import { Course } from '../../shared/course';
 import { CourseEffects } from './course.effects';
-import { CoursesService } from '../../courses.service';
+import { CoursesService } from '../../courses/courses.service';
 import {
   Delete, DeleteFail, DeleteSuccess,
   GetCourse, GetCourseFail, GetCourseSuccess,
@@ -90,7 +90,7 @@ describe(`Course Effects`, () => {
 
   describe(`getCourse$ effect`, () => {
     it(`should return GetCourseSuccess, with course, on success`, () => {
-      const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' };
 
       const action = new GetCourse(1);
       const completion = new GetCourseSuccess(course);
@@ -151,7 +151,7 @@ describe(`Course Effects`, () => {
 
   describe(`saveCourse$ effect`, () => {
     it(`should return SaveSuccess, with course, on success`, () => {
-      const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' };
 
       const action = new Save(course);
       const recount = new GetTotal();
@@ -166,7 +166,7 @@ describe(`Course Effects`, () => {
     });
 
     it(`should return SaveFail, with error, on failure`, () => {
-      const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const course: Course = { id: 1, title: 'ABC', instructor: 'Joe', path: 'A', source: 'B' };
       const error = 'Error';
       const action = new Save(course);
       const completion = new SaveFail(error);

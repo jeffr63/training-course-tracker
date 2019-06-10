@@ -1,26 +1,59 @@
-import { Path } from './../../services/paths';
 import * as fromMain from './index';
+import * as fromCourses from './course.reducer';
 import * as fromPaths from './paths.reducer';
 import * as fromSources from './sources.reducer';
-import { Source } from './../../services/sources';
+import { Course, CourseData } from '../../shared/course';
+import { Path } from '../../shared/paths';
+import { Source } from '../../shared/sources';
 
 describe(`Main Reducer Selectors`, () => {
-  describe(`getPaths selector`, () => {
-    it('should return paths', () => {
-      const paths: Path[] = [
-        { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
-      ];
+  describe(`getCourse selector`, () => {
+    it('should return currentCourse', () => {
+      const currentCourse = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
       const previousState = {
-        paths: {
-          ...fromPaths.initialState,
-          paths
+        courses: {
+          ...fromCourses.initialState,
+          currentCourse
         }
       };
 
-      const payload = fromMain.getPaths(previousState);
+      const payload = fromMain.getCourse(previousState);
 
-      expect(payload).toEqual(paths);
+      expect(payload).toEqual(currentCourse);
+    });
+  });
+
+  describe(`saveCourse selector`, () => {
+    it('should return currentCourse', () => {
+      const currentCourse = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B', yearCompleted: '2019' };
+      const previousState = {
+        courses: {
+          ...fromCourses.initialState,
+          currentCourse
+        }
+      };
+
+      const payload = fromMain.saveCourse(previousState);
+
+      expect(payload).toEqual(currentCourse);
+    });
+  });
+
+  describe(`getTotalCourses selector`, () => {
+    it('should return totalCourses', () => {
+      const totalCourses = 10;
+      const previousState = {
+        courses: {
+          courses: {
+            ...fromCourses.initialState,
+            totalCourses
+          }
+        }
+      };
+
+      const payload = fromMain.getTotalCourses(previousState);
+
+      expect(payload).toEqual(totalCourses);
     });
   });
 
@@ -37,6 +70,63 @@ describe(`Main Reducer Selectors`, () => {
       const payload = fromMain.getCurrentPath(previousState);
 
       expect(payload).toEqual(currentPath);
+    });
+  });
+
+  describe(`getCoursesByPath selector`, () => {
+    it('should return array of course data', () => {
+      const byPath: CourseData[] = [
+        { name: 'ABC', value: 1 },
+        { name: 'DEF', value: 2 }
+      ];
+      const previousState = {
+        paths: {
+          ...fromPaths.initialState,
+          coursesByPath: byPath
+        }
+      };
+
+      const payload = fromMain.getCoursesByPath(previousState);
+
+      expect(payload).toEqual(byPath);
+    });
+  });
+
+  describe(`getCoursesBySource selector`, () => {
+    it('should return array of course data', () => {
+      const bySource: CourseData[] = [
+        { name: 'ABC', value: 1 },
+        { name: 'DEF', value: 2 }
+      ];
+      const previousState = {
+        paths: {
+          ...fromPaths.initialState,
+          coursesBySource: bySource
+        }
+      };
+
+      const payload = fromMain.getCoursesBySource(previousState);
+
+      expect(payload).toEqual(bySource);
+    });
+  });
+
+  describe(`getPaths selector`, () => {
+    it('should return paths', () => {
+      const paths: Path[] = [
+        { id: 1, name: 'ABC' },
+        { id: 2, name: 'DEF' }
+      ];
+      const previousState = {
+        paths: {
+          ...fromPaths.initialState,
+          paths
+        }
+      };
+
+      const payload = fromMain.getPaths(previousState);
+
+      expect(payload).toEqual(paths);
     });
   });
 

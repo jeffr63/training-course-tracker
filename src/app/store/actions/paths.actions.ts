@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Path } from './../../services/paths';
+import { Path } from '../../shared/paths';
 
 export enum PathsActionTypes {
   DELETE = '[Paths] Delete Path',

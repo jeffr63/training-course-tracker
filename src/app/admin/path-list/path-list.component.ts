@@ -5,9 +5,9 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import { Path } from '../../services/paths';
 import * as fromRoot from '../../store/reducers';
 import * as pathsActions from '../../store/actions/paths.actions';
+import { Path } from '../../shared/paths';
 
 @Component({
   selector: 'app-path-list',

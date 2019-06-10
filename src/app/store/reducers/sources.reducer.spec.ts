@@ -1,6 +1,6 @@
 import { reducer, initialState, getSources, getCurrentSource, getError } from './sources.reducer';
 import * as fromActions from '../actions/sources.actions';
-import { Source } from '../../services/sources';
+import { Source } from '../../shared/sources';
 
 describe('Sources Reducer', () => {
   describe('an unknown action', () => {

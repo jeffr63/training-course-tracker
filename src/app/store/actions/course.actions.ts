@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { Course } from '../../course';
+import { Course, CourseData } from '../../shared/course';
 
 export enum CourseActionTypes {
   COURSE = '[Courses] Get Course',

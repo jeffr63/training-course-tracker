@@ -5,14 +5,14 @@ import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
-import { faSave, faBan, faAddressBook } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import { Course } from '../course';
+import * as courseActions from '../../store/actions/course.actions';
 import * as fromRoot from '../../store/reducers';
-import * as fromCourse from '../store/reducer';
-import * as courseActions from '../store/actions/course.actions';
+import * as fromCourse from '../../store/reducers';
 import * as fromPaths from '../../store/actions/paths.actions';
 import * as fromSources from '../../store/actions/sources.actions';
+import { Course } from '../../shared/course';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private store: Store<fromCourse.State>
+    private store: Store<fromRoot.State>
   ) { }
 
   ngOnInit() {

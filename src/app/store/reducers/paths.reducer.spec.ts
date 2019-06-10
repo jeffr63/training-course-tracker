@@ -1,6 +1,6 @@
 import { reducer, initialState, getPaths, getError, getCurrentPath } from './paths.reducer';
 import * as fromActions from '../actions/paths.actions';
-import { Path } from '../../services/paths';
+import { Path } from '../../shared/paths';
 
 describe('Paths Reducer', () => {
   describe('an unknown action', () => {

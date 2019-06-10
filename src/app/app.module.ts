@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
@@ -8,12 +9,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 // custom components
 import { AppComponent } from './app.component';
 import { AppEffects } from './store/effects/app.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { CallbackComponent } from './callback.component';
+import { CourseEffects } from './store/effects/course.effects';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { environment } from '../environments/environment.prod';
 import { MenuComponent } from './menu/menu.component';
@@ -30,12 +33,14 @@ import { SourcesEffects } from './store/effects/sources.effects';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    NgxChartsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 5, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects, PathsEffects, SourcesEffects]),
+    EffectsModule.forRoot([AppEffects, CourseEffects, PathsEffects, SourcesEffects]),
     AppRoutingModule,
   ],
   providers: [],

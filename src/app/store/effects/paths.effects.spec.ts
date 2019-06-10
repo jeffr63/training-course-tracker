@@ -6,7 +6,7 @@ import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { empty } from 'rxjs';
 
-import { Path } from '../../services/paths';
+import { Path } from '../../shared/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
 import {

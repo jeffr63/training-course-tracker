@@ -1,6 +1,6 @@
 import { reducer, initialState, getCourses, getError, getTotalCourses, getCurrentCourse } from './course.reducer';
 import * as fromActions from '../actions/course.actions';
-import { Course } from '../../course';
+import { Course } from '../../shared/course';
 
 describe('Courses Reducer', () => {
   it('should return state when passed an undefined action', () => {

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { CoursesService } from './courses.service';
-import { Course } from './course';
+import { Course } from '../shared/course';
 
 const baseUrl = 'http://localhost:3000';
 
@@ -71,9 +71,9 @@ describe('CourseService', () => {
   describe('getCourses', () => {
     it('should return courses with a get call to the correct URL', () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B', yearCompleted: '2019' },
+        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' },
+        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B' },
+        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B' },
       ];
 
       service.getCourses().subscribe((data: Course[]) => {
@@ -94,9 +94,9 @@ describe('CourseService', () => {
   describe('getCoursesSorted', () => {
     it('should return courses, sorted ascending by title with a get call to the correct URL', () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' },
+        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' },
+        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B' },
+        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B' },
       ];
 
       service.getCoursesSorted().subscribe((data: Course[]) => {
@@ -117,9 +117,9 @@ describe('CourseService', () => {
   describe('getCoursesPaged', () => {
     it('should return courses for the requested page and page size, sorted ascending by title with a get call to the correct URL', () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' },
+        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' },
+        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B' },
+        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B' },
       ];
       const current = 1;
       const pageSize = 3;

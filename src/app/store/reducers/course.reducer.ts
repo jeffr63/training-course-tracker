@@ -1,10 +1,14 @@
+import * as _ from 'lodash';
+
 import * as fromCourses from '../actions/course.actions';
-import { Course } from '../../course';
+import { Course, CourseData } from '../../shared/course';
 
 export interface State {
   courses: Course[];
   currentCourse: Course;
   totalCourses: number;
+  coursesByPath: CourseData[];
+  coursesBySource: CourseData[];
   error: string;
 }
 
@@ -12,6 +16,8 @@ export const initialState: State = {
   courses: [],
   currentCourse: null,
   totalCourses: 0,
+  coursesByPath: [],
+  coursesBySource: [],
   error: '',
 };
 
@@ -74,6 +80,7 @@ export function reducer(state = initialState, action: fromCourses.CourseActions)
       };
 
     case fromCourses.CourseActionTypes.TOTAL_FAIL:
+        console.log('TotalFail');
       return {
         ...state,
         totalCourses: 0,
@@ -81,9 +88,40 @@ export function reducer(state = initialState, action: fromCourses.CourseActions)
       };
 
     case fromCourses.CourseActionTypes.TOTAL_SUCCESS:
+      console.log('TotalSuccess');
+      let byPath = _.chain(action.payload)
+        .groupBy('path')
+        .map((values, key) => {
+          return {
+            'name': key,
+            'value': _.reduce(values, function (value, number) {
+              return value + 1
+            }, 0)
+          }
+        })
+        .value();
+      byPath = _.orderBy(byPath, 'value', 'desc');
+      console.log('reducer path: ', byPath);
+
+      let bySource = _.chain(action.payload)
+        .groupBy('source')
+        .map((values, key) => {
+          return {
+            'name': key,
+            'value': _.reduce(values, function (value, number) {
+              return value + 1
+            }, 0)
+          }
+        })
+        .value();
+      bySource = _.orderBy(bySource, 'value', 'desc');
+      console.log('reducer source: ', bySource);
+
       return {
         ...state,
         totalCourses: action.payload.length,
+        coursesByPath: byPath,
+        coursesBySource: bySource,
         error: ''
       };
   }

@@ -1,5 +1,5 @@
 import * as fromPaths from '../actions/paths.actions';
-import { Path } from './../../services/paths';
+import { Path } from '../../shared/paths';
 
 export interface State {
   paths: Path[];

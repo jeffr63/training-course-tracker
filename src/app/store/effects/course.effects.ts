@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, concatMap } from 'rxjs/operators';
-import * as _ from 'lodash';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import {
   CourseActionTypes,
@@ -13,8 +12,8 @@ import {
   Load, LoadFail, LoadSuccess,
   Save, SaveFail, SaveSuccess,
 } from '../actions/course.actions';
-import { Course } from '../../course';
-import { CoursesService } from '../../courses.service';
+import { Course } from '../../shared/course';
+import { CoursesService } from '../../courses/courses.service';
 
 @Injectable()
 export class CourseEffects {

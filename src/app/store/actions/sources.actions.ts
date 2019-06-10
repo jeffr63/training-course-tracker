@@ -1,4 +1,4 @@
-import { Source } from './../../services/sources';
+import { Source } from '../../shared/sources';
 import { Action } from '@ngrx/store';
 
 export enum SourcesActionTypes {

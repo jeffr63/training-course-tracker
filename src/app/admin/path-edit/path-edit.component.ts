@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
 import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import { Path } from '../../services/paths';
+import { Path } from '../../shared/paths';
 import * as fromRoot from '../../store/reducers';
 import * as pathsActions from '../../store/actions/paths.actions';
 

@@ -1,4 +1,4 @@
-import { Source } from './../../services/sources';
+import { Source } from '../../shared/sources';
 
 export interface State {
   sources: Source[];

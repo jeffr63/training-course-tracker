@@ -6,7 +6,7 @@ import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { empty } from 'rxjs';
 
-import { Source } from '../../services/sources';
+import { Source } from '../../shared/sources';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '../../services/sources.service';
 import {

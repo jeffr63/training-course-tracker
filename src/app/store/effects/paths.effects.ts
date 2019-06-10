@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import { Path } from './../../services/paths';
+import { Path } from '../../shared/paths';
 
 import {
   PathsActionTypes,
