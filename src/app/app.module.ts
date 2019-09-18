@@ -25,25 +25,20 @@ import { reducers, metaReducers } from './store/reducers';
 import { SourcesEffects } from './store/effects/sources.effects';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    MenuComponent,
-    CallbackComponent,
-  ],
+  declarations: [AppComponent, DashboardComponent, MenuComponent, CallbackComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgxChartsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 5, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects, CourseEffects, PathsEffects, SourcesEffects]),
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
