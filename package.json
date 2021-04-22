@@ -31,10 +31,10 @@
     "@ngrx/router-store": "^11.1.1",
     "@ngrx/store": "^11.1.1",
     "@ngrx/store-devtools": "^11.1.1",
-    "@swimlane/ngx-charts": "^14.0.0",
+    "@swimlane/ngx-charts": "^17.0.1",
     "auth0-js": "^9.13.4",
     "core-js": "^2.5.4",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
