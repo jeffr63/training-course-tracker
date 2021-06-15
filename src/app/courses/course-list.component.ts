@@ -29,10 +29,10 @@ import { AuthService } from "src/app/auth/auth.service";
             <div class="col">
               <ngb-pagination
                 [collectionSize]="totalCourses$ | async"
-                boundaryLinks="true"
+                [boundaryLinks]="true"
                 [pageSize]="pageSize"
-                maxSize="5"
-                rotate="true"
+                [maxSize]="5"
+                [rotate]="true"
                 [(page)]="current"
                 (pageChange)="refreshTable()"
               ></ngb-pagination>
