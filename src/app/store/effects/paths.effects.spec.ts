@@ -19,7 +19,7 @@ class MockPathsService {
 describe(`Paths Effects`, () => {
   let actions$: Observable<any>;
   let effects: PathsEffects;
-  let pathsService: MockPathsService;
+  let pathsService; //: MockPathsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,8 +30,8 @@ describe(`Paths Effects`, () => {
       ]
     });
 
-    effects = TestBed.get(PathsEffects);
-    pathsService = TestBed.get(PathsService);
+    effects = TestBed.inject(PathsEffects);
+    pathsService = TestBed.inject(PathsService);
   });
 
   describe(`deletePath$ effect`, () => {

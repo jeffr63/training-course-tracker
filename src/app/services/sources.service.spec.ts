@@ -8,7 +8,7 @@ const baseUrl = 'http://localhost:3000';
 
 describe('SourcesService', () => {
   let httpTestingController: HttpTestingController;
-  let service: SourcesService;
+  let service; //: SourcesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,8 +16,8 @@ describe('SourcesService', () => {
       providers: [SourcesService]
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
-    service = TestBed.get(SourcesService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(SourcesService);
   });
 
 

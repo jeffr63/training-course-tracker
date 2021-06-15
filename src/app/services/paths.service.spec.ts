@@ -8,7 +8,7 @@ const baseUrl = 'http://localhost:3000';
 
 describe('PathsService', () => {
   let httpTestingController: HttpTestingController;
-  let service: PathsService;
+  let service; //: PathsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,8 +16,8 @@ describe('PathsService', () => {
       providers: [PathsService]
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
-    service = TestBed.get(PathsService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(PathsService);
   });
 
   describe('add', () => {

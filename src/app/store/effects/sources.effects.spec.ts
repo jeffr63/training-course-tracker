@@ -34,7 +34,7 @@ jasmine.getEnv().afterEach(() => {
 describe(`Sources Effects`, () => {
   let actions$: Observable<any>;
   let effects: SourcesEffects;
-  let sourcesService: MockCoursesService;
+  let sourcesService; //: MockCoursesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,8 +45,8 @@ describe(`Sources Effects`, () => {
       ]
     });
 
-    effects = TestBed.get(SourcesEffects);
-    sourcesService = TestBed.get(SourcesService);
+    effects = TestBed.inject(SourcesEffects);
+    sourcesService = TestBed.inject(SourcesService);
   });
 
   describe(`deleteSource$ effect`, () => {

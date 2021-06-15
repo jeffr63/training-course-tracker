@@ -21,7 +21,7 @@ class MockCoursesService {
 describe(`Course Effects`, () => {
   let actions$: Observable<any>
   let effects: CourseEffects;
-  let coursesService: MockCoursesService;
+  let coursesService; //: MockCoursesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,8 +32,8 @@ describe(`Course Effects`, () => {
       ]
     });
 
-    effects = TestBed.get(CourseEffects);
-    coursesService = TestBed.get(CoursesService);
+    effects = TestBed.inject(CourseEffects);
+    coursesService = TestBed.inject(CoursesService);
   });
 
   describe(`deleteCourse$ effect`, () => {
