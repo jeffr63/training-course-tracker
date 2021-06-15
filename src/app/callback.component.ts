@@ -9,10 +9,8 @@ import { Component, OnInit } from '@angular/core';
   `,
   styleUrls: ['./callback.component.scss']
 })
-export class CallbackComponent implements OnInit {
+export class CallbackComponent {
 
   constructor() { }
-
-  ngOnInit() { }
 
 }

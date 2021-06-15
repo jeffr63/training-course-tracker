@@ -6,11 +6,8 @@ import { Router } from '@angular/router';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
 
   constructor(router: Router) { }
-
-  ngOnInit() {
-  }
 
 }
