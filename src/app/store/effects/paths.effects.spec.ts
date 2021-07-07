@@ -1,4 +1,3 @@
-import { Path } from './../../shared/paths';
 import { TestBed } from '@angular/core/testing';
 
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -6,6 +5,7 @@ import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
 import * as pathsActions from '../actions/paths.actions';
+import { Path } from './../../shared/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
 

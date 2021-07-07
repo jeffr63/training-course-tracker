@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { hot, cold } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
