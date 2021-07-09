@@ -1,37 +1,42 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { provideMockActions } from "@ngrx/effects/testing";
-import { hot, cold } from "jasmine-marbles";
-import { Observable } from "rxjs";
+import { provideMockActions } from '@ngrx/effects/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { Observable } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import * as sourcesActions from "../actions/sources.actions";
-import { Source } from "../../shared/sources";
-import { SourcesEffects } from "./sources.effects";
-import { SourcesService } from "../../services/sources.service";
+import * as sourcesActions from '../actions/sources.actions';
+import { Source } from '../../shared/sources';
+import { SourcesEffects } from './sources.effects';
+import { SourcesService } from '../../services/sources.service';
+import { State } from '../reducers/sources.reducer';
 
-class MockCoursesService {
-  delete = jasmine.createSpy("delete");
-  get = jasmine.createSpy("get");
-  load = jasmine.createSpy("load");
-  save = jasmine.createSpy("save");
-}
+const initialState = {
+  sources: [],
+  currentSource: null,
+  error: '',
+};
+
+const sourcesService = jasmine.createSpyObj('sourcesService', ['delete', 'get', 'load', 'save']);
 
 describe(`Sources Effects`, () => {
   let actions$: Observable<any>;
   let effects: SourcesEffects;
-  let sourcesService; //: MockCoursesService;
+  let store: MockStore<State>;
+  let testScheduler;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        SourcesEffects,
-        provideMockActions(() => actions$),
-        { provide: SourcesService, useClass: MockCoursesService },
-      ],
+      providers: [SourcesEffects, provideMockStore({ initialState }), provideMockActions(() => actions$), { provide: SourcesService, useValue: sourcesService }],
     });
 
     effects = TestBed.inject(SourcesEffects);
-    sourcesService = TestBed.inject(SourcesService);
+    store = TestBed.inject(MockStore);
+    store.setState(initialState);
+
+    testScheduler = new TestScheduler((actual, expected) => {
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe(`deleteSource$ effect`, () => {
@@ -39,117 +44,125 @@ describe(`Sources Effects`, () => {
       const action = sourcesActions.deleteSource({ id: 1 });
       const completion = sourcesActions.deleteSourceSuccess({ id: 1 });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-b|", { b: 1 });
-      const expected = cold("--c", { c: completion });
-      sourcesService.delete.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: 1 });
+        sourcesService.delete.and.returnValue(response);
 
-      expect(effects.deleteSource$).toBeObservable(expected);
+        expectObservable(effects.deleteSource$).toBe('--c', { c: completion });
+      });
     });
 
     it(`should return DeleteSourceFail, with error, on failure`, () => {
-      const error = "Error";
+      const error = 'Error';
       const action = sourcesActions.deleteSource({ id: 1 });
       const completion = sourcesActions.deleteSourceFail({ error });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-#|", {}, error);
-      const expected = cold("--b", { b: completion });
-      sourcesService.delete.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        sourcesService.delete.and.returnValue(response);
 
-      expect(effects.deleteSource$).toBeObservable(expected);
+        expectObservable(effects.deleteSource$).toBe('--b', { b: completion });
+      });
     });
   });
 
   describe(`getSource$ effect`, () => {
     it(`should return GetSourceSuccess, with source, on success`, () => {
-      const source: Source = { id: 1, name: "ABC" };
+      const source: Source = { id: 1, name: 'ABC' };
 
       const action = sourcesActions.getSource({ id: 1 });
       const completion = sourcesActions.getSourceSuccess({ source });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-b|", { b: source });
-      const expected = cold("--c", { c: completion });
-      sourcesService.get.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: source });
+        sourcesService.get.and.returnValue(response);
 
-      expect(effects.getSource$).toBeObservable(expected);
+        expectObservable(effects.getSource$).toBe('--c', { c: completion });
+      });
     });
 
     it(`should return GetSourceFail, with error, on failure`, () => {
-      const error = "Error";
+      const error = 'Error';
       const action = sourcesActions.getSource({ id: 1 });
       const completion = sourcesActions.getSourceFail({ error });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-#|", {}, error);
-      const expected = cold("--b", { b: completion });
-      sourcesService.get.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        sourcesService.get.and.returnValue(response);
 
-      expect(effects.getSource$).toBeObservable(expected);
+        expectObservable(effects.getSource$).toBe('--b', { b: completion });
+      });
     });
   });
 
   describe(`loadSource$ effect`, () => {
     it(`should return LoadSuccess, with sources, on success`, () => {
       const sources: Source[] = [
-        { id: 1, name: "ABC" },
-        { id: 2, name: "DEF" },
+        { id: 1, name: 'ABC' },
+        { id: 2, name: 'DEF' },
       ];
 
       const action = sourcesActions.loadSources();
       const completion = sourcesActions.loadSourcesSuccess({ sources });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-b|", { b: sources });
-      const expected = cold("--c", { c: completion });
-      sourcesService.load.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: sources });
+        sourcesService.load.and.returnValue(response);
 
-      expect(effects.loadSources$).toBeObservable(expected);
+        expectObservable(effects.loadSources$).toBe('--c', { c: completion });
+      });
     });
 
     it(`should return LoadFail, with error, on failure`, () => {
-      const error = "Error";
+      const error = 'Error';
       const action = sourcesActions.loadSources();
       const completion = sourcesActions.loadSourcesFail({ error });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-#|", {}, error);
-      const expected = cold("--b", { b: completion });
-      sourcesService.load.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        sourcesService.load.and.returnValue(response);
 
-      expect(effects.loadSources$).toBeObservable(expected);
+        expectObservable(effects.loadSources$).toBe('--b', { b: completion });
+      });
     });
   });
 
   describe(`saveSource$ effect`, () => {
     it(`should return SaveSuccess, with source, on success`, () => {
-      const source: Source = { id: 1, name: "ABC" };
+      const source: Source = { id: 1, name: 'ABC' };
 
       const action = sourcesActions.saveSource({ source });
       const load = sourcesActions.loadSources();
       const completion = sourcesActions.saveSourceSuccess({ source });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-b|", { b: source });
-      const expected = cold("--(cd)", { c: load, d: completion });
-      sourcesService.save.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: source });
+        sourcesService.save.and.returnValue(response);
 
-      expect(effects.saveSource$).toBeObservable(expected);
+        expectObservable(effects.saveSource$).toBe('--(cd)', { c: load, d: completion });
+      });
     });
 
     it(`should return SaveFail, with error, on failure`, () => {
-      const source: Source = { id: 1, name: "ABC" };
-      const error = "Error";
+      const source: Source = { id: 1, name: 'ABC' };
+      const error = 'Error';
       const action = sourcesActions.saveSource({ source });
       const completion = sourcesActions.saveSourceFail({ error });
 
-      actions$ = hot("-a", { a: action });
-      const response = cold("-#|", {}, error);
-      const expected = cold("--b", { b: completion });
-      sourcesService.save.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        sourcesService.save.and.returnValue(response);
 
-      expect(effects.saveSource$).toBeObservable(expected);
+        expectObservable(effects.saveSource$).toBe('--b', { b: completion });
+      });
     });
   });
 });

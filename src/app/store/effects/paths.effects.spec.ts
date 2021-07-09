@@ -1,37 +1,42 @@
 import { TestBed } from '@angular/core/testing';
 
 import { provideMockActions } from '@ngrx/effects/testing';
-import { hot, cold } from 'jasmine-marbles';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import * as pathsActions from '../actions/paths.actions';
 import { Path } from './../../shared/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
+import { State } from '../reducers/paths.reducer';
 
-class MockPathsService {
-  delete = jasmine.createSpy('delete');
-  get = jasmine.createSpy('get');
-  load = jasmine.createSpy('load');
-  save = jasmine.createSpy('save');
-}
+const initialState = {
+  paths: [],
+  currentPath: null,
+  error: '',
+};
+
+const pathsService = jasmine.createSpyObj('pathsService', ['delete', 'get', 'load', 'save']);
 
 describe(`Paths Effects`, () => {
   let actions$: Observable<any>;
   let effects: PathsEffects;
-  let pathsService; //: MockPathsService;
+  let store: MockStore<State>;
+  let testScheduler;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        PathsEffects,
-        provideMockActions(() => actions$),
-        { provide: PathsService, useClass: MockPathsService }
-      ]
+      providers: [PathsEffects, provideMockStore({ initialState }), provideMockActions(() => actions$), { provide: PathsService, useValue: pathsService }],
     });
 
     effects = TestBed.inject(PathsEffects);
-    pathsService = TestBed.inject(PathsService);
+    store = TestBed.inject(MockStore);
+    store.setState(initialState);
+
+    testScheduler = new TestScheduler((actual, expected) => {
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe(`deletePath$ effect`, () => {
@@ -39,12 +44,13 @@ describe(`Paths Effects`, () => {
       const action = pathsActions.deletePath({ id: 1 });
       const completion = pathsActions.deletePathSuccess({ id: 1 });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-b|', { b: 1 });
-      const expected = cold('--c', { c: completion });
-      pathsService.delete.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: 1 });
+        pathsService.delete.and.returnValue(response);
 
-      expect(effects.deletePath$).toBeObservable(expected);
+        expectObservable(effects.deletePath$).toBe('--c', { c: completion });
+      });
     });
 
     it(`should return DeleteFail, with error, on failure`, () => {
@@ -52,12 +58,13 @@ describe(`Paths Effects`, () => {
       const action = pathsActions.deletePath({ id: 1 });
       const completion = pathsActions.deletePathFail({ error });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-#|', {}, error);
-      const expected = cold('--b', { b: completion });
-      pathsService.delete.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        pathsService.delete.and.returnValue(response);
 
-      expect(effects.deletePath$).toBeObservable(expected);
+        expectObservable(effects.deletePath$).toBe('--b', { b: completion });
+      });
     });
   });
 
@@ -68,12 +75,13 @@ describe(`Paths Effects`, () => {
       const action = pathsActions.getPath({ id: 1 });
       const completion = pathsActions.getPathSuccess({ path });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-b|', { b: path });
-      const expected = cold('--c', { c: completion });
-      pathsService.get.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: path });
+        pathsService.get.and.returnValue(response);
 
-      expect(effects.getPath$).toBeObservable(expected);
+        expectObservable(effects.getPath$).toBe('--c', { c: completion });
+      });
     });
 
     it(`should return GetFail, with error, on failure`, () => {
@@ -81,12 +89,13 @@ describe(`Paths Effects`, () => {
       const action = pathsActions.getPath({ id: 1 });
       const completion = pathsActions.getPathFail({ error });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-#|', {}, error);
-      const expected = cold('--b', { b: completion });
-      pathsService.get.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        pathsService.get.and.returnValue(response);
 
-      expect(effects.getPath$).toBeObservable(expected);
+        expectObservable(effects.getPath$).toBe('--b', { b: completion });
+      });
     });
   });
 
@@ -94,18 +103,19 @@ describe(`Paths Effects`, () => {
     it(`should return LoadSuccess, with paths, on success`, () => {
       const paths = [
         { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
+        { id: 2, name: 'DEF' },
       ];
 
       const action = pathsActions.loadPaths();
       const completion = pathsActions.loadPathsSuccess({ paths });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-b|', { b: paths });
-      const expected = cold('--c', { c: completion });
-      pathsService.load.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: paths });
+        pathsService.load.and.returnValue(response);
 
-      expect(effects.loadPaths$).toBeObservable(expected);
+        expectObservable(effects.loadPaths$).toBe('--c', { c: completion });
+      });
     });
 
     it(`should return LoadFail, with error, on failure`, () => {
@@ -113,12 +123,13 @@ describe(`Paths Effects`, () => {
       const action = pathsActions.loadPaths();
       const completion = pathsActions.loadPathsFail({ error });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-#|', {}, error);
-      const expected = cold('--b', { b: completion });
-      pathsService.load.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        pathsService.load.and.returnValue(response);
 
-      expect(effects.loadPaths$).toBeObservable(expected);
+        expectObservable(effects.loadPaths$).toBe('--b', { b: completion });
+      });
     });
   });
 
@@ -130,12 +141,13 @@ describe(`Paths Effects`, () => {
       const load = pathsActions.loadPaths();
       const completion = pathsActions.savePathSuccess({ path });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-b|', { b: path });
-      const expected = cold('--(cd)', { c: load, d: completion });
-      pathsService.save.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-b|', { b: path });
+        pathsService.save.and.returnValue(response);
 
-      expect(effects.savePath$).toBeObservable(expected);
+        expectObservable(effects.savePath$).toBe('--(cd)', { c: load, d: completion });
+      });
     });
 
     it(`should return SaveFail, with error, on failure`, () => {
@@ -144,12 +156,13 @@ describe(`Paths Effects`, () => {
       const action = pathsActions.savePath({ path });
       const completion = pathsActions.savePathFail({ error });
 
-      actions$ = hot('-a', { a: action });
-      const response = cold('-#|', {}, error);
-      const expected = cold('--b', { b: completion });
-      pathsService.save.and.returnValue(response);
+      testScheduler.run(({ hot, cold, expectObservable }) => {
+        actions$ = hot('-a', { a: action });
+        const response = cold('-#|', {}, error);
+        pathsService.save.and.returnValue(response);
 
-      expect(effects.savePath$).toBeObservable(expected);
+        expectObservable(effects.savePath$).toBe('--b', { b: completion });
+      });
     });
   });
 });

@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Technologies included
 
-Angular, RxJs, NgRx, jasmine-marbles, lodash, auth0, ng-bootstrap, angular-fontawesome, fontawesome
+Angular, RxJs, NgRx, lodash, auth0, ng-bootstrap, angular-fontawesome, fontawesome
 
 ## JSON-SERVER
 
