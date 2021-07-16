@@ -20,7 +20,13 @@ const initialState = {
   error: '',
 };
 
-const coursesService = jasmine.createSpyObj('coursesService', ['deleteCourse', 'getCourse', 'getCourses', 'getCoursesPaged', 'saveCourse']);
+const coursesService = jasmine.createSpyObj('coursesService', [
+  'deleteCourse',
+  'getCourse',
+  'getCourses',
+  'getCoursesPaged',
+  'saveCourse',
+]);
 
 describe(`Course Effects`, () => {
   let actions$: Observable<any>;
@@ -30,7 +36,12 @@ describe(`Course Effects`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CourseEffects, provideMockStore({ initialState }), provideMockActions(() => actions$), { provide: CoursesService, useValue: coursesService }],
+      providers: [
+        CourseEffects,
+        provideMockStore({ initialState }),
+        provideMockActions(() => actions$),
+        { provide: CoursesService, useValue: coursesService },
+      ],
     });
 
     effects = TestBed.inject(CourseEffects);

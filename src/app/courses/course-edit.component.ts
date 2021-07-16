@@ -1,21 +1,21 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
-import { Store, select } from "@ngrx/store";
-import { Observable } from "rxjs";
-import { takeWhile } from "rxjs/operators";
-import { faSave, faBan } from "@fortawesome/free-solid-svg-icons";
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import * as courseActions from "../store/actions/course.actions";
-import * as fromRoot from "../store/reducers";
-import * as fromCourse from "../store/reducers";
-import * as fromPaths from "../store/actions/paths.actions";
-import * as fromSources from "../store/actions/sources.actions";
-import { Course } from "../shared/course";
+import * as courseActions from '../store/actions/course.actions';
+import * as fromRoot from '../store/reducers';
+import * as fromCourse from '../store/reducers';
+import * as fromPaths from '../store/actions/paths.actions';
+import * as fromSources from '../store/actions/sources.actions';
+import { Course } from '../shared/course';
 
 @Component({
-  selector: "app-course-edit",
+  selector: 'app-course-edit',
 
   template: `
     <section class="container">
@@ -35,9 +35,7 @@ import { Course } from "../shared/course";
           </fieldset>
 
           <fieldset class="form-group row">
-            <label class="col-form-label col-sm-2" for="instructor"
-              >Instructor</label
-            >
+            <label class="col-form-label col-sm-2" for="instructor">Instructor</label>
             <div class="col-sm-6">
               <input
                 type="text"
@@ -88,16 +86,10 @@ import { Course } from "../shared/course";
           </fieldset>
 
           <div class="form-group row form-buttons">
-            <button
-              class="btn btn-primary mr-sm-2"
-              (click)="save()"
-              title="Save"
-            >
+            <button class="btn btn-primary mr-sm-2" (click)="save()" title="Save">
               <fa-icon [icon]="faSave"></fa-icon> Save
             </button>
-            <a class="btn btn-secondary" [routerLink]="['/courses']">
-              <fa-icon [icon]="faBan"></fa-icon> Cancel
-            </a>
+            <a class="btn btn-secondary" [routerLink]="['/courses']"> <fa-icon [icon]="faBan"></fa-icon> Cancel </a>
           </div>
         </form>
       </section>
@@ -127,15 +119,11 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   faSave = faSave;
   faBan = faBan;
 
-  constructor(
-    private route: ActivatedRoute,
-    private location: Location,
-    private store: Store<fromRoot.State>
-  ) {}
+  constructor(private route: ActivatedRoute, private location: Location, private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      if (params.id !== "new") {
+      if (params.id !== 'new') {
         this.store.dispatch(courseActions.getCourse({ id: params.id }));
         this.store
           .pipe(
