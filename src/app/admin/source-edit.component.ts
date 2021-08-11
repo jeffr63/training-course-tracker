@@ -6,8 +6,8 @@ import { Store, select } from "@ngrx/store";
 import { takeWhile } from "rxjs/operators";
 import { faSave, faBan } from "@fortawesome/free-solid-svg-icons";
 
-import * as fromRoot from "../store/reducers";
-import * as sourcesActions from "../store/actions/sources.actions";
+import * as fromRoot from "../store";
+import * as sourcesActions from "../store/sources/sources.actions";
 import { Source } from "../shared/sources";
 
 @Component({

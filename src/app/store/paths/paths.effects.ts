@@ -4,7 +4,7 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as pathActions from '../actions/paths.actions';
+import * as pathActions from './paths.actions';
 import { Path } from '../../shared/paths';
 import { PathsService } from '../../services/paths.service';
 

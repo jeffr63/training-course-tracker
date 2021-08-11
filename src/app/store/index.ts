@@ -5,9 +5,9 @@ import {
   MetaReducer
 } from '@ngrx/store';
 
-import * as fromCourses from './course.reducer';
-import * as fromPaths from './paths.reducer';
-import * as fromSources from './sources.reducer';
+import * as fromCourses from './course/course.reducer';
+import * as fromPaths from './paths/paths.reducer';
+import * as fromSources from './sources/sources.reducer';
 
 // import { environment } from '../../../environments/environment.prod';
 

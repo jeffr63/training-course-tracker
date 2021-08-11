@@ -7,8 +7,8 @@ import { takeWhile } from "rxjs/operators";
 import { faSave, faBan } from "@fortawesome/free-solid-svg-icons";
 
 import { Path } from "../shared/paths";
-import * as fromRoot from "../store/reducers";
-import * as pathsActions from "../store/actions/paths.actions";
+import * as fromRoot from "../store";
+import * as pathsActions from "../store/paths/paths.actions";
 
 @Component({
   selector: "app-path-edit",

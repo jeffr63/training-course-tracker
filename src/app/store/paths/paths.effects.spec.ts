@@ -5,11 +5,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as pathsActions from '../actions/paths.actions';
-import { Path } from './../../shared/paths';
+import * as pathsActions from './paths.actions';
+import { Path } from '../../shared/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
-import { State } from '../reducers/paths.reducer';
+import { State } from './paths.reducer';
 
 const initialState = {
   paths: [],

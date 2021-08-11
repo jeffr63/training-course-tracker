@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as sourcesActions from '../actions/sources.actions';
+import * as sourcesActions from './sources.actions';
 import { Source } from '../../shared/sources';
 
 export interface State {

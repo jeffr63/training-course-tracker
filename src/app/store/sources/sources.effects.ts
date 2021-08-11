@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as sourceActions from '../actions/sources.actions'
+import * as sourceActions from './sources.actions'
 import { Source } from '../../shared/sources';
 import { SourcesService } from '../../services/sources.service';
 

@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import * as courseActions from '../store/actions/course.actions';
-import * as fromRoot from '../store/reducers';
-import * as fromCourse from '../store/reducers';
-import * as fromPaths from '../store/actions/paths.actions';
-import * as fromSources from '../store/actions/sources.actions';
+import * as courseActions from '../store/course/course.actions';
+import * as fromRoot from '../store';
+import * as fromCourse from '../store';
+import * as fromPaths from '../store/paths/paths.actions';
+import * as fromSources from '../store/sources/sources.actions';
 import { Course } from '../shared/course';
 
 @Component({

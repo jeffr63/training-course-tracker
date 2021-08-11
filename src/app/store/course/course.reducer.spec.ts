@@ -1,4 +1,4 @@
-import * as courseActions from '../actions/course.actions';
+import * as courseActions from './course.actions';
 import { reducer, initialState, getCourses, getError, getTotalCourses, getCurrentCourse } from './course.reducer';
 import { Course } from '../../shared/course';
 

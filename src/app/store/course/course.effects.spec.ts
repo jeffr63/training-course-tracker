@@ -5,11 +5,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as courseActions from '../actions/course.actions';
+import * as courseActions from './course.actions';
 import { Course } from '../../shared/course';
 import { CourseEffects } from './course.effects';
 import { CoursesService } from '../../courses/courses.service';
-import { State } from '../reducers/course.reducer';
+import { State } from './course.reducer';
 
 const initialState = {
   courses: [],

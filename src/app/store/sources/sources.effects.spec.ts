@@ -5,11 +5,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as sourcesActions from '../actions/sources.actions';
+import * as sourcesActions from './sources.actions';
 import { Source } from '../../shared/sources';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '../../services/sources.service';
-import { State } from '../reducers/sources.reducer';
+import { State } from './sources.reducer';
 
 const initialState = {
   sources: [],

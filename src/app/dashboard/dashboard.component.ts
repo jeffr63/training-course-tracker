@@ -3,8 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { Store, select } from "@ngrx/store";
 
-import * as fromCourse from "../store/reducers";
-import * as courseActions from "../store/actions/course.actions";
+import * as fromCourse from "../store";
+import * as courseActions from "../store/course/course.actions";
 import { AuthService } from "../auth/auth.service";
 import { CourseData } from "../shared/course";
 

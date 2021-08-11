@@ -1,8 +1,8 @@
+import { createReducer, on } from '@ngrx/store';
 import * as _ from 'lodash';
 
-import * as courseActions from '../actions/course.actions';
+import * as courseActions from './course.actions';
 import { Course, CourseData } from '../../shared/course';
-import { createReducer, on } from '@ngrx/store';
 
 export interface State {
   courses: Course[];
@@ -26,54 +26,53 @@ export const reducer = createReducer(
   initialState,
   on(courseActions.deleteCourseFail, (state, { error }) => ({
     ...state,
-    error: error
+    error: error,
   })),
   on(courseActions.deleteCourseSuccess, (state) => ({
     ...state,
-    error: ''
+    error: '',
   })),
   on(courseActions.getCourseFail, (state, { error }) => ({
     ...state,
     currentCourse: null,
-    error: error
+    error: error,
   })),
   on(courseActions.getCourseSuccess, (state, { course }) => ({
     ...state,
     currentCourse: course,
-    error: ''
+    error: '',
   })),
   on(courseActions.loadCoursesFail, (state, { error }) => ({
     ...state,
     courses: [],
-    error: error
+    error: error,
   })),
   on(courseActions.loadCoursesSuccess, (state, { courses }) => ({
     ...state,
     courses: courses,
-    error: ''
+    error: '',
   })),
   on(courseActions.saveCourseFail, (state, { error }) => ({
     ...state,
-    error: error
+    error: error,
   })),
   on(courseActions.saveCourseSuccess, (state, { course }) => ({
     ...state,
-    courses: state.courses.map(item => course.id === item.id ? course : item),
-    error: ''
+    courses: state.courses.map((item) => (course.id === item.id ? course : item)),
+    error: '',
   })),
   on(courseActions.getTotalCoursesFail, (state, { error }) => ({
     ...state,
     totalCourses: 0,
-    error: error
+    error: error,
   })),
   on(courseActions.getTotalCoursesSuccess, (state, { courses }) => ({
     ...state,
     totalCourses: courses.length,
     coursesByPath: getByPathValue(courses),
     coursesBySource: getBySourceValue(courses),
-    error: ''
-  })),
-
+    error: '',
+  }))
 );
 
 function getByPathValue(courses: Course[]): CourseData[] {
@@ -81,11 +80,15 @@ function getByPathValue(courses: Course[]): CourseData[] {
     .groupBy('path')
     .map((values, key) => {
       return {
-        'name': key,
-        'value': _.reduce(values, function (value, number) {
-          return value + 1
-        }, 0)
-      }
+        name: key,
+        value: _.reduce(
+          values,
+          function (value, number) {
+            return value + 1;
+          },
+          0
+        ),
+      };
     })
     .value();
   byPath = _.orderBy(byPath, 'value', 'desc');
@@ -97,11 +100,15 @@ function getBySourceValue(course: Course[]): CourseData[] {
     .groupBy('source')
     .map((values, key) => {
       return {
-        'name': key,
-        'value': _.reduce(values, function (value, number) {
-          return value + 1
-        }, 0)
-      }
+        name: key,
+        value: _.reduce(
+          values,
+          function (value, number) {
+            return value + 1;
+          },
+          0
+        ),
+      };
     })
     .value();
   bySource = _.orderBy(bySource, 'value', 'desc');

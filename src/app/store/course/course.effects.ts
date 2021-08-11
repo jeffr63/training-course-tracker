@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { map, catchError, concatMap } from 'rxjs/operators';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 
-import * as courseActions from '../actions/course.actions'
+import * as courseActions from './course.actions'
 import { Course } from '../../shared/course';
 import { CoursesService } from '../../courses/courses.service';
 

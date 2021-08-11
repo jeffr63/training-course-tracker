@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as pathsActions from '../actions/paths.actions';
+import * as pathsActions from './paths.actions';
 import { Path } from '../../shared/paths';
 
 export interface State {

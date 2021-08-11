@@ -1,8 +1,8 @@
-import * as pathsActions from '../actions/paths.actions';
-import { reducer, initialState, getPaths, getError, getCurrentPath } from './paths.reducer';
-import { Path } from '../../shared/paths';
+import * as sourcesActions from './sources.actions';
+import { reducer, initialState, getSources, getCurrentSource, getError } from './sources.reducer';
+import { Source } from '../../shared/sources';
 
-describe('Paths Reducer', () => {
+describe('Sources Reducer', () => {
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
@@ -14,98 +14,99 @@ describe('Paths Reducer', () => {
 
     describe('DELETE_FAIL action', () => {
       it(`should set error`, () => {
-        const action = pathsActions.deletePathFail({ error: 'Error' });
+        const action = sourcesActions.deleteSourceFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
-        expect(state.paths).toEqual(initialState.paths);
-        expect(state.currentPath).toEqual(initialState.currentPath);
+        expect(state.sources).toEqual(initialState.sources);
+        expect(state.currentSource).toEqual(initialState.currentSource);
       });
     });
 
     describe('DELETE_SUCCESS action', () => {
-      const beforePaths: Path[] = [
+      const beforeSources: Source[] = [
         { id: 1, name: 'ABC' },
         { id: 2, name: 'DEF' }
       ];
-      const afterPaths: Path[] = [
+      const afterSources: Source[] = [
         { id: 2, name: 'DEF' }
       ];
       const newState = {
         ...initialState,
-        paths: beforePaths
+        sources: beforeSources
       };
       it(`should clear error`, () => {
-        const action = pathsActions.deletePathSuccess({ id: 1 });
+        const action = sourcesActions.deleteSourceSuccess({ id: 1 });
         const state = reducer(newState, action);
 
         expect(state.error).toEqual('');
-        expect(state.paths.length).toBe(1);
-        expect(state.paths).toEqual(afterPaths);
-        expect(state.currentPath).toEqual(initialState.currentPath);
+        expect(state.sources.length).toBe(1);
+        expect(state.sources).toEqual(afterSources);
+        expect(state.currentSource).toEqual(initialState.currentSource);
       });
     });
 
     describe('GET_FAIL action', () => {
-      it(`should clear currentPath and set error`, () => {
+      it(`should clear currentSource and set error`, () => {
         const newState = {
           ...initialState,
           currentCourse: { id: 1, name: 'ABC' }
         };
-        const action = pathsActions.getPathFail({ error: 'Error' });
+        const action = sourcesActions.getSourceFail({ error: 'Error' });
         const state = reducer(newState, action);
 
-        expect(state.currentPath).toEqual(null);
+        expect(state.currentSource).toEqual(null);
         expect(state.error).toEqual('Error');
-        expect(state.paths).toEqual(newState.paths);
+        expect(state.sources).toEqual(newState.sources);
       });
     });
 
     describe('GET_SUCCESS action', () => {
       it(`should clear error`, () => {
-        const path = { id: 1, name: 'ABC' };
-        const action = pathsActions.getPathSuccess({ path });
+        const source = { id: 1, name: 'ABC' };
+        const action = sourcesActions.getSourceSuccess({ source });
         const state = reducer(initialState, action);
 
-        expect(state.currentPath).toEqual(path);
+        expect(state.currentSource).toEqual(source);
         expect(state.error).toEqual('');
-        expect(state.paths).toEqual(initialState.paths);
+        expect(state.sources).toEqual(initialState.sources);
       });
     });
 
+
     describe(`LOAD_FAIL action`, () => {
-      it(`should clear paths and set error`, () => {
-        const action = pathsActions.loadPathsFail({ error: 'Error' });
+      it(`should clear sources and set error`, () => {
+        const action = sourcesActions.loadSourcesFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
-        expect(state.paths).toEqual([]);
+        expect(state.sources).toEqual([]);
         expect(state.error).toEqual('Error');
       });
     });
 
     describe(`LOAD_SUCCESS action`, () => {
-      it(`should populate paths from the array and clear error`, () => {
-        const paths: Path[] = [
+      it(`should populate sources from the array and clear error`, () => {
+        const sources: Source[] = [
           { id: 1, name: 'ABC' },
           { id: 2, name: 'DEF' }
         ];
-        const action = pathsActions.loadPathsSuccess({ paths });
+        const action = sourcesActions.loadSourcesSuccess({ sources });
         const state = reducer(initialState, action);
 
-        expect(state.paths).toEqual(paths);
+        expect(state.sources).toEqual(sources);
         expect(state.error).toEqual('');
-
       });
     });
 
+
     describe(`SAVE_FAIL action`, () => {
       it(`should set error`, () => {
-        const action = pathsActions.savePathFail({ error: 'Error' });
+        const action = sourcesActions.saveSourceFail({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
-        expect(state.paths).toEqual(initialState.paths);
-        expect(state.currentPath).toEqual(initialState.currentPath);
+        expect(state.sources).toEqual(initialState.sources);
+        expect(state.currentSource).toEqual(initialState.currentSource);
       });
     });
 
@@ -113,38 +114,38 @@ describe('Paths Reducer', () => {
       it(`should update courses array with saved course information and clear error`, () => {
         const newState = {
           ...initialState,
-          paths: [
+          sources: [
             { id: 1, name: 'ABC' },
             { id: 2, name: 'DEF' }
           ]
         };
-        const path = { id: 2, name: 'GHI' };
-        const action = pathsActions.savePathSuccess({ path: path });
+        const source = { id: 2, name: 'GHI' };
+        const action = sourcesActions.saveSourceSuccess({ source });
         const state = reducer(newState, action);
 
-        expect(state.paths[0]).toEqual(newState.paths[0]);
-        expect(state.paths[1]).toEqual(path);
+        expect(state.sources[0]).toEqual(newState.sources[0]);
+        expect(state.sources[1]).toEqual(source);
         expect(state.error).toEqual('');
-        expect(state.currentPath).toEqual(newState.currentPath);
+        expect(state.currentSource).toEqual(newState.currentSource);
       });
     });
   });
 
-  describe(`Paths Reducer Selectors`, () => {
-    describe(`getPaths selector`, () => {
-      it('should return paths', () => {
-        const paths: Path[] = [
+  describe(`Sources Reducer Selectors`, () => {
+    describe(`getSources selector`, () => {
+      it('should return sources', () => {
+        const sources: Source[] = [
           { id: 1, name: 'ABC' },
           { id: 2, name: 'DEF' }
         ];
         const previousState = {
           ...initialState,
-          paths
+          sources
         };
 
-        const payload = getPaths(previousState);
+        const payload = getSources(previousState);
 
-        expect(payload).toEqual(paths);
+        expect(payload).toEqual(sources);
       });
     });
 
@@ -162,17 +163,17 @@ describe('Paths Reducer', () => {
       });
     });
 
-    describe(`getCurrentPath selector`, () => {
-      it('should return paths', () => {
-        const currentPath: Path = { id: 1, name: 'ABC' };
+    describe(`getcurrentSource selector`, () => {
+      it('should return sources', () => {
+        const currentSource: Source = { id: 1, name: 'ABC' };
         const previousState = {
           ...initialState,
-          currentPath
+          currentSource
         };
 
-        const payload = getCurrentPath(previousState);
+        const payload = getCurrentSource(previousState);
 
-        expect(payload).toEqual(currentPath);
+        expect(payload).toEqual(currentSource);
       });
     });
   });

@@ -10,8 +10,8 @@ import {
   faBan,
 } from "@fortawesome/free-solid-svg-icons";
 
-import * as fromRoot from "../store/reducers";
-import * as pathsActions from "../store/actions/paths.actions";
+import * as fromRoot from "../store";
+import * as pathsActions from "../store/paths/paths.actions";
 import { Path } from "../shared/paths";
 
 @Component({

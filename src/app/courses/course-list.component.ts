@@ -11,8 +11,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Course } from "../shared/course";
-import * as fromCourse from "../store/reducers";
-import * as courseActions from "../store/actions/course.actions";
+import * as fromCourse from "../store";
+import * as courseActions from "../store/course/course.actions";
 import { AuthService } from "src/app/auth/auth.service";
 
 @Component({

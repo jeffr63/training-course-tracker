@@ -1,10 +1,10 @@
 import * as fromMain from './index';
-import * as fromCourses from './course.reducer';
-import * as fromPaths from './paths.reducer';
-import * as fromSources from './sources.reducer';
-import { Course, CourseData } from '../../shared/course';
-import { Path } from '../../shared/paths';
-import { Source } from '../../shared/sources';
+import * as fromCourses from './course/course.reducer';
+import * as fromPaths from './paths/paths.reducer';
+import * as fromSources from './sources/sources.reducer';
+import { Course, CourseData } from '../shared/course';
+import { Path } from '../shared/paths';
+import { Source } from '../shared/sources';
 
 describe(`Main Reducer Selectors`, () => {
   describe(`getCourse selector`, () => {

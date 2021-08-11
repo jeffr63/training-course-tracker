@@ -13,16 +13,16 @@ import { NgxChartsModule } from "@swimlane/ngx-charts";
 
 // custom components
 import { AppComponent } from "./app.component";
-import { AppEffects } from "./store/effects/app.effects";
+import { AppEffects } from "./store/app.effects";
 import { AppRoutingModule } from "./app-routing.module";
 import { CallbackComponent } from "./callback.component";
-import { CourseEffects } from "./store/effects/course.effects";
+import { CourseEffects } from "./store/course/course.effects";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { environment } from "../environments/environment.prod";
 import { MenuComponent } from "./menu/menu.component";
-import { PathsEffects } from "./store/effects/paths.effects";
-import { reducers, metaReducers } from "./store/reducers";
-import { SourcesEffects } from "./store/effects/sources.effects";
+import { PathsEffects } from "./store/paths/paths.effects";
+import { reducers, metaReducers } from "./store";
+import { SourcesEffects } from "./store/sources/sources.effects";
 
 @NgModule({
   declarations: [
