@@ -1,21 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Store, select } from "@ngrx/store";
-import { Observable } from "rxjs";
-import {
-  faPencilAlt,
-  faTrashAlt,
-  faPlusCircle,
-  faBan,
-} from "@fortawesome/free-solid-svg-icons";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import * as fromRoot from "../store";
-import * as pathsActions from "../store/paths/paths.actions";
-import { Path } from "../shared/paths";
+import * as fromRoot from '../store';
+import * as pathsSelectors from '../store/paths/paths.selectors';
+import * as pathsActions from '../store/paths/paths.actions';
+import { Path } from '../shared/paths';
 
 @Component({
-  selector: "app-path-list",
+  selector: 'app-path-list',
 
   template: `
     <section>
@@ -28,10 +24,7 @@ import { Path } from "../shared/paths";
             <div class="col">&nbsp;</div>
             <div class="col">
               <a [routerLink]="['/admin/paths/new']" title="Add Path">
-                <fa-icon
-                  [icon]="faPlusCircle"
-                  class="fa-2x text-success"
-                ></fa-icon>
+                <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
                 <span class="sr-only">Add Path</span>
               </a>
             </div>
@@ -45,19 +38,11 @@ import { Path } from "../shared/paths";
               <tr *ngFor="let path of paths$ | async">
                 <td>{{ path.name }}</td>
                 <td>
-                  <a
-                    [routerLink]="['/admin/paths', path.id]"
-                    class="btn btn-info btn-sm mr-2"
-                    title="Edit"
-                  >
+                  <a [routerLink]="['/admin/paths', path.id]" class="btn btn-info btn-sm mr-2" title="Edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                     <span class="sr-only">Edit</span>
                   </a>
-                  <button
-                    class="btn btn-danger btn-sm"
-                    (click)="deletePath(path.id, deleteModal)"
-                    title="Delete"
-                  >
+                  <button class="btn btn-danger btn-sm" (click)="deletePath(path.id, deleteModal)" title="Delete">
                     <fa-icon [icon]="faTrashAlt"></fa-icon>
                     <span class="sr-only">Delete</span>
                   </button>
@@ -80,18 +65,10 @@ import { Path } from "../shared/paths";
           </p>
         </div>
         <div class="modal-footer">
-          <button
-            class="btn btn-success"
-            (click)="modal.close()"
-            title="Delete"
-          >
+          <button class="btn btn-success" (click)="modal.close()" title="Delete">
             <fa-icon [icon]="faTrashAlt"></fa-icon> Delete
           </button>
-          <button
-            class="btn btn-danger"
-            (click)="modal.dismiss()"
-            title="Cancel"
-          >
+          <button class="btn btn-danger" (click)="modal.dismiss()" title="Cancel">
             <fa-icon [icon]="faBan"></fa-icon> Cancel
           </button>
         </div>
@@ -99,12 +76,12 @@ import { Path } from "../shared/paths";
     </section>
   `,
 
-  styles: ["header { padding-bottom: 10px; }"],
+  styles: ['header { padding-bottom: 10px; }'],
 })
 export class PathListComponent implements OnInit {
   paths$: Observable<any[]>;
   selectPath = <Path>{};
-  closedResult = "";
+  closedResult = '';
   faPencilAlt = faPencilAlt;
   faTrashAlt = faTrashAlt;
   faPlusCircle = faPlusCircle;
@@ -114,7 +91,7 @@ export class PathListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(pathsActions.loadPaths());
-    this.paths$ = this.store.pipe(select(fromRoot.getPaths));
+    this.paths$ = this.store.pipe(select(pathsSelectors.getPaths));
   }
 
   deletePath(id, deleteModal) {

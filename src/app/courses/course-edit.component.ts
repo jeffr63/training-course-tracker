@@ -7,11 +7,13 @@ import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import * as courseActions from '../store/course/course.actions';
 import * as fromRoot from '../store';
-import * as fromCourse from '../store';
-import * as fromPaths from '../store/paths/paths.actions';
-import * as fromSources from '../store/sources/sources.actions';
+import * as courseActions from '../store/course/course.actions';
+import * as courseSelectors from '../store/course/course.selectors';
+import * as pathsActions from '../store/paths/paths.actions';
+import * as pathsSelectors from '../store/paths/paths.selectors';
+import * as sourcesActions from '../store/sources/sources.actions';
+import * as sourcesSelectors from '../store/sources/sources.selectors';
 import { Course } from '../shared/course';
 
 @Component({
@@ -127,18 +129,18 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.store.dispatch(courseActions.getCourse({ id: params.id }));
         this.store
           .pipe(
-            select(fromCourse.getCourse),
+            select(courseSelectors.getCourse),
             takeWhile(() => this.componentActive)
           )
           .subscribe((course: Course) => (this.course = course));
       }
     });
 
-    this.store.dispatch(fromPaths.loadPaths());
-    this.paths$ = this.store.pipe(select(fromRoot.getPaths));
+    this.store.dispatch(pathsActions.loadPaths());
+    this.paths$ = this.store.pipe(select(pathsSelectors.getPaths));
 
-    this.store.dispatch(fromSources.loadSources());
-    this.sources$ = this.store.pipe(select(fromRoot.getSources));
+    this.store.dispatch(sourcesActions.loadSources());
+    this.sources$ = this.store.pipe(select(sourcesSelectors.getSources));
   }
 
   ngOnDestroy() {

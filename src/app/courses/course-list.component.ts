@@ -1,22 +1,18 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Store, select } from "@ngrx/store";
-import { Observable } from "rxjs";
-import {
-  faPencilAlt,
-  faTrashAlt,
-  faPlusCircle,
-  faBan,
-} from "@fortawesome/free-solid-svg-icons";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
 
-import { Course } from "../shared/course";
-import * as fromCourse from "../store";
-import * as courseActions from "../store/course/course.actions";
-import { AuthService } from "src/app/auth/auth.service";
+import { Course } from '../shared/course';
+import * as fromRoot from '../store';
+import * as fromCourseSelector from '../store/course/course.selectors';
+import * as courseActions from '../store/course/course.actions';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
-  selector: "app-course-list",
+  selector: 'app-course-list',
 
   template: `
     <section>
@@ -39,10 +35,7 @@ import { AuthService } from "src/app/auth/auth.service";
             </div>
             <div class="col" *ngIf="auth.isAuthenticated()">
               <a [routerLink]="['/courses/new']" title="Add Course">
-                <fa-icon
-                  [icon]="faPlusCircle"
-                  class="fa-2x text-success"
-                ></fa-icon>
+                <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
                 <span class="sr-only">Add Course</span>
               </a>
             </div>
@@ -62,19 +55,11 @@ import { AuthService } from "src/app/auth/auth.service";
                 <td>{{ course.path }}</td>
                 <td>{{ course.source }}</td>
                 <td *ngIf="auth.isAuthenticated()">
-                  <a
-                    [routerLink]="['/courses', course.id]"
-                    class="btn btn-info btn-sm mr-2"
-                    title="Edit"
-                  >
+                  <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm mr-2" title="Edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                     <span class="sr-only">Edit</span>
                   </a>
-                  <button
-                    class="btn btn-danger btn-sm"
-                    (click)="deleteCourse(course.id, deleteModal)"
-                    title="Delete"
-                  >
+                  <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id, deleteModal)" title="Delete">
                     <fa-icon [icon]="faTrashAlt"></fa-icon>
                     <span class="sr-only">Delete</span>
                   </button>
@@ -92,24 +77,15 @@ import { AuthService } from "src/app/auth/auth.service";
         <div class="modal-body">
           <p><strong>Are you sure you want to delete this course?</strong></p>
           <p>
-            All information associated to this course will be permanently
-            deleted.
+            All information associated to this course will be permanently deleted.
             <span class="text-danger">This operation can not be undone.</span>
           </p>
         </div>
         <div class="modal-footer">
-          <button
-            class="btn btn-primary"
-            (click)="modal.close()"
-            title="Delete"
-          >
+          <button class="btn btn-primary" (click)="modal.close()" title="Delete">
             <fa-icon [icon]="faTrashAlt"></fa-icon> Delete
           </button>
-          <button
-            class="btn btn-danger"
-            (click)="modal.dismiss()"
-            title="Cancel"
-          >
+          <button class="btn btn-danger" (click)="modal.dismiss()" title="Cancel">
             <fa-icon [icon]="faBan"></fa-icon> Cancel
           </button>
         </div>
@@ -126,17 +102,13 @@ export class CourseListComponent implements OnInit {
   loading = false;
   pageSize = 10;
   totalCourses$: Observable<number>;
-  closedResult = "";
+  closedResult = '';
   faPencilAlt = faPencilAlt;
   faTrashAlt = faTrashAlt;
   faPlusCircle = faPlusCircle;
   faBan = faBan;
 
-  constructor(
-    private store: Store<fromCourse.State>,
-    private modal: NgbModal,
-    public auth: AuthService
-  ) {}
+  constructor(private store: Store<fromRoot.State>, private modal: NgbModal, public auth: AuthService) {}
 
   ngOnInit() {
     this.store.dispatch(
@@ -146,8 +118,8 @@ export class CourseListComponent implements OnInit {
       })
     );
     this.store.dispatch(courseActions.getTotalCourses());
-    this.courses$ = this.store.pipe(select(fromCourse.getCourses));
-    this.totalCourses$ = this.store.pipe(select(fromCourse.getTotalCourses));
+    this.courses$ = this.store.pipe(select(fromCourseSelector.getCourses));
+    this.totalCourses$ = this.store.pipe(select(fromCourseSelector.getTotalCourses));
   }
 
   deleteCourse(id, deleteModal) {
