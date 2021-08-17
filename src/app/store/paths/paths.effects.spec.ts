@@ -9,7 +9,7 @@ import * as pathsActions from './paths.actions';
 import { Path } from '../../shared/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
-import { State } from './paths.reducer';
+import { State } from './paths.state';
 
 const initialState = {
   paths: [],

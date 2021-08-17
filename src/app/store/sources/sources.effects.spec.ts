@@ -9,7 +9,7 @@ import * as sourcesActions from './sources.actions';
 import { Source } from '../../shared/sources';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '../../services/sources.service';
-import { State } from './sources.reducer';
+import { State } from './sources.state';
 
 const initialState = {
   sources: [],
@@ -27,7 +27,12 @@ describe(`Sources Effects`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SourcesEffects, provideMockStore({ initialState }), provideMockActions(() => actions$), { provide: SourcesService, useValue: sourcesService }],
+      providers: [
+        SourcesEffects,
+        provideMockStore({ initialState }),
+        provideMockActions(() => actions$),
+        { provide: SourcesService, useValue: sourcesService },
+      ],
     });
 
     effects = TestBed.inject(SourcesEffects);

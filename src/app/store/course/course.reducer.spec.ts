@@ -1,5 +1,7 @@
 import * as courseActions from './course.actions';
-import { reducer, initialState, getCourses, getError, getTotalCourses, getCurrentCourse } from './course.reducer';
+import { reducer } from './course.reducer';
+import { initialState } from './course.state';
+import { getCourses, getCurrentCourse, getError, getTotalCourses } from './course.selectors';
 import { Course } from '../../shared/course';
 
 describe('Courses Reducer', () => {
@@ -14,7 +16,7 @@ describe('Courses Reducer', () => {
     it(`should clear currentCourse and set error`, () => {
       const newState = {
         ...initialState,
-        currentCourse: { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' }
+        currentCourse: { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
       };
       const action = courseActions.getCourseFail({ error: 'Error' });
       const state = reducer(newState, action);
@@ -79,7 +81,7 @@ describe('Courses Reducer', () => {
     it(`should populate courses from the array`, () => {
       const courses: Course[] = [
         { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
-        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
+        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' },
       ];
       const action = courseActions.loadCoursesSuccess({ courses });
       const state = reducer(initialState, action);
@@ -109,8 +111,8 @@ describe('Courses Reducer', () => {
         ...initialState,
         courses: [
           { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
-          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
-        ]
+          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' },
+        ],
       };
       const course = { id: 2, title: 'Update Course 2', instructor: 'John', path: 'A', source: 'D' };
       const action = courseActions.saveCourseSuccess({ course });
@@ -128,7 +130,7 @@ describe('Courses Reducer', () => {
     it(`should set totalCourses to 0 and set error`, () => {
       const newState = {
         ...initialState,
-        totalCourses: 10
+        totalCourses: 10,
       };
       const action = courseActions.getTotalCoursesFail({ error: 'Error' });
       const state = reducer(newState, action);
@@ -144,7 +146,7 @@ describe('Courses Reducer', () => {
     it(`should set totalCourses and clear error`, () => {
       const courses: Course[] = [
         { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
-        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
+        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' },
       ];
       const action = courseActions.getTotalCoursesSuccess({ courses });
       const state = reducer(initialState, action);
@@ -155,86 +157,4 @@ describe('Courses Reducer', () => {
       expect(state.currentCourse).toEqual(initialState.currentCourse);
     });
   });
-
-});
-
-describe(`Course Reducer Selectors`, () => {
-  describe(`getCourses selector`, () => {
-    it('should return courses', () => {
-      const courses: Course[] = [
-        { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
-        { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
-      ];
-      const previousState = {
-        ...initialState,
-        courses
-      };
-
-      const payload = getCourses(previousState);
-
-      expect(payload).toEqual(courses);
-    });
-  });
-
-  describe(`Courses Reducer Selectors`, () => {
-    describe(`getCourses selector`, () => {
-      it('should return courses', () => {
-        const courses: Course[] = [
-          { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
-          { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' }
-        ];
-        const previousState = {
-          ...initialState,
-          courses
-        };
-
-        const payload = getCourses(previousState);
-
-        expect(payload).toEqual(courses);
-      });
-    });
-
-    describe(`getError selector`, () => {
-      it('should return error', () => {
-        const error = 'Error';
-        const previousState = {
-          ...initialState,
-          error
-        };
-
-        const payload = getError(previousState);
-
-        expect(payload).toEqual(error);
-      });
-    });
-
-    describe(`getCurrentCourse selector`, () => {
-      it('should return course', () => {
-        const currentCourse: Course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' };
-        const previousState = {
-          ...initialState,
-          currentCourse
-        };
-
-        const payload = getCurrentCourse(previousState);
-
-        expect(payload).toEqual(currentCourse);
-      });
-    });
-
-    describe(`getTotalCourses selector`, () => {
-      it('should return total', () => {
-        const totalCourses = 10;
-        const previousState = {
-          ...initialState,
-          totalCourses
-        };
-
-        const payload = getTotalCourses(previousState);
-
-        expect(payload).toBe(totalCourses);
-      });
-    });
-  });
-
 });

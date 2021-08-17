@@ -1,66 +1,53 @@
 import { createReducer, on } from '@ngrx/store';
 
 import * as sourcesActions from './sources.actions';
-import { Source } from '../../shared/sources';
-
-export interface State {
-  sources: Source[];
-  currentSource: Source;
-  error: string;
-}
-
-export const initialState: State = {
-  sources: [],
-  currentSource: null,
-  error: '',
-};
+import { initialState } from './sources.state';
 
 export const reducer = createReducer(
   initialState,
   on(sourcesActions.deleteSourceFail, (state, { error }) => ({
     ...state,
     currentSource: null,
-    error: error
+    error: error,
   })),
   on(sourcesActions.deleteSourceSuccess, (state, { id }) => ({
     ...state,
     currentSource: null,
     error: '',
-    sources: state.sources.filter(source => source.id !== id)
+    sources: state.sources.filter((source) => source.id !== id),
   })),
   on(sourcesActions.getSourceFail, (state, { error }) => ({
     ...state,
     currentSource: null,
-    error: error
+    error: error,
   })),
   on(sourcesActions.getSourceSuccess, (state, { source }) => ({
     ...state,
     currentSource: source,
-    error: ''
+    error: '',
   })),
   on(sourcesActions.loadSourcesFail, (state, { error }) => ({
     ...state,
     sources: [],
-    error: error
+    error: error,
   })),
   on(sourcesActions.loadSourcesSuccess, (state, { sources }) => ({
     ...state,
     sources: sources,
-    error: ''
+    error: '',
   })),
   on(sourcesActions.saveSourceFail, (state, { error }) => ({
     ...state,
-    error: error
+    error: error,
   })),
   on(sourcesActions.saveSourceSuccess, (state, { source }) => ({
     ...state,
-    sources: state.sources.map(item => source.id === item.id ? source : item),
+    sources: state.sources.map((item) => (source.id === item.id ? source : item)),
     currentSource: null,
-    error: ''
-  })),
-
+    error: '',
+  }))
 );
 
-export const getSources = (state: State) => state.sources;
-export const getError = (state: State) => state.error;
-export const getCurrentSource = (state: State) => state.currentSource;
+//export const getSources = (state: State) => state.sources;
+//export const getError = (state: State) => state.error;
+//export const getCurrentSource = (state: State) => state.currentSource;

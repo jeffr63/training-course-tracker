@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { of } from 'rxjs';
 import { map, catchError, concatMap } from 'rxjs/operators';
-import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 
 import * as courseActions from './course.actions'
 import { Course } from '../../shared/course';

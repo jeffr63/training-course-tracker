@@ -1,7 +1,6 @@
-import { Action, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
 import { Course } from '../../shared/course';
-
 
 export const deleteCourse = createAction(
   '[Courses] Delete Course',

@@ -1,9 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromSources from './sources.reducer';
+import { State } from './sources.state';
 
 // sources selectors
-export const selectSourcesState = createFeatureSelector<fromSources.State>('sources');
-export const getSources = createSelector(selectSourcesState, fromSources.getSources);
+export const selectSourcesState = createFeatureSelector<State>('sources');
 
-export const getCurrentSource = createSelector(selectSourcesState, fromSources.getCurrentSource);
+export const getCurrentSource = createSelector(selectSourcesState, (state: State) => state.currentSource);
+
+export const getError = createSelector(selectSourcesState, (state: State) => state.error);
+
+export const getSources = createSelector(selectSourcesState, (state: State) => state.sources);

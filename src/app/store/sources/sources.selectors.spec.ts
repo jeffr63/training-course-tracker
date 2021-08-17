@@ -1,8 +1,8 @@
-import * as fromSelector from './sources.selectors';
-import * as fromSources from './sources.reducer';
 import { Source } from '../../shared/sources';
+import { getCurrentSource, getError, getSources } from './sources.selectors';
+import { initialState } from './sources.state';
 
-describe(`Main Reducer Selectors`, () => {
+describe(`Sources Selectors`, () => {
   describe(`getSources selector`, () => {
     it('should return sources', () => {
       const sources: Source[] = [
@@ -11,12 +11,12 @@ describe(`Main Reducer Selectors`, () => {
       ];
       const previousState = {
         sources: {
-          ...fromSources.initialState,
+          ...initialState,
           sources,
         },
       };
 
-      const payload = fromSelector.getSources(previousState);
+      const payload = getSources(previousState);
 
       expect(payload).toEqual(sources);
     });
@@ -27,14 +27,31 @@ describe(`Main Reducer Selectors`, () => {
       const currentSource: Source = { id: 1, name: 'ABC' };
       const previousState = {
         sources: {
-          ...fromSources.initialState,
+          ...initialState,
           currentSource,
         },
       };
 
-      const payload = fromSelector.getCurrentSource(previousState);
+      const payload = getCurrentSource(previousState);
 
       expect(payload).toEqual(currentSource);
+    });
+  });
+
+  describe(`getError selector`, () => {
+    it('should return error', () => {
+      const error = 'Error';
+      const previousState = {
+        sources: {
+          ...initialState,
+          error,
+        },
+      };
+
+      const payload = getError(previousState);
+      console.log(payload);
+
+      expect(payload).toEqual(error);
     });
   });
 });

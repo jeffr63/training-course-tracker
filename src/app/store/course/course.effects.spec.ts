@@ -9,7 +9,7 @@ import * as courseActions from './course.actions';
 import { Course } from '../../shared/course';
 import { CourseEffects } from './course.effects';
 import { CoursesService } from '../../courses/courses.service';
-import { State } from './course.reducer';
+import { State } from './course.state';
 
 const initialState = {
   courses: [],

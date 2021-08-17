@@ -1,6 +1,8 @@
 import * as sourcesActions from './sources.actions';
-import { reducer, initialState, getSources, getCurrentSource, getError } from './sources.reducer';
+import { reducer } from './sources.reducer';
+import { initialState } from './sources.state';
 import { Source } from '../../shared/sources';
+import { getCurrentSource, getError, getSources } from './sources.selectors';
 
 describe('Sources Reducer', () => {
   describe('an unknown action', () => {
@@ -26,14 +28,12 @@ describe('Sources Reducer', () => {
     describe('DELETE_SUCCESS action', () => {
       const beforeSources: Source[] = [
         { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
+        { id: 2, name: 'DEF' },
       ];
-      const afterSources: Source[] = [
-        { id: 2, name: 'DEF' }
-      ];
+      const afterSources: Source[] = [{ id: 2, name: 'DEF' }];
       const newState = {
         ...initialState,
-        sources: beforeSources
+        sources: beforeSources,
       };
       it(`should clear error`, () => {
         const action = sourcesActions.deleteSourceSuccess({ id: 1 });
@@ -50,7 +50,7 @@ describe('Sources Reducer', () => {
       it(`should clear currentSource and set error`, () => {
         const newState = {
           ...initialState,
-          currentCourse: { id: 1, name: 'ABC' }
+          currentCourse: { id: 1, name: 'ABC' },
         };
         const action = sourcesActions.getSourceFail({ error: 'Error' });
         const state = reducer(newState, action);
@@ -73,7 +73,6 @@ describe('Sources Reducer', () => {
       });
     });
 
-
     describe(`LOAD_FAIL action`, () => {
       it(`should clear sources and set error`, () => {
         const action = sourcesActions.loadSourcesFail({ error: 'Error' });
@@ -88,7 +87,7 @@ describe('Sources Reducer', () => {
       it(`should populate sources from the array and clear error`, () => {
         const sources: Source[] = [
           { id: 1, name: 'ABC' },
-          { id: 2, name: 'DEF' }
+          { id: 2, name: 'DEF' },
         ];
         const action = sourcesActions.loadSourcesSuccess({ sources });
         const state = reducer(initialState, action);
@@ -97,7 +96,6 @@ describe('Sources Reducer', () => {
         expect(state.error).toEqual('');
       });
     });
-
 
     describe(`SAVE_FAIL action`, () => {
       it(`should set error`, () => {
@@ -116,8 +114,8 @@ describe('Sources Reducer', () => {
           ...initialState,
           sources: [
             { id: 1, name: 'ABC' },
-            { id: 2, name: 'DEF' }
-          ]
+            { id: 2, name: 'DEF' },
+          ],
         };
         const source = { id: 2, name: 'GHI' };
         const action = sourcesActions.saveSourceSuccess({ source });
@@ -127,53 +125,6 @@ describe('Sources Reducer', () => {
         expect(state.sources[1]).toEqual(source);
         expect(state.error).toEqual('');
         expect(state.currentSource).toEqual(newState.currentSource);
-      });
-    });
-  });
-
-  describe(`Sources Reducer Selectors`, () => {
-    describe(`getSources selector`, () => {
-      it('should return sources', () => {
-        const sources: Source[] = [
-          { id: 1, name: 'ABC' },
-          { id: 2, name: 'DEF' }
-        ];
-        const previousState = {
-          ...initialState,
-          sources
-        };
-
-        const payload = getSources(previousState);
-
-        expect(payload).toEqual(sources);
-      });
-    });
-
-    describe(`getError selector`, () => {
-      it('should return error', () => {
-        const error = 'Error';
-        const previousState = {
-          ...initialState,
-          error
-        };
-
-        const payload = getError(previousState);
-
-        expect(payload).toEqual(error);
-      });
-    });
-
-    describe(`getcurrentSource selector`, () => {
-      it('should return sources', () => {
-        const currentSource: Source = { id: 1, name: 'ABC' };
-        const previousState = {
-          ...initialState,
-          currentSource
-        };
-
-        const payload = getCurrentSource(previousState);
-
-        expect(payload).toEqual(currentSource);
       });
     });
   });

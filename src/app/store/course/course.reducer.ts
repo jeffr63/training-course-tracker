@@ -2,25 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import * as courseActions from './course.actions';
+import { State, initialState } from './course.state';
 import { Course, CourseData } from '../../shared/course';
-
-export interface State {
-  courses: Course[];
-  currentCourse: Course;
-  totalCourses: number;
-  coursesByPath: CourseData[];
-  coursesBySource: CourseData[];
-  error: string;
-}
-
-export const initialState: State = {
-  courses: [],
-  currentCourse: null,
-  totalCourses: 0,
-  coursesByPath: [],
-  coursesBySource: [],
-  error: '',
-};
 
 export const reducer = createReducer(
   initialState,
@@ -115,7 +98,7 @@ function getBySourceValue(course: Course[]): CourseData[] {
   return bySource;
 }
 
-export const getCourses = (state: State) => state.courses;
-export const getCurrentCourse = (state: State) => state.currentCourse;
-export const getTotalCourses = (state: State) => state.totalCourses;
-export const getError = (state: State) => state.error;
+//export const getCourses = (state: State) => state.courses;
+//export const getCurrentCourse = (state: State) => state.currentCourse;
+//export const getTotalCourses = (state: State) => state.totalCourses;
+//export const getError = (state: State) => state.error;

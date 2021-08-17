@@ -1,21 +1,24 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
-import * as fromCourses from './course/course.reducer';
-import * as fromPaths from './paths/paths.reducer';
-import * as fromSources from './sources/sources.reducer';
+import * as courseReducer from './course/course.reducer';
+import * as courseState from './course/course.state';
+import * as pathsReducer from './paths/paths.reducer';
+import * as pathsState from './paths/paths.state';
+import * as sourcesReducer from './sources/sources.reducer';
+import * as sourcesState from './sources/sources.state';
 
 // import { environment } from '../../../environments/environment.prod';
 
 export interface State {
-  courses: fromCourses.State;
-  paths: fromPaths.State;
-  sources: fromSources.State;
+  courses: courseState.State;
+  paths: pathsState.State;
+  sources: sourcesState.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  courses: fromCourses.reducer,
-  paths: fromPaths.reducer,
-  sources: fromSources.reducer,
+  courses: courseReducer.reducer,
+  paths: pathsReducer.reducer,
+  sources: sourcesReducer.reducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = [];

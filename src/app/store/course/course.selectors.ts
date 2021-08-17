@@ -1,18 +1,25 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import * as fromCourses from './course.reducer';
+import { State } from './course.state';
 
 // course selectors
-const getCourseFeatureState = createFeatureSelector<fromCourses.State>('courses');
+const getCourseFeatureState = createFeatureSelector<State>('courses');
 
-export const getCourses = createSelector(getCourseFeatureState, (state) => state.courses);
+export const getCourse = createSelector(getCourseFeatureState, (state: State) => state.currentCourse);
 
-export const getCourse = createSelector(getCourseFeatureState, (state) => state.currentCourse);
+export const getCourses = createSelector(getCourseFeatureState, (state: State) => {
+  console.log(state);
+  return state.courses;
+});
 
-export const saveCourse = createSelector(getCourseFeatureState, (state) => state.currentCourse);
+export const getCoursesByPath = createSelector(getCourseFeatureState, (state: State) => state.coursesByPath);
 
-export const getTotalCourses = createSelector(getCourseFeatureState, (state) => state.totalCourses);
+export const getCoursesBySource = createSelector(getCourseFeatureState, (state: State) => state.coursesBySource);
 
-export const getCoursesByPath = createSelector(getCourseFeatureState, (state) => state.coursesByPath);
+export const getCurrentCourse = createSelector(getCourseFeatureState, (state: State) => state.currentCourse);
 
-export const getCoursesBySource = createSelector(getCourseFeatureState, (state) => state.coursesBySource);
+export const getError = createSelector(getCourseFeatureState, (state: State) => state.error);
+
+export const getTotalCourses = createSelector(getCourseFeatureState, (state: State) => state.totalCourses);
+
+export const saveCourse = createSelector(getCourseFeatureState, (state: State) => state.currentCourse);
