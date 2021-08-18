@@ -9,13 +9,7 @@ import * as sourcesActions from './sources.actions';
 import { Source } from '../../shared/sources';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '../../services/sources.service';
-import { State } from './sources.state';
-
-const initialState = {
-  sources: [],
-  currentSource: null,
-  error: '',
-};
+import { State, initialState } from './sources.state';
 
 const sourcesService = jasmine.createSpyObj('sourcesService', ['delete', 'get', 'load', 'save']);
 

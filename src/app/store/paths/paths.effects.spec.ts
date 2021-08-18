@@ -9,13 +9,7 @@ import * as pathsActions from './paths.actions';
 import { Path } from '../../shared/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '../../services/paths.service';
-import { State } from './paths.state';
-
-const initialState = {
-  paths: [],
-  currentPath: null,
-  error: '',
-};
+import { State, initialState } from './paths.state';
 
 const pathsService = jasmine.createSpyObj('pathsService', ['delete', 'get', 'load', 'save']);
 
@@ -27,7 +21,12 @@ describe(`Paths Effects`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PathsEffects, provideMockStore({ initialState }), provideMockActions(() => actions$), { provide: PathsService, useValue: pathsService }],
+      providers: [
+        PathsEffects,
+        provideMockStore({ initialState }),
+        provideMockActions(() => actions$),
+        { provide: PathsService, useValue: pathsService },
+      ],
     });
 
     effects = TestBed.inject(PathsEffects);

@@ -9,16 +9,7 @@ import * as courseActions from './course.actions';
 import { Course } from '../../shared/course';
 import { CourseEffects } from './course.effects';
 import { CoursesService } from '../../courses/courses.service';
-import { State } from './course.state';
-
-const initialState = {
-  courses: [],
-  currentCourse: null,
-  totalCourses: 0,
-  coursesByPath: [],
-  coursesBySource: [],
-  error: '',
-};
+import { State, initialState } from './course.state';
 
 const coursesService = jasmine.createSpyObj('coursesService', [
   'deleteCourse',
