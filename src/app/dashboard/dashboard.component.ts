@@ -6,7 +6,6 @@ import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../store';
 import * as courseActions from '../store/course/course.actions';
 import * as courseSelectors from '../store/course/course.selectors';
-import { AuthService } from '../auth/auth.service';
 import { CourseData } from '../shared/course';
 
 @Component({
@@ -54,7 +53,7 @@ export class DashboardComponent implements OnInit {
   courses$: Observable<CourseData[]>;
   sources$: Observable<CourseData[]>;
 
-  constructor(private store: Store<fromRoot.State>, public auth: AuthService) {}
+  constructor(private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
     this.store.dispatch(courseActions.getTotalCourses());

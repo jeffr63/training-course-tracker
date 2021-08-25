@@ -1056,6 +1056,13 @@
       "path": "Ionic",
       "source": "Pluralsite",
       "id": 151
+    },
+        {
+      "title": "Advanced Web Apps 2019 | Unit Testing in Angular",
+      "instructor": "Lars Bilde",
+      "path": "Angular",
+      "source": "YouTube",
+      "id": 152
     }
   ],
   "paths": [
