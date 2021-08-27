@@ -9,7 +9,7 @@ import { Course } from '../shared/course';
 import * as fromRoot from '../store';
 import * as fromCourseSelector from '../store/course/course.selectors';
 import * as courseActions from '../store/course/course.actions';
-import { AuthService } from 'src/app/auth/auth.service';
+import { Auth0Service } from '../auth/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -33,7 +33,7 @@ import { AuthService } from 'src/app/auth/auth.service';
                 (pageChange)="refreshTable()"
               ></ngb-pagination>
             </div>
-            <div class="col" *ngIf="auth.isAuthenticated()">
+            <div class="col" *ngIf="authService.isAuthenticated">
               <a [routerLink]="['/courses/new']" title="Add Course">
                 <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
                 <span class="sr-only">Add Course</span>
@@ -54,7 +54,7 @@ import { AuthService } from 'src/app/auth/auth.service';
                 <td>{{ course.instructor }}</td>
                 <td>{{ course.path }}</td>
                 <td>{{ course.source }}</td>
-                <td *ngIf="auth.isAuthenticated()">
+                <td *ngIf="authService.isAuthenticated">
                   <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm mr-2" title="Edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                     <span class="sr-only">Edit</span>
@@ -108,7 +108,7 @@ export class CourseListComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faBan = faBan;
 
-  constructor(private store: Store<fromRoot.State>, private modal: NgbModal, public auth: AuthService) {}
+  constructor(private store: Store<fromRoot.State>, private modal: NgbModal, public authService: Auth0Service) {}
 
   ngOnInit() {
     this.store.dispatch(
