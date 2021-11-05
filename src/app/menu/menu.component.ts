@@ -7,7 +7,7 @@ import { Auth0Service } from '../auth/auth.service';
 
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" [routerLink]="['/']">Training Courses Tracker</a>
+      <a class="navbar-brand" [routerLink]="['/']" id="brand">Training Courses Tracker</a>
 
       <button
         class="navbar-toggler"
@@ -24,11 +24,17 @@ import { Auth0Service } from '../auth/auth.service';
 
       <div (ngbCollapse)="(isNavbarCollapsed)" class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-          <a class="nav-item nav-link active" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" [routerLink]="['/courses']">Courses</a>
-          <div *ngIf="auth.isAuthenticated === false" class="nav-item nav-link" (click)="auth.login()">Login</div>
-          <a *ngIf="auth.isAuthenticated && auth.isAdmin" class="nav-item nav-link" [routerLink]="['/admin']">Admin</a>
-          <div *ngIf="auth.isAuthenticated" class="nav-item nav-link" (click)="auth.logout()">Logout</div>
+          <a class="nav-item nav-link active" [routerLink]="['/']" id="home"
+            >Home <span class="sr-only">(current)</span></a
+          >
+          <a class="nav-item nav-link" [routerLink]="['/courses']" id="courses">Courses</a>
+          <a class="nav-item nav-link" *ngIf="auth.isAuthenticated === false" (click)="auth.login()" id="login"
+            >Login</a
+          >
+          <a class="nav-item nav-link" [routerLink]="['/admin']" *ngIf="auth.isAuthenticated && auth.isAdmin" id="admin"
+            >Admin</a
+          >
+          <a class="nav-item nav-link" *ngIf="auth.isAuthenticated" (click)="auth.logout()" id="logout">Logout</a>
         </div>
       </div>
     </nav>
