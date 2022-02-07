@@ -66,8 +66,8 @@ describe(`Course Selectors`, () => {
   describe(`getCoursesByPath selector`, () => {
     it('should return array of course data', () => {
       const byPath: CourseData[] = [
-        { name: 'ABC', value: 1 },
-        { name: 'DEF', value: 2 },
+        { name: 'Angular', value: 10 },
+        { name: 'React', value: 2 },
       ];
       const previousState = {
         courses: {
@@ -85,8 +85,8 @@ describe(`Course Selectors`, () => {
   describe(`getCoursesBySource selector`, () => {
     it('should return array of course data', () => {
       const bySource: CourseData[] = [
-        { name: 'ABC', value: 1 },
-        { name: 'DEF', value: 2 },
+        { name: 'Pluralsight', value: 8 },
+        { name: 'YouTube', value: 4 },
       ];
       const previousState = {
         courses: {

@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Course } from '../shared/course';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoursesService {
   private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   addCourse(course: Course) {
     return this.http.post(`${this.baseUrl}/courses`, course);
@@ -32,7 +32,9 @@ export class CoursesService {
   }
 
   getCoursesPaged(current, pageSize) {
-    return this.http.get<Course[]>(`${this.baseUrl}/courses?_sort=title&_order=asc&_page=${current}&_limit=${pageSize}`);
+    return this.http.get<Course[]>(
+      `${this.baseUrl}/courses?_sort=title&_order=asc&_page=${current}&_limit=${pageSize}`
+    );
   }
 
   saveCourse(course: Course) {
@@ -47,4 +49,3 @@ export class CoursesService {
     return this.http.put(`${this.baseUrl}/courses/${course.id}`, course);
   }
 }
-

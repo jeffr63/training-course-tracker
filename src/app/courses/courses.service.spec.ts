@@ -13,7 +13,7 @@ describe('CourseService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CoursesService]
+      providers: [CoursesService],
     });
 
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -132,7 +132,9 @@ describe('CourseService', () => {
         expect(data).toEqual(courses);
       });
 
-      const req = httpTestingController.expectOne(`${baseUrl}/courses?_sort=title&_order=asc&_page=${current}&_limit=${pageSize}`);
+      const req = httpTestingController.expectOne(
+        `${baseUrl}/courses?_sort=title&_order=asc&_page=${current}&_limit=${pageSize}`
+      );
       req.flush(courses);
       expect(req.request.method).toBe('GET');
       httpTestingController.verify();
