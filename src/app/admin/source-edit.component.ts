@@ -74,7 +74,7 @@ export class SourceEditComponent implements OnInit, OnDestroy {
             select(sourcesSelectors.getCurrentSource),
             takeWhile(() => this.componentActive)
           )
-          .subscribe((source: Source) => (this.source = source));
+          .subscribe((source: Source) => (this.source = { ...source }));
       }
     });
   }

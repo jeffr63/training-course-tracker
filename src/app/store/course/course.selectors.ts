@@ -8,7 +8,6 @@ const getCourseFeatureState = createFeatureSelector<State>('courses');
 export const getCourse = createSelector(getCourseFeatureState, (state: State) => state.currentCourse);
 
 export const getCourses = createSelector(getCourseFeatureState, (state: State) => {
-  console.log(state);
   return state.courses;
 });
 

@@ -1,2 +1,1 @@
-cd data
-json-server db.json
+json-server --watch data\db.json

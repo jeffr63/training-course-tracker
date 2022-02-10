@@ -74,7 +74,7 @@ export class PathEditComponent implements OnInit, OnDestroy {
             select(pathsSelectors.getCurrentPath),
             takeWhile(() => this.componentActive)
           )
-          .subscribe((path: Path) => (this.path = path));
+          .subscribe((path: Path) => (this.path = { ...path }));
       }
     });
   }

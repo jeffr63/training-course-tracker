@@ -6,6 +6,8 @@ import * as pathsReducer from './paths/paths.reducer';
 import * as pathsState from './paths/paths.state';
 import * as sourcesReducer from './sources/sources.reducer';
 import * as sourcesState from './sources/sources.state';
+import * as usersReducer from './users/users.reducer';
+import * as usersState from './users/users.state';
 
 // import { environment } from '../../../environments/environment.prod';
 
@@ -13,12 +15,14 @@ export interface State {
   courses: courseState.State;
   paths: pathsState.State;
   sources: sourcesState.State;
+  users: usersState.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   courses: courseReducer.reducer,
   paths: pathsReducer.reducer,
   sources: sourcesReducer.reducer,
+  users: usersReducer.reducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = [];

@@ -3,46 +3,41 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRoot from '../store';
-import * as sourcesSelectors from '../store/sources/sources.selectors';
-import * as sourcesActions from '../store/sources/sources.actions';
-import { Source } from '../shared/sources';
+import * as userSelectors from '../store/users/users.selectors';
+import * as userActions from '../store/users/users.actions';
+import { User } from '../shared/user';
 
 @Component({
-  selector: 'app-source-list',
+  selector: 'app-users-list',
 
   template: `
     <section>
       <section class="card">
         <header>
-          <h1 class="card-header">Sources</h1>
+          <h1 class="card-header">Users</h1>
         </header>
         <section class="card-body">
-          <header class="row">
-            <div class="col">&nbsp;</div>
-            <div class="col">
-              <a [routerLink]="['/admin/sources/new']" title="Add Source">
-                <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
-                <span class="sr-only">Add Source</span>
-              </a>
-            </div>
-          </header>
           <table class="table table-striped">
             <thead>
-              <th>Source</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
               <th>&nbsp;</th>
             </thead>
             <tbody>
-              <tr *ngFor="let source of source$ | async">
-                <td>{{ source.name }}</td>
+              <tr *ngFor="let user of users$ | async">
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
                 <td>
-                  <a [routerLink]="['/admin/sources', source.id]" class="btn btn-info btn-sm mr-2" title="Edit">
+                  <a [routerLink]="['/admin/users', user.id]" class="btn btn-info btn-sm mr-2" title="Edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                     <span class="sr-only">Edit</span>
                   </a>
-                  <button class="btn btn-danger btn-sm" (click)="deleteSource(source.id, deleteModal)" title="Delete">
+                  <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id, deleteModal)" title="Delete">
                     <fa-icon [icon]="faTrashAlt"></fa-icon>
                     <span class="sr-only">Delete</span>
                   </button>
@@ -84,27 +79,26 @@ import { Source } from '../shared/sources';
     `,
   ],
 })
-export class SourceListComponent implements OnInit {
-  source$: Observable<any[]>;
-  selectPath = <Source>{};
+export class UserListComponent implements OnInit {
+  users$: Observable<any[]>;
+  selectedUser = <User>{};
   closedResult = '';
   faPencilAlt = faPencilAlt;
   faTrashAlt = faTrashAlt;
-  faPlusCircle = faPlusCircle;
   faBan = faBan;
 
   constructor(private store: Store<fromRoot.State>, private modal: NgbModal) {}
 
   ngOnInit() {
-    this.store.dispatch(sourcesActions.loadSources());
-    this.source$ = this.store.pipe(select(sourcesSelectors.getSources));
+    this.store.dispatch(userActions.loadUsers());
+    this.users$ = this.store.pipe(select(userSelectors.getUsers));
   }
 
-  deleteSource(id, deleteModal) {
+  deleteUser(id, deleteModal) {
     this.modal.open(deleteModal).result.then(
       (result) => {
         this.closedResult = `Closed with ${result}`;
-        this.store.dispatch(sourcesActions.deleteSource({ id }));
+        this.store.dispatch(userActions.deleteUser({ id }));
       },
       (reason) => {
         this.closedResult = `Dismissed with ${reason}`;

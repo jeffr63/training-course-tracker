@@ -49,8 +49,6 @@ describe(`Sources Selectors`, () => {
       };
 
       const payload = getError(previousState);
-      console.log(payload);
-
       expect(payload).toEqual(error);
     });
   });

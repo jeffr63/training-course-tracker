@@ -5,11 +5,11 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
 
+import { AuthService } from '../auth/auth.service';
 import { Course } from '../shared/course';
 import * as fromRoot from '../store';
 import * as fromCourseSelector from '../store/course/course.selectors';
 import * as courseActions from '../store/course/course.actions';
-import { Auth0Service } from '../auth/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -108,7 +108,7 @@ export class CourseListComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faBan = faBan;
 
-  constructor(private store: Store<fromRoot.State>, private modal: NgbModal, public authService: Auth0Service) {}
+  constructor(private store: Store<fromRoot.State>, private modal: NgbModal, public authService: AuthService) {}
 
   ngOnInit() {
     this.store.dispatch(
