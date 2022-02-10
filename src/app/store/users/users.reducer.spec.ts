@@ -13,121 +13,121 @@ describe('Users Reducer', () => {
 
       expect(result).toBe(initialState);
     });
+  });
 
-    describe('DELETE_FAIL action', () => {
-      it(`should set error`, () => {
-        const action = userActions.deleteUserFail({ error: 'Error' });
-        const state = reducer(initialState, action);
+  describe('DELETE_FAIL action', () => {
+    it(`should set error`, () => {
+      const action = userActions.deleteUserFail({ error: 'Error' });
+      const state = reducer(initialState, action);
 
-        expect(state.error).toEqual('Error');
-        expect(state.users).toEqual(initialState.users);
-        expect(state.currentUser).toEqual(initialState.currentUser);
-      });
+      expect(state.error).toEqual('Error');
+      expect(state.users).toEqual(initialState.users);
+      expect(state.currentUser).toEqual(initialState.currentUser);
     });
+  });
 
-    describe('DELETE_SUCCESS action', () => {
-      const beforeSources: User[] = [
+  describe('DELETE_SUCCESS action', () => {
+    const beforeUsers: User[] = [
+      { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
+      { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
+    ];
+    const afterUsers: User[] = [{ id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' }];
+    const newState = {
+      ...initialState,
+      users: beforeUsers,
+    };
+    it(`should clear error`, () => {
+      const action = userActions.deleteUserSuccess({ id: 1 });
+      const state = reducer(newState, action);
+
+      expect(state.error).toEqual('');
+      expect(state.users.length).toBe(1);
+      expect(state.users).toEqual(afterUsers);
+      expect(state.currentUser).toEqual(initialState.currentUser);
+    });
+  });
+
+  describe('GET_FAIL action', () => {
+    it(`should clear currentUser and set error`, () => {
+      const newState = {
+        ...initialState,
+        currentUser: { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
+      };
+      const action = userActions.getUserFail({ error: 'Error' });
+      const state = reducer(newState, action);
+
+      expect(state.currentUser).toEqual(null);
+      expect(state.error).toEqual('Error');
+      expect(state.users).toEqual(newState.users);
+    });
+  });
+
+  describe('GET_SUCCESS action', () => {
+    it(`should clear error`, () => {
+      const user = { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' };
+      const action = userActions.getUserSuccess({ user });
+      const state = reducer(initialState, action);
+
+      expect(state.currentUser).toEqual(user);
+      expect(state.error).toEqual('');
+      expect(state.users).toEqual(initialState.users);
+    });
+  });
+
+  describe(`LOAD_FAIL action`, () => {
+    it(`should clear users and set error`, () => {
+      const action = userActions.loadUsersFail({ error: 'Error' });
+      const state = reducer(initialState, action);
+
+      expect(state.users).toEqual([]);
+      expect(state.error).toEqual('Error');
+    });
+  });
+
+  describe(`LOAD_SUCCESS action`, () => {
+    it(`should populate users from the array and clear error`, () => {
+      const users: User[] = [
         { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
         { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
       ];
-      const afterSources: User[] = [{ id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' }];
+      const action = userActions.loadUsersSuccess({ users });
+      const state = reducer(initialState, action);
+
+      expect(state.users).toEqual(users);
+      expect(state.error).toEqual('');
+    });
+  });
+
+  describe(`PATCH_FAIL action`, () => {
+    it(`should set error`, () => {
+      const action = userActions.patchUserFail({ error: 'Error' });
+      const state = reducer(initialState, action);
+
+      expect(state.error).toEqual('Error');
+      expect(state.users).toEqual(initialState.users);
+      expect(state.currentUser).toEqual(initialState.currentUser);
+    });
+  });
+
+  describe('PATCH action', () => {
+    it(`should update users array with patched user information and clear error`, () => {
+      let users = [
+        { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
+        { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
+      ];
+
       const newState = {
         ...initialState,
-        sources: beforeSources,
+        users: users,
       };
-      it(`should clear error`, () => {
-        const action = userActions.deleteUserSuccess({ id: 1 });
-        const state = reducer(newState, action);
 
-        expect(state.error).toEqual('');
-        expect(state.users.length).toBe(1);
-        expect(state.users).toEqual(afterSources);
-        expect(state.currentUser).toEqual(initialState.currentUser);
-      });
-    });
+      let user = users[0];
+      const action = userActions.patchUserSuccess({ user });
+      const state = reducer(newState, action);
 
-    describe('GET_FAIL action', () => {
-      it(`should clear currentUser and set error`, () => {
-        const newState = {
-          ...initialState,
-          currentUser: { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
-        };
-        const action = userActions.getUserFail({ error: 'Error' });
-        const state = reducer(newState, action);
-
-        expect(state.currentUser).toEqual(null);
-        expect(state.error).toEqual('Error');
-        expect(state.users).toEqual(newState.users);
-      });
-    });
-
-    describe('GET_SUCCESS action', () => {
-      it(`should clear error`, () => {
-        const user = { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' };
-        const action = userActions.getUserSuccess({ user });
-        const state = reducer(initialState, action);
-
-        expect(state.currentUser).toEqual(user);
-        expect(state.error).toEqual('');
-        expect(state.users).toEqual(initialState.users);
-      });
-    });
-
-    describe(`LOAD_FAIL action`, () => {
-      it(`should clear users and set error`, () => {
-        const action = userActions.loadUsersFail({ error: 'Error' });
-        const state = reducer(initialState, action);
-
-        expect(state.users).toEqual([]);
-        expect(state.error).toEqual('Error');
-      });
-    });
-
-    describe(`LOAD_SUCCESS action`, () => {
-      it(`should populate users from the array and clear error`, () => {
-        const users: User[] = [
-          { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
-          { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
-        ];
-        const action = userActions.loadUsersSuccess({ users });
-        const state = reducer(initialState, action);
-
-        expect(state.users).toEqual(users);
-        expect(state.error).toEqual('');
-      });
-    });
-
-    describe(`PATCH_FAIL action`, () => {
-      it(`should set error`, () => {
-        const action = userActions.patchUserFail({ error: 'Error' });
-        const state = reducer(initialState, action);
-
-        expect(state.error).toEqual('Error');
-        expect(state.users).toEqual(initialState.users);
-        expect(state.currentUser).toEqual(initialState.currentUser);
-      });
-    });
-
-    describe('PATCH action', () => {
-      it(`should update users array with patched user information and clear error`, () => {
-        let users = [
-          { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
-          { id: 1, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
-        ];
-
-        const newState = {
-          ...initialState,
-          users: users,
-        };
-
-        let user = users[0];
-        const action = userActions.patchUserSuccess({ user });
-        const state = reducer(newState, action);
-
-        expect(state.users).toEqual(users);
-        expect(state.error).toEqual('');
-        expect(state.currentUser).toEqual(newState.currentUser);
-      });
+      expect(state.users).toEqual(users);
+      expect(state.error).toEqual('');
+      expect(state.currentUser).toEqual(newState.currentUser);
     });
   });
 });

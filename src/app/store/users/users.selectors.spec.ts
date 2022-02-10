@@ -5,20 +5,20 @@ import { initialState } from './users.state';
 describe(`Users Selectors`, () => {
   describe(`getUsers selector`, () => {
     it('should return users', () => {
-      const sources: User[] = [
+      const users: User[] = [
         { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
         { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
       ];
       const previousState = {
-        sources: {
+        users: {
           ...initialState,
-          sources,
+          users,
         },
       };
 
       const payload = getUsers(previousState);
 
-      expect(payload).toEqual(sources);
+      expect(payload).toEqual(users);
     });
   });
 
@@ -26,7 +26,7 @@ describe(`Users Selectors`, () => {
     it('should return user', () => {
       const currentUser: User = { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' };
       const previousState = {
-        sources: {
+        users: {
           ...initialState,
           currentUser,
         },
@@ -42,7 +42,7 @@ describe(`Users Selectors`, () => {
     it('should return error', () => {
       const error = 'Error';
       const previousState = {
-        sources: {
+        users: {
           ...initialState,
           error,
         },

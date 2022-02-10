@@ -113,11 +113,11 @@ describe('Users Actions', () => {
   describe('PatchUser', () => {
     it(`should create an action`, () => {
       const user = { id: 1, name: 'Jim' };
-      const id = 1;
-      const action = usersActions.patchUser({ id, user });
+      const action = usersActions.patchUser({ id: 1, user });
 
       expect({ ...action }).toEqual({
         type: '[Users] Patch User',
+        id: 1,
         user,
       });
     });

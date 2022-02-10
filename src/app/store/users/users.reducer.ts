@@ -14,7 +14,7 @@ export const reducer = createReducer(
     ...state,
     currentUser: null,
     error: '',
-    sources: state.users.filter((user) => user.id !== id),
+    users: state.users.filter((user) => user.id !== id),
   })),
   on(usersActions.getUserFail, (state, { error }) => ({
     ...state,
