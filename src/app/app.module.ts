@@ -18,8 +18,9 @@ import { AppEffects } from './store/app.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { CourseEffects } from './store/course/course.effects';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DeleteComponent } from './modals/delete.component';
 import { environment } from '../environments/environment.prod';
-import { LoginComponent } from './auth/login.component';
+import { LoginComponent } from './modals/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { PathsEffects } from './store/paths/paths.effects';
 import { reducers, metaReducers } from './store';
@@ -27,7 +28,7 @@ import { SourcesEffects } from './store/sources/sources.effects';
 import { UsersEffects } from './store/users/users.effects';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, MenuComponent, LoginComponent],
+  declarations: [AppComponent, DashboardComponent, DeleteComponent, LoginComponent, MenuComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

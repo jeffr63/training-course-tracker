@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { faPencilAlt, faTrashAlt, faPlusCircle, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthService } from '../auth/auth.service';
 import { Course } from '../shared/course';
+import { DeleteComponent } from './../modals/delete.component';
+import { ModalDataService } from './../modals/modal-data.service';
 import * as fromRoot from '../store';
 import * as fromCourseSelector from '../store/course/course.selectors';
 import * as courseActions from '../store/course/course.actions';
@@ -59,7 +61,7 @@ import * as courseActions from '../store/course/course.actions';
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                     <span class="sr-only">Edit</span>
                   </a>
-                  <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id, deleteModal)" title="Delete">
+                  <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)" title="Delete">
                     <fa-icon [icon]="faTrashAlt"></fa-icon>
                     <span class="sr-only">Delete</span>
                   </button>
@@ -69,27 +71,6 @@ import * as courseActions from '../store/course/course.actions';
           </table>
         </section>
       </section>
-
-      <ng-template #deleteModal let-modal>
-        <div class="modal-header">
-          <span class="modal-title">Delete?</span>
-        </div>
-        <div class="modal-body">
-          <p><strong>Are you sure you want to delete this course?</strong></p>
-          <p>
-            All information associated to this course will be permanently deleted.
-            <span class="text-danger">This operation can not be undone.</span>
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" (click)="modal.close()" title="Delete">
-            <fa-icon [icon]="faTrashAlt"></fa-icon> Delete
-          </button>
-          <button class="btn btn-danger" (click)="modal.dismiss()" title="Cancel">
-            <fa-icon [icon]="faBan"></fa-icon> Cancel
-          </button>
-        </div>
-      </ng-template>
     </section>
   `,
 
@@ -106,9 +87,13 @@ export class CourseListComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faTrashAlt = faTrashAlt;
   faPlusCircle = faPlusCircle;
-  faBan = faBan;
 
-  constructor(private store: Store<fromRoot.State>, private modal: NgbModal, public authService: AuthService) {}
+  constructor(
+    private store: Store<fromRoot.State>,
+    private modal: NgbModal,
+    public authService: AuthService,
+    private modalDataService: ModalDataService
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(
@@ -122,22 +107,22 @@ export class CourseListComponent implements OnInit {
     this.totalCourses$ = this.store.pipe(select(fromCourseSelector.getTotalCourses));
   }
 
-  deleteCourse(id, deleteModal) {
-    this.modal.open(deleteModal).result.then(
-      (result) => {
-        this.closedResult = `Closed with ${result}`;
-        this.store.dispatch(
-          courseActions.deleteCourse({
-            id: id,
-            current: this.current,
-            pageSize: this.pageSize,
-          })
-        );
-      },
-      (reason) => {
-        this.closedResult = `Dismissed with ${reason}`;
-      }
-    );
+  deleteCourse(id) {
+    const modalOptions = {
+      title: 'Are you sure you want to delete this course?',
+      body: 'All information associated to this source will be permanently deleted.',
+      warning: 'This operation can not be undone.',
+    };
+    this.modalDataService.setDeleteModalOptions(modalOptions);
+    this.modal.open(DeleteComponent).result.then((_result) => {
+      this.store.dispatch(
+        courseActions.deleteCourse({
+          id: id,
+          current: this.current,
+          pageSize: this.pageSize,
+        })
+      );
+    });
   }
 
   refreshTable() {
