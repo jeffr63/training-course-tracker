@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -33,10 +33,10 @@ import { UsersEffects } from './store/users/users.effects';
     BrowserModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    FormsModule,
     HttpClientModule,
     NgbModule,
     NgxChartsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects, CourseEffects, PathsEffects, SourcesEffects, UsersEffects]),
     StoreDevtoolsModule.instrument({

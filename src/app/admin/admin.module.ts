@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -41,7 +41,7 @@ const routes = [
     UserEditComponent,
     UserListComponent,
   ],
-  imports: [CommonModule, FontAwesomeModule, FormsModule, NgbModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, FontAwesomeModule, NgbModule, ReactiveFormsModule, RouterModule.forChild(routes)],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule {}

@@ -15,6 +15,7 @@ import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as sourcesActions from '../store/sources/sources.actions';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
 import { Course } from '../shared/course';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-course-edit',
@@ -22,17 +23,19 @@ import { Course } from '../shared/course';
   template: `
     <section class="container">
       <section class="card">
-        <form *ngIf="course">
+        <form *ngIf="courseEditForm" [formGroup]="courseEditForm">
           <fieldset class="form-group row">
             <label class="col-form-label col-sm-2" for="title">Title</label>
             <div class="col-sm-6">
               <input
                 type="text"
                 class="form-control"
-                name="title"
-                [(ngModel)]="course.title"
+                formControlName="title"
                 placeholder="Enter title of course taken"
               />
+              <div *ngIf="courseEditForm.controls.title.errors?.required && courseEditForm.controls.title.touched">
+                <small class="text-danger">Title is required</small>
+              </div>
             </div>
           </fieldset>
 
@@ -42,10 +45,16 @@ import { Course } from '../shared/course';
               <input
                 type="text"
                 class="form-control"
-                name="instructor"
-                [(ngModel)]="course.instructor"
+                formControlName="instructor"
                 placeholder="Enter name of course's intructor"
               />
+              <div
+                *ngIf="
+                  courseEditForm.controls.instructor.errors?.required && courseEditForm.controls.instructor.touched
+                "
+              >
+                <small class="text-danger">Instructor is required</small>
+              </div>
             </div>
           </fieldset>
 
@@ -55,8 +64,7 @@ import { Course } from '../shared/course';
               <input
                 type="text"
                 class="form-control"
-                name="path"
-                [(ngModel)]="course.path"
+                formControlName="path"
                 list="path-helpers"
                 placeholder="Enter techical path of course (ex: Angular or React)"
               />
@@ -65,6 +73,9 @@ import { Course } from '../shared/course';
                   <option value="{{ path.name }}"></option>
                 </div>
               </datalist>
+              <div *ngIf="courseEditForm.controls.path.errors?.required && courseEditForm.controls.path.touched">
+                <small class="text-danger">Path is required</small>
+              </div>
             </div>
           </fieldset>
 
@@ -74,9 +85,8 @@ import { Course } from '../shared/course';
               <input
                 type="text"
                 class="form-control"
-                name="source"
+                formControlName="source"
                 list="source-helpers"
-                [(ngModel)]="course.source"
                 placeholder="Enter where the course was sourced from (ex: Pluralsite)"
               />
               <datalist id="source-helpers">
@@ -84,11 +94,14 @@ import { Course } from '../shared/course';
                   <option value="{{ source.name }}"></option>
                 </div>
               </datalist>
+              <div *ngIf="courseEditForm.controls.source.errors?.required && courseEditForm.controls.source.touched">
+                <small class="text-danger">Source is required</small>
+              </div>
             </div>
           </fieldset>
 
           <div class="form-group row form-buttons">
-            <button class="btn btn-primary mr-sm-2" (click)="save()" title="Save">
+            <button class="btn btn-primary mr-sm-2" (click)="save()" title="Save" [disabled]="!courseEditForm.valid">
               <fa-icon [icon]="faSave"></fa-icon> Save
             </button>
             <a class="btn btn-secondary" [routerLink]="['/courses']"> <fa-icon [icon]="faBan"></fa-icon> Cancel </a>
@@ -113,17 +126,30 @@ import { Course } from '../shared/course';
   ],
 })
 export class CourseEditComponent implements OnInit, OnDestroy {
-  course = <Course>{};
   loading = false;
   componentActive = true;
   paths$: Observable<any[]>;
   sources$: Observable<any[]>;
   faSave = faSave;
   faBan = faBan;
+  courseEditForm: FormGroup;
+  private course = <Course>{};
 
-  constructor(private route: ActivatedRoute, private location: Location, private store: Store<fromRoot.State>) {}
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private store: Store<fromRoot.State>,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
+    this.courseEditForm = this.fb.group({
+      title: ['', Validators.required],
+      instructor: ['', Validators.required],
+      path: ['', Validators.required],
+      source: ['', Validators.required],
+    });
+
     this.route.params.subscribe((params) => {
       if (params.id !== 'new') {
         this.store.dispatch(courseActions.getCourse({ id: params.id }));
@@ -132,7 +158,13 @@ export class CourseEditComponent implements OnInit, OnDestroy {
             select(courseSelectors.getCourse),
             takeWhile(() => this.componentActive)
           )
-          .subscribe((course: Course) => (this.course = course));
+          .subscribe((course: Course) => {
+            this.course = { ...course };
+            this.courseEditForm.get('title').setValue(this.course.title);
+            this.courseEditForm.get('instructor').setValue(this.course.instructor);
+            this.courseEditForm.get('path').setValue(this.course.path);
+            this.courseEditForm.get('source').setValue(this.course.source);
+          });
       }
     });
 
@@ -148,6 +180,10 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.course.title = this.courseEditForm.controls.title.value;
+    this.course.instructor = this.courseEditForm.controls.instructor.value;
+    this.course.path = this.courseEditForm.controls.path.value;
+    this.course.source = this.courseEditForm.controls.source.value;
     this.store.dispatch(courseActions.saveCourse({ course: this.course }));
     this.location.back();
   }
