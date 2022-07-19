@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faPencilAlt, faTrashAlt, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrashAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRoot from '../store';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
@@ -40,7 +40,7 @@ import { Source } from '../shared/sources';
               <tr *ngFor="let source of source$ | async">
                 <td>{{ source.name }}</td>
                 <td>
-                  <a [routerLink]="['/admin/sources', source.id]" class="btn btn-info btn-sm mr-2" title="Edit">
+                  <a [routerLink]="['/admin/sources', source.id]" class="btn btn-info btn-sm me-2" title="Edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                     <span class="sr-only">Edit</span>
                   </a>
@@ -87,7 +87,7 @@ export class SourceListComponent implements OnInit {
     const modalOptions = {
       title: 'Are you sure you want to delete this source?',
       body: 'All information associated to this source will be permanently deleted.',
-      warning: 'This operation can not be undone.',
+      warning: 'This operation cannot be undone.',
     };
     this.modalDataService.setDeleteModalOptions(modalOptions);
     this.modal.open(DeleteComponent).result.then((_result) => {

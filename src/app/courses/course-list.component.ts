@@ -38,7 +38,6 @@ import * as courseActions from '../store/course/course.actions';
             <div class="col" *ngIf="authService.isAuthenticated">
               <a [routerLink]="['/courses/new']" title="Add Course">
                 <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
-                <span class="sr-only">Add Course</span>
               </a>
             </div>
           </header>
@@ -57,13 +56,11 @@ import * as courseActions from '../store/course/course.actions';
                 <td>{{ course.path }}</td>
                 <td>{{ course.source }}</td>
                 <td *ngIf="authService.isAuthenticated">
-                  <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm mr-2" title="Edit">
+                  <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm me-2" title="Edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
-                    <span class="sr-only">Edit</span>
                   </a>
                   <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)" title="Delete">
                     <fa-icon [icon]="faTrashAlt"></fa-icon>
-                    <span class="sr-only">Delete</span>
                   </button>
                 </td>
               </tr>
@@ -111,7 +108,7 @@ export class CourseListComponent implements OnInit {
     const modalOptions = {
       title: 'Are you sure you want to delete this course?',
       body: 'All information associated to this source will be permanently deleted.',
-      warning: 'This operation can not be undone.',
+      warning: 'This operation cannot be undone.',
     };
     this.modalDataService.setDeleteModalOptions(modalOptions);
     this.modal.open(DeleteComponent).result.then((_result) => {

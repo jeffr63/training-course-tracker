@@ -19,23 +19,18 @@ import * as pathsActions from '../store/paths/paths.actions';
     <section class="container">
       <section class="card">
         <form *ngIf="pathEditForm" [formGroup]="pathEditForm">
-          <fieldset class="form-group row">
+          <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="name">Path Name</label>
             <div class="col-sm-6">
-              <input
-                type="text"
-                class="form-control"
-                formControlName="name"
-                  placeholder="Enter path name"
-              />
+              <input type="text" class="form-control" formControlName="name" placeholder="Enter path name" />
               <div *ngIf="pathEditForm.controls.name.errors?.required && pathEditForm.controls.name.touched">
                 <small class="text-danger">Name is required</small>
               </div>
             </div>
           </fieldset>
 
-          <div class="form-group row form-buttons">
-            <button class="btn btn-primary mr-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid">
+          <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid">
               <fa-icon [icon]="faSave"></fa-icon> Save
             </button>
             <a class="btn btn-secondary" [routerLink]="['/admin/paths']" title="Cancel">
@@ -67,11 +62,16 @@ export class PathEditComponent implements OnInit, OnDestroy {
   pathEditForm!: FormGroup;
   private path = <Path>{};
 
-  constructor(private route: ActivatedRoute, private location: Location, private store: Store<fromRoot.State>, private fb: FormBuilder) {}
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private store: Store<fromRoot.State>,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.pathEditForm = this.fb.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
     });
 
     this.route.params.subscribe((params) => {
