@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faPencilAlt, faTrashAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRoot from '../store';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
@@ -26,7 +25,7 @@ import { Source } from '../shared/sources';
             <div class="col">&nbsp;</div>
             <div class="col">
               <a [routerLink]="['/admin/sources/new']" title="Add Source">
-                <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
+                <i class="bi bi-plus-circle-fill display-6 text-success"></i>
                 <span class="sr-only">Add Source</span>
               </a>
             </div>
@@ -41,12 +40,10 @@ import { Source } from '../shared/sources';
                 <td>{{ source.name }}</td>
                 <td>
                   <a [routerLink]="['/admin/sources', source.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <fa-icon [icon]="faPencilAlt"></fa-icon>
-                    <span class="sr-only">Edit</span>
+                    <i class="bi bi-pencil-fill"></i>
                   </a>
                   <button class="btn btn-danger btn-sm" (click)="deleteSource(source.id)" title="Delete">
-                    <fa-icon [icon]="faTrashAlt"></fa-icon>
-                    <span class="sr-only">Delete</span>
+                    <i class="bi bi-trash3-fill"></i>
                   </button>
                 </td>
               </tr>
@@ -68,9 +65,6 @@ import { Source } from '../shared/sources';
 export class SourceListComponent implements OnInit {
   source$: Observable<any[]>;
   selectPath = <Source>{};
-  faPencilAlt = faPencilAlt;
-  faTrashAlt = faTrashAlt;
-  faPlusCircle = faPlusCircle;
 
   constructor(
     private store: Store<fromRoot.State>,

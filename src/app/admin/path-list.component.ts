@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { faPencilAlt, faTrashAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { DeleteComponent } from './../modals/delete.component';
 import { ModalDataService } from './../modals/modal-data.service';
@@ -26,7 +25,7 @@ import * as pathsActions from '../store/paths/paths.actions';
             <div class="col">&nbsp;</div>
             <div class="col">
               <a [routerLink]="['/admin/paths/new']" title="Add Path">
-                <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
+                <i class="bi bi-plus-circle-fill display-6 text-success"></i>
               </a>
             </div>
           </header>
@@ -40,10 +39,10 @@ import * as pathsActions from '../store/paths/paths.actions';
                 <td>{{ path.name }}</td>
                 <td>
                   <a [routerLink]="['/admin/paths', path.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                    <i class="bi bi-pencil-fill"></i>
                   </a>
                   <button class="btn btn-danger btn-sm" (click)="deletePath(path.id)" title="Delete">
-                    <fa-icon [icon]="faTrashAlt"></fa-icon>
+                    <i class="bi bi-trash3-fill"></i>
                   </button>
                 </td>
               </tr>
@@ -59,9 +58,6 @@ import * as pathsActions from '../store/paths/paths.actions';
 export class PathListComponent implements OnInit {
   paths$: Observable<any[]>;
   selectPath = <Path>{};
-  faPencilAlt = faPencilAlt;
-  faTrashAlt = faTrashAlt;
-  faPlusCircle = faPlusCircle;
 
   constructor(
     private store: Store<fromRoot.State>,

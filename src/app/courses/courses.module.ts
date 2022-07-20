@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CanActivateEdit } from '../auth/canActiveateEdit.guard';
@@ -27,7 +26,7 @@ const routes = [
 
 @NgModule({
   declarations: [CourseEditComponent, CourseListComponent],
-  imports: [CommonModule, FontAwesomeModule, ReactiveFormsModule, NgbModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, ReactiveFormsModule, NgbModule, RouterModule.forChild(routes)],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CoursesModule {}

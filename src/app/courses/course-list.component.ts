@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { faPencilAlt, faTrashAlt, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthService } from '../auth/auth.service';
 import { Course } from '../shared/course';
@@ -37,7 +36,7 @@ import * as courseActions from '../store/course/course.actions';
             </div>
             <div class="col" *ngIf="authService.isAuthenticated">
               <a [routerLink]="['/courses/new']" title="Add Course">
-                <fa-icon [icon]="faPlusCircle" class="fa-2x text-success"></fa-icon>
+                <i class="bi bi-plus-circle-fill display-6 text-success"></i>
               </a>
             </div>
           </header>
@@ -57,10 +56,10 @@ import * as courseActions from '../store/course/course.actions';
                 <td>{{ course.source }}</td>
                 <td *ngIf="authService.isAuthenticated">
                   <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <fa-icon [icon]="faPencilAlt"></fa-icon>
+                    <i class="bi bi-pencil-fill"></i>
                   </a>
                   <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)" title="Delete">
-                    <fa-icon [icon]="faTrashAlt"></fa-icon>
+                    <i class="bi bi-trash3-fill"></i>
                   </button>
                 </td>
               </tr>
@@ -81,9 +80,6 @@ export class CourseListComponent implements OnInit {
   pageSize = 10;
   totalCourses$: Observable<number>;
   closedResult = '';
-  faPencilAlt = faPencilAlt;
-  faTrashAlt = faTrashAlt;
-  faPlusCircle = faPlusCircle;
 
   constructor(
     private store: Store<fromRoot.State>,

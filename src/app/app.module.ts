@@ -6,7 +6,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // third party modules
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -32,7 +31,6 @@ import { UsersEffects } from './store/users/users.effects';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FontAwesomeModule,
     HttpClientModule,
     NgbModule,
     NgxChartsModule,

@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
-import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import { Path } from '../shared/paths';
 import * as fromRoot from '../store';
@@ -31,10 +30,10 @@ import * as pathsActions from '../store/paths/paths.actions';
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
             <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid">
-              <fa-icon [icon]="faSave"></fa-icon> Save
+              <i class="bi bi-save"></i> Save
             </button>
             <a class="btn btn-secondary" [routerLink]="['/admin/paths']" title="Cancel">
-              <fa-icon [icon]="faBan"></fa-icon> Cancel
+              <i class="bi bi-x-circle"></i> Cancel
             </a>
           </div>
         </form>
@@ -57,8 +56,6 @@ import * as pathsActions from '../store/paths/paths.actions';
 })
 export class PathEditComponent implements OnInit, OnDestroy {
   componentActive = true;
-  faSave = faSave;
-  faBan = faBan;
   pathEditForm!: FormGroup;
   private path = <Path>{};
 

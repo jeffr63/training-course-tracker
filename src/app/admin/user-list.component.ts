@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRoot from '../store';
 import * as userSelectors from '../store/users/users.selectors';
@@ -36,12 +35,10 @@ import { User } from '../shared/user';
                 <td>{{ user.role }}</td>
                 <td>
                   <a [routerLink]="['/admin/users', user.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <fa-icon [icon]="faPencilAlt"></fa-icon>
-                    <span class="sr-only">Edit</span>
+                    <i class="bi bi-pencil-fill"></i>
                   </a>
                   <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)" title="Delete">
-                    <fa-icon [icon]="faTrashAlt"></fa-icon>
-                    <span class="sr-only">Delete</span>
+                    <i class="bi bi-trash3-fill"></i>
                   </button>
                 </td>
               </tr>
@@ -63,8 +60,6 @@ import { User } from '../shared/user';
 export class UserListComponent implements OnInit {
   users$: Observable<any[]>;
   selectedUser = <User>{};
-  faPencilAlt = faPencilAlt;
-  faTrashAlt = faTrashAlt;
 
   constructor(
     private store: Store<fromRoot.State>,

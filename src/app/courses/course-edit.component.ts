@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
-import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRoot from '../store';
 import * as courseActions from '../store/course/course.actions';
@@ -102,9 +101,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
             <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!courseEditForm.valid">
-              <fa-icon [icon]="faSave"></fa-icon> Save
+              <i class="bi bi-save"></i> Save
             </button>
-            <a class="btn btn-secondary" [routerLink]="['/courses']"> <fa-icon [icon]="faBan"></fa-icon> Cancel </a>
+            <a class="btn btn-secondary" [routerLink]="['/courses']"> <i class="bi bi-x-circle"></i> Cancel </a>
           </div>
         </form>
       </section>
@@ -130,8 +129,6 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   componentActive = true;
   paths$: Observable<any[]>;
   sources$: Observable<any[]>;
-  faSave = faSave;
-  faBan = faBan;
   courseEditForm: FormGroup;
   private course = <Course>{};
 

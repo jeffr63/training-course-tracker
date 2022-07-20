@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
-import { faSave, faBan } from '@fortawesome/free-solid-svg-icons';
 
 import * as fromRoot from '../store';
 import * as userSelectors from '../store/users/users.selectors';
@@ -59,10 +58,10 @@ import { Subscription } from 'rxjs';
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
             <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!userEditForm.valid">
-              <fa-icon [icon]="faSave"></fa-icon> Save
+              <i class="bi bi-save"></i> Save
             </button>
             <a class="btn btn-secondary" [routerLink]="['/admin/users']" title="Cancel">
-              <fa-icon [icon]="faBan"></fa-icon> Cancel
+              <i class="bi bi-x-circle"></i> Cancel
             </a>
           </div>
         </form>
@@ -85,8 +84,6 @@ import { Subscription } from 'rxjs';
 })
 export class UserEditComponent implements OnInit, OnDestroy {
   componentActive = true;
-  faSave = faSave;
-  faBan = faBan;
   userEditForm!: FormGroup;
   private sub = new Subscription();
   private user = <User>{};
