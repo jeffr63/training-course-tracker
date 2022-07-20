@@ -1,7 +1,7 @@
 import * as userActions from './users.actions';
 import { reducer } from './users.reducer';
 import { initialState } from './users.state';
-import { User } from '../../shared/user';
+import { User } from '../../models/user';
 import { getCurrentUser, getError, getUsers } from './users.selectors';
 
 describe('Users Reducer', () => {

@@ -9,7 +9,7 @@ import { takeWhile } from 'rxjs/operators';
 import * as fromRoot from '../store';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
 import * as sourcesActions from '../store/sources/sources.actions';
-import { Source } from '../shared/sources';
+import { Source } from '../models/sources';
 
 @Component({
   selector: 'app-source-edit',

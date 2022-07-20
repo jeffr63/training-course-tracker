@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import * as pathActions from './paths.actions';
-import { Path } from '../../shared/paths';
+import { Path } from '../../models/paths';
 import { PathsService } from '../../services/paths.service';
 
 @Injectable()

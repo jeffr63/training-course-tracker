@@ -13,7 +13,7 @@ import * as pathsActions from '../store/paths/paths.actions';
 import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as sourcesActions from '../store/sources/sources.actions';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
-import { Course } from '../shared/course';
+import { Course } from '../models/course';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

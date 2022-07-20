@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
 
-import { Path } from '../shared/paths';
+import { Path } from '../models/paths';
 import * as fromRoot from '../store';
 import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as pathsActions from '../store/paths/paths.actions';

@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import * as courseActions from './course.actions';
 import { State, initialState } from './course.state';
-import { Course, CourseData } from '../../shared/course';
+import { Course, CourseData } from '../../models/course';
 
 export const reducer = createReducer(
   initialState,

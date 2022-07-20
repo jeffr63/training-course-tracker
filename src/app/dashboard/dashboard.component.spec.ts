@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { CourseData } from '../shared/course';
+import { CourseData } from '../models/course';
 import { DashboardComponent } from './dashboard.component';
 import { DOMHelperRoutines } from '../../testing/dom.helpers';
 import { getCoursesByPath, getCoursesBySource } from '../store/course/course.selectors';

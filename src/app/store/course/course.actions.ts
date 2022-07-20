@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Course } from '../../shared/course';
+import { Course } from '../../models/course';
 
 export const deleteCourse = createAction(
   '[Courses] Delete Course',

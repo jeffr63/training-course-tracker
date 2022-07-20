@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import * as userActions from './users.actions';
-import { User } from '../../shared/user';
+import { User } from '../../models/user';
 import { UsersEffects } from './users.effects';
 import { UsersService } from '../../services/user.service';
 import { State, initialState } from './users.state';

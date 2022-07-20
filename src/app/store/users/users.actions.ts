@@ -1,6 +1,6 @@
 import { props, createAction } from '@ngrx/store';
 
-import { User } from './../../shared/user';
+import { User } from '../../models/user';
 
 export const deleteUser = createAction('[Users] Delete User', props<{ id: number }>());
 

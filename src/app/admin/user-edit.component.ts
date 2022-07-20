@@ -9,7 +9,7 @@ import { takeWhile } from 'rxjs/operators';
 import * as fromRoot from '../store';
 import * as userSelectors from '../store/users/users.selectors';
 import * as userActions from '../store/users/users.actions';
-import { User } from '../shared/user';
+import { User } from '../models/user';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Course, CourseData } from '../../shared/course';
+import { Course, CourseData } from '../../models/course';
 
 export interface State {
   courses: Course[];

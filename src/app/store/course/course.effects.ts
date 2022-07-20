@@ -5,7 +5,7 @@ import { map, catchError, concatMap } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 
 import * as courseActions from './course.actions'
-import { Course } from '../../shared/course';
+import { Course } from '../../models/course';
 import { CoursesService } from '../../courses/courses.service';
 
 @Injectable()

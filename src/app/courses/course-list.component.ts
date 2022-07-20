@@ -5,12 +5,13 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
-import { Course } from '../shared/course';
+import { Course } from '../models/course';
 import { DeleteComponent } from './../modals/delete.component';
 import { ModalDataService } from './../modals/modal-data.service';
 import * as fromRoot from '../store';
 import * as fromCourseSelector from '../store/course/course.selectors';
 import * as courseActions from '../store/course/course.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-list',
@@ -21,50 +22,27 @@ import * as courseActions from '../store/course/course.actions';
         <header>
           <h1 class="card-header">Training Courses</h1>
         </header>
+
         <section class="card-body">
-          <header class="row">
-            <div class="col">
-              <ngb-pagination
-                [collectionSize]="totalCourses$ | async"
-                [boundaryLinks]="true"
-                [pageSize]="pageSize"
-                [maxSize]="5"
-                [rotate]="true"
-                [(page)]="current"
-                (pageChange)="refreshTable()"
-              ></ngb-pagination>
-            </div>
-            <div class="col" *ngIf="authService.isAuthenticated">
-              <a [routerLink]="['/courses/new']" title="Add Course">
-                <i class="bi bi-plus-circle-fill display-6 text-success"></i>
-              </a>
-            </div>
-          </header>
-          <table class="table table-striped">
-            <thead>
-              <th>Title</th>
-              <th>Instructor</th>
-              <th>Path</th>
-              <th>Source</th>
-              <th>&nbsp;</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let course of courses$ | async">
-                <td>{{ course.title }}</td>
-                <td>{{ course.instructor }}</td>
-                <td>{{ course.path }}</td>
-                <td>{{ course.source }}</td>
-                <td *ngIf="authService.isAuthenticated">
-                  <a [routerLink]="['/courses', course.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <i class="bi bi-pencil-fill"></i>
-                  </a>
-                  <button class="btn btn-danger btn-sm" (click)="deleteCourse(course.id)" title="Delete">
-                    <i class="bi bi-trash3-fill"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <app-pager-list-header
+            includePager="true"
+            [total]="totalCourses$ | async"
+            [pageSize]="pageSize"
+            [maxSize]="5"
+            [(current)]="current"
+            [isAuthenticated]="authService.isAuthenticated"
+            (refreshTable)="refreshTable()"
+            (newCourse)="newCourse()"
+          ></app-pager-list-header>
+
+          <app-list-display
+            [headers]="headers"
+            [columns]="columns"
+            [items]="courses$ | async"
+            [isAuthenticated]="authService.isAuthenticated"
+            (deleteItem)="deleteCourse($event)"
+            (editItem)="editCourse($event)"
+          ></app-list-display>
         </section>
       </section>
     </section>
@@ -80,12 +58,15 @@ export class CourseListComponent implements OnInit {
   pageSize = 10;
   totalCourses$: Observable<number>;
   closedResult = '';
+  columns = ['title', 'instructor', 'path', 'source'];
+  headers = ['Title', 'Instructor', 'Path', 'Source'];
 
   constructor(
     private store: Store<fromRoot.State>,
     private modal: NgbModal,
     public authService: AuthService,
-    private modalDataService: ModalDataService
+    private modalDataService: ModalDataService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -116,6 +97,14 @@ export class CourseListComponent implements OnInit {
         })
       );
     });
+  }
+
+  editCourse(id) {
+    this.router.navigate(['/courses', id]);
+  }
+
+  newCourse() {
+    this.router.navigate(['/courses/new']);
   }
 
   refreshTable() {

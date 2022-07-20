@@ -5,7 +5,7 @@ import {
 } from "@angular/common/http/testing";
 
 import { SourcesService } from "./sources.service";
-import { Source } from "../shared/sources";
+import { Source } from "../models/sources";
 
 const baseUrl = "http://localhost:3000";
 

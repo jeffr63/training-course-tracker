@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import * as courseActions from './course.actions';
-import { Course } from '../../shared/course';
+import { Course } from '../../models/course';
 import { CourseEffects } from './course.effects';
 import { CoursesService } from '../../courses/courses.service';
 import { State, initialState } from './course.state';

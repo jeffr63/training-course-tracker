@@ -9,7 +9,8 @@ import * as sourcesSelectors from '../store/sources/sources.selectors';
 import * as sourcesActions from '../store/sources/sources.actions';
 import { DeleteComponent } from '../modals/delete.component';
 import { ModalDataService } from './../modals/modal-data.service';
-import { Source } from '../shared/sources';
+import { Source } from '../models/sources';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-source-list',
@@ -20,35 +21,18 @@ import { Source } from '../shared/sources';
         <header>
           <h1 class="card-header">Sources</h1>
         </header>
+
         <section class="card-body">
-          <header class="row">
-            <div class="col">&nbsp;</div>
-            <div class="col">
-              <a [routerLink]="['/admin/sources/new']" title="Add Source">
-                <i class="bi bi-plus-circle-fill display-6 text-success"></i>
-                <span class="sr-only">Add Source</span>
-              </a>
-            </div>
-          </header>
-          <table class="table table-striped">
-            <thead>
-              <th>Source</th>
-              <th>&nbsp;</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let source of source$ | async">
-                <td>{{ source.name }}</td>
-                <td>
-                  <a [routerLink]="['/admin/sources', source.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <i class="bi bi-pencil-fill"></i>
-                  </a>
-                  <button class="btn btn-danger btn-sm" (click)="deleteSource(source.id)" title="Delete">
-                    <i class="bi bi-trash3-fill"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <app-list-header (newItem)="newSource()"></app-list-header>
+
+          <app-list-display
+            [headers]="headers"
+            [columns]="columns"
+            [items]="source$ | async"
+            [isAuthenticated]="isAuthenticated"
+            (deleteItem)="deleteSource($event)"
+            (editItem)="editSource($event)"
+          ></app-list-display>
         </section>
       </section>
     </section>
@@ -63,13 +47,17 @@ import { Source } from '../shared/sources';
   ],
 })
 export class SourceListComponent implements OnInit {
+  columns = ['name'];
+  headers = ['Source'];
+  isAuthenticated = true;
   source$: Observable<any[]>;
   selectPath = <Source>{};
 
   constructor(
     private store: Store<fromRoot.State>,
     private modal: NgbModal,
-    private modalDataService: ModalDataService
+    private modalDataService: ModalDataService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -87,5 +75,13 @@ export class SourceListComponent implements OnInit {
     this.modal.open(DeleteComponent).result.then((_result) => {
       this.store.dispatch(sourcesActions.deleteSource({ id }));
     });
+  }
+
+  editSource(id: number) {
+    this.router.navigate(['/admin/sources', id]);
+  }
+
+  newSource() {
+    this.router.navigate(['/admin/sources/new']);
   }
 }

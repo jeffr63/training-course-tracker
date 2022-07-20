@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../store';
 import * as courseActions from '../store/course/course.actions';
 import * as courseSelectors from '../store/course/course.selectors';
-import { CourseData } from '../shared/course';
+import { CourseData } from '../models/course';
 
 @Component({
   selector: 'app-dashboard',

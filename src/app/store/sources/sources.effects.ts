@@ -6,7 +6,7 @@ import { Action } from '@ngrx/store';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import * as sourceActions from './sources.actions'
-import { Source } from '../../shared/sources';
+import { Source } from '../../models/sources';
 import { SourcesService } from '../../services/sources.service';
 
 @Injectable()

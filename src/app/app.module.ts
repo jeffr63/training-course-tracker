@@ -23,6 +23,7 @@ import { LoginComponent } from './modals/login.component';
 import { MenuComponent } from './menu/menu.component';
 import { PathsEffects } from './store/paths/paths.effects';
 import { reducers, metaReducers } from './store';
+import { SharedModule } from './shared/shared.module';
 import { SourcesEffects } from './store/sources/sources.effects';
 import { UsersEffects } from './store/users/users.effects';
 
@@ -35,6 +36,7 @@ import { UsersEffects } from './store/users/users.effects';
     NgbModule,
     NgxChartsModule,
     ReactiveFormsModule,
+    SharedModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([AppEffects, CourseEffects, PathsEffects, SourcesEffects, UsersEffects]),
     StoreDevtoolsModule.instrument({

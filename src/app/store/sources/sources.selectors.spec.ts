@@ -1,4 +1,4 @@
-import { Source } from '../../shared/sources';
+import { Source } from '../../models/sources';
 import { getCurrentSource, getError, getSources } from './sources.selectors';
 import { initialState } from './sources.state';
 

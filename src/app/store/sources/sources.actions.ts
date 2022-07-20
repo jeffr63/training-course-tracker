@@ -1,6 +1,6 @@
 import { props, createAction } from '@ngrx/store';
 
-import { Source } from '../../shared/sources';
+import { Source } from '../../models/sources';
 
 export const deleteSource = createAction(
   '[Sources] Delete Source',

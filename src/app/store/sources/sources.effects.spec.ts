@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import * as sourcesActions from './sources.actions';
-import { Source } from '../../shared/sources';
+import { Source } from '../../models/sources';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '../../services/sources.service';
 import { State, initialState } from './sources.state';

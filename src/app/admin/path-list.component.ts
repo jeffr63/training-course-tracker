@@ -6,10 +6,11 @@ import { Observable } from 'rxjs';
 
 import { DeleteComponent } from './../modals/delete.component';
 import { ModalDataService } from './../modals/modal-data.service';
-import { Path } from '../shared/paths';
+import { Path } from '../models/paths';
 import * as fromRoot from '../store';
 import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as pathsActions from '../store/paths/paths.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-path-list',
@@ -20,35 +21,20 @@ import * as pathsActions from '../store/paths/paths.actions';
         <header>
           <h1 class="card-header">Paths</h1>
         </header>
+
         <section class="card-body">
-          <header class="row">
-            <div class="col">&nbsp;</div>
-            <div class="col">
-              <a [routerLink]="['/admin/paths/new']" title="Add Path">
-                <i class="bi bi-plus-circle-fill display-6 text-success"></i>
-              </a>
-            </div>
-          </header>
-          <table class="table table-striped">
-            <thead>
-              <th>Path</th>
-              <th>&nbsp;</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let path of paths$ | async">
-                <td>{{ path.name }}</td>
-                <td>
-                  <a [routerLink]="['/admin/paths', path.id]" class="btn btn-info btn-sm me-2" title="Edit">
-                    <i class="bi bi-pencil-fill"></i>
-                  </a>
-                  <button class="btn btn-danger btn-sm" (click)="deletePath(path.id)" title="Delete">
-                    <i class="bi bi-trash3-fill"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <app-list-header (newItem)="newPath()"></app-list-header>
+
+          <app-list-display
+            [headers]="headers"
+            [columns]="columns"
+            [items]="paths$ | async"
+            [isAuthenticated]="isAuthenticated"
+            (deleteItem)="deletePath($event)"
+            (editItem)="editPath($event)"
+          ></app-list-display>
         </section>
+
       </section>
     </section>
   `,
@@ -56,13 +42,17 @@ import * as pathsActions from '../store/paths/paths.actions';
   styles: ['header { padding-bottom: 10px; }'],
 })
 export class PathListComponent implements OnInit {
+  columns = ['name'];
+  headers = ['Path'];
+  isAuthenticated = true;
   paths$: Observable<any[]>;
   selectPath = <Path>{};
 
   constructor(
     private store: Store<fromRoot.State>,
     private modal: NgbModal,
-    private modalDataService: ModalDataService
+    private modalDataService: ModalDataService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -80,5 +70,13 @@ export class PathListComponent implements OnInit {
     this.modal.open(DeleteComponent).result.then((_result) => {
       this.store.dispatch(pathsActions.deletePath({ id: id }));
     });
+  }
+
+  editPath(id: number) {
+    this.router.navigate(['/admin/paths', id]);
+  }
+
+  newPath() {
+    this.router.navigate(['/admin/paths/new']);
   }
 }

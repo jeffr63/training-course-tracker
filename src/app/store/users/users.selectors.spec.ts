@@ -1,4 +1,4 @@
-import { User } from '../../shared/user';
+import { User } from '../../models/user';
 import { getCurrentUser, getError, getUsers } from './users.selectors';
 import { initialState } from './users.state';
 

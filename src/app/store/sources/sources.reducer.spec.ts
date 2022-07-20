@@ -1,7 +1,7 @@
 import * as sourcesActions from './sources.actions';
 import { reducer } from './sources.reducer';
 import { initialState } from './sources.state';
-import { Source } from '../../shared/sources';
+import { Source } from '../../models/sources';
 import { getCurrentSource, getError, getSources } from './sources.selectors';
 
 describe('Sources Reducer', () => {
