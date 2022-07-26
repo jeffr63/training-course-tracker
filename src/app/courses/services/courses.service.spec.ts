@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { CoursesService } from './courses.service';
-import { Course } from '../models/course';
+import { CoursesService } from '@courses/services/courses.service';
+import { Course } from '@courses/models/course';
 
 const baseUrl = 'http://localhost:3000';
 

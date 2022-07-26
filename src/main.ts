@@ -1,22 +1,23 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app/app.component';
-
-import { environment } from './environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, TitleStrategy } from '@angular/router';
-import { CustomTitleStrategyService } from './app/shared/services/custom-title-strategy.service';
-import { StoreModule } from '@ngrx/store';
-import { metaReducers, reducers } from './app/store';
+
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppEffects } from './app/store/app.effects';
-import { CourseEffects } from './app/store/course/course.effects';
-import { PathsEffects } from './app/store/paths/paths.effects';
-import { SourcesEffects } from './app/store/sources/sources.effects';
-import { UsersEffects } from './app/store/users/users.effects';
-import { APP_ROUTES } from './app/app.routes';
+import { StoreModule } from '@ngrx/store';
+
+import { metaReducers, reducers } from '@store/index';
+import { environment } from '@env/environment';
+import { APP_ROUTES } from '@app/app.routes';
+import { AppComponent } from '@app/app.component';
+import { AppEffects } from '@store/app.effects';
+import { CourseEffects } from '@store/course/course.effects';
+import { CustomTitleStrategyService } from '@shared/services/custom-title-strategy.service';
+import { PathsEffects } from '@store/paths/paths.effects';
+import { SourcesEffects } from '@store/sources/sources.effects';
+import { UsersEffects } from '@store/users/users.effects';
 
 if (environment.production) {
   enableProdMode();

@@ -1,17 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
-
-import * as fromRoot from '../../../store';
-import * as userSelectors from '../../../store/users/users.selectors';
-import * as userActions from '../../../store/users/users.actions';
-import { User } from '../../../admin/users/models/user';
-import { Subscription } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+
+import * as fromRoot from '@store/index';
+import * as userSelectors from '@store/users/users.selectors';
+import * as userActions from '@store/users/users.actions';
+import { User } from '@admin/users/models/user';
 
 @Component({
   selector: 'app-user-edit',

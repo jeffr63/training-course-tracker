@@ -1,7 +1,7 @@
-import * as pathsActions from './paths.actions';
-import { reducer } from './paths.reducer';
-import { initialState } from './paths.state';
-import { Path } from '../../admin/paths/models/paths';
+import * as pathsActions from '@store/paths/paths.actions';
+import { reducer } from '@store/paths/paths.reducer';
+import { initialState } from '@store/paths/paths.state';
+import { Path } from '@admin/paths/models/paths';
 
 describe('Paths Reducer', () => {
   describe('an unknown action', () => {
@@ -27,14 +27,12 @@ describe('Paths Reducer', () => {
     describe('DELETE_SUCCESS action', () => {
       const beforePaths: Path[] = [
         { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
+        { id: 2, name: 'DEF' },
       ];
-      const afterPaths: Path[] = [
-        { id: 2, name: 'DEF' }
-      ];
+      const afterPaths: Path[] = [{ id: 2, name: 'DEF' }];
       const newState = {
         ...initialState,
-        paths: beforePaths
+        paths: beforePaths,
       };
       it(`should clear error`, () => {
         const action = pathsActions.deletePathSuccess({ id: 1 });
@@ -51,7 +49,7 @@ describe('Paths Reducer', () => {
       it(`should clear currentPath and set error`, () => {
         const newState = {
           ...initialState,
-          currentCourse: { id: 1, name: 'ABC' }
+          currentCourse: { id: 1, name: 'ABC' },
         };
         const action = pathsActions.getPathFail({ error: 'Error' });
         const state = reducer(newState, action);
@@ -88,14 +86,13 @@ describe('Paths Reducer', () => {
       it(`should populate paths from the array and clear error`, () => {
         const paths: Path[] = [
           { id: 1, name: 'ABC' },
-          { id: 2, name: 'DEF' }
+          { id: 2, name: 'DEF' },
         ];
         const action = pathsActions.loadPathsSuccess({ paths });
         const state = reducer(initialState, action);
 
         expect(state.paths).toEqual(paths);
         expect(state.error).toEqual('');
-
       });
     });
 
@@ -116,8 +113,8 @@ describe('Paths Reducer', () => {
           ...initialState,
           paths: [
             { id: 1, name: 'ABC' },
-            { id: 2, name: 'DEF' }
-          ]
+            { id: 2, name: 'DEF' },
+          ],
         };
         const path = { id: 2, name: 'GHI' };
         const action = pathsActions.savePathSuccess({ path: path });

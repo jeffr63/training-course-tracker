@@ -4,9 +4,9 @@ import { of } from 'rxjs';
 import { map, catchError, concatMap } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 
-import * as courseActions from './course.actions'
-import { Course } from '../../courses/models/course';
-import { CoursesService } from '../../courses/services/courses.service';
+import * as courseActions from '@store/course/course.actions'
+import { Course } from '@courses/models/course';
+import { CoursesService } from '@courses/services/courses.service';
 
 @Injectable()
 export class CourseEffects {

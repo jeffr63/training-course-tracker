@@ -1,6 +1,6 @@
-import { User } from '../../models/user';
-import { getCurrentUser, getError, getUsers } from './users.selectors';
-import { initialState } from './users.state';
+import { User } from '@admin/users/models/user';
+import { getCurrentUser, getError, getUsers } from '@store/users/users.selectors';
+import { initialState } from '@store/users/users.state';
 
 describe(`Users Selectors`, () => {
   describe(`getUsers selector`, () => {

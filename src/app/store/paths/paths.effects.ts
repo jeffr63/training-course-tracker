@@ -4,9 +4,9 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as pathActions from './paths.actions';
-import { Path } from '../../admin/paths/models/paths';
-import { PathsService } from '../../admin/paths/services/paths.service';
+import * as pathActions from '@store/paths/paths.actions';
+import { Path } from '@admin/paths/models/paths';
+import { PathsService } from '@admin/paths/services/paths.service';
 
 @Injectable()
 export class PathsEffects {

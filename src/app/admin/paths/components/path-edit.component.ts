@@ -1,16 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
-import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
-
-import { Path } from '../models/paths';
-import * as fromRoot from '../../../store';
-import * as pathsSelectors from '../../../store/paths/paths.selectors';
-import * as pathsActions from '../../../store/paths/paths.actions';
+import { Store, select } from '@ngrx/store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import * as fromRoot from '@store/index';
+import * as pathsSelectors from '@store/paths/paths.selectors';
+import * as pathsActions from '@store/paths/paths.actions';
+import { Path } from '@admin/paths/models/paths';
 
 @Component({
   selector: 'app-path-edit',

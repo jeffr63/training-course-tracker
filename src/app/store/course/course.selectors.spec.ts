@@ -7,9 +7,9 @@ import {
   getError,
   getTotalCourses,
   saveCourse,
-} from './course.selectors';
-import { initialState } from './course.state';
-import { Course, CourseData } from '../../courses/models/course';
+} from '@store/course/course.selectors';
+import { initialState } from '@store/course/course.state';
+import { Course, CourseData } from '@courses/models/course';
 
 describe(`Course Selectors`, () => {
   describe(`getCourses selector`, () => {

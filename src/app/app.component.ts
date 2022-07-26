@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AuthService } from './auth/auth.service';
-import { MenuComponent } from './shared/menu/menu.component';
+import { AuthService } from '@auth/auth.service';
+import { MenuComponent } from '@shared/menu/menu.component';
 
 @Component({
   selector: 'app-root',

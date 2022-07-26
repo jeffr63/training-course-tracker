@@ -6,15 +6,15 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromRoot from '../../store';
-import * as fromCourseSelector from '../../store/course/course.selectors';
-import * as courseActions from '../../store/course/course.actions';
-import { AuthService } from '../../auth/auth.service';
-import { Course } from '../models/course';
-import { DeleteComponent } from '../../shared/modals/delete.component';
-import { ListDisplayComponent } from '../../shared/list/list-display.component';
-import { ModalDataService } from '../../shared/modals/modal-data.service';
-import { PagerListHeaderComponent } from '../../shared/list/pager-list-header.component';
+import * as fromRoot from '@store/index';
+import * as fromCourseSelector from '@store/course/course.selectors';
+import * as courseActions from '@store/course/course.actions';
+import { AuthService } from '@auth/auth.service';
+import { Course } from '@courses/models/course';
+import { DeleteComponent } from '@shared/modals/delete.component';
+import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ModalDataService } from '@shared/modals/modal-data.service';
+import { PagerListHeaderComponent } from '@shared/list/pager-list-header.component';
 
 @Component({
   selector: 'app-course-list',

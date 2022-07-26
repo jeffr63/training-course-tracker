@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import * as fromRoot from '../../../store';
-import * as userSelectors from '../../../store/users/users.selectors';
-import * as userActions from '../../../store/users/users.actions';
-import { DeleteComponent } from '../../../shared/modals/delete.component';
-import { ModalDataService } from '../../../shared/modals/modal-data.service';
-import { User } from '../models/user';
-import { Router } from '@angular/router';
-import { ListDisplayComponent } from '../../../shared/list/list-display.component';
-import { CommonModule } from '@angular/common';
+import * as fromRoot from '@store/index';
+import * as userSelectors from '@store/users/users.selectors';
+import * as userActions from '@store/users/users.actions';
+import { DeleteComponent } from '@shared/modals/delete.component';
+import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ModalDataService } from '@shared/modals/modal-data.service';
+import { User } from '@admin/users/models/user';
 
 @Component({
   selector: 'app-users-list',

@@ -1,4 +1,4 @@
-import * as courseActions from './course.actions';
+import * as courseActions from '@store/course/course.actions';
 
 describe('Courses Actions', () => {
 

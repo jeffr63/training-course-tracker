@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { map, Observable, Subscription } from 'rxjs';
 
-import { CoursesService } from './courses.service';
+import { CoursesService } from '@courses/services/courses.service';
 
 @Injectable({
   providedIn: 'root',

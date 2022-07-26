@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ModalDataService } from './modal-data.service';
+import { ModalDataService } from '@shared/modals/modal-data.service';
 
 @Component({
   selector: 'app-delete',

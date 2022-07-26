@@ -1,21 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
-
-import * as fromRoot from '../../store';
-import * as courseActions from '../../store/course/course.actions';
-import * as courseSelectors from '../../store/course/course.selectors';
-import * as pathsActions from '../../store/paths/paths.actions';
-import * as pathsSelectors from '../../store/paths/paths.selectors';
-import * as sourcesActions from '../../store/sources/sources.actions';
-import * as sourcesSelectors from '../../store/sources/sources.selectors';
-import { Course } from '../models/course';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import * as fromRoot from '@store/index';
+import * as courseActions from '@store/course/course.actions';
+import * as courseSelectors from '@store/course/course.selectors';
+import * as pathsActions from '@store/paths/paths.actions';
+import * as pathsSelectors from '@store/paths/paths.selectors';
+import * as sourcesActions from '@store/sources/sources.actions';
+import * as sourcesSelectors from '@store/sources/sources.selectors';
+import { Course } from '@courses/models/course';
 
 @Component({
   selector: 'app-course-edit',

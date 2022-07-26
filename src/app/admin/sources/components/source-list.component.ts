@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import * as fromRoot from '../../../store';
-import * as sourcesSelectors from '../../../store/sources/sources.selectors';
-import * as sourcesActions from '../../../store/sources/sources.actions';
-import { DeleteComponent } from '../../../shared/modals/delete.component';
-import { ListDisplayComponent } from '../../../shared/list/list-display.component';
-import { ListHeaderComponent } from '../../../shared/list/list-header.component';
-import { ModalDataService } from '../../../shared/modals/modal-data.service';
-import { Source } from '../models/sources';
+import * as fromRoot from '@store/index';
+import * as sourcesSelectors from '@store/sources/sources.selectors';
+import * as sourcesActions from '@store/sources/sources.actions';
+import { DeleteComponent } from '@shared/modals/delete.component';
+import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListHeaderComponent } from '@shared/list/list-header.component';
+import { ModalDataService } from '@shared/modals/modal-data.service';
+import { Source } from '@admin/sources/models/sources';
 
 @Component({
   selector: 'app-source-list',

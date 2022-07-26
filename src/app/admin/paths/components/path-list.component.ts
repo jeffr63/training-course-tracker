@@ -6,14 +6,14 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromRoot from '../../../store';
-import * as pathsSelectors from '../../../store/paths/paths.selectors';
-import * as pathsActions from '../../../store/paths/paths.actions';
-import { DeleteComponent } from '../../../shared/modals/delete.component'
-import { ListDisplayComponent } from '../../../shared/list/list-display.component';
-import { ListHeaderComponent } from '../../../shared/list/list-header.component';
-import { ModalDataService } from '../../../shared/modals/modal-data.service';
-import { Path } from '../models/paths';
+import * as fromRoot from '@store/index';
+import * as pathsSelectors from '@store/paths/paths.selectors';
+import * as pathsActions from '@store/paths/paths.actions';
+import { DeleteComponent } from '@shared/modals/delete.component'
+import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListHeaderComponent } from '@shared/list/list-header.component';
+import { ModalDataService } from '@shared/modals/modal-data.service';
+import { Path } from '@admin/paths/models/paths';
 
 @Component({
   selector: 'app-path-list',

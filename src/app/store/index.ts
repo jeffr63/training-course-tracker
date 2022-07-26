@@ -1,13 +1,13 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
-import * as courseReducer from './course/course.reducer';
-import * as courseState from './course/course.state';
-import * as pathsReducer from './paths/paths.reducer';
-import * as pathsState from './paths/paths.state';
-import * as sourcesReducer from './sources/sources.reducer';
-import * as sourcesState from './sources/sources.state';
-import * as usersReducer from './users/users.reducer';
-import * as usersState from './users/users.state';
+import * as courseReducer from '@store/course/course.reducer';
+import * as courseState from '@store/course/course.state';
+import * as pathsReducer from '@store/paths/paths.reducer';
+import * as pathsState from '@store/paths/paths.state';
+import * as sourcesReducer from '@store/sources/sources.reducer';
+import * as sourcesState from '@store/sources/sources.state';
+import * as usersReducer from '@store/users/users.reducer';
+import * as usersState from '@store/users/users.state';
 
 // import { environment } from '../../../environments/environment.prod';
 

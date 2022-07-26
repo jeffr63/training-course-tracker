@@ -1,4 +1,4 @@
-import * as usersActions from './users.actions';
+import * as usersActions from '@store/users/users.actions';
 
 describe('Users Actions', () => {
   describe('Delete User', () => {

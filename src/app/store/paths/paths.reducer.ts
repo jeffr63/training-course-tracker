@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as pathsActions from './paths.actions';
-import { State, initialState } from './paths.state';
+import * as pathsActions from '@store/paths/paths.actions';
+import { State, initialState } from '@store/paths/paths.state';
 
 export const reducer = createReducer(
   initialState,

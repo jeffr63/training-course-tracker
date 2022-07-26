@@ -1,4 +1,4 @@
-import * as pathActions from './paths.actions';
+import * as pathActions from '@store/paths/paths.actions';
 
 describe('Paths Actions', () => {
 

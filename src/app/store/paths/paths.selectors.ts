@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { State } from './paths.state';
+import { State } from '@store/paths/paths.state';
 
 // paths selectors
 export const selectPathsState = createFeatureSelector<State>('paths');

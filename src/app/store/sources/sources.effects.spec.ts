@@ -5,11 +5,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as sourcesActions from './sources.actions';
-import { Source } from '../../models/sources';
-import { SourcesEffects } from './sources.effects';
-import { SourcesService } from '../../shared/services/sources.service';
-import { State, initialState } from './sources.state';
+import * as sourcesActions from '@store/sources/sources.actions';
+import { Source } from '@admin/sources/models/sources';
+import { SourcesEffects } from '@store/sources/sources.effects';
+import { SourcesService } from '@admin/sources/services/sources.service';
+import { State, initialState } from '@store/sources/sources.state';
 
 const sourcesService = jasmine.createSpyObj('sourcesService', ['delete', 'get', 'load', 'save']);
 

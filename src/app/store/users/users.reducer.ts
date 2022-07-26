@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as usersActions from './users.actions';
-import { initialState } from './users.state';
+import * as usersActions from '@store/users/users.actions';
+import { initialState } from '@store/users/users.state';
 
 export const reducer = createReducer(
   initialState,

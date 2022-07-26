@@ -4,9 +4,9 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as userActions from './users.actions';
-import { User } from '../../admin/users/models/user';
-import { UsersService } from '../../admin/users/services/user.service';
+import * as userActions from '@store/users/users.actions';
+import { User } from '@admin/users/models/user';
+import { UsersService } from '@admin/users/services/user.service';
 
 @Injectable()
 export class UsersEffects {

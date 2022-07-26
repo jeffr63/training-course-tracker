@@ -1,15 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
-import * as fromRoot from '../../store';
-import * as courseActions from '../../store/course/course.actions';
-import * as courseSelectors from '../../store/course/course.selectors';
-import { CourseData } from '../../courses/models/course';
-import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import * as fromRoot from '@store/index';
+import * as courseActions from '@store/course/course.actions';
+import * as courseSelectors from '@store/course/course.selectors';
+import { CourseData } from '@courses/models/course';
 
 @Component({
   selector: 'app-dashboard',

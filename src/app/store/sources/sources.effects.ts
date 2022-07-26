@@ -4,9 +4,9 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as sourceActions from './sources.actions';
-import { Source } from '../../admin/sources/models/sources';
-import { SourcesService } from '../../admin/sources/services/sources.service';
+import * as sourceActions from '@store/sources/sources.actions';
+import { Source } from '@admin/sources/models/sources';
+import { SourcesService } from '@admin/sources/services/sources.service';
 
 @Injectable()
 export class SourcesEffects {
