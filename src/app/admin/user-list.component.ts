@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '../store';
 import * as userSelectors from '../store/users/users.selectors';
@@ -11,9 +11,13 @@ import { DeleteComponent } from './../modals/delete.component';
 import { ModalDataService } from './../modals/modal-data.service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { ListDisplayComponent } from '../shared/list-display.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-users-list',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ListDisplayComponent],
 
   template: `
     <section>

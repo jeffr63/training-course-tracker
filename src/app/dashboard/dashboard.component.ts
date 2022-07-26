@@ -7,9 +7,14 @@ import * as fromRoot from '../store';
 import * as courseActions from '../store/course/course.actions';
 import * as courseSelectors from '../store/course/course.selectors';
 import { CourseData } from '../models/course';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule, NgbModule, NgxChartsModule],
 
   template: `
     <section>

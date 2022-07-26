@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -12,9 +12,14 @@ import * as fromRoot from '../store';
 import * as fromCourseSelector from '../store/course/course.selectors';
 import * as courseActions from '../store/course/course.actions';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { PagerListHeaderComponent } from '../shared/pager-list-header.component';
+import { ListDisplayComponent } from '../shared/list-display.component';
 
 @Component({
   selector: 'app-course-list',
+  standalone: true,
+  imports: [CommonModule, NgbModule, PagerListHeaderComponent, ListDisplayComponent],
 
   template: `
     <section>

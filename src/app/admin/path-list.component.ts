@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -11,9 +11,14 @@ import * as fromRoot from '../store';
 import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as pathsActions from '../store/paths/paths.actions';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ListHeaderComponent } from '../shared/list-header.component';
+import { ListDisplayComponent } from '../shared/list-display.component';
 
 @Component({
   selector: 'app-path-list',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ListDisplayComponent, ListHeaderComponent],
 
   template: `
     <section>
@@ -34,7 +39,6 @@ import { Router } from '@angular/router';
             (editItem)="editPath($event)"
           ></app-list-display>
         </section>
-
       </section>
     </section>
   `,

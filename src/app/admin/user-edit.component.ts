@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
@@ -11,9 +11,13 @@ import * as userSelectors from '../store/users/users.selectors';
 import * as userActions from '../store/users/users.actions';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-edit',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule],
+
   template: `
     <section class="container">
       <section class="card">

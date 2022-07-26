@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -14,10 +14,13 @@ import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as sourcesActions from '../store/sources/sources.actions';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
 import { Course } from '../models/course';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-course-edit',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule],
 
   template: `
     <section class="container">

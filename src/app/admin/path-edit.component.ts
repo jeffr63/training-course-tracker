@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
@@ -10,9 +10,12 @@ import { Path } from '../models/paths';
 import * as fromRoot from '../store';
 import * as pathsSelectors from '../store/paths/paths.selectors';
 import * as pathsActions from '../store/paths/paths.actions';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-path-edit',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule],
 
   template: `
     <section class="container">

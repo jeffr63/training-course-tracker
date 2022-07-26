@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '../store';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
@@ -11,9 +11,14 @@ import { DeleteComponent } from '../modals/delete.component';
 import { ModalDataService } from './../modals/modal-data.service';
 import { Source } from '../models/sources';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ListDisplayComponent } from '../shared/list-display.component';
+import { ListHeaderComponent } from '../shared/list-header.component';
 
 @Component({
   selector: 'app-source-list',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ListDisplayComponent, ListHeaderComponent],
 
   template: `
     <section>

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule, Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
@@ -10,9 +10,12 @@ import * as fromRoot from '../store';
 import * as sourcesSelectors from '../store/sources/sources.selectors';
 import * as sourcesActions from '../store/sources/sources.actions';
 import { Source } from '../models/sources';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-source-edit',
+  standalone: true,
+  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule],
 
   template: `
     <section class="container">

@@ -1,8 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
+  imports: [CommonModule, NgbModule, RouterModule],
 
   template: `
     <section>
