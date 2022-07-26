@@ -6,9 +6,9 @@ import { CommonModule, Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
 
-import * as fromRoot from '../store';
-import * as sourcesSelectors from '../store/sources/sources.selectors';
-import * as sourcesActions from '../store/sources/sources.actions';
+import * as fromRoot from '../../../store';
+import * as sourcesSelectors from '../../../store/sources/sources.selectors';
+import * as sourcesActions from '../../../store/sources/sources.actions';
 import { Source } from '../models/sources';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 

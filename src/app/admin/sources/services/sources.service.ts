@@ -6,12 +6,12 @@ import * as _ from 'lodash';
 import { Source } from '../models/sources';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SourcesService {
   private baseUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   add(source: Source) {
     return this.http.post(`${this.baseUrl}/sources`, source);
@@ -40,5 +40,4 @@ export class SourcesService {
   update(source: Source) {
     return this.http.put(`${this.baseUrl}/sources/${source.id}`, source);
   }
-
 }

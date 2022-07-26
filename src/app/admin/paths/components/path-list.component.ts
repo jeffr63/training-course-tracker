@@ -1,19 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { DeleteComponent } from './../modals/delete.component';
-import { ModalDataService } from './../modals/modal-data.service';
+import * as fromRoot from '../../../store';
+import * as pathsSelectors from '../../../store/paths/paths.selectors';
+import * as pathsActions from '../../../store/paths/paths.actions';
+import { DeleteComponent } from '../../../shared/modals/delete.component'
+import { ListDisplayComponent } from '../../../shared/list/list-display.component';
+import { ListHeaderComponent } from '../../../shared/list/list-header.component';
+import { ModalDataService } from '../../../shared/modals/modal-data.service';
 import { Path } from '../models/paths';
-import * as fromRoot from '../store';
-import * as pathsSelectors from '../store/paths/paths.selectors';
-import * as pathsActions from '../store/paths/paths.actions';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ListHeaderComponent } from '../shared/list-header.component';
-import { ListDisplayComponent } from '../shared/list-display.component';
 
 @Component({
   selector: 'app-path-list',

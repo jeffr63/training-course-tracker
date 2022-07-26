@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { LoginComponent } from '../modals/login.component';
 
 @Component({

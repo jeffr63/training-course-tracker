@@ -8,7 +8,7 @@ import { TestScheduler } from 'rxjs/testing';
 import * as userActions from './users.actions';
 import { User } from '../../models/user';
 import { UsersEffects } from './users.effects';
-import { UsersService } from '../../services/user.service';
+import { UsersService } from '../../shared/services/user.service';
 import { State, initialState } from './users.state';
 
 const usersService = jasmine.createSpyObj('usersService', ['delete', 'get', 'load', 'patch']);

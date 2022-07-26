@@ -5,8 +5,8 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import * as userActions from './users.actions';
-import { User } from '../../models/user';
-import { UsersService } from 'src/app/services/user.service';
+import { User } from '../../admin/users/models/user';
+import { UsersService } from '../../admin/users/services/user.service';
 
 @Injectable()
 export class UsersEffects {

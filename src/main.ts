@@ -6,7 +6,7 @@ import { AppComponent } from './app/app.component';
 
 import { environment } from './environments/environment';
 import { RouterModule, TitleStrategy } from '@angular/router';
-import { CustomTitleStrategyService } from './app/services/custom-title-strategy.service';
+import { CustomTitleStrategyService } from './app/shared/services/custom-title-strategy.service';
 import { StoreModule } from '@ngrx/store';
 import { metaReducers, reducers } from './app/store';
 import { EffectsModule } from '@ngrx/effects';

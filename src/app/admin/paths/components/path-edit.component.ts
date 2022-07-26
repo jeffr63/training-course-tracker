@@ -7,9 +7,9 @@ import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
 
 import { Path } from '../models/paths';
-import * as fromRoot from '../store';
-import * as pathsSelectors from '../store/paths/paths.selectors';
-import * as pathsActions from '../store/paths/paths.actions';
+import * as fromRoot from '../../../store';
+import * as pathsSelectors from '../../../store/paths/paths.selectors';
+import * as pathsActions from '../../../store/paths/paths.actions';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

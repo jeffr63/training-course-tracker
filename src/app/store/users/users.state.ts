@@ -1,4 +1,4 @@
-import { User } from '../../models/user';
+import { User } from '../../admin/users/models/user';
 
 export interface State {
   users: User[];

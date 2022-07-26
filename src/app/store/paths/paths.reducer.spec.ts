@@ -1,7 +1,7 @@
 import * as pathsActions from './paths.actions';
 import { reducer } from './paths.reducer';
 import { initialState } from './paths.state';
-import { Path } from '../../models/paths';
+import { Path } from '../../admin/paths/models/paths';
 
 describe('Paths Reducer', () => {
   describe('an unknown action', () => {

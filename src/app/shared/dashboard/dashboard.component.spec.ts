@@ -4,11 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { CourseData } from '../models/course';
+import { CourseData } from '../../courses/models/course';
 import { DashboardComponent } from './dashboard.component';
-import { DOMHelperRoutines } from '../../testing/dom.helpers';
-import { getCoursesByPath, getCoursesBySource } from '../store/course/course.selectors';
-import { initialState } from '../store/course/course.state';
+import { DOMHelperRoutines } from '../../../testing/dom.helpers';
+import { getCoursesByPath, getCoursesBySource } from '../../store/course/course.selectors';
+import { initialState } from '../../store/course/course.state';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

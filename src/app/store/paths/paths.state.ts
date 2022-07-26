@@ -1,4 +1,4 @@
-import { Path } from '../../models/paths';
+import { Path } from '../../admin/paths/models/paths';
 
 export interface State {
   paths: Path[];

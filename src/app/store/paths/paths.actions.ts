@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Path } from '../../models/paths';
+import { Path } from '../../admin/paths/models/paths';
 
 export const deletePath = createAction(
   '[Paths] Delete Path',

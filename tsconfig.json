@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -16,7 +16,17 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app-admin/*": ["app/admin/*"],
+      "@app-admin-paths/*": ["app/admin/paths/*"],
+      "@app-admin-sources/*": ["app/admin/sources/*"],
+      "@app-admin-users/*": ["app/admin/users/*"],
+      "@app-courses/*": ["app/courses/*"],
+      "@app-shared/*": ["app/shared/*"],
+      "@app-shared-modals/*": ["app/shared/modals/*"],
+      "@app-shared-services/*": ["app/shared/services/*"],
+    }
   },
     "angularCompilerOptions": {
       "strictTemplates": true,

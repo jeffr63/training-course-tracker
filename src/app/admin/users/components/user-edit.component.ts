@@ -6,10 +6,10 @@ import { CommonModule, Location } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { takeWhile } from 'rxjs/operators';
 
-import * as fromRoot from '../store';
-import * as userSelectors from '../store/users/users.selectors';
-import * as userActions from '../store/users/users.actions';
-import { User } from '../models/user';
+import * as fromRoot from '../../../store';
+import * as userSelectors from '../../../store/users/users.selectors';
+import * as userActions from '../../../store/users/users.actions';
+import { User } from '../../../admin/users/models/user';
 import { Subscription } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 

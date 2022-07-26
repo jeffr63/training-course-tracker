@@ -8,7 +8,7 @@ import { TestScheduler } from 'rxjs/testing';
 import * as sourcesActions from './sources.actions';
 import { Source } from '../../models/sources';
 import { SourcesEffects } from './sources.effects';
-import { SourcesService } from '../../services/sources.service';
+import { SourcesService } from '../../shared/services/sources.service';
 import { State, initialState } from './sources.state';
 
 const sourcesService = jasmine.createSpyObj('sourcesService', ['delete', 'get', 'load', 'save']);
