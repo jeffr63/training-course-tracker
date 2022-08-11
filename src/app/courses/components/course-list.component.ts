@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -7,8 +7,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import * as fromCourseSelector from '@store/course/course.selectors';
 import * as courseActions from '@store/course/course.actions';
+import * as courseSelectors from '@store/course/course.selectors';
 import { AuthService } from '@auth/auth.service';
 import { Course } from '@courses/models/course';
 import { DeleteComponent } from '@shared/modals/delete.component';
@@ -19,7 +19,7 @@ import { PagerListHeaderComponent } from '@shared/list/pager-list-header.compone
 @Component({
   selector: 'app-course-list',
   standalone: true,
-  imports: [CommonModule, NgbModule, PagerListHeaderComponent, ListDisplayComponent],
+  imports: [AsyncPipe, NgbModule, PagerListHeaderComponent, ListDisplayComponent],
 
   template: `
     <section>
@@ -82,8 +82,8 @@ export class CourseListComponent implements OnInit {
       })
     );
     this.store.dispatch(courseActions.getTotalCourses());
-    this.courses$ = this.store.pipe(select(fromCourseSelector.getCourses));
-    this.totalCourses$ = this.store.pipe(select(fromCourseSelector.getTotalCourses));
+    this.courses$ = this.store.pipe(select(courseSelectors.getCourses));
+    this.totalCourses$ = this.store.pipe(select(courseSelectors.getTotalCourses));
   }
 
   deleteCourse(id) {

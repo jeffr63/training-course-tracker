@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -8,7 +7,7 @@ import { MenuComponent } from '@shared/menu/menu.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, MenuComponent, RouterModule],
+  imports: [MenuComponent, RouterModule],
 
   template: `
     <app-menu></app-menu>

@@ -1,21 +1,21 @@
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Location, NgIf } from '@angular/common';
 
 import { takeWhile } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import * as sourcesSelectors from '@store/sources/sources.selectors';
 import * as sourcesActions from '@store/sources/sources.actions';
+import * as sourcesSelectors from '@store/sources/sources.selectors';
 import { Source } from '@admin/sources/models/sources';
 
 @Component({
   selector: 'app-source-edit',
   standalone: true,
-  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule],
+  imports: [NgIf, NgbModule, ReactiveFormsModule, RouterModule],
 
   template: `
     <section class="container">

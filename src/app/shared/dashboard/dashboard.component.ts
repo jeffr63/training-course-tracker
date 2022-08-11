@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +13,7 @@ import { CourseData } from '@courses/models/course';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, NgbModule, NgxChartsModule],
+  imports: [NgbModule, NgxChartsModule],
 
   template: `
     <section>

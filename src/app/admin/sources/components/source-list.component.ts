@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -7,8 +7,8 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import * as sourcesSelectors from '@store/sources/sources.selectors';
 import * as sourcesActions from '@store/sources/sources.actions';
+import * as sourcesSelectors from '@store/sources/sources.selectors';
 import { DeleteComponent } from '@shared/modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ListHeaderComponent } from '@shared/list/list-header.component';
@@ -18,7 +18,7 @@ import { Source } from '@admin/sources/models/sources';
 @Component({
   selector: 'app-source-list',
   standalone: true,
-  imports: [CommonModule, NgbModule, ListDisplayComponent, ListHeaderComponent],
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
 
   template: `
     <section>

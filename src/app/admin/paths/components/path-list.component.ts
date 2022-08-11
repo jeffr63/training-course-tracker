@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '@store/index';
 import * as pathsSelectors from '@store/paths/paths.selectors';
 import * as pathsActions from '@store/paths/paths.actions';
-import { DeleteComponent } from '@shared/modals/delete.component'
+import { DeleteComponent } from '@shared/modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@shared/modals/modal-data.service';
@@ -18,7 +18,7 @@ import { Path } from '@admin/paths/models/paths';
 @Component({
   selector: 'app-path-list',
   standalone: true,
-  imports: [CommonModule, NgbModule, ListDisplayComponent, ListHeaderComponent],
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
 
   template: `
     <section>

@@ -1,7 +1,7 @@
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AsyncPipe, Location, NgForOf, NgIf } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -20,7 +20,7 @@ import { Course } from '@courses/models/course';
 @Component({
   selector: 'app-course-edit',
   standalone: true,
-  imports: [CommonModule, NgbModule, ReactiveFormsModule, RouterModule],
+  imports: [AsyncPipe, NgForOf, NgIf, NgbModule, ReactiveFormsModule, RouterModule],
 
   template: `
     <section class="container">
