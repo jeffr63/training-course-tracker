@@ -2,7 +2,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, TitleStrategy } from '@angular/router';
+import { provideRouter, TitleStrategy } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -34,8 +34,8 @@ bootstrapApplication(AppComponent, {
         maxAge: 5,
         logOnly: environment.production,
       }),
-      RouterModule.forRoot(APP_ROUTES, { relativeLinkResolution: 'legacy' })
-    ),
-    { provide: TitleStrategy, useClass: CustomTitleStrategyService },
+      ),
+      { provide: TitleStrategy, useClass: CustomTitleStrategyService },
+      provideRouter(APP_ROUTES)
   ],
 }).catch((err) => console.error(err));
