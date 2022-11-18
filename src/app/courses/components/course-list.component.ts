@@ -55,7 +55,7 @@ import { PagerListHeaderComponent } from '@shared/list/pager-list-header.compone
 
   styles: [],
 })
-export class CourseListComponent implements OnInit {
+export default class CourseListComponent implements OnInit {
   courses$: Observable<Course[]>;
   selectCourse = <Course>{};
   current = 1;

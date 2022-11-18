@@ -1,4 +1,4 @@
-import { ActivatedRoute, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe, Location, NgForOf, NgIf } from '@angular/common';
@@ -20,7 +20,7 @@ import { Course } from '@courses/models/course';
 @Component({
   selector: 'app-course-edit',
   standalone: true,
-  imports: [AsyncPipe, NgForOf, NgIf, NgbModule, ReactiveFormsModule, RouterLinkWithHref],
+  imports: [AsyncPipe, NgForOf, NgIf, NgbModule, ReactiveFormsModule, RouterLink],
 
   template: `
     <section class="container">
@@ -127,7 +127,7 @@ import { Course } from '@courses/models/course';
     `,
   ],
 })
-export class CourseEditComponent implements OnInit, OnDestroy {
+export default class CourseEditComponent implements OnInit, OnDestroy {
   loading = false;
   componentActive = true;
   paths$: Observable<any[]>;

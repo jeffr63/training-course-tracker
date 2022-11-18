@@ -45,7 +45,7 @@ import { Path } from '@admin/paths/models/paths';
 
   styles: ['header { padding-bottom: 10px; }'],
 })
-export class PathListComponent implements OnInit {
+export default class PathListComponent implements OnInit {
   columns = ['name'];
   headers = ['Path'];
   isAuthenticated = true;

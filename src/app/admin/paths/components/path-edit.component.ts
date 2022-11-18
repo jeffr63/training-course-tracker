@@ -1,4 +1,4 @@
-import { ActivatedRoute, RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Location, NgIf } from '@angular/common';
@@ -15,7 +15,7 @@ import { Path } from '@admin/paths/models/paths';
 @Component({
   selector: 'app-path-edit',
   standalone: true,
-  imports: [NgIf, NgbModule, ReactiveFormsModule, RouterLinkWithHref],
+  imports: [NgIf, NgbModule, ReactiveFormsModule, RouterLink],
 
   template: `
     <section class="container">
@@ -57,7 +57,7 @@ import { Path } from '@admin/paths/models/paths';
     `,
   ],
 })
-export class PathEditComponent implements OnInit, OnDestroy {
+export default class PathEditComponent implements OnInit, OnDestroy {
   componentActive = true;
   pathEditForm!: FormGroup;
   private path = <Path>{};

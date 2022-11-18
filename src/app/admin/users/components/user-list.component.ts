@@ -48,7 +48,7 @@ import { User } from '@admin/users/models/user';
     `,
   ],
 })
-export class UserListComponent implements OnInit {
+export default class UserListComponent implements OnInit {
   columns = ['name', 'email', 'role'];
   headers = ['Name', 'Email', 'Role'];
   isAuthenticated = true;

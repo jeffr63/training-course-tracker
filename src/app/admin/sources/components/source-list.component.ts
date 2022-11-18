@@ -51,7 +51,7 @@ import { Source } from '@admin/sources/models/sources';
     `,
   ],
 })
-export class SourceListComponent implements OnInit {
+export default class SourceListComponent implements OnInit {
   columns = ['name'];
   headers = ['Source'];
   isAuthenticated = true;

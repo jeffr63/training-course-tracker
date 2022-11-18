@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 import { provideRouter, TitleStrategy } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
@@ -26,8 +26,6 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
-      BrowserAnimationsModule,
-      HttpClientModule,
       StoreModule.forRoot(reducers, { metaReducers }),
       EffectsModule.forRoot([AppEffects, CourseEffects, PathsEffects, SourcesEffects, UsersEffects]),
       StoreDevtoolsModule.instrument({
@@ -35,7 +33,9 @@ bootstrapApplication(AppComponent, {
         logOnly: environment.production,
       }),
       ),
-      { provide: TitleStrategy, useClass: CustomTitleStrategyService },
-      provideRouter(APP_ROUTES)
+    { provide: TitleStrategy, useClass: CustomTitleStrategyService },
+    provideAnimations(),
+    provideHttpClient(),
+    provideRouter(APP_ROUTES)
   ],
 }).catch((err) => console.error(err));

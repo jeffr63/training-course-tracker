@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -18,15 +18,32 @@
       "dom"
     ],
     "paths": {
-      "@app/*": ["app/*"],
-      "@admin/*": ["app/admin/*"],
-      "@auth/*": ["app/auth/*"],
-      "@courses/*": ["app/courses/*"],
-      "@shared/*": ["app/shared/*"],
-      "@store/*": ["app/store/*"],
-      "@testing/*": ["testing/*"],
-      "@env/*": ["environments/*"],
-     }
+      "@app/*": [
+        "app/*"
+      ],
+      "@admin/*": [
+        "app/admin/*"
+      ],
+      "@auth/*": [
+        "app/auth/*"
+      ],
+      "@courses/*": [
+        "app/courses/*"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@store/*": [
+        "app/store/*"
+      ],
+      "@testing/*": [
+        "testing/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ]
+    },
+    "useDefineForClassFields": false
   },
     "angularCompilerOptions": {
       "strictTemplates": true,
