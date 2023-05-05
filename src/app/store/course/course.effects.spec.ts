@@ -5,11 +5,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as courseActions from '@store/course/course.actions';
-import { Course } from '@courses/models/course';
-import { CourseEffects } from '@store/course/course.effects';
-import { CoursesService } from '@courses/services/courses.service';
-import { State, initialState } from '@store/course/course.state';
+import * as courseActions from './course.actions';
+import { Course } from '@models/course';
+import { CourseEffects } from './course.effects';
+import { CoursesService } from '@services/courses.service';
+import { State, initialState } from './course.state';
 
 const coursesService = jasmine.createSpyObj('coursesService', [
   'deleteCourse',

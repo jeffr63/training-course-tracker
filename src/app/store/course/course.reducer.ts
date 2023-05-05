@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import * as _ from 'lodash';
 
-import * as courseActions from '@store/course/course.actions';
-import { initialState } from '@store/course/course.state';
-import { Course, CourseData } from '@courses/models/course';
+import * as courseActions from './course.actions';
+import { initialState } from './course.state';
+import { Course, CourseData } from '@models/course';
 
 export const reducer = createReducer(
   initialState,

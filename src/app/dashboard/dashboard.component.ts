@@ -1,0 +1,67 @@
+import { Component, OnInit, inject } from '@angular/core';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
+import * as fromRoot from '@store/index';
+import * as courseActions from '@store/course/course.actions';
+import * as courseSelectors from '@store/course/course.selectors';
+import { CourseData } from '@models/course';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [NgbModule, NgxChartsModule],
+
+  template: `
+    <section>
+      <div class="container-fluid">
+        <div class="row first-row">
+          <div class="card col-xm-12 col-sm-6">
+            <div class="card-body">
+              <h4 class="card-title">Completed Courses - Paths</h4>
+              <ngx-charts-pie-chart
+                [view]="[400, 400]"
+                [results]="courses$ | async"
+                [labels]="true"
+                [doughnut]="true"
+                [arcWidth]="0.5"
+              >
+              </ngx-charts-pie-chart>
+            </div>
+          </div>
+
+          <div class="card col-xm-12 col-sm-6">
+            <div class="card-body">
+              <h4 class="card-title">Completed Courses - Sources</h4>
+              <ngx-charts-pie-chart
+                [view]="[400, 400]"
+                [results]="sources$ | async"
+                [labels]="true"
+                [doughnut]="true"
+                [arcWidth]="0.5"
+              >
+              </ngx-charts-pie-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `,
+
+  styles: [],
+})
+export class DashboardComponent implements OnInit {
+  store = inject(Store<fromRoot.State>);
+
+  courses$: Observable<CourseData[]>;
+  sources$: Observable<CourseData[]>;
+
+  ngOnInit() {
+    this.store.dispatch(courseActions.getTotalCourses());
+    this.courses$ = this.store.pipe(select(courseSelectors.getCoursesByPath));
+    this.sources$ = this.store.pipe(select(courseSelectors.getCoursesBySource));
+  }
+}

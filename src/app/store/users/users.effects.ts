@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as userActions from '@store/users/users.actions';
-import { User } from '@admin/users/models/user';
-import { UsersService } from '@admin/users/services/user.service';
+import * as userActions from './users.actions';
+import { User } from '@models/user';
+import { UsersService } from '@services/user.service';
 
 @Injectable()
 export class UsersEffects {
+  actions = inject(Actions);
+  usersService = inject(UsersService);
+
   deleteUser$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(userActions.deleteUser),
       switchMap(({ id }) =>
         this.usersService.delete(id).pipe(
@@ -23,7 +26,7 @@ export class UsersEffects {
   );
 
   getUser$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(userActions.getUser),
       concatMap(({ id }) =>
         this.usersService.get(id).pipe(
@@ -35,7 +38,7 @@ export class UsersEffects {
   );
 
   loadUsers$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(userActions.loadUsers),
       switchMap(() =>
         this.usersService.load().pipe(
@@ -47,7 +50,7 @@ export class UsersEffects {
   );
 
   patchUser$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(userActions.patchUser),
       concatMap(({ id, user }) =>
         this.usersService.patch(id, user).pipe(
@@ -57,6 +60,4 @@ export class UsersEffects {
       )
     )
   );
-
-  constructor(private actions$: Actions, private usersService: UsersService) {}
 }

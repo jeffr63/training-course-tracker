@@ -1,4 +1,4 @@
-import * as sourcesActions from '@store/sources/sources.actions';
+import * as sourcesActions from './sources.actions';
 
 describe('Sources Actions', () => {
   describe('Delete Source', () => {
@@ -8,7 +8,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Delete Source',
-        id
+        id,
       });
     });
   });
@@ -20,7 +20,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Delete Source Fail',
-        error
+        error,
       });
     });
   });
@@ -32,7 +32,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Delete Source Success',
-        id
+        id,
       });
     });
   });
@@ -44,7 +44,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Get Source',
-        id
+        id,
       });
     });
   });
@@ -56,7 +56,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Get Source Fail',
-        error
+        error,
       });
     });
   });
@@ -68,7 +68,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Get Source Success',
-        source
+        source,
       });
     });
   });
@@ -78,7 +78,7 @@ describe('Sources Actions', () => {
       const action = sourcesActions.loadSources();
 
       expect({ ...action }).toEqual({
-        type: '[Sources] Load Sources'
+        type: '[Sources] Load Sources',
       });
     });
   });
@@ -90,7 +90,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Load Sources Fail',
-        error
+        error,
       });
     });
   });
@@ -99,13 +99,13 @@ describe('Sources Actions', () => {
     it(`should create an action`, () => {
       const sources = [
         { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
+        { id: 2, name: 'DEF' },
       ];
       const action = sourcesActions.loadSourcesSuccess({ sources });
 
       expect({ ...action }).toEqual({
         type: '[Sources] Load Sources Success',
-        sources
+        sources,
       });
     });
   });
@@ -117,7 +117,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Save Source',
-        source
+        source,
       });
     });
   });
@@ -129,7 +129,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Save Source Fail',
-        error
+        error,
       });
     });
   });
@@ -141,7 +141,7 @@ describe('Sources Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Sources] Save Source Success',
-        source
+        source,
       });
     });
   });

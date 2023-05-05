@@ -1,4 +1,4 @@
-import { Course, CourseData } from '@courses/models/course';
+import { Course, CourseData } from '@models/course';
 
 export interface State {
   courses: Course[];

@@ -30,8 +30,26 @@
       "@courses/*": [
         "app/courses/*"
       ],
+      "@dashboard/*": [
+        "app/courses/*"
+      ],
+      "@list/*": [
+        "app/list/*"
+      ],
+      "@modals/*": [
+        "app/modals/*"
+      ],
+      "@models/*": [
+        "app/models/*"
+      ],
+      "@menu/*": [
+        "app/menu/*"
+      ],
       "@shared/*": [
         "app/shared/*"
+      ],
+      "@services/*": [
+        "app/services/*"
       ],
       "@store/*": [
         "app/store/*"

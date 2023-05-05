@@ -1,6 +1,6 @@
-import { Source } from '@admin/sources/models/sources';
-import { getCurrentSource, getError, getSources } from '@store/sources/sources.selectors';
-import { initialState } from '@store/sources/sources.state';
+import { Source } from '@models/sources';
+import { getCurrentSource, getError, getSources } from './sources.selectors';
+import { initialState } from './sources.state';
 
 describe(`Sources Selectors`, () => {
   describe(`getSources selector`, () => {

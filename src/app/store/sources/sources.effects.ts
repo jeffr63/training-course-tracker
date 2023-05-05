@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as sourceActions from '@store/sources/sources.actions';
-import { Source } from '@admin/sources/models/sources';
-import { SourcesService } from '@admin/sources/services/sources.service';
+import * as sourceActions from './sources.actions';
+import { Source } from '@models/sources';
+import { SourcesService } from '@services/sources.service';
 
 @Injectable()
 export class SourcesEffects {
+  actions = inject(Actions);
+  sourcesService = inject(SourcesService);
+
   deleteSource$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(sourceActions.deleteSource),
       switchMap(({ id }) =>
         this.sourcesService.delete(id).pipe(
@@ -23,7 +26,7 @@ export class SourcesEffects {
   );
 
   getSource$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(sourceActions.getSource),
       concatMap(({ id }) =>
         this.sourcesService.get(id).pipe(
@@ -35,7 +38,7 @@ export class SourcesEffects {
   );
 
   loadSources$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(sourceActions.loadSources),
       switchMap(() =>
         this.sourcesService.load().pipe(
@@ -47,7 +50,7 @@ export class SourcesEffects {
   );
 
   saveSource$ = createEffect(() =>
-    this.actions$.pipe(
+    this.actions.pipe(
       ofType(sourceActions.saveSource),
       concatMap(({ source }) =>
         this.sourcesService.save(source).pipe(
@@ -57,6 +60,4 @@ export class SourcesEffects {
       )
     )
   );
-
-  constructor(private actions$: Actions, private sourcesService: SourcesService) {}
 }

@@ -5,11 +5,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as pathsActions from '@store/paths/paths.actions';
-import { Path } from '@admin/paths/models/paths';
-import { PathsEffects } from '@store/paths/paths.effects';
-import { PathsService } from '@admin/paths/services/paths.service';
-import { State, initialState } from '@store/paths/paths.state';
+import * as pathsActions from './paths.actions';
+import { Path } from '@models/paths';
+import { PathsEffects } from './paths.effects';
+import { PathsService } from '@services/paths.service';
+import { State, initialState } from './paths.state';
 
 const pathsService = jasmine.createSpyObj('pathsService', ['delete', 'get', 'load', 'save']);
 
