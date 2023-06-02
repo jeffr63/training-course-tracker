@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Route } from '@angular/router';
 
-import { AuthService } from '@auth/auth.service';
-import { CourseTitleResolverService } from '@services/course-title-resolver.service';
+import { AuthService } from '@services/auth.service';
+import { CourseTitleResolverService } from '@resolvers/course-title-resolver.service';
 
 export default [
   {
@@ -10,12 +10,12 @@ export default [
     children: [
       {
         path: '',
-        loadComponent: () => import('@courses/course-list.component'),
+        loadComponent: () => import('./course-list.component'),
       },
       {
         path: ':id',
         title: CourseTitleResolverService,
-        loadComponent: () => import('@app/courses/course-edit.component'),
+        loadComponent: () => import('./course-edit.component'),
         canActivate: [() => inject(AuthService).isLoggedIn()],
       },
     ],

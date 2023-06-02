@@ -10,8 +10,8 @@ import * as fromRoot from '@store/index';
 import * as pathsSelectors from '@store/paths/paths.selectors';
 import * as pathsActions from '@store/paths/paths.actions';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@list/list-display.component';
-import { ListHeaderComponent } from '@list/list-header.component';
+import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
 import { Path } from '@models/paths';
 

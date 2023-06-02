@@ -9,7 +9,7 @@ import {
   saveCourse,
 } from './course.selectors';
 import { initialState } from './course.state';
-import { Course, CourseData } from '@models/course';
+import { Course, CourseData } from '@app/shared/models/course';
 
 describe(`Course Selectors`, () => {
   describe(`getCourses selector`, () => {

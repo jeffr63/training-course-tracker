@@ -18,47 +18,26 @@
       "dom"
     ],
     "paths": {
-      "@app/*": [
-        "app/*"
-      ],
-      "@admin/*": [
-        "app/admin/*"
-      ],
-      "@auth/*": [
-        "app/auth/*"
-      ],
-      "@courses/*": [
-        "app/courses/*"
-      ],
-      "@dashboard/*": [
-        "app/courses/*"
-      ],
-      "@list/*": [
-        "app/list/*"
+      "@guards/*": [
+        "app/shared/guards/*"
       ],
       "@modals/*": [
-        "app/modals/*"
+        "app/shared/modals/*"
       ],
       "@models/*": [
-        "app/models/*"
+        "app/shared/models/*"
       ],
-      "@menu/*": [
-        "app/menu/*"
+      "@resolvers/*": [
+        "app/shared/resolvers/*"
       ],
       "@shared/*": [
         "app/shared/*"
       ],
       "@services/*": [
-        "app/services/*"
+        "app/shared/services/*"
       ],
       "@store/*": [
         "app/store/*"
-      ],
-      "@testing/*": [
-        "testing/*"
-      ],
-      "@env/*": [
-        "environments/*"
       ]
     },
     "useDefineForClassFields": false

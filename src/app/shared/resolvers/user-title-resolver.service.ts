@@ -9,7 +9,7 @@ import { UsersService } from '@services/user.service';
   providedIn: 'root',
 })
 export class UserTitleResolverService {
-  userService = inject(UsersService);
+  private userService = inject(UsersService);
 
   resolve(route: ActivatedRouteSnapshot): string | Observable<string> | Promise<string> {
     const id = route.paramMap.get('id');

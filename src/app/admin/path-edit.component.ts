@@ -3,15 +3,15 @@ import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Location, NgIf } from '@angular/common';
 
-import { takeUntil } from 'rxjs/operators';
-import { Store, select } from '@ngrx/store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReplaySubject } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { takeUntil } from 'rxjs/operators';
 
 import * as fromRoot from '@store/index';
 import * as pathsActions from '@store/paths/paths.actions';
 import * as pathsSelectors from '@store/paths/paths.selectors';
 import { Path } from '@models/paths';
-import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-path-edit',

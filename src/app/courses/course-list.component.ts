@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 import * as fromRoot from '@store/index';
 import * as courseActions from '@store/course/course.actions';
 import * as courseSelectors from '@store/course/course.selectors';
-import { AuthService } from '@auth/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Course } from '@models/course';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@list/list-display.component';
+import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ModalDataService } from '@modals/modal-data.service';
-import { PagerListHeaderComponent } from '@list/pager-list-header.component';
+import { PagerListHeaderComponent } from '@shared/list/pager-list-header.component';
 
 @Component({
   selector: 'app-course-list',

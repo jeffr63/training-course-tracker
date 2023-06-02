@@ -1,4 +1,4 @@
-import { Source } from '@app/models/sources';
+import { Source } from '@models/sources';
 
 export interface State {
   sources: Source[];

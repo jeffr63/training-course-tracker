@@ -1,6 +1,6 @@
 import { getCurrentPath, getError, getPaths } from './paths.selectors';
 import { initialState } from './paths.state';
-import { Path } from '@models/paths';
+import { Path } from '@app/shared/models/paths';
 
 describe(`Paths Selectors`, () => {
   describe(`getCurrentPath selector`, () => {

@@ -1,15 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { AuthService } from '@auth/auth.service';
+import { AuthService } from '@services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanActivateAdmin {
+export class CanActivateEdit {
   authService = inject(AuthService);
   router = inject(Router);
 
@@ -17,7 +17,7 @@ export class CanActivateAdmin {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isAuthenticated && this.authService.isAdmin) {
+    if (this.authService.isAuthenticated) {
       return true;
     }
     this.router.navigate(['/']);
