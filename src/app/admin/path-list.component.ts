@@ -46,10 +46,10 @@ import { Path } from '@models/paths';
   styles: ['header { padding-bottom: 10px; }'],
 })
 export default class PathListComponent implements OnInit {
-  modal = inject(NgbModal);
-  modalDataService = inject(ModalDataService);
-  router = inject(Router);
-  store = inject(Store<fromRoot.State>);
+  private modal = inject(NgbModal);
+  private modalDataService = inject(ModalDataService);
+  private router = inject(Router);
+  private store = inject(Store<fromRoot.State>);
 
   columns = ['name'];
   headers = ['Path'];

@@ -10,8 +10,8 @@ import { CoursesService } from '@services/courses.service';
 
 @Injectable()
 export class CourseEffects {
-  actions = inject(Actions);
-  courseService = inject(CoursesService);
+  private actions = inject(Actions);
+  private courseService = inject(CoursesService);
 
   deleteCourse$ = createEffect(() =>
     this.actions.pipe(

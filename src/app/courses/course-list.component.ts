@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +35,7 @@ import { PagerListHeaderComponent } from '@shared/list/pager-list-header.compone
             [pageSize]="pageSize"
             [maxSize]="5"
             [(current)]="current"
-            [isAuthenticated]="authService.isAuthenticated"
+            [isAuthenticated]="isLoggedIn()"
             (refreshTable)="refreshTable()"
             (newCourse)="newCourse()"
           ></app-pager-list-header>
@@ -44,7 +44,7 @@ import { PagerListHeaderComponent } from '@shared/list/pager-list-header.compone
             [headers]="headers"
             [columns]="columns"
             [items]="courses$ | async"
-            [isAuthenticated]="authService.isAuthenticated"
+            [isAuthenticated]="isLoggedIn()"
             (deleteItem)="deleteCourse($event)"
             (editItem)="editCourse($event)"
           ></app-list-display>
@@ -56,23 +56,23 @@ import { PagerListHeaderComponent } from '@shared/list/pager-list-header.compone
   styles: [],
 })
 export default class CourseListComponent implements OnInit {
+  private store = inject(Store<fromRoot.State>);
+  private modal = inject(NgbModal);
+  public authService = inject(AuthService);
+  private modalDataService = inject(ModalDataService);
+  private router = inject(Router);
+
   courses$: Observable<Course[]>;
-  selectCourse = <Course>{};
+  selectCourse = signal<Course>({} as Course);
   current = 1;
-  loading = false;
+  loading = signal(false);
   pageSize = 10;
   totalCourses$: Observable<number>;
   closedResult = '';
   columns = ['title', 'instructor', 'path', 'source'];
   headers = ['Title', 'Instructor', 'Path', 'Source'];
 
-  constructor(
-    private store: Store<fromRoot.State>,
-    private modal: NgbModal,
-    public authService: AuthService,
-    private modalDataService: ModalDataService,
-    private router: Router
-  ) {}
+  isLoggedIn = this.authService.isLoggedIn;
 
   ngOnInit() {
     this.store.dispatch(

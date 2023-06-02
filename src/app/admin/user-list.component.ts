@@ -49,10 +49,10 @@ import { User } from '@models/user';
   ],
 })
 export default class UserListComponent implements OnInit {
-  modal = inject(NgbModal);
-  modalDataService = inject(ModalDataService);
-  router = inject(Router);
-  store = inject(Store<fromRoot.State>);
+  private modal = inject(NgbModal);
+  private modalDataService = inject(ModalDataService);
+  private router = inject(Router);
+  private store = inject(Store<fromRoot.State>);
 
   columns = ['name', 'email', 'role'];
   headers = ['Name', 'Email', 'Role'];

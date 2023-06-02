@@ -1,11 +1,11 @@
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe, Location, NgForOf, NgIf } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
-import { Observable, ReplaySubject } from 'rxjs';
-import { takeUntil, takeWhile } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
@@ -16,6 +16,7 @@ import * as pathsSelectors from '@store/paths/paths.selectors';
 import * as sourcesActions from '@store/sources/sources.actions';
 import * as sourcesSelectors from '@store/sources/sources.selectors';
 import { Course } from '@models/course';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-course-edit',
@@ -71,7 +72,7 @@ import { Course } from '@models/course';
                 placeholder="Enter techical path of course (ex: Angular or React)"
               />
               <datalist id="path-helpers">
-                <div *ngFor="let path of paths$ | async">
+                <div *ngFor="let path of paths()">
                   <option value="{{ path.name }}"></option>
                 </div>
               </datalist>
@@ -92,7 +93,7 @@ import { Course } from '@models/course';
                 placeholder="Enter where the course was sourced from (ex: Pluralsite)"
               />
               <datalist id="source-helpers">
-                <div *ngFor="let source of sources$ | async">
+                <div *ngFor="let source of sources()">
                   <option value="{{ source.name }}"></option>
                 </div>
               </datalist>
@@ -128,14 +129,14 @@ import { Course } from '@models/course';
   ],
 })
 export default class CourseEditComponent implements OnInit, OnDestroy {
-  fb = inject(FormBuilder);
-  location = inject(Location);
-  route = inject(ActivatedRoute);
-  store = inject(Store<fromRoot.State>);
+  private fb = inject(FormBuilder);
+  private location = inject(Location);
+  private store = inject(Store<fromRoot.State>);
 
+  @Input() id;
   destroy$ = new ReplaySubject<void>(1);
-  paths$: Observable<any[]>;
-  sources$: Observable<any[]>;
+  paths = toSignal(this.store.pipe(select(pathsSelectors.getPaths)), { initialValue: [] });
+  sources = toSignal(this.store.pipe(select(sourcesSelectors.getSources)), { initialValue: [] });
   courseEditForm: FormGroup;
   course = <Course>{};
 
@@ -147,27 +148,22 @@ export default class CourseEditComponent implements OnInit, OnDestroy {
       source: ['', Validators.required],
     });
 
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      if (params.id !== 'new') {
-        this.store.dispatch(courseActions.getCourse({ id: params.id }));
-        this.store
-          .pipe(select(courseSelectors.getCourse))
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((course: Course) => {
-            this.course = { ...course };
-            this.courseEditForm.get('title').setValue(this.course.title);
-            this.courseEditForm.get('instructor').setValue(this.course.instructor);
-            this.courseEditForm.get('path').setValue(this.course.path);
-            this.courseEditForm.get('source').setValue(this.course.source);
-          });
-      }
-    });
-
     this.store.dispatch(pathsActions.loadPaths());
-    this.paths$ = this.store.pipe(select(pathsSelectors.getPaths));
-
     this.store.dispatch(sourcesActions.loadSources());
-    this.sources$ = this.store.pipe(select(sourcesSelectors.getSources));
+
+    if (this.id === 'new') return;
+
+    this.store.dispatch(courseActions.getCourse({ id: +this.id }));
+    this.store
+      .pipe(select(courseSelectors.getCourse))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((course: Course) => {
+        this.course = { ...course };
+        this.courseEditForm.get('title').setValue(this.course.title);
+        this.courseEditForm.get('instructor').setValue(this.course.instructor);
+        this.courseEditForm.get('path').setValue(this.course.path);
+        this.courseEditForm.get('source').setValue(this.course.source);
+      });
   }
 
   ngOnDestroy() {

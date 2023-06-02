@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -24,7 +25,7 @@ import { CourseData } from '@models/course';
               <h4 class="card-title">Completed Courses - Paths</h4>
               <ngx-charts-pie-chart
                 [view]="[400, 400]"
-                [results]="courses$ | async"
+                [results]="courses()"
                 [labels]="true"
                 [doughnut]="true"
                 [arcWidth]="0.5"
@@ -38,7 +39,7 @@ import { CourseData } from '@models/course';
               <h4 class="card-title">Completed Courses - Sources</h4>
               <ngx-charts-pie-chart
                 [view]="[400, 400]"
-                [results]="sources$ | async"
+                [results]="sources()"
                 [labels]="true"
                 [doughnut]="true"
                 [arcWidth]="0.5"
@@ -54,14 +55,12 @@ import { CourseData } from '@models/course';
   styles: [],
 })
 export class DashboardComponent implements OnInit {
-  store = inject(Store<fromRoot.State>);
+  private store = inject(Store<fromRoot.State>);
 
-  courses$: Observable<CourseData[]>;
-  sources$: Observable<CourseData[]>;
+  courses = toSignal(this.store.pipe(select(courseSelectors.getCoursesByPath)), { initialValue: [] });
+  sources = toSignal(this.store.pipe(select(courseSelectors.getCoursesBySource)), { initialValue: [] });
 
   ngOnInit() {
     this.store.dispatch(courseActions.getTotalCourses());
-    this.courses$ = this.store.pipe(select(courseSelectors.getCoursesByPath));
-    this.sources$ = this.store.pipe(select(courseSelectors.getCoursesBySource));
   }
 }

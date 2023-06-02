@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { PathsService } from '@app/shared/services/paths.service';
-import { Path } from '@app/shared/models/paths';
+import { PathsService } from '@services/paths.service';
+import { Path } from '@models/paths';
 
 const baseUrl = 'http://localhost:3000';
 

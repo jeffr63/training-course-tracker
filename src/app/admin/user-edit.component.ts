@@ -1,12 +1,12 @@
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Location, NgIf } from '@angular/common';
 
-import { takeUntil, takeWhile } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 import * as fromRoot from '@store/index';
 import * as userActions from '@store/users/users.actions';
@@ -87,14 +87,13 @@ import { User } from '@models/user';
   ],
 })
 export default class UserEditComponent implements OnInit, OnDestroy {
-  fb = inject(FormBuilder);
-  location = inject(Location);
-  route = inject(ActivatedRoute);
-  store = inject(Store<fromRoot.State>);
+  private fb = inject(FormBuilder);
+  private location = inject(Location);
+  private store = inject(Store<fromRoot.State>);
 
+  @Input() id;
   destroy$ = new ReplaySubject<void>(1);
   userEditForm!: FormGroup;
-  private sub = new Subscription();
   private user = <User>{};
 
   ngOnInit() {
@@ -104,18 +103,16 @@ export default class UserEditComponent implements OnInit, OnDestroy {
       role: ['', Validators.required],
     });
 
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.store.dispatch(userActions.getUser({ id: params.id }));
-      this.store
-        .pipe(select(userSelectors.getCurrentUser))
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((user: User) => {
-          this.user = { ...user };
-          this.userEditForm.get('name').setValue(this.user.name);
-          this.userEditForm.get('email').setValue(this.user.email);
-          this.userEditForm.get('role').setValue(this.user.role);
-        });
-    });
+    this.store.dispatch(userActions.getUser({ id: +this.id }));
+    this.store
+      .pipe(select(userSelectors.getCurrentUser))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: User) => {
+        this.user = { ...user };
+        this.userEditForm.get('name').setValue(this.user.name);
+        this.userEditForm.get('email').setValue(this.user.email);
+        this.userEditForm.get('role').setValue(this.user.role);
+      });
   }
 
   ngOnDestroy() {

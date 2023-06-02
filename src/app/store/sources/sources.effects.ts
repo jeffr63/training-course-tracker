@@ -10,8 +10,8 @@ import { SourcesService } from '@services/sources.service';
 
 @Injectable()
 export class SourcesEffects {
-  actions = inject(Actions);
-  sourcesService = inject(SourcesService);
+  private actions = inject(Actions);
+  private sourcesService = inject(SourcesService);
 
   deleteSource$ = createEffect(() =>
     this.actions.pipe(

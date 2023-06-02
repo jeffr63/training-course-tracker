@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -24,20 +24,18 @@ import { LoginComponent } from '@modals/login.component';
         aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
-        (click)="isNavbarCollapsed = !isNavbarCollapsed"
+        (click)="toggleNavigation()"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div (ngbCollapse)="(isNavbarCollapsed)" class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div (ngbCollapse)="isNavbarCollapsed()" class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-item nav-link active" [routerLink]="['/']" id="home">Home</a>
           <a class="nav-item nav-link" [routerLink]="['/courses']" id="courses">Courses</a>
-          <a class="nav-item nav-link" *ngIf="auth.isAuthenticated === false" (click)="open()" id="login">Login</a>
-          <a class="nav-item nav-link" [routerLink]="['/admin']" *ngIf="auth.isAuthenticated && auth.isAdmin" id="admin"
-            >Admin</a
-          >
-          <a class="nav-item nav-link" *ngIf="auth.isAuthenticated" (click)="logout()" id="logout">Logout</a>
+          <a class="nav-item nav-link" *ngIf="!isLoggedIn()" (click)="open()" id="login">Login</a>
+          <a class="nav-item nav-link" [routerLink]="['/admin']" *ngIf="isAdmin()" id="admin">Admin</a>
+          <a class="nav-item nav-link" *ngIf="isLoggedIn()" (click)="logout()" id="logout">Logout</a>
         </div>
       </div>
     </nav>
@@ -52,11 +50,17 @@ import { LoginComponent } from '@modals/login.component';
   ],
 })
 export class MenuComponent {
-  auth = inject(AuthService);
-  modalService = inject(NgbModal);
-  router = inject(Router);
+  private auth = inject(AuthService);
+  private modalService = inject(NgbModal);
+  private router = inject(Router);
 
-  public isNavbarCollapsed = true;
+  isNavbarCollapsed = signal(false);
+  isLoggedIn = this.auth.isLoggedIn;
+  isAdmin = this.auth.isLoggedInAsAdmin;
+
+  constructor() {
+    effect(() => console.log(`isnavcoll=${this.isNavbarCollapsed()}`));
+  }
 
   open() {
     this.modalService.open(LoginComponent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -69,5 +73,9 @@ export class MenuComponent {
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);
+  }
+
+  toggleNavigation(): void {
+    this.isNavbarCollapsed.set(!this.isNavbarCollapsed());
   }
 }

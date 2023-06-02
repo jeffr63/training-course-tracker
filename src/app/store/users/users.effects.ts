@@ -10,8 +10,8 @@ import { UsersService } from '@services/user.service';
 
 @Injectable()
 export class UsersEffects {
-  actions = inject(Actions);
-  usersService = inject(UsersService);
+  private actions = inject(Actions);
+  private usersService = inject(UsersService);
 
   deleteUser$ = createEffect(() =>
     this.actions.pipe(

@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -18,26 +18,23 @@
       "dom"
     ],
     "paths": {
-      "@guards/*": [
-        "app/shared/guards/*"
-      ],
       "@modals/*": [
-        "app/shared/modals/*"
+        "./src/app/shared/modals/*"
       ],
       "@models/*": [
-        "app/shared/models/*"
+        "./src/app/shared/models/*"
       ],
       "@resolvers/*": [
-        "app/shared/resolvers/*"
+        "./src/app/shared/resolvers/*"
       ],
       "@shared/*": [
-        "app/shared/*"
+        "./src/app/shared/*"
       ],
       "@services/*": [
-        "app/shared/services/*"
+        "./src/app/shared/services/*"
       ],
       "@store/*": [
-        "app/store/*"
+        "./src/app/store/*"
       ]
     },
     "useDefineForClassFields": false

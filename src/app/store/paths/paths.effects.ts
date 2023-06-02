@@ -10,8 +10,8 @@ import { PathsService } from '@services/paths.service';
 
 @Injectable()
 export class PathsEffects {
-  actions = inject(Actions);
-  pathsService = inject(PathsService);
+  private actions = inject(Actions);
+  private pathsService = inject(PathsService);
 
   deletePath$ = createEffect(() =>
     this.actions.pipe(

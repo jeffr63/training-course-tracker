@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import * as courseActions from './course.actions';
-import { Course } from '@app/shared/models/course';
+import { Course } from '@models/course';
 import { CourseEffects } from './course.effects';
-import { CoursesService } from '@app/shared/services/courses.service';
+import { CoursesService } from '@services/courses.service';
 import { State, initialState } from './course.state';
 
 const coursesService = jasmine.createSpyObj('coursesService', [

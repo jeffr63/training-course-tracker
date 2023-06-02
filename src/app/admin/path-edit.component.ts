@@ -1,5 +1,5 @@
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Location, NgIf } from '@angular/common';
 
@@ -59,11 +59,11 @@ import { Path } from '@models/paths';
   ],
 })
 export default class PathEditComponent implements OnInit, OnDestroy {
-  fb = inject(FormBuilder);
-  location = inject(Location);
-  route = inject(ActivatedRoute);
-  store = inject(Store<fromRoot.State>);
+  private fb = inject(FormBuilder);
+  private location = inject(Location);
+  private store = inject(Store<fromRoot.State>);
 
+  @Input() id;
   destroy$ = new ReplaySubject<void>(1);
   pathEditForm!: FormGroup;
   path = <Path>{};
@@ -73,18 +73,16 @@ export default class PathEditComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
     });
 
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      if (params.id !== 'new') {
-        this.store.dispatch(pathsActions.getPath({ id: params.id }));
-        this.store
-          .pipe(select(pathsSelectors.getCurrentPath))
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((path: Path) => {
-            this.path = { ...path };
-            this.pathEditForm.get('name').setValue(this.path.name);
-          });
-      }
-    });
+    if (this.id === 'new') return;
+
+    this.store.dispatch(pathsActions.getPath({ id: +this.id }));
+    this.store
+      .pipe(select(pathsSelectors.getCurrentPath))
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((path: Path) => {
+        this.path = { ...path };
+        this.pathEditForm.get('name').setValue(this.path.name);
+      });
   }
 
   ngOnDestroy() {

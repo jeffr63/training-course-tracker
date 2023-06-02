@@ -51,8 +51,8 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
   styles: [],
 })
 export class LoginComponent implements OnInit {
-  fb = inject(FormBuilder);
-  modal = inject(NgbActiveModal);
+  private fb = inject(FormBuilder);
+  public modal = inject(NgbActiveModal);
 
   loginForm!: FormGroup;
   private user = {

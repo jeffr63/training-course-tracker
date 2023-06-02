@@ -52,10 +52,10 @@ import { Source } from '@models/sources';
   ],
 })
 export default class SourceListComponent implements OnInit {
-  modal = inject(NgbModal);
-  modalDataService = inject(ModalDataService);
-  router = inject(Router);
-  store = inject(Store<fromRoot.State>);
+  private modal = inject(NgbModal);
+  private modalDataService = inject(ModalDataService);
+  private router = inject(Router);
+  private store = inject(Store<fromRoot.State>);
 
   columns = ['name'];
   headers = ['Source'];

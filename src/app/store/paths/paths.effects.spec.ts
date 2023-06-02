@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import * as pathsActions from './paths.actions';
-import { Path } from '@app/shared/models/paths';
+import { Path } from '@models/paths';
 import { PathsEffects } from './paths.effects';
-import { PathsService } from '@app/shared/services/paths.service';
+import { PathsService } from '@services/paths.service';
 import { State, initialState } from './paths.state';
 
 const pathsService = jasmine.createSpyObj('pathsService', ['delete', 'get', 'load', 'save']);
