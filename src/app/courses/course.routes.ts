@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Route } from '@angular/router';
 
 import { AuthService } from '@services/auth.service';
-import { CourseTitleResolverService } from '@resolvers/course-title-resolver.service';
+import { courseTitleResolver } from '@resolvers/course-title-resolver.service';
 
 export default [
   {
@@ -14,7 +14,7 @@ export default [
       },
       {
         path: ':id',
-        title: CourseTitleResolverService,
+        title: courseTitleResolver,
         loadComponent: () => import('./course-edit.component'),
         canActivate: [() => inject(AuthService).isLoggedIn()],
       },
