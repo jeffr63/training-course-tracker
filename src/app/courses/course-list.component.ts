@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import { courseActions } from '@store/course/course.actions';
+import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
 import { AuthService } from '@services/auth.service';
 import { Course } from '@models/course';
@@ -76,12 +76,12 @@ export default class CourseListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(
-      courseActions.loadCourses({
+      coursesActions.loadCourses({
         current: this.current,
         pageSize: this.pageSize,
       })
     );
-    this.store.dispatch(courseActions.getTotalCourses());
+    this.store.dispatch(coursesActions.getTotalCourses());
     this.courses$ = this.store.pipe(select(coursesFeature.selectCourses));
     this.totalCourses$ = this.store.pipe(select(coursesFeature.selectTotalCourses));
   }
@@ -95,7 +95,7 @@ export default class CourseListComponent implements OnInit {
     this.modalDataService.setDeleteModalOptions(modalOptions);
     this.modal.open(DeleteComponent).result.then((_result) => {
       this.store.dispatch(
-        courseActions.deleteCourse({
+        coursesActions.deleteCourse({
           id: id,
           current: this.current,
           pageSize: this.pageSize,
@@ -114,7 +114,7 @@ export default class CourseListComponent implements OnInit {
 
   refreshTable() {
     this.store.dispatch(
-      courseActions.loadCourses({
+      coursesActions.loadCourses({
         current: this.current,
         pageSize: this.pageSize,
       })

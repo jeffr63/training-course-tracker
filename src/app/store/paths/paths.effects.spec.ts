@@ -5,7 +5,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as pathsActions from './paths.actions';
+import { pathsActions } from './paths.actions';
 import { Path } from '@models/paths';
 import { PathsEffects } from './paths.effects';
 import { PathsService } from '@services/paths.service';
@@ -55,7 +55,7 @@ describe(`Paths Effects`, () => {
     it(`should return DeleteFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = pathsActions.deletePath({ id: 1 });
-      const completion = pathsActions.deletePathFail({ error });
+      const completion = pathsActions.deletePathFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -86,7 +86,7 @@ describe(`Paths Effects`, () => {
     it(`should return GetFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = pathsActions.getPath({ id: 1 });
-      const completion = pathsActions.getPathFail({ error });
+      const completion = pathsActions.getPathFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -120,7 +120,7 @@ describe(`Paths Effects`, () => {
     it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = pathsActions.loadPaths();
-      const completion = pathsActions.loadPathsFail({ error });
+      const completion = pathsActions.loadPathsFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -153,7 +153,7 @@ describe(`Paths Effects`, () => {
       const path: Path = { id: 1, name: 'ABC' };
       const error = 'Error';
       const action = pathsActions.savePath({ path });
-      const completion = pathsActions.savePathFail({ error });
+      const completion = pathsActions.savePathFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });

@@ -4,10 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { CourseData } from '@app/shared/models/course';
-import { DashboardComponent } from '@app/dashboard/dashboard.component';
+import { CourseData } from '@models/course';
+import { DashboardComponent } from './dashboard.component';
 import { DOMHelperRoutines } from '@testing/dom.helpers';
-import { getCoursesByPath, getCoursesBySource } from '@store/course/course.selectors';
+import { coursesFeature } from '@store/course/course.state';
 import { initialState } from '@store/course/course.state';
 
 describe('DashboardComponent', () => {
@@ -65,11 +65,9 @@ describe('DashboardComponent', () => {
         { name: 'Angular', value: 10 },
         { name: 'React', value: 2 },
       ];
-      store.overrideSelector(getCoursesByPath, paths);
+      store.overrideSelector(coursesFeature.selectCoursesByPath, paths);
       fixture.detectChanges();
-      component.courses$.subscribe((value) => {
-        expect(value).toEqual(paths);
-      });
+      expect(component.courses()).toEqual(paths);
     });
 
     it('should declare the sourses observable property', () => {
@@ -77,11 +75,9 @@ describe('DashboardComponent', () => {
         { name: 'Pluralsight', value: 8 },
         { name: 'YouTube', value: 4 },
       ];
-      store.overrideSelector(getCoursesBySource, sources);
+      store.overrideSelector(coursesFeature.selectCoursesBySource, sources);
       fixture.detectChanges();
-      component.sources$.subscribe((value) => {
-        expect(value).toEqual(sources);
-      });
+      expect(component.sources()).toEqual(sources);
     });
   });
 });

@@ -6,7 +6,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import { courseActions } from '@store/course/course.actions';
+import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
 
 @Component({
@@ -59,6 +59,6 @@ export class DashboardComponent implements OnInit {
   sources = toSignal(this.store.pipe(select(coursesFeature.selectCoursesBySource)), { initialValue: [] });
 
   ngOnInit() {
-    this.store.dispatch(courseActions.getTotalCourses());
+    this.store.dispatch(coursesActions.getTotalCourses());
   }
 }

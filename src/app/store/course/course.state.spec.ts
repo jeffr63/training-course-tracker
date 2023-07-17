@@ -1,4 +1,4 @@
-import * as courseActions from '@store/course/course.actions';
+import { coursesActions } from '@store/course/course.actions';
 import { reducer, initialState } from '@store/course/course.state';
 
 import { Course } from '@models/course';
@@ -17,7 +17,7 @@ describe('Courses Reducer', () => {
         ...initialState,
         currentCourse: { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
       };
-      const action = courseActions.getCourseFail({ error: 'Error' });
+      const action = coursesActions.getCourseFailure({ error: 'Error' });
       const state = reducer(newState, action);
 
       expect(state.currentCourse).toEqual(null);
@@ -30,7 +30,7 @@ describe('Courses Reducer', () => {
   describe('COURSE_SUCCESS action', () => {
     it(`should clear error`, () => {
       const course = { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' };
-      const action = courseActions.getCourseSuccess({ course });
+      const action = coursesActions.getCourseSuccess({ course });
       const state = reducer(initialState, action);
 
       expect(state.currentCourse).toEqual(course);
@@ -42,7 +42,7 @@ describe('Courses Reducer', () => {
 
   describe('DELETE_FAIL action', () => {
     it(`should set error`, () => {
-      const action = courseActions.deleteCourseFail({ error: 'Error' });
+      const action = coursesActions.deleteCourseFailure({ error: 'Error' });
       const state = reducer(initialState, action);
 
       expect(state.error).toEqual('Error');
@@ -54,7 +54,7 @@ describe('Courses Reducer', () => {
 
   describe('DELETE_SUCCESS action', () => {
     it(`should clear error`, () => {
-      const action = courseActions.deleteCourseSuccess();
+      const action = coursesActions.deleteCourseSuccess();
       const state = reducer(initialState, action);
 
       expect(state.error).toEqual('');
@@ -66,7 +66,7 @@ describe('Courses Reducer', () => {
 
   describe('LOAD_FAIL action', () => {
     it(`should populate courses from the array and clear error`, () => {
-      const action = courseActions.loadCoursesFail({ error: 'Error' });
+      const action = coursesActions.loadCoursesFailure({ error: 'Error' });
       const state = reducer(initialState, action);
 
       expect(state.courses).toEqual([]);
@@ -82,7 +82,7 @@ describe('Courses Reducer', () => {
         { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
         { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' },
       ];
-      const action = courseActions.loadCoursesSuccess({ courses });
+      const action = coursesActions.loadCoursesSuccess({ courses });
       const state = reducer(initialState, action);
 
       expect(state.courses).toEqual(courses);
@@ -94,7 +94,7 @@ describe('Courses Reducer', () => {
 
   describe(`SAVE_FAIL action`, () => {
     it(`should set error`, () => {
-      const action = courseActions.saveCourseFail({ error: 'Error' });
+      const action = coursesActions.saveCourseFailure({ error: 'Error' });
       const state = reducer(initialState, action);
 
       expect(state.error).toEqual('Error');
@@ -114,7 +114,7 @@ describe('Courses Reducer', () => {
         ],
       };
       const course = { id: 2, title: 'Update Course 2', instructor: 'John', path: 'A', source: 'D' };
-      const action = courseActions.saveCourseSuccess({ course });
+      const action = coursesActions.saveCourseSuccess({ course });
       const state = reducer(newState, action);
 
       expect(state.courses[0]).toEqual(newState.courses[0]);
@@ -131,7 +131,7 @@ describe('Courses Reducer', () => {
         ...initialState,
         totalCourses: 10,
       };
-      const action = courseActions.getTotalCoursesFail({ error: 'Error' });
+      const action = coursesActions.getTotalCoursesFailure({ error: 'Error' });
       const state = reducer(newState, action);
 
       expect(state.totalCourses).toBe(0);
@@ -147,7 +147,7 @@ describe('Courses Reducer', () => {
         { id: 1, title: 'Course 1', instructor: 'Joe', path: 'A', source: 'B' },
         { id: 2, title: 'Course 2', instructor: 'Jack', path: 'C', source: 'D' },
       ];
-      const action = courseActions.getTotalCoursesSuccess({ courses });
+      const action = coursesActions.getTotalCoursesSuccess({ courses });
       const state = reducer(initialState, action);
 
       expect(state.totalCourses).toEqual(2);

@@ -35,7 +35,10 @@
       ],
       "@store/*": [
         "./src/app/store/*"
-      ]
+      ],
+      "@testing/*": [
+        "./src/testing/*"
+      ],
     },
     "useDefineForClassFields": false
   },

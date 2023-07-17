@@ -1,4 +1,4 @@
-import * as usersActions from './users.actions';
+import { usersActions } from './users.actions';
 
 describe('Users Actions', () => {
   describe('Delete User', () => {
@@ -16,7 +16,7 @@ describe('Users Actions', () => {
   describe('DeleteUserFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = usersActions.deleteUserFail({ error });
+      const action = usersActions.deleteUserFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Users] Delete User Fail',
@@ -52,7 +52,7 @@ describe('Users Actions', () => {
   describe('GetUserFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = usersActions.getUserFail({ error });
+      const action = usersActions.getUserFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Users] Get User Fail',
@@ -86,7 +86,7 @@ describe('Users Actions', () => {
   describe('LoadUserFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = usersActions.loadUsersFail({ error });
+      const action = usersActions.loadUsersFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Users] Load Users Fail',
@@ -126,7 +126,7 @@ describe('Users Actions', () => {
   describe('PatchUserFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = usersActions.patchUserFail({ error });
+      const action = usersActions.patchUserFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Users] Patch User Fail',

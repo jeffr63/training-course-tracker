@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import * as _ from 'lodash';
 
-import { courseActions } from './course.actions';
+import { coursesActions } from './course.actions';
 import { Course, CourseData } from '@models/course';
 
 export interface State {
@@ -24,49 +24,49 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(courseActions.deleteCourseFailure, (state, { error }) => ({
+  on(coursesActions.deleteCourseFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),
-  on(courseActions.deleteCourseSuccess, (state) => ({
+  on(coursesActions.deleteCourseSuccess, (state) => ({
     ...state,
     error: '',
   })),
-  on(courseActions.getCourseFailure, (state, { error }) => ({
+  on(coursesActions.getCourseFailure, (state, { error }) => ({
     ...state,
     currentCourse: null,
     error: error,
   })),
-  on(courseActions.getCourseSuccess, (state, { course }) => ({
+  on(coursesActions.getCourseSuccess, (state, { course }) => ({
     ...state,
     currentCourse: course,
     error: '',
   })),
-  on(courseActions.loadCoursesFailure, (state, { error }) => ({
+  on(coursesActions.loadCoursesFailure, (state, { error }) => ({
     ...state,
     courses: [],
     error: error,
   })),
-  on(courseActions.loadCoursesSuccess, (state, { courses }) => ({
+  on(coursesActions.loadCoursesSuccess, (state, { courses }) => ({
     ...state,
     courses: courses,
     error: '',
   })),
-  on(courseActions.saveCourseFailure, (state, { error }) => ({
+  on(coursesActions.saveCourseFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),
-  on(courseActions.saveCourseSuccess, (state, { course }) => ({
+  on(coursesActions.saveCourseSuccess, (state, { course }) => ({
     ...state,
     courses: state.courses.map((item) => (course.id === item.id ? course : item)),
     error: '',
   })),
-  on(courseActions.getTotalCoursesFailure, (state, { error }) => ({
+  on(coursesActions.getTotalCoursesFailure, (state, { error }) => ({
     ...state,
     totalCourses: 0,
     error: error,
   })),
-  on(courseActions.getTotalCoursesSuccess, (state, { courses }) => ({
+  on(coursesActions.getTotalCoursesSuccess, (state, { courses }) => ({
     ...state,
     totalCourses: courses.length,
     coursesByPath: getByPathValue(courses),

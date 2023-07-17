@@ -1,19 +1,18 @@
-import { courseActions } from './course.actions';
+import { coursesActions } from './course.actions';
 
 describe('Courses Actions', () => {
-
   describe('DeleteCourse', () => {
     it(`should create an action`, () => {
-      const id = 1
-      const current = 1
-      const pageSize = 3
-      const action = courseActions.deleteCourse({ id, current, pageSize });
+      const id = 1;
+      const current = 1;
+      const pageSize = 3;
+      const action = coursesActions.deleteCourse({ id, current, pageSize });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Delete Course',
         id,
         current,
-        pageSize
+        pageSize,
       });
     });
   });
@@ -21,21 +20,21 @@ describe('Courses Actions', () => {
   describe('DeleteCourseFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.deleteCourseFailure({ error });
+      const action = coursesActions.deleteCourseFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Delete Course Fail',
-        error
+        error,
       });
     });
   });
 
   describe('DeleteCourseSuccess', () => {
     it(`should create an action`, () => {
-      const action = courseActions.deleteCourseSuccess();
+      const action = coursesActions.deleteCourseSuccess();
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Delete Course Success'
+        type: '[Courses] Delete Course Success',
       });
     });
   });
@@ -43,11 +42,11 @@ describe('Courses Actions', () => {
   describe('GetCourse', () => {
     it(`should create an action`, () => {
       const id = 1;
-      const action = courseActions.getCourse({ id });
+      const action = coursesActions.getCourse({ id });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Course',
-        id
+        id,
       });
     });
   });
@@ -55,11 +54,11 @@ describe('Courses Actions', () => {
   describe('GetCourseFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.getCourseFailure({ error });
+      const action = coursesActions.getCourseFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Course Fail',
-        error
+        error,
       });
     });
   });
@@ -67,21 +66,21 @@ describe('Courses Actions', () => {
   describe('GetCourseSuccess', () => {
     it(`should create an action`, () => {
       const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
-      const action = courseActions.getCourseSuccess({ course });
+      const action = coursesActions.getCourseSuccess({ course });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Course Success',
-        course
+        course,
       });
     });
   });
 
   describe('GetTotalCourses', () => {
     it(`should create an action`, () => {
-      const action = courseActions.getTotalCourses();
+      const action = coursesActions.getTotalCourses();
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Get Total Courses'
+        type: '[Courses] Get Total Courses',
       });
     });
   });
@@ -89,11 +88,11 @@ describe('Courses Actions', () => {
   describe('GetTotalCoursesFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.getTotalCoursesFailure({ error });
+      const action = coursesActions.getTotalCoursesFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Total Courses Fail',
-        error
+        error,
       });
     });
   });
@@ -102,27 +101,27 @@ describe('Courses Actions', () => {
     it(`should create an action`, () => {
       const courses = [
         { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' }
+        { id: 2, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' },
       ];
-      const action = courseActions.getTotalCoursesSuccess({ courses });
+      const action = coursesActions.getTotalCoursesSuccess({ courses });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Total Courses Success',
-        courses
+        courses,
       });
     });
   });
 
   describe('LoadCourse', () => {
     it(`should create an action`, () => {
-      const current = 1
-      const pageSize = 3
-      const action = courseActions.loadCourses({ current, pageSize });
+      const current = 1;
+      const pageSize = 3;
+      const action = coursesActions.loadCourses({ current, pageSize });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Load Courses',
         current,
-        pageSize
+        pageSize,
       });
     });
   });
@@ -130,11 +129,11 @@ describe('Courses Actions', () => {
   describe('LoadCoursesFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.loadCoursesFailure({ error });
+      const action = coursesActions.loadCoursesFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Load Courses Fail',
-        error
+        error,
       });
     });
   });
@@ -143,13 +142,13 @@ describe('Courses Actions', () => {
     it(`should create an action`, () => {
       const courses = [
         { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' },
-        { id: 2, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' }
+        { id: 2, title: 'DEF', instructor: 'Jack', path: 'A', source: 'B', yearCompleted: '2019' },
       ];
-      const action = courseActions.loadCoursesSuccess({ courses });
+      const action = coursesActions.loadCoursesSuccess({ courses });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Load Courses Success',
-        courses
+        courses,
       });
     });
   });
@@ -157,11 +156,11 @@ describe('Courses Actions', () => {
   describe('SaveCourse', () => {
     it(`should create an action`, () => {
       const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
-      const action = courseActions.saveCourse({ course });
+      const action = coursesActions.saveCourse({ course });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Save Course',
-        course
+        course,
       });
     });
   });
@@ -169,11 +168,11 @@ describe('Courses Actions', () => {
   describe('SaveCourseFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.saveCourseFailure({ error });
+      const action = coursesActions.saveCourseFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Save Course Fail',
-        error
+        error,
       });
     });
   });
@@ -181,11 +180,11 @@ describe('Courses Actions', () => {
   describe('SaveCourseSuccess', () => {
     it(`should create an action`, () => {
       const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B', yearCompleted: '2019' };
-      const action = courseActions.saveCourseSuccess({ course });
+      const action = coursesActions.saveCourseSuccess({ course });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Save Course Success',
-        course
+        course,
       });
     });
   });

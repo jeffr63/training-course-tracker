@@ -1,4 +1,4 @@
-import * as userActions from './users.actions';
+import { usersActions } from './users.actions';
 import { reducer } from './users.state';
 import { initialState } from './users.state';
 import { User } from '@models/user';
@@ -16,7 +16,7 @@ describe('Users Reducer', () => {
 
   describe('DELETE_FAIL action', () => {
     it(`should set error`, () => {
-      const action = userActions.deleteUserFail({ error: 'Error' });
+      const action = usersActions.deleteUserFailure({ error: 'Error' });
       const state = reducer(initialState, action);
 
       expect(state.error).toEqual('Error');
@@ -36,7 +36,7 @@ describe('Users Reducer', () => {
       users: beforeUsers,
     };
     it(`should clear error`, () => {
-      const action = userActions.deleteUserSuccess({ id: 1 });
+      const action = usersActions.deleteUserSuccess({ id: 1 });
       const state = reducer(newState, action);
 
       expect(state.error).toEqual('');
@@ -52,7 +52,7 @@ describe('Users Reducer', () => {
         ...initialState,
         currentUser: { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
       };
-      const action = userActions.getUserFail({ error: 'Error' });
+      const action = usersActions.getUserFailure({ error: 'Error' });
       const state = reducer(newState, action);
 
       expect(state.currentUser).toEqual(null);
@@ -64,7 +64,7 @@ describe('Users Reducer', () => {
   describe('GET_SUCCESS action', () => {
     it(`should clear error`, () => {
       const user = { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' };
-      const action = userActions.getUserSuccess({ user });
+      const action = usersActions.getUserSuccess({ user });
       const state = reducer(initialState, action);
 
       expect(state.currentUser).toEqual(user);
@@ -75,7 +75,7 @@ describe('Users Reducer', () => {
 
   describe(`LOAD_FAIL action`, () => {
     it(`should clear users and set error`, () => {
-      const action = userActions.loadUsersFail({ error: 'Error' });
+      const action = usersActions.loadUsersFailure({ error: 'Error' });
       const state = reducer(initialState, action);
 
       expect(state.users).toEqual([]);
@@ -89,7 +89,7 @@ describe('Users Reducer', () => {
         { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' },
         { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
       ];
-      const action = userActions.loadUsersSuccess({ users });
+      const action = usersActions.loadUsersSuccess({ users });
       const state = reducer(initialState, action);
 
       expect(state.users).toEqual(users);
@@ -99,7 +99,7 @@ describe('Users Reducer', () => {
 
   describe(`PATCH_FAIL action`, () => {
     it(`should set error`, () => {
-      const action = userActions.patchUserFail({ error: 'Error' });
+      const action = usersActions.patchUserFailure({ error: 'Error' });
       const state = reducer(initialState, action);
 
       expect(state.error).toEqual('Error');
@@ -121,7 +121,7 @@ describe('Users Reducer', () => {
       };
 
       let user = users[0];
-      const action = userActions.patchUserSuccess({ user });
+      const action = usersActions.patchUserSuccess({ user });
       const state = reducer(newState, action);
 
       expect(state.users).toEqual(users);

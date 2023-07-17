@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import { courseActions } from '@store/course/course.actions';
+import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
 import { pathsActions } from '@store/paths/paths.actions';
 import { pathsFeature } from '@store/paths/paths.state';
@@ -153,7 +153,7 @@ export default class CourseEditComponent implements OnInit, OnDestroy {
 
     if (this.id === 'new') return;
 
-    this.store.dispatch(courseActions.getCourse({ id: +this.id }));
+    this.store.dispatch(coursesActions.getCourse({ id: +this.id }));
     this.store
       .pipe(select(coursesFeature.selectCurrentCourse))
       .pipe(takeUntil(this.destroy$))
@@ -175,7 +175,7 @@ export default class CourseEditComponent implements OnInit, OnDestroy {
     this.course.instructor = this.courseEditForm.controls.instructor.value;
     this.course.path = this.courseEditForm.controls.path.value;
     this.course.source = this.courseEditForm.controls.source.value;
-    this.store.dispatch(courseActions.saveCourse({ course: this.course }));
+    this.store.dispatch(coursesActions.saveCourse({ course: this.course }));
     this.location.back();
   }
 }

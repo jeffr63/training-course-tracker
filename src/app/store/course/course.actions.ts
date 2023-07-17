@@ -2,7 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import { Course } from '@models/course';
 
-export const courseActions = createActionGroup({
+export const coursesActions = createActionGroup({
   source: 'Courses',
   events: {
     'Delete Course': props<{ id: number; current: number; pageSize: number }>(),

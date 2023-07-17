@@ -15,7 +15,7 @@ describe('Sources Reducer', () => {
 
     describe('DELETE_FAIL action', () => {
       it(`should set error`, () => {
-        const action = sourcesActions.deleteSourceFail({ error: 'Error' });
+        const action = sourcesActions.deleteSourceFailure({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
@@ -51,7 +51,7 @@ describe('Sources Reducer', () => {
           ...initialState,
           currentCourse: { id: 1, name: 'ABC' },
         };
-        const action = sourcesActions.getSourceFail({ error: 'Error' });
+        const action = sourcesActions.getSourceFailure({ error: 'Error' });
         const state = reducer(newState, action);
 
         expect(state.currentSource).toEqual(null);
@@ -74,7 +74,7 @@ describe('Sources Reducer', () => {
 
     describe(`LOAD_FAIL action`, () => {
       it(`should clear sources and set error`, () => {
-        const action = sourcesActions.loadSourcesFail({ error: 'Error' });
+        const action = sourcesActions.loadSourcesFailure({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.sources).toEqual([]);
@@ -98,7 +98,7 @@ describe('Sources Reducer', () => {
 
     describe(`SAVE_FAIL action`, () => {
       it(`should set error`, () => {
-        const action = sourcesActions.saveSourceFail({ error: 'Error' });
+        const action = sourcesActions.saveSourceFailure({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');

@@ -55,7 +55,7 @@ describe(`Sources Effects`, () => {
     it(`should return DeleteSourceFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = sourcesActions.deleteSource({ id: 1 });
-      const completion = sourcesActions.deleteSourceFail({ error });
+      const completion = sourcesActions.deleteSourceFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -86,7 +86,7 @@ describe(`Sources Effects`, () => {
     it(`should return GetSourceFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = sourcesActions.getSource({ id: 1 });
-      const completion = sourcesActions.getSourceFail({ error });
+      const completion = sourcesActions.getSourceFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -120,7 +120,7 @@ describe(`Sources Effects`, () => {
     it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = sourcesActions.loadSources();
-      const completion = sourcesActions.loadSourcesFail({ error });
+      const completion = sourcesActions.loadSourcesFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -153,7 +153,7 @@ describe(`Sources Effects`, () => {
       const source: Source = { id: 1, name: 'ABC' };
       const error = 'Error';
       const action = sourcesActions.saveSource({ source });
-      const completion = sourcesActions.saveSourceFail({ error });
+      const completion = sourcesActions.saveSourceFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });

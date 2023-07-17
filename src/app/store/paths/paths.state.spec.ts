@@ -1,4 +1,4 @@
-import * as pathsActions from './paths.actions';
+import { pathsActions } from './paths.actions';
 import { reducer } from './paths.state';
 import { initialState } from './paths.state';
 import { Path } from '@models/paths';
@@ -15,7 +15,7 @@ describe('Paths Reducer', () => {
 
     describe('DELETE_FAIL action', () => {
       it(`should set error`, () => {
-        const action = pathsActions.deletePathFail({ error: 'Error' });
+        const action = pathsActions.deletePathFailure({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');
@@ -51,7 +51,7 @@ describe('Paths Reducer', () => {
           ...initialState,
           currentCourse: { id: 1, name: 'ABC' },
         };
-        const action = pathsActions.getPathFail({ error: 'Error' });
+        const action = pathsActions.getPathFailure({ error: 'Error' });
         const state = reducer(newState, action);
 
         expect(state.currentPath).toEqual(null);
@@ -74,7 +74,7 @@ describe('Paths Reducer', () => {
 
     describe(`LOAD_FAIL action`, () => {
       it(`should clear paths and set error`, () => {
-        const action = pathsActions.loadPathsFail({ error: 'Error' });
+        const action = pathsActions.loadPathsFailure({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.paths).toEqual([]);
@@ -98,7 +98,7 @@ describe('Paths Reducer', () => {
 
     describe(`SAVE_FAIL action`, () => {
       it(`should set error`, () => {
-        const action = pathsActions.savePathFail({ error: 'Error' });
+        const action = pathsActions.savePathFailure({ error: 'Error' });
         const state = reducer(initialState, action);
 
         expect(state.error).toEqual('Error');

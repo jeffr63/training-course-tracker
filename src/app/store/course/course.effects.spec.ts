@@ -5,7 +5,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { courseActions } from './course.actions';
+import { coursesActions } from './course.actions';
 import { Course } from '@models/course';
 import { CourseEffects } from './course.effects';
 import { CoursesService } from '@services/courses.service';
@@ -46,14 +46,14 @@ describe(`Course Effects`, () => {
 
   describe(`deleteCourse$ effect`, () => {
     it(`should return DeleteSuccess, with course, on success`, () => {
-      const action = courseActions.deleteCourse({
+      const action = coursesActions.deleteCourse({
         id: 1,
         current: 1,
         pageSize: 3,
       });
-      const load = courseActions.loadCourses({ current: 1, pageSize: 3 });
-      const recount = courseActions.getTotalCourses();
-      const completion = courseActions.deleteCourseSuccess();
+      const load = coursesActions.loadCourses({ current: 1, pageSize: 3 });
+      const recount = coursesActions.getTotalCourses();
+      const completion = coursesActions.deleteCourseSuccess();
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -66,12 +66,12 @@ describe(`Course Effects`, () => {
 
     it(`should return DeleteFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = courseActions.deleteCourse({
+      const action = coursesActions.deleteCourse({
         id: 1,
         current: 1,
         pageSize: 3,
       });
-      const completion = courseActions.deleteCourseFailure({ error });
+      const completion = coursesActions.deleteCourseFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -93,8 +93,8 @@ describe(`Course Effects`, () => {
         source: 'B',
       };
 
-      const action = courseActions.getCourse({ id: 1 });
-      const completion = courseActions.getCourseSuccess({ course });
+      const action = coursesActions.getCourse({ id: 1 });
+      const completion = coursesActions.getCourseSuccess({ course });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -107,8 +107,8 @@ describe(`Course Effects`, () => {
 
     it(`should return GetCourseFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = courseActions.getCourse({ id: 1 });
-      const completion = courseActions.getCourseFailure({ error });
+      const action = coursesActions.getCourse({ id: 1 });
+      const completion = coursesActions.getCourseFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -139,8 +139,8 @@ describe(`Course Effects`, () => {
         } as Course,
       ];
 
-      const action = courseActions.loadCourses({ current: 1, pageSize: 3 });
-      const completion = courseActions.loadCoursesSuccess({ courses });
+      const action = coursesActions.loadCourses({ current: 1, pageSize: 3 });
+      const completion = coursesActions.loadCoursesSuccess({ courses });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -153,8 +153,8 @@ describe(`Course Effects`, () => {
 
     it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = courseActions.loadCourses({ current: 1, pageSize: 3 });
-      const completion = courseActions.loadCoursesFailure({ error });
+      const action = coursesActions.loadCourses({ current: 1, pageSize: 3 });
+      const completion = coursesActions.loadCoursesFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -176,9 +176,9 @@ describe(`Course Effects`, () => {
         source: 'B',
       };
 
-      const action = courseActions.saveCourse({ course });
-      const recount = courseActions.getTotalCourses();
-      const completion = courseActions.saveCourseSuccess({ course });
+      const action = coursesActions.saveCourse({ course });
+      const recount = coursesActions.getTotalCourses();
+      const completion = coursesActions.saveCourseSuccess({ course });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -198,8 +198,8 @@ describe(`Course Effects`, () => {
         source: 'B',
       };
       const error = 'Error';
-      const action = courseActions.saveCourse({ course });
-      const completion = courseActions.saveCourseFailure({ error });
+      const action = coursesActions.saveCourse({ course });
+      const completion = coursesActions.saveCourseFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -230,8 +230,8 @@ describe(`Course Effects`, () => {
         } as Course,
       ];
 
-      const action = courseActions.getTotalCourses();
-      const completion = courseActions.getTotalCoursesSuccess({ courses });
+      const action = coursesActions.getTotalCourses();
+      const completion = coursesActions.getTotalCoursesSuccess({ courses });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -244,8 +244,8 @@ describe(`Course Effects`, () => {
 
     it(`should return GetTotalFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = courseActions.getTotalCourses();
-      const completion = courseActions.getTotalCoursesFailure({ error });
+      const action = coursesActions.getTotalCourses();
+      const completion = coursesActions.getTotalCoursesFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });

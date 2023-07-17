@@ -5,7 +5,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as userActions from './users.actions';
+import { usersActions as usersActions } from './users.actions';
 import { User } from '@models/user';
 import { UsersEffects } from './users.effects';
 import { UsersService } from '@services/user.service';
@@ -40,8 +40,8 @@ describe(`User Effects`, () => {
 
   describe(`deleteUser$ effect`, () => {
     it(`should return DeleteUserSuccess, with id, on success`, () => {
-      const action = userActions.deleteUser({ id: 1 });
-      const completion = userActions.deleteUserSuccess({ id: 1 });
+      const action = usersActions.deleteUser({ id: 1 });
+      const completion = usersActions.deleteUserSuccess({ id: 1 });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -54,8 +54,8 @@ describe(`User Effects`, () => {
 
     it(`should return DeleteSourceFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = userActions.deleteUser({ id: 1 });
-      const completion = userActions.deleteUserFail({ error });
+      const action = usersActions.deleteUser({ id: 1 });
+      const completion = usersActions.deleteUserFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -71,8 +71,8 @@ describe(`User Effects`, () => {
     it(`should return GetUserSuccess, with user, on success`, () => {
       const user: User = { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' };
 
-      const action = userActions.getUser({ id: 1 });
-      const completion = userActions.getUserSuccess({ user });
+      const action = usersActions.getUser({ id: 1 });
+      const completion = usersActions.getUserSuccess({ user });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -85,8 +85,8 @@ describe(`User Effects`, () => {
 
     it(`should return GetUserFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = userActions.getUser({ id: 1 });
-      const completion = userActions.getUserFail({ error });
+      const action = usersActions.getUser({ id: 1 });
+      const completion = usersActions.getUserFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -105,8 +105,8 @@ describe(`User Effects`, () => {
         { id: 2, name: 'Sam', email: 'sam@joe.com', password: 'abc', role: 'user' },
       ];
 
-      const action = userActions.loadUsers();
-      const completion = userActions.loadUsersSuccess({ users });
+      const action = usersActions.loadUsers();
+      const completion = usersActions.loadUsersSuccess({ users });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });
@@ -119,8 +119,8 @@ describe(`User Effects`, () => {
 
     it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
-      const action = userActions.loadUsers();
-      const completion = userActions.loadUsersFail({ error });
+      const action = usersActions.loadUsers();
+      const completion = usersActions.loadUsersFailure({ error });
 
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions$ = hot('-a', { a: action });

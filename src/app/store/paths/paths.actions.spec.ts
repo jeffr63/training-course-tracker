@@ -4,7 +4,7 @@ describe('Paths Actions', () => {
   describe('DeletePath', () => {
     it(`should create an action`, () => {
       const id = 1;
-      const action = pathActions.deletePath({ id });
+      const action = pathsActions.deletePath({ id });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Delete Path',
@@ -16,7 +16,7 @@ describe('Paths Actions', () => {
   describe('DeletePathFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = pathActions.deletePathFail({ error });
+      const action = pathsActions.deletePathFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Delete Path Fail',
@@ -28,7 +28,7 @@ describe('Paths Actions', () => {
   describe('DeletePathSuccess', () => {
     it(`should create an action`, () => {
       const id = 1;
-      const action = pathActions.deletePathSuccess({ id });
+      const action = pathsActions.deletePathSuccess({ id });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Delete Path Success',
@@ -40,7 +40,7 @@ describe('Paths Actions', () => {
   describe('GetPath', () => {
     it(`should create an action`, () => {
       const id = 1;
-      const action = pathActions.getPath({ id });
+      const action = pathsActions.getPath({ id });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Get Path',
@@ -52,7 +52,7 @@ describe('Paths Actions', () => {
   describe('GetPathFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = pathActions.getPathFail({ error });
+      const action = pathsActions.getPathFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Get Path Fail',
@@ -64,7 +64,7 @@ describe('Paths Actions', () => {
   describe('GetPathSuccess', () => {
     it(`should create an action`, () => {
       const path = { id: 1, name: 'ABC' };
-      const action = pathActions.getPathSuccess({ path });
+      const action = pathsActions.getPathSuccess({ path });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Get Path Success',
@@ -75,7 +75,7 @@ describe('Paths Actions', () => {
 
   describe('LoadPaths', () => {
     it(`should create an action`, () => {
-      const action = pathActions.loadPaths();
+      const action = pathsActions.loadPaths();
 
       expect({ ...action }).toEqual({
         type: '[Paths] Load Paths',
@@ -86,7 +86,7 @@ describe('Paths Actions', () => {
   describe('LoadPathsFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = pathActions.loadPathsFail({ error });
+      const action = pathsActions.loadPathsFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Load Paths Fail',
@@ -101,7 +101,7 @@ describe('Paths Actions', () => {
         { id: 1, name: 'ABC' },
         { id: 2, name: 'DEF' },
       ];
-      const action = pathActions.loadPathsSuccess({ paths });
+      const action = pathsActions.loadPathsSuccess({ paths });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Load Paths Success',
@@ -113,7 +113,7 @@ describe('Paths Actions', () => {
   describe('SavePath', () => {
     it(`should create an action`, () => {
       const path = { id: 1, name: 'ABC' };
-      const action = pathActions.savePath({ path });
+      const action = pathsActions.savePath({ path });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Save Path',
@@ -125,7 +125,7 @@ describe('Paths Actions', () => {
   describe('SavePathFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = pathActions.savePathFail({ error });
+      const action = pathsActions.savePathFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Save Path Fail',
@@ -137,7 +137,7 @@ describe('Paths Actions', () => {
   describe('SavePathSuccess', () => {
     it(`should create an action`, () => {
       const path = { id: 1, name: 'ABC' };
-      const action = pathActions.savePathSuccess({ path });
+      const action = pathsActions.savePathSuccess({ path });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Save Path Success',
