@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
 import * as courseActions from '@store/course/course.actions';
-import * as courseSelectors from '@store/course/course.selectors';
+import { coursesFeature } from '@store/course/course.state';
 import { AuthService } from '@services/auth.service';
 import { Course } from '@models/course';
 import { DeleteComponent } from '@modals/delete.component';
@@ -82,8 +82,8 @@ export default class CourseListComponent implements OnInit {
       })
     );
     this.store.dispatch(courseActions.getTotalCourses());
-    this.courses$ = this.store.pipe(select(courseSelectors.getCourses));
-    this.totalCourses$ = this.store.pipe(select(courseSelectors.getTotalCourses));
+    this.courses$ = this.store.pipe(select(coursesFeature.selectCourses));
+    this.totalCourses$ = this.store.pipe(select(coursesFeature.selectTotalCourses));
   }
 
   deleteCourse(id) {

@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import * as fromRoot from '@store/index';
 import * as pathsActions from '@store/paths/paths.actions';
-import * as pathsSelectors from '@store/paths/paths.selectors';
+import { pathsFeature } from '@store/paths/paths.state';
 import { Path } from '@models/paths';
 
 @Component({
@@ -77,7 +77,7 @@ export default class PathEditComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(pathsActions.getPath({ id: +this.id }));
     this.store
-      .pipe(select(pathsSelectors.getCurrentPath))
+      .pipe(select(pathsFeature.selectCurrentPath))
       .pipe(takeUntil(this.destroy$))
       .subscribe((path: Path) => {
         this.path = { ...path };

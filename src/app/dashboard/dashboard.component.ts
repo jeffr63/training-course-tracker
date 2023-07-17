@@ -3,12 +3,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
 import * as courseActions from '@store/course/course.actions';
-import * as courseSelectors from '@store/course/course.selectors';
+import { coursesFeature } from '@store/course/course.state';
 import { CourseData } from '@models/course';
 
 @Component({
@@ -57,8 +56,8 @@ import { CourseData } from '@models/course';
 export class DashboardComponent implements OnInit {
   private store = inject(Store<fromRoot.State>);
 
-  courses = toSignal(this.store.pipe(select(courseSelectors.getCoursesByPath)), { initialValue: [] });
-  sources = toSignal(this.store.pipe(select(courseSelectors.getCoursesBySource)), { initialValue: [] });
+  courses = toSignal(this.store.pipe(select(coursesFeature.selectCoursesByPath)), { initialValue: [] });
+  sources = toSignal(this.store.pipe(select(coursesFeature.selectCoursesBySource)), { initialValue: [] });
 
   ngOnInit() {
     this.store.dispatch(courseActions.getTotalCourses());

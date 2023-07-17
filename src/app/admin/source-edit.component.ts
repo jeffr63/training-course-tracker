@@ -9,7 +9,7 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
 import * as sourcesActions from '@store/sources/sources.actions';
-import * as sourcesSelectors from '@store/sources/sources.selectors';
+import { sourcesFeature } from '@store/sources/sources.state';
 import { Source } from '@models/sources';
 import { ReplaySubject } from 'rxjs';
 
@@ -77,7 +77,7 @@ export default class SourceEditComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(sourcesActions.getSource({ id: +this.id }));
     this.store
-      .pipe(select(sourcesSelectors.getCurrentSource))
+      .pipe(select(sourcesFeature.selectCurrentSource))
       .pipe(takeUntil(this.destroy$))
       .subscribe((source: Source) => {
         this.source = { ...source };

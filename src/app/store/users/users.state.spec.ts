@@ -1,5 +1,5 @@
 import * as userActions from './users.actions';
-import { reducer } from './users.reducer';
+import { reducer } from './users.state';
 import { initialState } from './users.state';
 import { User } from '@models/user';
 

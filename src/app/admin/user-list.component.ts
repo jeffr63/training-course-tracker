@@ -8,7 +8,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
 import * as userActions from '@store/users/users.actions';
-import * as userSelectors from '@store/users/users.selectors';
+import { usersFeature } from '@store/users/users.state';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ModalDataService } from '@modals/modal-data.service';
@@ -62,7 +62,7 @@ export default class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(userActions.loadUsers());
-    this.users$ = this.store.pipe(select(userSelectors.getUsers));
+    this.users$ = this.store.pipe(select(usersFeature.selectUsers));
   }
 
   deleteUser(id) {

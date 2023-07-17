@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import * as pathsSelectors from '@store/paths/paths.selectors';
+import { pathsFeature } from '@store/paths/paths.state';
 import * as pathsActions from '@store/paths/paths.actions';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
@@ -59,7 +59,7 @@ export default class PathListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(pathsActions.loadPaths());
-    this.paths$ = this.store.pipe(select(pathsSelectors.getPaths));
+    this.paths$ = this.store.pipe(select(pathsFeature.selectPaths));
   }
 
   deletePath(id) {

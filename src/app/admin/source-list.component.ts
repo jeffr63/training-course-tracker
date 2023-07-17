@@ -8,7 +8,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
 import * as sourcesActions from '@store/sources/sources.actions';
-import * as sourcesSelectors from '@store/sources/sources.selectors';
+import { sourcesFeature } from '@store/sources/sources.state';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ListHeaderComponent } from '@shared/list/list-header.component';
@@ -65,7 +65,7 @@ export default class SourceListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(sourcesActions.loadSources());
-    this.source$ = this.store.pipe(select(sourcesSelectors.getSources));
+    this.source$ = this.store.pipe(select(sourcesFeature.selectSources));
   }
 
   deleteSource(id) {

@@ -1,6 +1,5 @@
 import * as courseActions from '@store/course/course.actions';
-import { reducer } from '@store/course/course.reducer';
-import { initialState } from '@store/course/course.state';
+import { reducer, initialState } from '@store/course/course.state';
 
 import { Course } from '@models/course';
 

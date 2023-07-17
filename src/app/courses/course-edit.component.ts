@@ -10,11 +10,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
 import * as courseActions from '@store/course/course.actions';
-import * as courseSelectors from '@store/course/course.selectors';
+import { coursesFeature } from '@store/course/course.state';
 import * as pathsActions from '@store/paths/paths.actions';
-import * as pathsSelectors from '@store/paths/paths.selectors';
+import { pathsFeature } from '@store/paths/paths.state';
 import * as sourcesActions from '@store/sources/sources.actions';
-import * as sourcesSelectors from '@store/sources/sources.selectors';
+import { sourcesFeature } from '@store/sources/sources.state';
 import { Course } from '@models/course';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -135,8 +135,8 @@ export default class CourseEditComponent implements OnInit, OnDestroy {
 
   @Input() id;
   destroy$ = new ReplaySubject<void>(1);
-  paths = toSignal(this.store.pipe(select(pathsSelectors.getPaths)), { initialValue: [] });
-  sources = toSignal(this.store.pipe(select(sourcesSelectors.getSources)), { initialValue: [] });
+  paths = toSignal(this.store.pipe(select(pathsFeature.selectPaths)), { initialValue: [] });
+  sources = toSignal(this.store.pipe(select(sourcesFeature.selectSources)), { initialValue: [] });
   courseEditForm: FormGroup;
   course = <Course>{};
 
@@ -155,7 +155,7 @@ export default class CourseEditComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(courseActions.getCourse({ id: +this.id }));
     this.store
-      .pipe(select(courseSelectors.getCourse))
+      .pipe(select(coursesFeature.selectCurrentCourse))
       .pipe(takeUntil(this.destroy$))
       .subscribe((course: Course) => {
         this.course = { ...course };

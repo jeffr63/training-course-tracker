@@ -10,7 +10,7 @@ import { ReplaySubject } from 'rxjs';
 
 import * as fromRoot from '@store/index';
 import * as userActions from '@store/users/users.actions';
-import * as userSelectors from '@store/users/users.selectors';
+import { usersFeature } from '@store/users/users.state';
 import { User } from '@models/user';
 
 @Component({
@@ -105,7 +105,7 @@ export default class UserEditComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(userActions.getUser({ id: +this.id }));
     this.store
-      .pipe(select(userSelectors.getCurrentUser))
+      .pipe(select(usersFeature.selectCurrentUser))
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: User) => {
         this.user = { ...user };
