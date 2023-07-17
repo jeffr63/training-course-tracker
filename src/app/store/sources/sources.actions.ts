@@ -1,27 +1,21 @@
-import { props, createAction } from '@ngrx/store';
+import { props, createActionGroup, emptyProps } from '@ngrx/store';
 
 import { Source } from '@models/sources';
 
-export const deleteSource = createAction('[Sources] Delete Source', props<{ id: number }>());
-
-export const deleteSourceFail = createAction('[Sources] Delete Source Fail', props<{ error: string }>());
-
-export const deleteSourceSuccess = createAction('[Sources] Delete Source Success', props<{ id: number }>());
-
-export const getSource = createAction('[Sources] Get Source', props<{ id: number }>());
-
-export const getSourceFail = createAction('[Sources] Get Source Fail', props<{ error: string }>());
-
-export const getSourceSuccess = createAction('[Sources] Get Source Success', props<{ source: Source }>());
-
-export const loadSources = createAction('[Sources] Load Sources');
-
-export const loadSourcesFail = createAction('[Sources] Load Sources Fail', props<{ error: string }>());
-
-export const loadSourcesSuccess = createAction('[Sources] Load Sources Success', props<{ sources: Source[] }>());
-
-export const saveSource = createAction('[Sources] Save Source', props<{ source: Source }>());
-
-export const saveSourceFail = createAction('[Sources] Save Source Fail', props<{ error: string }>());
-
-export const saveSourceSuccess = createAction('[Sources] Save Source Success', props<{ source: Source }>());
+export const sourcesActions = createActionGroup({
+  source: 'Sources',
+  events: {
+    'Delete Source': props<{ id: number }>(),
+    'Delete Source Failure': props<{ error: string }>(),
+    'Delete Source Success': props<{ id: number }>(),
+    'Get Source': props<{ id: number }>(),
+    'Get Source Failure': props<{ error: string }>(),
+    'Get Source Success': props<{ source: Source }>(),
+    'Load Sources': emptyProps(),
+    'Load Sources Failure': props<{ error: string }>(),
+    'Load Sources Success': props<{ sources: Source[] }>(),
+    'Save Source': props<{ source: Source }>(),
+    'Save Source Failure': props<{ error: string }>(),
+    'Save Source Success': props<{ source: Source }>(),
+  },
+});

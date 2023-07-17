@@ -1,4 +1,4 @@
-import * as sourcesActions from './sources.actions';
+import { sourcesActions } from './sources.actions';
 import { reducer } from './sources.state';
 import { initialState } from './sources.state';
 import { Source } from '@models/sources';

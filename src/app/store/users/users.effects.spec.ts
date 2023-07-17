@@ -52,7 +52,7 @@ describe(`User Effects`, () => {
       });
     });
 
-    it(`should return DeleteSourceFail, with error, on failure`, () => {
+    it(`should return DeleteSourceFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = userActions.deleteUser({ id: 1 });
       const completion = userActions.deleteUserFail({ error });
@@ -83,7 +83,7 @@ describe(`User Effects`, () => {
       });
     });
 
-    it(`should return GetUserFail, with error, on failure`, () => {
+    it(`should return GetUserFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = userActions.getUser({ id: 1 });
       const completion = userActions.getUserFail({ error });
@@ -117,7 +117,7 @@ describe(`User Effects`, () => {
       });
     });
 
-    it(`should return LoadFail, with error, on failure`, () => {
+    it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = userActions.loadUsers();
       const completion = userActions.loadUsersFail({ error });
@@ -150,7 +150,7 @@ describe(`User Effects`, () => {
   //     });
   //   });
 
-  //   it(`should return PathFail, with error, on failure`, () => {
+  //   it(`should return PathFailure, with error, on failure`, () => {
   //     const user: User = { id: 1, name: 'Jim', email: 'joe@joe.com', password: 'abc', role: 'admin' };
   //     const error = 'Error';
   //     const action = userActions.patchUser({ id: 1, user });

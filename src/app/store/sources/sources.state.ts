@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
-import * as sourcesActions from './sources.actions';
+import { sourcesActions } from './sources.actions';
 import { Source } from '@models/sources';
 
 export interface State {
@@ -17,7 +17,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(sourcesActions.deleteSourceFail, (state, { error }) => ({
+  on(sourcesActions.deleteSourceFailure, (state, { error }) => ({
     ...state,
     currentSource: null,
     error: error,
@@ -28,7 +28,7 @@ export const reducer = createReducer(
     error: '',
     sources: state.sources.filter((source) => source.id !== id),
   })),
-  on(sourcesActions.getSourceFail, (state, { error }) => ({
+  on(sourcesActions.getSourceFailure, (state, { error }) => ({
     ...state,
     currentSource: null,
     error: error,
@@ -38,7 +38,7 @@ export const reducer = createReducer(
     currentSource: source,
     error: '',
   })),
-  on(sourcesActions.loadSourcesFail, (state, { error }) => ({
+  on(sourcesActions.loadSourcesFailure, (state, { error }) => ({
     ...state,
     sources: [],
     error: error,
@@ -48,7 +48,7 @@ export const reducer = createReducer(
     sources: sources,
     error: '',
   })),
-  on(sourcesActions.saveSourceFail, (state, { error }) => ({
+  on(sourcesActions.saveSourceFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),

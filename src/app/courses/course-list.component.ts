@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import * as courseActions from '@store/course/course.actions';
+import { courseActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
 import { AuthService } from '@services/auth.service';
 import { Course } from '@models/course';

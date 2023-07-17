@@ -6,9 +6,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import * as courseActions from '@store/course/course.actions';
+import { courseActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
-import { CourseData } from '@models/course';
 
 @Component({
   selector: 'app-dashboard',

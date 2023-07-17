@@ -1,27 +1,21 @@
-import { props, createAction } from '@ngrx/store';
+import { props, emptyProps, createActionGroup } from '@ngrx/store';
 
 import { User } from '@models/user';
 
-export const deleteUser = createAction('[Users] Delete User', props<{ id: number }>());
-
-export const deleteUserFail = createAction('[Users] Delete User Fail', props<{ error: string }>());
-
-export const deleteUserSuccess = createAction('[Users] Delete User Success', props<{ id: number }>());
-
-export const getUser = createAction('[Users] Get User', props<{ id: number }>());
-
-export const getUserFail = createAction('[Users] Get User Fail', props<{ error: string }>());
-
-export const getUserSuccess = createAction('[Users] Get User Success', props<{ user: User }>());
-
-export const loadUsers = createAction('[Users] Load Users');
-
-export const loadUsersFail = createAction('[Users] Load Users Fail', props<{ error: string }>());
-
-export const loadUsersSuccess = createAction('[Users] Load Users Success', props<{ users: User[] }>());
-
-export const patchUser = createAction('[Users] Patch User', props<{ id: number; user: any }>());
-
-export const patchUserFail = createAction('[Users] Patch User Fail', props<{ error: string }>());
-
-export const patchUserSuccess = createAction('[Users] Patch User Success', props<{ user: User }>());
+export const usersActions = createActionGroup({
+  source: 'Users',
+  events: {
+    'Delete User': props<{ id: number }>(),
+    'Delete User Failure': props<{ error: string }>(),
+    'Delete User Success': props<{ id: number }>(),
+    'Get User': props<{ id: number }>(),
+    'Get User Failure': props<{ error: string }>(),
+    'Get User Success': props<{ user: User }>(),
+    'Load Users': emptyProps(),
+    'Load Users Failure': props<{ error: string }>(),
+    'Load Users Success': props<{ users: User[] }>(),
+    'Patch User': props<{ id: number; user: any }>(),
+    'Patch User Failure': props<{ error: string }>(),
+    'Patch User Success': props<{ user: User }>(),
+  },
+});

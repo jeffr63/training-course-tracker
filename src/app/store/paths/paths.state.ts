@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
-import * as pathsActions from './paths.actions';
+import { pathsActions } from './paths.actions';
 import { Path } from '@models/paths';
 
 export interface State {
@@ -17,7 +17,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(pathsActions.deletePathFail, (state, { error }) => ({
+  on(pathsActions.deletePathFailure, (state, { error }) => ({
     ...state,
     currentPath: null,
     error: error,
@@ -28,7 +28,7 @@ export const reducer = createReducer(
     error: '',
     paths: state.paths.filter((path) => path.id !== id),
   })),
-  on(pathsActions.getPathFail, (state, { error }) => ({
+  on(pathsActions.getPathFailure, (state, { error }) => ({
     ...state,
     currentPath: null,
     error: error,
@@ -38,7 +38,7 @@ export const reducer = createReducer(
     currentPath: path,
     error: '',
   })),
-  on(pathsActions.loadPathsFail, (state, { error }) => ({
+  on(pathsActions.loadPathsFailure, (state, { error }) => ({
     ...state,
     paths: [],
     error: error,
@@ -48,7 +48,7 @@ export const reducer = createReducer(
     paths: paths,
     error: '',
   })),
-  on(pathsActions.savePathFail, (state, { error }) => ({
+  on(pathsActions.savePathFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),

@@ -9,7 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import * as userActions from '@store/users/users.actions';
+import { usersActions } from '@store/users/users.actions';
 import { usersFeature } from '@store/users/users.state';
 import { User } from '@models/user';
 
@@ -103,7 +103,7 @@ export default class UserEditComponent implements OnInit, OnDestroy {
       role: ['', Validators.required],
     });
 
-    this.store.dispatch(userActions.getUser({ id: +this.id }));
+    this.store.dispatch(usersActions.getUser({ id: +this.id }));
     this.store
       .pipe(select(usersFeature.selectCurrentUser))
       .pipe(takeUntil(this.destroy$))
@@ -126,7 +126,7 @@ export default class UserEditComponent implements OnInit, OnDestroy {
       role: this.userEditForm.controls.role.value,
     };
 
-    this.store.dispatch(userActions.patchUser({ id: this.user.id, user: patchData }));
+    this.store.dispatch(usersActions.patchUser({ id: this.user.id, user: patchData }));
     this.location.back();
   }
 }

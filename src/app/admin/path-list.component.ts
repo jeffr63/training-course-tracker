@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
 import { pathsFeature } from '@store/paths/paths.state';
-import * as pathsActions from '@store/paths/paths.actions';
+import { pathsActions } from '@store/paths/paths.actions';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ListHeaderComponent } from '@shared/list/list-header.component';

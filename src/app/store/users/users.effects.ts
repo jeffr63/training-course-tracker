@@ -4,7 +4,7 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as userActions from './users.actions';
+import { usersActions } from './users.actions';
 import { User } from '@models/user';
 import { UsersService } from '@services/user.service';
 
@@ -15,11 +15,11 @@ export class UsersEffects {
 
   deleteUser$ = createEffect(() =>
     this.actions.pipe(
-      ofType(userActions.deleteUser),
+      ofType(usersActions.deleteUser),
       switchMap(({ id }) =>
         this.usersService.delete(id).pipe(
-          map(() => userActions.deleteUserSuccess({ id })),
-          catchError((err) => of(userActions.deleteUserFail({ error: err })))
+          map(() => usersActions.deleteUserSuccess({ id })),
+          catchError((err) => of(usersActions.deleteUserFailure({ error: err })))
         )
       )
     )
@@ -27,11 +27,11 @@ export class UsersEffects {
 
   getUser$ = createEffect(() =>
     this.actions.pipe(
-      ofType(userActions.getUser),
+      ofType(usersActions.getUser),
       concatMap(({ id }) =>
         this.usersService.get(id).pipe(
-          map((user: User) => userActions.getUserSuccess({ user })),
-          catchError((err) => of(userActions.getUserFail({ error: err })))
+          map((user: User) => usersActions.getUserSuccess({ user })),
+          catchError((err) => of(usersActions.getUserFailure({ error: err })))
         )
       )
     )
@@ -39,11 +39,11 @@ export class UsersEffects {
 
   loadUsers$ = createEffect(() =>
     this.actions.pipe(
-      ofType(userActions.loadUsers),
+      ofType(usersActions.loadUsers),
       switchMap(() =>
         this.usersService.load().pipe(
-          map((users: User[]) => userActions.loadUsersSuccess({ users })),
-          catchError((err) => of(userActions.loadUsersFail({ error: err })))
+          map((users: User[]) => usersActions.loadUsersSuccess({ users })),
+          catchError((err) => of(usersActions.loadUsersFailure({ error: err })))
         )
       )
     )
@@ -51,11 +51,11 @@ export class UsersEffects {
 
   patchUser$ = createEffect(() =>
     this.actions.pipe(
-      ofType(userActions.patchUser),
+      ofType(usersActions.patchUser),
       concatMap(({ id, user }) =>
         this.usersService.patch(id, user).pipe(
-          concatMap((res) => [userActions.loadUsers(), userActions.patchUserSuccess({ user: res })]),
-          catchError((err) => of(userActions.patchUserFail({ error: err })))
+          concatMap((res) => [usersActions.loadUsers(), usersActions.patchUserSuccess({ user: res })]),
+          catchError((err) => of(usersActions.patchUserFailure({ error: err })))
         )
       )
     )

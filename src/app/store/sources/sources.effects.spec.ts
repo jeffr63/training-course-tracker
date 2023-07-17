@@ -5,7 +5,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as sourcesActions from './sources.actions';
+import { sourcesActions } from './sources.actions';
 import { Source } from '@models/sources';
 import { SourcesEffects } from './sources.effects';
 import { SourcesService } from '@services/sources.service';
@@ -52,7 +52,7 @@ describe(`Sources Effects`, () => {
       });
     });
 
-    it(`should return DeleteSourceFail, with error, on failure`, () => {
+    it(`should return DeleteSourceFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = sourcesActions.deleteSource({ id: 1 });
       const completion = sourcesActions.deleteSourceFail({ error });
@@ -83,7 +83,7 @@ describe(`Sources Effects`, () => {
       });
     });
 
-    it(`should return GetSourceFail, with error, on failure`, () => {
+    it(`should return GetSourceFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = sourcesActions.getSource({ id: 1 });
       const completion = sourcesActions.getSourceFail({ error });
@@ -117,7 +117,7 @@ describe(`Sources Effects`, () => {
       });
     });
 
-    it(`should return LoadFail, with error, on failure`, () => {
+    it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = sourcesActions.loadSources();
       const completion = sourcesActions.loadSourcesFail({ error });
@@ -149,7 +149,7 @@ describe(`Sources Effects`, () => {
       });
     });
 
-    it(`should return SaveFail, with error, on failure`, () => {
+    it(`should return SaveFailure, with error, on failure`, () => {
       const source: Source = { id: 1, name: 'ABC' };
       const error = 'Error';
       const action = sourcesActions.saveSource({ source });

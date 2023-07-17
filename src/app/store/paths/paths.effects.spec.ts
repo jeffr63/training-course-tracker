@@ -52,7 +52,7 @@ describe(`Paths Effects`, () => {
       });
     });
 
-    it(`should return DeleteFail, with error, on failure`, () => {
+    it(`should return DeleteFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = pathsActions.deletePath({ id: 1 });
       const completion = pathsActions.deletePathFail({ error });
@@ -83,7 +83,7 @@ describe(`Paths Effects`, () => {
       });
     });
 
-    it(`should return GetFail, with error, on failure`, () => {
+    it(`should return GetFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = pathsActions.getPath({ id: 1 });
       const completion = pathsActions.getPathFail({ error });
@@ -117,7 +117,7 @@ describe(`Paths Effects`, () => {
       });
     });
 
-    it(`should return LoadFail, with error, on failure`, () => {
+    it(`should return LoadFailure, with error, on failure`, () => {
       const error = 'Error';
       const action = pathsActions.loadPaths();
       const completion = pathsActions.loadPathsFail({ error });
@@ -149,7 +149,7 @@ describe(`Paths Effects`, () => {
       });
     });
 
-    it(`should return SaveFail, with error, on failure`, () => {
+    it(`should return SaveFailure, with error, on failure`, () => {
       const path: Path = { id: 1, name: 'ABC' };
       const error = 'Error';
       const action = pathsActions.savePath({ path });

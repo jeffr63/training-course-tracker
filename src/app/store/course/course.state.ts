@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import * as _ from 'lodash';
 
-import * as courseActions from './course.actions';
+import { courseActions } from './course.actions';
 import { Course, CourseData } from '@models/course';
 
 export interface State {
@@ -24,7 +24,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(courseActions.deleteCourseFail, (state, { error }) => ({
+  on(courseActions.deleteCourseFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),
@@ -32,7 +32,7 @@ export const reducer = createReducer(
     ...state,
     error: '',
   })),
-  on(courseActions.getCourseFail, (state, { error }) => ({
+  on(courseActions.getCourseFailure, (state, { error }) => ({
     ...state,
     currentCourse: null,
     error: error,
@@ -42,7 +42,7 @@ export const reducer = createReducer(
     currentCourse: course,
     error: '',
   })),
-  on(courseActions.loadCoursesFail, (state, { error }) => ({
+  on(courseActions.loadCoursesFailure, (state, { error }) => ({
     ...state,
     courses: [],
     error: error,
@@ -52,7 +52,7 @@ export const reducer = createReducer(
     courses: courses,
     error: '',
   })),
-  on(courseActions.saveCourseFail, (state, { error }) => ({
+  on(courseActions.saveCourseFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),
@@ -61,7 +61,7 @@ export const reducer = createReducer(
     courses: state.courses.map((item) => (course.id === item.id ? course : item)),
     error: '',
   })),
-  on(courseActions.getTotalCoursesFail, (state, { error }) => ({
+  on(courseActions.getTotalCoursesFailure, (state, { error }) => ({
     ...state,
     totalCourses: 0,
     error: error,

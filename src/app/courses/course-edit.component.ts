@@ -9,11 +9,11 @@ import { takeUntil } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import * as courseActions from '@store/course/course.actions';
+import { courseActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
-import * as pathsActions from '@store/paths/paths.actions';
+import { pathsActions } from '@store/paths/paths.actions';
 import { pathsFeature } from '@store/paths/paths.state';
-import * as sourcesActions from '@store/sources/sources.actions';
+import { sourcesActions } from '@store/sources/sources.actions';
 import { sourcesFeature } from '@store/sources/sources.state';
 import { Course } from '@models/course';
 import { toSignal } from '@angular/core/rxjs-interop';

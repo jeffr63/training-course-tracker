@@ -1,4 +1,4 @@
-import * as courseActions from './course.actions';
+import { courseActions } from './course.actions';
 
 describe('Courses Actions', () => {
 
@@ -21,7 +21,7 @@ describe('Courses Actions', () => {
   describe('DeleteCourseFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.deleteCourseFail({ error });
+      const action = courseActions.deleteCourseFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Delete Course Fail',
@@ -55,7 +55,7 @@ describe('Courses Actions', () => {
   describe('GetCourseFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.getCourseFail({ error });
+      const action = courseActions.getCourseFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Course Fail',
@@ -89,7 +89,7 @@ describe('Courses Actions', () => {
   describe('GetTotalCoursesFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.getTotalCoursesFail({ error });
+      const action = courseActions.getTotalCoursesFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Get Total Courses Fail',
@@ -130,7 +130,7 @@ describe('Courses Actions', () => {
   describe('LoadCoursesFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.loadCoursesFail({ error });
+      const action = courseActions.loadCoursesFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Load Courses Fail',
@@ -169,7 +169,7 @@ describe('Courses Actions', () => {
   describe('SaveCourseFail', () => {
     it(`should create an action`, () => {
       const error = 'Error';
-      const action = courseActions.saveCourseFail({ error });
+      const action = courseActions.saveCourseFailure({ error });
 
       expect({ ...action }).toEqual({
         type: '[Courses] Save Course Fail',

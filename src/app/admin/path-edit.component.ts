@@ -9,7 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
 
 import * as fromRoot from '@store/index';
-import * as pathsActions from '@store/paths/paths.actions';
+import { pathsActions } from '@store/paths/paths.actions';
 import { pathsFeature } from '@store/paths/paths.state';
 import { Path } from '@models/paths';
 

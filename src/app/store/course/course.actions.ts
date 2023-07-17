@@ -1,39 +1,24 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 import { Course } from '@models/course';
 
-export const deleteCourse = createAction(
-  '[Courses] Delete Course',
-  props<{ id: number; current: number; pageSize: number }>()
-);
-
-export const deleteCourseFail = createAction('[Courses] Delete Course Fail', props<{ error: string }>());
-
-export const deleteCourseSuccess = createAction('[Courses] Delete Course Success');
-
-export const getCourse = createAction('[Courses] Get Course', props<{ id: number }>());
-
-export const getCourseFail = createAction('[Courses] Get Course Fail', props<{ error: string }>());
-
-export const getCourseSuccess = createAction('[Courses] Get Course Success', props<{ course: Course }>());
-
-export const getTotalCourses = createAction('[Courses] Get Total Courses');
-
-export const getTotalCoursesFail = createAction('[Courses] Get Total Courses Fail', props<{ error: string }>());
-
-export const getTotalCoursesSuccess = createAction(
-  '[Courses] Get Total Courses Success',
-  props<{ courses: Course[] }>()
-);
-
-export const loadCourses = createAction('[Courses] Load Courses', props<{ current: number; pageSize: number }>());
-
-export const loadCoursesFail = createAction('[Courses] Load Courses Fail', props<{ error: string }>());
-
-export const loadCoursesSuccess = createAction('[Courses] Load Courses Success', props<{ courses: Course[] }>());
-
-export const saveCourse = createAction('[Courses] Save Course', props<{ course: Course }>());
-
-export const saveCourseFail = createAction('[Courses] Save Course Fail', props<{ error: string }>());
-
-export const saveCourseSuccess = createAction('[Courses] Save Course Success', props<{ course: Course }>());
+export const courseActions = createActionGroup({
+  source: 'Courses',
+  events: {
+    'Delete Course': props<{ id: number; current: number; pageSize: number }>(),
+    'Delete Course Failure': props<{ error: string }>(),
+    'Delete Course Success': emptyProps(),
+    'Get Course': props<{ id: number }>(),
+    'Get Course Failure': props<{ error: string }>(),
+    'Get Course Success': props<{ course: Course }>(),
+    'Get Total Courses': emptyProps(),
+    'Get Total Courses Failure': props<{ error: string }>(),
+    'Get Total Courses Success': props<{ courses: Course[] }>(),
+    'Load Courses': props<{ current: number; pageSize: number }>(),
+    'Load Courses Failure': props<{ error: string }>(),
+    'Load Courses Success': props<{ courses: Course[] }>(),
+    'Save Course': props<{ course: Course }>(),
+    'Save Course Failure': props<{ error: string }>(),
+    'Save Course Success': props<{ course: Course }>(),
+  },
+});

@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import * as sourcesActions from '@store/sources/sources.actions';
+import { sourcesActions } from '@store/sources/sources.actions';
 import { sourcesFeature } from '@store/sources/sources.state';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';

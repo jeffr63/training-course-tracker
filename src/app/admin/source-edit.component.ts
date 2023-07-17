@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import * as sourcesActions from '@store/sources/sources.actions';
+import { sourcesActions } from '@store/sources/sources.actions';
 import { sourcesFeature } from '@store/sources/sources.state';
 import { Source } from '@models/sources';
 import { ReplaySubject } from 'rxjs';

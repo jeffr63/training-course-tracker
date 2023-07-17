@@ -1,4 +1,4 @@
-import * as sourcesActions from './sources.actions';
+import { sourcesActions } from './sources.actions';
 
 describe('Sources Actions', () => {
   describe('Delete Source', () => {

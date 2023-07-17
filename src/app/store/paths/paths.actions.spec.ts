@@ -1,7 +1,6 @@
-import * as pathActions from './paths.actions';
+import { pathsActions } from './paths.actions';
 
 describe('Paths Actions', () => {
-
   describe('DeletePath', () => {
     it(`should create an action`, () => {
       const id = 1;
@@ -9,7 +8,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Delete Path',
-        id
+        id,
       });
     });
   });
@@ -21,7 +20,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Delete Path Fail',
-        error
+        error,
       });
     });
   });
@@ -33,7 +32,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Delete Path Success',
-        id
+        id,
       });
     });
   });
@@ -45,7 +44,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Get Path',
-        id
+        id,
       });
     });
   });
@@ -57,7 +56,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Get Path Fail',
-        error
+        error,
       });
     });
   });
@@ -69,7 +68,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Get Path Success',
-        path
+        path,
       });
     });
   });
@@ -79,7 +78,7 @@ describe('Paths Actions', () => {
       const action = pathActions.loadPaths();
 
       expect({ ...action }).toEqual({
-        type: '[Paths] Load Paths'
+        type: '[Paths] Load Paths',
       });
     });
   });
@@ -91,7 +90,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Load Paths Fail',
-        error
+        error,
       });
     });
   });
@@ -100,13 +99,13 @@ describe('Paths Actions', () => {
     it(`should create an action`, () => {
       const paths = [
         { id: 1, name: 'ABC' },
-        { id: 2, name: 'DEF' }
+        { id: 2, name: 'DEF' },
       ];
       const action = pathActions.loadPathsSuccess({ paths });
 
       expect({ ...action }).toEqual({
         type: '[Paths] Load Paths Success',
-        paths
+        paths,
       });
     });
   });
@@ -118,7 +117,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Save Path',
-        path
+        path,
       });
     });
   });
@@ -130,7 +129,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Save Path Fail',
-        error
+        error,
       });
     });
   });
@@ -142,7 +141,7 @@ describe('Paths Actions', () => {
 
       expect({ ...action }).toEqual({
         type: '[Paths] Save Path Success',
-        path
+        path,
       });
     });
   });

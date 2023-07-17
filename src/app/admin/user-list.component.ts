@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import * as userActions from '@store/users/users.actions';
+import { usersActions } from '@store/users/users.actions';
 import { usersFeature } from '@store/users/users.state';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
@@ -61,7 +61,7 @@ export default class UserListComponent implements OnInit {
   selectedUser = <User>{};
 
   ngOnInit() {
-    this.store.dispatch(userActions.loadUsers());
+    this.store.dispatch(usersActions.loadUsers());
     this.users$ = this.store.pipe(select(usersFeature.selectUsers));
   }
 
@@ -73,7 +73,7 @@ export default class UserListComponent implements OnInit {
     };
     this.modalDataService.setDeleteModalOptions(modalOptions);
     this.modal.open(DeleteComponent).result.then((_result) => {
-      this.store.dispatch(userActions.deleteUser({ id }));
+      this.store.dispatch(usersActions.deleteUser({ id }));
     });
   }
 

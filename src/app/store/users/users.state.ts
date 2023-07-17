@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
-import * as usersActions from './users.actions';
+import { usersActions } from './users.actions';
 import { User } from '@models/user';
 
 export interface State {
@@ -17,7 +17,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(usersActions.deleteUserFail, (state, { error }) => ({
+  on(usersActions.deleteUserFailure, (state, { error }) => ({
     ...state,
     currentUser: null,
     error: error,
@@ -28,7 +28,7 @@ export const reducer = createReducer(
     error: '',
     users: state.users.filter((user) => user.id !== id),
   })),
-  on(usersActions.getUserFail, (state, { error }) => ({
+  on(usersActions.getUserFailure, (state, { error }) => ({
     ...state,
     currentUser: null,
     error: error,
@@ -38,7 +38,7 @@ export const reducer = createReducer(
     currentUser: user,
     error: '',
   })),
-  on(usersActions.loadUsersFail, (state, { error }) => ({
+  on(usersActions.loadUsersFailure, (state, { error }) => ({
     ...state,
     users: [],
     error: error,
@@ -48,7 +48,7 @@ export const reducer = createReducer(
     users: users,
     error: '',
   })),
-  on(usersActions.patchUserFail, (state, { error }) => ({
+  on(usersActions.patchUserFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),

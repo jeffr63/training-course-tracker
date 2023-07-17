@@ -4,7 +4,7 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
-import * as pathActions from './paths.actions';
+import { pathsActions } from './paths.actions';
 import { Path } from '@models/paths';
 import { PathsService } from '@services/paths.service';
 
@@ -15,11 +15,11 @@ export class PathsEffects {
 
   deletePath$ = createEffect(() =>
     this.actions.pipe(
-      ofType(pathActions.deletePath),
+      ofType(pathsActions.deletePath),
       switchMap(({ id }) =>
         this.pathsService.delete(id).pipe(
-          map(() => pathActions.deletePathSuccess({ id })),
-          catchError((err) => of(pathActions.deletePathFail({ error: err })))
+          map(() => pathsActions.deletePathSuccess({ id })),
+          catchError((err) => of(pathsActions.deletePathFailure({ error: err })))
         )
       )
     )
@@ -27,11 +27,11 @@ export class PathsEffects {
 
   getPath$ = createEffect(() =>
     this.actions.pipe(
-      ofType(pathActions.getPath),
+      ofType(pathsActions.getPath),
       concatMap(({ id }) =>
         this.pathsService.get(id).pipe(
-          map((path: Path) => pathActions.getPathSuccess({ path: path })),
-          catchError((err) => of(pathActions.getPathFail({ error: err })))
+          map((path: Path) => pathsActions.getPathSuccess({ path: path })),
+          catchError((err) => of(pathsActions.getPathFailure({ error: err })))
         )
       )
     )
@@ -39,11 +39,11 @@ export class PathsEffects {
 
   loadPaths$ = createEffect(() =>
     this.actions.pipe(
-      ofType(pathActions.loadPaths),
+      ofType(pathsActions.loadPaths),
       switchMap(() =>
         this.pathsService.load().pipe(
-          map((paths: any[]) => pathActions.loadPathsSuccess({ paths: paths })),
-          catchError((err) => of(pathActions.loadPathsFail({ error: err })))
+          map((paths: any[]) => pathsActions.loadPathsSuccess({ paths: paths })),
+          catchError((err) => of(pathsActions.loadPathsFailure({ error: err })))
         )
       )
     )
@@ -51,11 +51,11 @@ export class PathsEffects {
 
   savePath$ = createEffect(() =>
     this.actions.pipe(
-      ofType(pathActions.savePath),
+      ofType(pathsActions.savePath),
       concatMap(({ path }) =>
         this.pathsService.save(path).pipe(
-          concatMap((path: Path) => [pathActions.loadPaths(), pathActions.savePathSuccess({ path: path })]),
-          catchError((err) => of(pathActions.savePathFail({ error: err })))
+          concatMap((path: Path) => [pathsActions.loadPaths(), pathsActions.savePathSuccess({ path: path })]),
+          catchError((err) => of(pathsActions.savePathFailure({ error: err })))
         )
       )
     )
