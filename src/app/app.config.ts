@@ -11,13 +11,13 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { APP_ROUTES } from './app.routes';
 import { AppEffects } from '@store/app.effects';
 import { CustomTitleStrategyService } from '@resolvers/custom-title-strategy.service';
-import { CourseEffects } from '@store/course/course.effects';
-import { PathsEffects } from '@store/paths/paths.effects';
-import { SourcesEffects } from '@store/sources/sources.effects';
-import { UsersEffects } from '@store/users/users.effects';
+import { courseEffects } from '@store/course/course.effects';
 import { coursesFeature } from '@store/course/course.state';
+import { pathsEffects } from '@store/paths/paths.effects';
 import { pathsFeature } from '@store/paths/paths.state';
+import { sourcesEffects } from '@store/sources/sources.effects';
 import { sourcesFeature } from '@store/sources/sources.state';
+import { usersEffects } from '@store/users/users.effects';
 import { usersFeature } from '@store/users/users.state';
 
 export const appConfig: ApplicationConfig = {
@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     provideState(pathsFeature),
     provideState(sourcesFeature),
     provideState(usersFeature),
-    provideEffects([AppEffects, CourseEffects, PathsEffects, SourcesEffects, UsersEffects]),
+    provideEffects([courseEffects, pathsEffects, sourcesEffects, usersEffects]),
     provideStoreDevtools({
       maxAge: 5,
       logOnly: environment.production,

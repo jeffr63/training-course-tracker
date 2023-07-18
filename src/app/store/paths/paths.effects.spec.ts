@@ -7,7 +7,7 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { pathsActions } from './paths.actions';
 import { Path } from '@models/paths';
-import { PathsEffects } from './paths.effects';
+import { pathsEffects } from './paths.effects';
 import { PathsService } from '@services/paths.service';
 import { State, initialState } from './paths.state';
 
@@ -15,21 +15,20 @@ const pathsService = jasmine.createSpyObj('pathsService', ['delete', 'get', 'loa
 
 describe(`Paths Effects`, () => {
   let actions$: Observable<any>;
-  let effects: PathsEffects;
+  let effects = pathsEffects;
   let store: MockStore<State>;
   let testScheduler;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        PathsEffects,
         provideMockStore({ initialState }),
         provideMockActions(() => actions$),
         { provide: PathsService, useValue: pathsService },
       ],
     });
 
-    effects = TestBed.inject(PathsEffects);
+    //effects = TestBed.inject(PathsEffects);
     store = TestBed.inject(MockStore);
     store.setState(initialState);
 

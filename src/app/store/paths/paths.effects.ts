@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
@@ -8,56 +8,73 @@ import { pathsActions } from './paths.actions';
 import { Path } from '@models/paths';
 import { PathsService } from '@services/paths.service';
 
-@Injectable()
-export class PathsEffects {
-  private actions = inject(Actions);
-  private pathsService = inject(PathsService);
-
-  deletePath$ = createEffect(() =>
-    this.actions.pipe(
+const deletePath$ = createEffect(
+  (actions$ = inject(Actions)) => {
+    const pathsService = inject(PathsService);
+    return actions$.pipe(
       ofType(pathsActions.deletePath),
       switchMap(({ id }) =>
-        this.pathsService.delete(id).pipe(
+        pathsService.delete(id).pipe(
           map(() => pathsActions.deletePathSuccess({ id })),
           catchError((err) => of(pathsActions.deletePathFailure({ error: err })))
         )
       )
-    )
-  );
+    );
+  },
+  { functional: true }
+);
 
-  getPath$ = createEffect(() =>
-    this.actions.pipe(
+const getPath$ = createEffect(
+  (actions$ = inject(Actions)) => {
+    const pathsService = inject(PathsService);
+    return actions$.pipe(
       ofType(pathsActions.getPath),
       concatMap(({ id }) =>
-        this.pathsService.get(id).pipe(
+        pathsService.get(id).pipe(
           map((path: Path) => pathsActions.getPathSuccess({ path: path })),
           catchError((err) => of(pathsActions.getPathFailure({ error: err })))
         )
       )
-    )
-  );
+    );
+  },
+  { functional: true }
+);
 
-  loadPaths$ = createEffect(() =>
-    this.actions.pipe(
+const loadPaths$ = createEffect(
+  (actions$ = inject(Actions)) => {
+    const pathsService = inject(PathsService);
+    return actions$.pipe(
       ofType(pathsActions.loadPaths),
       switchMap(() =>
-        this.pathsService.load().pipe(
+        pathsService.load().pipe(
           map((paths: any[]) => pathsActions.loadPathsSuccess({ paths: paths })),
           catchError((err) => of(pathsActions.loadPathsFailure({ error: err })))
         )
       )
-    )
-  );
+    );
+  },
+  { functional: true }
+);
 
-  savePath$ = createEffect(() =>
-    this.actions.pipe(
+const savePath$ = createEffect(
+  (actions$ = inject(Actions)) => {
+    const pathsService = inject(PathsService);
+    return actions$.pipe(
       ofType(pathsActions.savePath),
       concatMap(({ path }) =>
-        this.pathsService.save(path).pipe(
+        pathsService.save(path).pipe(
           concatMap((path: Path) => [pathsActions.loadPaths(), pathsActions.savePathSuccess({ path: path })]),
           catchError((err) => of(pathsActions.savePathFailure({ error: err })))
         )
       )
-    )
-  );
-}
+    );
+  },
+  { functional: true }
+);
+
+export const pathsEffects = {
+  deletePath$,
+  getPath$,
+  loadPaths$,
+  savePath$,
+};

@@ -7,7 +7,7 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { usersActions as usersActions } from './users.actions';
 import { User } from '@models/user';
-import { UsersEffects } from './users.effects';
+import { usersEffects } from './users.effects';
 import { UsersService } from '@services/user.service';
 import { State, initialState } from './users.state';
 
@@ -15,21 +15,20 @@ const usersService = jasmine.createSpyObj('usersService', ['delete', 'get', 'loa
 
 describe(`User Effects`, () => {
   let actions$: Observable<any>;
-  let effects: UsersEffects;
+  let effects = usersEffects;
   let store: MockStore<State>;
   let testScheduler;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        UsersEffects,
         provideMockStore({ initialState }),
         provideMockActions(() => actions$),
         { provide: UsersService, useValue: usersService },
       ],
     });
 
-    effects = TestBed.inject(UsersEffects);
+    //effects = TestBed.inject(UsersEffects);
     store = TestBed.inject(MockStore);
     store.setState(initialState);
 

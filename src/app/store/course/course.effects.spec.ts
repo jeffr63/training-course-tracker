@@ -21,7 +21,7 @@ const coursesService = jasmine.createSpyObj('coursesService', [
 
 describe(`Course Effects`, () => {
   let actions$: Observable<any>;
-  let effects: CourseEffects;
+  let effects = CourseEffects;
   let store: MockStore<State>;
   let testScheduler;
 
@@ -35,7 +35,7 @@ describe(`Course Effects`, () => {
       ],
     });
 
-    effects = TestBed.inject(CourseEffects);
+   // effects = TestBed.inject(CourseEffects);
     store = TestBed.inject(MockStore);
     store.setState(initialState);
 
