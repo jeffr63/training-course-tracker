@@ -13,13 +13,13 @@ describe('Paths Actions', () => {
     });
   });
 
-  describe('DeletePathFail', () => {
+  describe('DeletePathFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = pathsActions.deletePathFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Paths] Delete Path Fail',
+        type: '[Paths] Delete Path Failure',
         error,
       });
     });
@@ -49,13 +49,13 @@ describe('Paths Actions', () => {
     });
   });
 
-  describe('GetPathFail', () => {
+  describe('GetPathFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = pathsActions.getPathFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Paths] Get Path Fail',
+        type: '[Paths] Get Path Failure',
         error,
       });
     });
@@ -83,13 +83,13 @@ describe('Paths Actions', () => {
     });
   });
 
-  describe('LoadPathsFail', () => {
+  describe('LoadPathsFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = pathsActions.loadPathsFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Paths] Load Paths Fail',
+        type: '[Paths] Load Paths Failure',
         error,
       });
     });
@@ -122,13 +122,13 @@ describe('Paths Actions', () => {
     });
   });
 
-  describe('SavePathFail', () => {
+  describe('SavePathFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = pathsActions.savePathFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Paths] Save Path Fail',
+        type: '[Paths] Save Path Failure',
         error,
       });
     });

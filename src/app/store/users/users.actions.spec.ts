@@ -13,13 +13,13 @@ describe('Users Actions', () => {
     });
   });
 
-  describe('DeleteUserFail', () => {
+  describe('DeleteUserFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = usersActions.deleteUserFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Users] Delete User Fail',
+        type: '[Users] Delete User Failure',
         error,
       });
     });
@@ -49,13 +49,13 @@ describe('Users Actions', () => {
     });
   });
 
-  describe('GetUserFail', () => {
+  describe('GetUserFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = usersActions.getUserFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Users] Get User Fail',
+        type: '[Users] Get User Failure',
         error,
       });
     });
@@ -83,13 +83,13 @@ describe('Users Actions', () => {
     });
   });
 
-  describe('LoadUserFail', () => {
+  describe('LoadUserFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = usersActions.loadUsersFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Users] Load Users Fail',
+        type: '[Users] Load Users Failure',
         error,
       });
     });
@@ -123,13 +123,13 @@ describe('Users Actions', () => {
     });
   });
 
-  describe('PatchUserFail', () => {
+  describe('PatchUserFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = usersActions.patchUserFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Users] Patch User Fail',
+        type: '[Users] Patch User Failure',
         error,
       });
     });

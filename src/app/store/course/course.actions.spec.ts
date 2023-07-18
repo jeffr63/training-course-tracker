@@ -17,13 +17,13 @@ describe('Courses Actions', () => {
     });
   });
 
-  describe('DeleteCourseFail', () => {
+  describe('DeleteCourseFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = coursesActions.deleteCourseFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Delete Course Fail',
+        type: '[Courses] Delete Course Failure',
         error,
       });
     });
@@ -51,13 +51,13 @@ describe('Courses Actions', () => {
     });
   });
 
-  describe('GetCourseFail', () => {
+  describe('GetCourseFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = coursesActions.getCourseFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Get Course Fail',
+        type: '[Courses] Get Course Failure',
         error,
       });
     });
@@ -85,13 +85,13 @@ describe('Courses Actions', () => {
     });
   });
 
-  describe('GetTotalCoursesFail', () => {
+  describe('GetTotalCoursesFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = coursesActions.getTotalCoursesFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Get Total Courses Fail',
+        type: '[Courses] Get Total Courses Failure',
         error,
       });
     });
@@ -126,13 +126,13 @@ describe('Courses Actions', () => {
     });
   });
 
-  describe('LoadCoursesFail', () => {
+  describe('LoadCoursesFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = coursesActions.loadCoursesFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Load Courses Fail',
+        type: '[Courses] Load Courses Failure',
         error,
       });
     });
@@ -165,13 +165,13 @@ describe('Courses Actions', () => {
     });
   });
 
-  describe('SaveCourseFail', () => {
+  describe('SaveCourseFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = coursesActions.saveCourseFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Courses] Save Course Fail',
+        type: '[Courses] Save Course Failure',
         error,
       });
     });

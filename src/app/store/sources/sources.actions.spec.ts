@@ -13,13 +13,13 @@ describe('Sources Actions', () => {
     });
   });
 
-  describe('DeleteSourceFail', () => {
+  describe('DeleteSourceFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = sourcesActions.deleteSourceFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Sources] Delete Source Fail',
+        type: '[Sources] Delete Source Failure',
         error,
       });
     });
@@ -49,13 +49,13 @@ describe('Sources Actions', () => {
     });
   });
 
-  describe('GetSourceFail', () => {
+  describe('GetSourceFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = sourcesActions.getSourceFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Sources] Get Source Fail',
+        type: '[Sources] Get Source Failure',
         error,
       });
     });
@@ -83,13 +83,13 @@ describe('Sources Actions', () => {
     });
   });
 
-  describe('LoadSourceFail', () => {
+  describe('LoadSourceFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = sourcesActions.loadSourcesFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Sources] Load Sources Fail',
+        type: '[Sources] Load Sources Failure',
         error,
       });
     });
@@ -122,13 +122,13 @@ describe('Sources Actions', () => {
     });
   });
 
-  describe('SaveSourceFail', () => {
+  describe('SaveSourceFailure', () => {
     it(`should create an action`, () => {
       const error = 'Error';
       const action = sourcesActions.saveSourceFailure({ error });
 
       expect({ ...action }).toEqual({
-        type: '[Sources] Save Source Fail',
+        type: '[Sources] Save Source Failure',
         error,
       });
     });
