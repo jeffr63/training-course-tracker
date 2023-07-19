@@ -9,8 +9,7 @@ import { Path } from '@models/paths';
 import { PathsService } from '@services/paths.service';
 
 const deletePath$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const pathsService = inject(PathsService);
+  (actions$ = inject(Actions), pathsService = inject(PathsService)) => {
     return actions$.pipe(
       ofType(pathsActions.deletePath),
       switchMap(({ id }) =>
@@ -25,13 +24,12 @@ const deletePath$ = createEffect(
 );
 
 const getPath$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const pathsService = inject(PathsService);
+  (actions$ = inject(Actions), pathsService = inject(PathsService)) => {
     return actions$.pipe(
       ofType(pathsActions.getPath),
       concatMap(({ id }) =>
         pathsService.get(id).pipe(
-          map((path: Path) => pathsActions.getPathSuccess({ path: path })),
+          map((path: Path) => pathsActions.getPathSuccess({ path })),
           catchError((err) => of(pathsActions.getPathFailure({ error: err })))
         )
       )
@@ -41,8 +39,7 @@ const getPath$ = createEffect(
 );
 
 const loadPaths$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const pathsService = inject(PathsService);
+  (actions$ = inject(Actions), pathsService = inject(PathsService)) => {
     return actions$.pipe(
       ofType(pathsActions.loadPaths),
       switchMap(() =>
@@ -57,8 +54,7 @@ const loadPaths$ = createEffect(
 );
 
 const savePath$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const pathsService = inject(PathsService);
+  (actions$ = inject(Actions), pathsService = inject(PathsService)) => {
     return actions$.pipe(
       ofType(pathsActions.savePath),
       concatMap(({ path }) =>

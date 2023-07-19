@@ -9,8 +9,7 @@ import { Source } from '@models/sources';
 import { SourcesService } from '@services/sources.service';
 
 const deleteSource$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const sourcesService = inject(SourcesService);
+  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
     return actions$.pipe(
       ofType(sourcesActions.deleteSource),
       switchMap(({ id }) =>
@@ -25,8 +24,7 @@ const deleteSource$ = createEffect(
 );
 
 const getSource$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const sourcesService = inject(SourcesService);
+  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
     return actions$.pipe(
       ofType(sourcesActions.getSource),
       concatMap(({ id }) =>
@@ -41,8 +39,7 @@ const getSource$ = createEffect(
 );
 
 const loadSources$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const sourcesService = inject(SourcesService);
+  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
     return actions$.pipe(
       ofType(sourcesActions.loadSources),
       switchMap(() =>
@@ -57,8 +54,7 @@ const loadSources$ = createEffect(
 );
 
 const saveSource$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const sourcesService = inject(SourcesService);
+  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
     return actions$.pipe(
       ofType(sourcesActions.saveSource),
       concatMap(({ source }) =>

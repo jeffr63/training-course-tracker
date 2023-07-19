@@ -9,8 +9,7 @@ import { Course } from '@models/course';
 import { CoursesService } from '@services/courses.service';
 
 const deleteCourse$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const courseService = inject(CoursesService);
+  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(coursesActions.deleteCourse),
       concatMap(({ id, current, pageSize }) =>
@@ -29,8 +28,7 @@ const deleteCourse$ = createEffect(
 );
 
 const getCourse$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const courseService = inject(CoursesService);
+  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(coursesActions.getCourse),
       concatMap(({ id }) =>
@@ -44,9 +42,8 @@ const getCourse$ = createEffect(
   { functional: true }
 );
 
-const loadCourse$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const courseService = inject(CoursesService);
+const loadCourses$ = createEffect(
+  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(coursesActions.loadCourses),
       concatMap(({ current, pageSize }) =>
@@ -61,8 +58,7 @@ const loadCourse$ = createEffect(
 );
 
 const saveCourse$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const courseService = inject(CoursesService);
+  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(coursesActions.saveCourse),
       concatMap(({ course }) =>
@@ -77,8 +73,7 @@ const saveCourse$ = createEffect(
 );
 
 const totalCourses$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const courseService = inject(CoursesService);
+  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
     return actions$.pipe(
       ofType(coursesActions.getTotalCourses),
       concatMap(() =>
@@ -95,7 +90,7 @@ const totalCourses$ = createEffect(
 export const courseEffects = {
   deleteCourse$,
   getCourse$,
-  loadCourse$,
+  loadCourses$,
   saveCourse$,
   totalCourses$,
 };

@@ -9,8 +9,7 @@ import { User } from '@models/user';
 import { UsersService } from '@services/user.service';
 
 const deleteUser$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const usersService = inject(UsersService);
+  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
     return actions$.pipe(
       ofType(usersActions.deleteUser),
       switchMap(({ id }) =>
@@ -25,8 +24,7 @@ const deleteUser$ = createEffect(
 );
 
 const getUser$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const usersService = inject(UsersService);
+  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
     return actions$.pipe(
       ofType(usersActions.getUser),
       concatMap(({ id }) =>
@@ -41,8 +39,7 @@ const getUser$ = createEffect(
 );
 
 const loadUsers$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const usersService = inject(UsersService);
+  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
     return actions$.pipe(
       ofType(usersActions.loadUsers),
       switchMap(() =>
@@ -57,8 +54,7 @@ const loadUsers$ = createEffect(
 );
 
 const patchUser$ = createEffect(
-  (actions$ = inject(Actions)) => {
-    const usersService = inject(UsersService);
+  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
     return actions$.pipe(
       ofType(usersActions.patchUser),
       concatMap(({ id, user }) =>
@@ -77,4 +73,4 @@ export const usersEffects = {
   getUser$,
   loadUsers$,
   patchUser$,
-}
+};

@@ -66,7 +66,7 @@ describe('DashboardComponent', () => {
         { name: 'React', value: 2 },
       ];
       store.overrideSelector(coursesFeature.selectCoursesByPath, paths);
-      fixture.detectChanges();
+      store.refreshState();
       expect(component.courses()).toEqual(paths);
     });
 
@@ -76,7 +76,7 @@ describe('DashboardComponent', () => {
         { name: 'YouTube', value: 4 },
       ];
       store.overrideSelector(coursesFeature.selectCoursesBySource, sources);
-      fixture.detectChanges();
+      store.refreshState();
       expect(component.sources()).toEqual(sources);
     });
   });

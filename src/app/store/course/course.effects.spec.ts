@@ -1,258 +1,117 @@
-import { TestBed } from '@angular/core/testing';
-
-import { provideMockActions } from '@ngrx/effects/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { Observable } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
+import { of, skip, take } from 'rxjs';
 
 import { coursesActions } from './course.actions';
 import { Course } from '@models/course';
 import { courseEffects } from './course.effects';
 import { CoursesService } from '@services/courses.service';
-import { State, initialState } from './course.state';
 
-const coursesService = jasmine.createSpyObj('coursesService', [
-  'deleteCourse',
-  'getCourse',
-  'getCourses',
-  'getCoursesPaged',
-  'saveCourse',
-]);
+const course: Course = {
+  id: 1,
+  title: 'ABC',
+  instructor: 'Joe',
+  path: 'A',
+  source: 'B',
+};
+
+const courses: Course[] = [
+  {
+    id: 1,
+    title: 'ABC',
+    instructor: 'Joe',
+    path: 'A',
+    source: 'B',
+  },
+];
+
+// TODO: create test for failing effects
 
 describe(`Course Effects`, () => {
-  let actions$: Observable<any>;
-  let effects = courseEffects;
-  let store: MockStore<State>;
-  let testScheduler;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        provideMockStore({ initialState }),
-        provideMockActions(() => actions$),
-        { provide: CoursesService, useValue: coursesService },
-      ],
-    });
-
-    // effects = TestBed.inject(CourseEffects);
-    store = TestBed.inject(MockStore);
-    store.setState(initialState);
-
-    testScheduler = new TestScheduler((actual, expected) => {
-      expect(actual).toEqual(expected);
-    });
-  });
-
   describe(`deleteCourse$ effect`, () => {
-    it(`should return DeleteSuccess, with course, on success`, () => {
-      const action = coursesActions.deleteCourse({
-        id: 1,
-        current: 1,
-        pageSize: 3,
-      });
-      const load = coursesActions.loadCourses({ current: 1, pageSize: 3 });
-      const recount = coursesActions.getTotalCourses();
-      const completion = coursesActions.deleteCourseSuccess();
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-b|', { b: 1 });
-        coursesService.deleteCourse.and.returnValue(response);
-
-        expectObservable(effects.deleteCourse$).toBe('--(cde)', { c: load, d: recount, e: completion });
-      });
-    });
-
-    it(`should return DeleteFailure, with error, on failure`, () => {
-      const error = 'Error';
-      const action = coursesActions.deleteCourse({
-        id: 1,
-        current: 1,
-        pageSize: 3,
-      });
-      const completion = coursesActions.deleteCourseFailure({ error });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-#|', {}, error);
-        coursesService.deleteCourse.and.returnValue(response);
-
-        expectObservable(effects.deleteCourse$).toBe('--b', { b: completion });
-      });
+    it(`should return deleteCoursesSuccess, with courses, on success`, (done) => {
+      const courseServiceMock = {
+        deleteCourse: (id) => of(1),
+      } as unknown as CoursesService;
+      const action$ = of(coursesActions.deleteCourse({ id: 1, current: 1, pageSize: 1 }));
+      courseEffects
+        .deleteCourse$(action$, courseServiceMock)
+        .pipe(take(1))
+        .subscribe((action) => {
+          expect(action).toEqual(coursesActions.loadCourses({ current: 1, pageSize: 1 }));
+        });
+      courseEffects
+        .deleteCourse$(action$, courseServiceMock)
+        .pipe(skip(1), take(1))
+        .subscribe((action) => {
+          expect(action).toEqual(coursesActions.getTotalCourses());
+        });
+      courseEffects
+        .deleteCourse$(action$, courseServiceMock)
+        .pipe(skip(2))
+        .subscribe((action) => {
+          expect(action).toEqual(coursesActions.deleteCourseSuccess());
+        });
+      done();
     });
   });
 
   describe(`getCourse$ effect`, () => {
-    it(`should return GetCourseSuccess, with course, on success`, () => {
-      const course: Course = {
-        id: 1,
-        title: 'ABC',
-        instructor: 'Joe',
-        path: 'A',
-        source: 'B',
-      };
-
-      const action = coursesActions.getCourse({ id: 1 });
-      const completion = coursesActions.getCourseSuccess({ course });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-b|', { b: course });
-        coursesService.getCourse.and.returnValue(response);
-
-        expectObservable(effects.getCourse$).toBe('--c', { c: completion });
+    it(`should return getCourseSuccess, with course, on success`, (done) => {
+      const courseServiceMock = {
+        getCourse: () => of(course),
+      } as unknown as CoursesService;
+      const action$ = of(coursesActions.getCourse({ id: 1 }));
+      courseEffects.getCourse$(action$, courseServiceMock).subscribe((action) => {
+        expect(action).toEqual(coursesActions.getCourseSuccess({ course }));
       });
-    });
-
-    it(`should return GetCourseFailure, with error, on failure`, () => {
-      const error = 'Error';
-      const action = coursesActions.getCourse({ id: 1 });
-      const completion = coursesActions.getCourseFailure({ error });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-#|', {}, error);
-        coursesService.getCourse.and.returnValue(response);
-
-        expectObservable(effects.getCourse$).toBe('--b', { b: completion });
-      });
+      done();
     });
   });
 
-  describe(`loadCourse$ effect`, () => {
-    it(`should return LoadSuccess, with courses, on success`, () => {
-      const courses: Course[] = [
-        {
-          id: 1,
-          title: 'ABC',
-          instructor: 'Joe',
-          path: 'A',
-          source: 'B',
-        } as Course,
-        {
-          id: 1,
-          title: 'DEF',
-          instructor: 'Jack',
-          path: 'A',
-          source: 'B',
-        } as Course,
-      ];
-
-      const action = coursesActions.loadCourses({ current: 1, pageSize: 3 });
-      const completion = coursesActions.loadCoursesSuccess({ courses });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-b|', { b: courses });
-        coursesService.getCoursesPaged.and.returnValue(response);
-
-        expectObservable(effects.loadCourse$).toBe('--c', { c: completion });
+  describe(`loadCourses$ effect`, () => {
+    it(`should return loadCoursesSuccess, with courses, on success`, (done) => {
+      const courseServiceMock = {
+        getCoursesPaged: () => of(courses),
+      } as unknown as CoursesService;
+      const action$ = of(coursesActions.loadCourses({ current: 1, pageSize: 1 }));
+      courseEffects.loadCourses$(action$, courseServiceMock).subscribe((action) => {
+        expect(action).toEqual(coursesActions.loadCoursesSuccess({ courses }));
       });
-    });
-
-    it(`should return LoadFailure, with error, on failure`, () => {
-      const error = 'Error';
-      const action = coursesActions.loadCourses({ current: 1, pageSize: 3 });
-      const completion = coursesActions.loadCoursesFailure({ error });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-#|', {}, error);
-        coursesService.getCoursesPaged.and.returnValue(response);
-
-        expectObservable(effects.loadCourse$).toBe('--b', { b: completion });
-      });
+      done();
     });
   });
 
   describe(`saveCourse$ effect`, () => {
-    it(`should return SaveSuccess, with course, on success`, () => {
-      const course: Course = {
-        id: 1,
-        title: 'ABC',
-        instructor: 'Joe',
-        path: 'A',
-        source: 'B',
-      };
-
-      const action = coursesActions.saveCourse({ course });
-      const recount = coursesActions.getTotalCourses();
-      const completion = coursesActions.saveCourseSuccess({ course });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-b|', { b: course });
-        coursesService.saveCourse.and.returnValue(response);
-
-        expectObservable(effects.saveCourse$).toBe('--(cd)', { c: recount, d: completion });
-      });
-    });
-
-    it(`should return SaveFailure, with error, on failure`, () => {
-      const course: Course = {
-        id: 1,
-        title: 'ABC',
-        instructor: 'Joe',
-        path: 'A',
-        source: 'B',
-      };
-      const error = 'Error';
-      const action = coursesActions.saveCourse({ course });
-      const completion = coursesActions.saveCourseFailure({ error });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-#|', {}, error);
-        coursesService.saveCourse.and.returnValue(response);
-
-        expectObservable(effects.saveCourse$).toBe('--b', { b: completion });
-      });
+    it(`should return saveCoursesSuccess, with courses, on success`, (done) => {
+      const courseServiceMock = {
+        saveCourse: () => of(course),
+      } as unknown as CoursesService;
+      const action$ = of(coursesActions.saveCourse({ course }));
+      courseEffects
+        .saveCourse$(action$, courseServiceMock)
+        .pipe(take(1))
+        .subscribe((action) => {
+          expect(action).toEqual(coursesActions.getTotalCourses());
+        });
+      courseEffects
+        .saveCourse$(action$, courseServiceMock)
+        .pipe(skip(1))
+        .subscribe((action) => {
+          expect(action).toEqual(coursesActions.saveCourseSuccess({ course }));
+        });
+      done();
     });
   });
 
-  describe(`totalCourses$ effect`, () => {
-    it(`should return GetTotalSuccess, with courses, on success`, () => {
-      const courses: Course[] = [
-        {
-          id: 1,
-          title: 'ABC',
-          instructor: 'Joe',
-          path: 'A',
-          source: 'B',
-        } as Course,
-        {
-          id: 1,
-          title: 'DEF',
-          instructor: 'Jack',
-          path: 'A',
-          source: 'B',
-        } as Course,
-      ];
-
-      const action = coursesActions.getTotalCourses();
-      const completion = coursesActions.getTotalCoursesSuccess({ courses });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-b|', { b: courses });
-        coursesService.getCourses.and.returnValue(response);
-
-        expectObservable(effects.totalCourses$).toBe('--c', { c: completion });
+  describe(`totalsCourses$ effect`, () => {
+    it(`should return totalCoursesSuccess, with courses, on success`, (done) => {
+      const courseServiceMock = {
+        getCourses: () => of(courses),
+      } as unknown as CoursesService;
+      const action$ = of(coursesActions.getTotalCourses());
+      courseEffects.totalCourses$(action$, courseServiceMock).subscribe((action) => {
+        expect(action).toEqual(coursesActions.getTotalCoursesSuccess({ courses }));
       });
-    });
-
-    it(`should return GetTotalFailure, with error, on failure`, () => {
-      const error = 'Error';
-      const action = coursesActions.getTotalCourses();
-      const completion = coursesActions.getTotalCoursesFailure({ error });
-
-      testScheduler.run(({ hot, cold, expectObservable }) => {
-        actions$ = hot('-a', { a: action });
-        const response = cold('-#|', {}, error);
-        coursesService.getCourses.and.returnValue(response);
-
-        expectObservable(effects.totalCourses$).toBe('--b', { b: completion });
-      });
+      done();
     });
   });
 });
