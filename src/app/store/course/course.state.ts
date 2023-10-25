@@ -13,7 +13,7 @@ export interface State {
   error: string;
 }
 
-export const initialState: State = {
+const initialState: State = {
   courses: [],
   currentCourse: null,
   totalCourses: 0,
@@ -22,7 +22,7 @@ export const initialState: State = {
   error: '',
 };
 
-export const reducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(coursesActions.deleteCourseFailure, (state, { error }) => ({
     ...state,

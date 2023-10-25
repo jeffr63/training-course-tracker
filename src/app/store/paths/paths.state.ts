@@ -9,13 +9,13 @@ export interface State {
   error: string;
 }
 
-export const initialState: State = {
+const initialState: State = {
   paths: [],
   currentPath: null,
   error: '',
 };
 
-export const reducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(pathsActions.deletePathFailure, (state, { error }) => ({
     ...state,

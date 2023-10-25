@@ -9,13 +9,13 @@ export interface State {
   error: string;
 }
 
-export const initialState: State = {
+const initialState: State = {
   users: [],
   currentUser: null,
   error: '',
 };
 
-export const reducer = createReducer(
+const reducer = createReducer(
   initialState,
   on(usersActions.deleteUserFailure, (state, { error }) => ({
     ...state,
