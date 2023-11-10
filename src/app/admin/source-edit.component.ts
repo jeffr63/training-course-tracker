@@ -1,7 +1,7 @@
-import { RouterLink } from '@angular/router';
 import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Location, NgIf } from '@angular/common';
+import { Location } from '@angular/common';
 
 import { takeUntil } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -16,19 +16,20 @@ import { ReplaySubject } from 'rxjs';
 @Component({
   selector: 'app-source-edit',
   standalone: true,
-  imports: [NgIf, NgbModule, ReactiveFormsModule, RouterLink],
+  imports: [NgbModule, ReactiveFormsModule, RouterLink],
 
   template: `
     <section class="container">
       <section class="card">
-        <form *ngIf="sourceEditForm" [formGroup]="sourceEditForm">
+        @if (sourceEditForm) {
+        <form [formGroup]="sourceEditForm">
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="name">Source Name</label>
             <div class="col-sm-6">
               <input type="text" class="form-control" formControlName="name" placeholder="Enter source name" />
-              <div *ngIf="sourceEditForm.controls.name.errors?.required && sourceEditForm.controls.name.touched">
-                <small class="text-danger">Name is required</small>
-              </div>
+              @if (sourceEditForm.controls.name.errors?.required && sourceEditForm.controls.name.touched) {
+              <small class="text-danger">Name is required</small>
+              }
             </div>
           </fieldset>
 
@@ -41,6 +42,7 @@ import { ReplaySubject } from 'rxjs';
             </a>
           </div>
         </form>
+        }
       </section>
     </section>
   `,

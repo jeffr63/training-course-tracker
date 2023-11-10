@@ -1,7 +1,7 @@
-import { RouterLink } from '@angular/router';
 import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe, Location, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 
 import { Store, select } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
@@ -21,12 +21,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-course-edit',
   standalone: true,
-  imports: [AsyncPipe, NgForOf, NgIf, NgbModule, ReactiveFormsModule, RouterLink],
+  imports: [AsyncPipe, NgbModule, ReactiveFormsModule, RouterLink],
 
   template: `
     <section class="container">
       <section class="card">
-        <form *ngIf="courseEditForm" [formGroup]="courseEditForm">
+        @if (courseEditForm) {
+        <form [formGroup]="courseEditForm">
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="title">Title</label>
             <div class="col-sm-6">
@@ -34,11 +35,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 type="text"
                 class="form-control"
                 formControlName="title"
-                placeholder="Enter title of course taken"
-              />
-              <div *ngIf="courseEditForm.controls.title.errors?.required && courseEditForm.controls.title.touched">
-                <small class="text-danger">Title is required</small>
-              </div>
+                placeholder="Enter title of course taken" />
+              @if (courseEditForm.controls.title.errors?.required && courseEditForm.controls.title.touched) {
+              <small class="text-danger">Title is required</small>
+              }
             </div>
           </fieldset>
 
@@ -49,15 +49,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 type="text"
                 class="form-control"
                 formControlName="instructor"
-                placeholder="Enter name of course's intructor"
-              />
-              <div
-                *ngIf="
-                  courseEditForm.controls.instructor.errors?.required && courseEditForm.controls.instructor.touched
-                "
-              >
-                <small class="text-danger">Instructor is required</small>
-              </div>
+                placeholder="Enter name of course's intructor" />
+              @if (courseEditForm.controls.instructor.errors?.required && courseEditForm.controls.instructor.touched) {
+              <small class="text-danger">Instructor is required</small>
+              }
             </div>
           </fieldset>
 
@@ -69,16 +64,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 class="form-control"
                 formControlName="path"
                 list="path-helpers"
-                placeholder="Enter techical path of course (ex: Angular or React)"
-              />
+                placeholder="Enter techical path of course (ex: Angular or React)" />
               <datalist id="path-helpers">
-                <div *ngFor="let path of paths()">
-                  <option value="{{ path.name }}"></option>
-                </div>
+                @for (path of paths(); track path.id) {
+                <option value="{{ path.name }}"></option>
+                }
               </datalist>
-              <div *ngIf="courseEditForm.controls.path.errors?.required && courseEditForm.controls.path.touched">
-                <small class="text-danger">Path is required</small>
-              </div>
+              @if (courseEditForm.controls.path.errors?.required && courseEditForm.controls.path.touched) {
+              <small class="text-danger">Path is required</small>
+              }
             </div>
           </fieldset>
 
@@ -90,16 +84,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
                 class="form-control"
                 formControlName="source"
                 list="source-helpers"
-                placeholder="Enter where the course was sourced from (ex: Pluralsite)"
-              />
+                placeholder="Enter where the course was sourced from (ex: Pluralsite)" />
               <datalist id="source-helpers">
-                <div *ngFor="let source of sources()">
-                  <option value="{{ source.name }}"></option>
-                </div>
+                @for (source of sources(); track source.id) {
+                <option value="{{ source.name }}"></option>
+                }
               </datalist>
-              <div *ngIf="courseEditForm.controls.source.errors?.required && courseEditForm.controls.source.touched">
-                <small class="text-danger">Source is required</small>
-              </div>
+              @if (courseEditForm.controls.source.errors?.required && courseEditForm.controls.source.touched) {
+              <small class="text-danger">Source is required</small>
+              }
             </div>
           </fieldset>
 
@@ -110,6 +103,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             <a class="btn btn-secondary" [routerLink]="['/courses']"> <i class="bi bi-x-circle"></i> Cancel </a>
           </div>
         </form>
+        }
       </section>
     </section>
   `,

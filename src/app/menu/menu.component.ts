@@ -1,5 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +9,7 @@ import { LoginComponent } from '@modals/login.component';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [NgIf, NgbModule, RouterLink],
+  imports: [NgbModule, RouterLink],
 
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -24,8 +23,7 @@ import { LoginComponent } from '@modals/login.component';
         aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
-        (click)="toggleNavigation()"
-      >
+        (click)="toggleNavigation()">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -33,9 +31,13 @@ import { LoginComponent } from '@modals/login.component';
         <div class="navbar-nav ms-auto">
           <a class="nav-item nav-link active" [routerLink]="['/']" id="home">Home</a>
           <a class="nav-item nav-link" [routerLink]="['/courses']" id="courses">Courses</a>
-          <a class="nav-item nav-link" *ngIf="!isLoggedIn()" (click)="open()" id="login">Login</a>
-          <a class="nav-item nav-link" [routerLink]="['/admin']" *ngIf="isAdmin()" id="admin">Admin</a>
-          <a class="nav-item nav-link" *ngIf="isLoggedIn()" (click)="logout()" id="logout">Logout</a>
+          @if (isLoggedIn()) { @if (isAdmin()) {
+          <a class="nav-item nav-link" [routerLink]="['/admin']" id="admin">Admin</a>
+          }
+          <a class="nav-item nav-link" (click)="logout()" id="logout">Logout</a>
+          } @else {
+          <a class="nav-item nav-link" (click)="open()" id="login">Login</a>
+          }
         </div>
       </div>
     </nav>
@@ -57,10 +59,6 @@ export class MenuComponent {
   isNavbarCollapsed = signal(false);
   isLoggedIn = this.auth.isLoggedIn;
   isAdmin = this.auth.isLoggedInAsAdmin;
-
-  constructor() {
-    effect(() => console.log(`isnavcoll=${this.isNavbarCollapsed()}`));
-  }
 
   open() {
     this.modalService.open(LoginComponent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
