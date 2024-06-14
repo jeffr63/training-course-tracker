@@ -1,5 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
-import { environment } from '../environments/environment';
+import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
@@ -9,7 +8,6 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { APP_ROUTES } from './app.routes';
-import { AppEffects } from '@store/app.effects';
 import { CustomTitleStrategyService } from '@resolvers/custom-title-strategy.service';
 import { courseEffects } from '@store/course/course.effects';
 import { coursesFeature } from '@store/course/course.state';
@@ -22,6 +20,7 @@ import { usersFeature } from '@store/users/users.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: TitleStrategy, useClass: CustomTitleStrategyService },
     provideAnimations(),
     provideHttpClient(),
@@ -33,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects([courseEffects, pathsEffects, sourcesEffects, usersEffects]),
     provideStoreDevtools({
       maxAge: 5,
-      logOnly: environment.production,
+      logOnly: !isDevMode(),
     }),
     provideRouter(APP_ROUTES, withComponentInputBinding()),
   ],
