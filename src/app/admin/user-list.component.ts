@@ -33,8 +33,7 @@ import { User } from '@models/user';
             [items]="users$ | async"
             [isAuthenticated]="isAuthenticated"
             (deleteItem)="deleteUser($event)"
-            (editItem)="editUser($event)"
-          ></app-list-display>
+            (editItem)="editUser($event)"></app-list-display>
         </section>
       </section>
     </section>
@@ -49,20 +48,19 @@ import { User } from '@models/user';
   ],
 })
 export default class UserListComponent implements OnInit {
-  private modal = inject(NgbModal);
-  private modalDataService = inject(ModalDataService);
-  private router = inject(Router);
-  private store = inject(Store<fromRoot.State>);
+  readonly #modal = inject(NgbModal);
+  readonly #modalDataService = inject(ModalDataService);
+  readonly #router = inject(Router);
+  readonly #store = inject(Store<fromRoot.State>);
 
-  columns = ['name', 'email', 'role'];
-  headers = ['Name', 'Email', 'Role'];
-  isAuthenticated = true;
-  users$: Observable<any[]>;
-  selectedUser = <User>{};
+  protected readonly columns = ['name', 'email', 'role'];
+  protected readonly headers = ['Name', 'Email', 'Role'];
+  protected readonly isAuthenticated = true;
+  protected users$: Observable<any[]>;
 
   ngOnInit() {
-    this.store.dispatch(usersActions.loadUsers());
-    this.users$ = this.store.pipe(select(usersFeature.selectUsers));
+    this.#store.dispatch(usersActions.loadUsers());
+    this.users$ = this.#store.pipe(select(usersFeature.selectUsers));
   }
 
   deleteUser(id) {
@@ -71,13 +69,13 @@ export default class UserListComponent implements OnInit {
       body: 'All information associated to this source will be permanently deleted.',
       warning: 'This operation cannot be undone.',
     };
-    this.modalDataService.setDeleteModalOptions(modalOptions);
-    this.modal.open(DeleteComponent).result.then((_result) => {
-      this.store.dispatch(usersActions.deleteUser({ id }));
+    this.#modalDataService.setDeleteModalOptions(modalOptions);
+    this.#modal.open(DeleteComponent).result.then((_result) => {
+      this.#store.dispatch(usersActions.deleteUser({ id }));
     });
   }
 
   editUser(id: number) {
-    this.router.navigate(['/admin/users', id]);
+    this.#router.navigate(['/admin/users', id]);
   }
 }

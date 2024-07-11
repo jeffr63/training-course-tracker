@@ -49,7 +49,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       </div>
     </section>
   `,
-
-  styles: ['.jumbotron { padding: 10px; }'],
+  styles: `.jumbotron { padding: 10px; }`,
 })
 export default class AdminComponent {}

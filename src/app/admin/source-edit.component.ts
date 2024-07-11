@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { takeUntil } from 'rxjs/operators';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
@@ -11,7 +11,6 @@ import * as fromRoot from '@store/index';
 import { sourcesActions } from '@store/sources/sources.actions';
 import { sourcesFeature } from '@store/sources/sources.state';
 import { Source } from '@models/sources';
-import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-source-edit',
@@ -34,12 +33,8 @@ import { ReplaySubject } from 'rxjs';
           </fieldset>
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!sourceEditForm.valid">
-              <i class="bi bi-save"></i> Save
-            </button>
-            <a class="btn btn-secondary" [routerLink]="['/admin/sources']" title="Cancel">
-              <i class="bi bi-x-circle"></i> Cancel
-            </a>
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!sourceEditForm.valid"><i class="bi bi-save"></i> Save</button>
+            <a class="btn btn-secondary" [routerLink]="['/admin/sources']" title="Cancel"> <i class="bi bi-x-circle"></i> Cancel </a>
           </div>
         </form>
         }
@@ -60,40 +55,36 @@ import { ReplaySubject } from 'rxjs';
     `,
   ],
 })
-export default class SourceEditComponent implements OnInit, OnDestroy {
-  private fb = inject(FormBuilder);
-  private location = inject(Location);
-  private store = inject(Store<fromRoot.State>);
+export default class SourceEditComponent implements OnInit {
+  readonly #fb = inject(FormBuilder);
+  readonly #location = inject(Location);
+  readonly #store = inject(Store<fromRoot.State>);
+  readonly #ref = inject(DestroyRef);
 
-  @Input() id;
-  destroy$ = new ReplaySubject<void>(1);
-  sourceEditForm: FormGroup;
-  private source = <Source>{};
+  protected readonly id = input.required<string>();
+  protected sourceEditForm: FormGroup;
+  #source = <Source>{};
 
   ngOnInit() {
-    this.sourceEditForm = this.fb.group({
+    this.sourceEditForm = this.#fb.group({
       name: ['', Validators.required],
     });
 
-    if (this.id === 'new') return;
+    if (this.id() === 'new') return;
 
-    this.store.dispatch(sourcesActions.getSource({ id: +this.id }));
-    this.store
+    this.#store.dispatch(sourcesActions.getSource({ id: +this.id() }));
+    this.#store
       .pipe(select(sourcesFeature.selectCurrentSource))
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.#ref))
       .subscribe((source: Source) => {
-        this.source = { ...source };
-        this.sourceEditForm.get('name').setValue(this.source.name);
+        this.#source = { ...source };
+        this.sourceEditForm.get('name').setValue(this.#source.name);
       });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-  }
-
   save() {
-    this.source.name = this.sourceEditForm.controls.name.value;
-    this.store.dispatch(sourcesActions.saveSource({ source: this.source }));
-    this.location.back();
+    this.#source.name = this.sourceEditForm.controls.name.value;
+    this.#store.dispatch(sourcesActions.saveSource({ source: this.#source }));
+    this.#location.back();
   }
 }

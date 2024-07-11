@@ -36,8 +36,7 @@ import { Source } from '@models/sources';
             [items]="source$ | async"
             [isAuthenticated]="isAuthenticated"
             (deleteItem)="deleteSource($event)"
-            (editItem)="editSource($event)"
-          ></app-list-display>
+            (editItem)="editSource($event)"></app-list-display>
         </section>
       </section>
     </section>
@@ -52,20 +51,19 @@ import { Source } from '@models/sources';
   ],
 })
 export default class SourceListComponent implements OnInit {
-  private modal = inject(NgbModal);
-  private modalDataService = inject(ModalDataService);
-  private router = inject(Router);
-  private store = inject(Store<fromRoot.State>);
+  readonly #modal = inject(NgbModal);
+  readonly #modalDataService = inject(ModalDataService);
+  readonly #router = inject(Router);
+  readonly #store = inject(Store<fromRoot.State>);
 
-  columns = ['name'];
-  headers = ['Source'];
-  isAuthenticated = true;
-  source$: Observable<any[]>;
-  selectPath = <Source>{};
+  protected columns = ['name'];
+  protected headers = ['Source'];
+  protected readonly isAuthenticated = true;
+  protected source$: Observable<any[]>;
 
   ngOnInit() {
-    this.store.dispatch(sourcesActions.loadSources());
-    this.source$ = this.store.pipe(select(sourcesFeature.selectSources));
+    this.#store.dispatch(sourcesActions.loadSources());
+    this.source$ = this.#store.pipe(select(sourcesFeature.selectSources));
   }
 
   deleteSource(id) {
@@ -74,17 +72,17 @@ export default class SourceListComponent implements OnInit {
       body: 'All information associated to this source will be permanently deleted.',
       warning: 'This operation cannot be undone.',
     };
-    this.modalDataService.setDeleteModalOptions(modalOptions);
-    this.modal.open(DeleteComponent).result.then((_result) => {
-      this.store.dispatch(sourcesActions.deleteSource({ id }));
+    this.#modalDataService.setDeleteModalOptions(modalOptions);
+    this.#modal.open(DeleteComponent).result.then((_result) => {
+      this.#store.dispatch(sourcesActions.deleteSource({ id }));
     });
   }
 
   editSource(id: number) {
-    this.router.navigate(['/admin/sources', id]);
+    this.#router.navigate(['/admin/sources', id]);
   }
 
   newSource() {
-    this.router.navigate(['/admin/sources/new']);
+    this.#router.navigate(['/admin/sources/new']);
   }
 }

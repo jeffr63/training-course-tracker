@@ -9,24 +9,24 @@ import { Source } from '@models/sources';
   providedIn: 'root',
 })
 export class SourcesService {
-  private http = inject(HttpClient);
+  readonly #http = inject(HttpClient);
 
-  private baseUrl = 'http://localhost:3000';
+  readonly #baseUrl = 'http://localhost:3000';
 
   add(source: Source) {
-    return this.http.post(`${this.baseUrl}/sources`, source);
+    return this.#http.post(`${this.#baseUrl}/sources`, source);
   }
 
   delete(id) {
-    return this.http.delete<Source>(`${this.baseUrl}/sources/${id}`);
+    return this.#http.delete<Source>(`${this.#baseUrl}/sources/${id}`);
   }
 
   get(id) {
-    return this.http.get<Source>(`${this.baseUrl}/sources/${id}`);
+    return this.#http.get<Source>(`${this.#baseUrl}/sources/${id}`);
   }
 
   load() {
-    return this.http.get<Source[]>(`${this.baseUrl}/sources?_sort=name&_order=asc`);
+    return this.#http.get<Source[]>(`${this.#baseUrl}/sources?_sort=name&_order=asc`);
   }
 
   save(source: Source) {
@@ -38,6 +38,6 @@ export class SourcesService {
   }
 
   update(source: Source) {
-    return this.http.put(`${this.baseUrl}/sources/${source.id}`, source);
+    return this.#http.put(`${this.#baseUrl}/sources/${source.id}`, source);
   }
 }

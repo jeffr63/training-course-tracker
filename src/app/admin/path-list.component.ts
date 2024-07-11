@@ -13,7 +13,6 @@ import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
-import { Path } from '@models/paths';
 
 @Component({
   selector: 'app-path-list',
@@ -36,8 +35,7 @@ import { Path } from '@models/paths';
             [items]="paths$ | async"
             [isAuthenticated]="isAuthenticated"
             (deleteItem)="deletePath($event)"
-            (editItem)="editPath($event)"
-          ></app-list-display>
+            (editItem)="editPath($event)"></app-list-display>
         </section>
       </section>
     </section>
@@ -46,20 +44,19 @@ import { Path } from '@models/paths';
   styles: ['header { padding-bottom: 10px; }'],
 })
 export default class PathListComponent implements OnInit {
-  private modal = inject(NgbModal);
-  private modalDataService = inject(ModalDataService);
-  private router = inject(Router);
-  private store = inject(Store<fromRoot.State>);
+  readonly #modal = inject(NgbModal);
+  readonly #modalDataService = inject(ModalDataService);
+  readonly #router = inject(Router);
+  readonly #store = inject(Store<fromRoot.State>);
 
-  columns = ['name'];
-  headers = ['Path'];
-  isAuthenticated = true;
-  paths$: Observable<any[]>;
-  selectPath = <Path>{};
+  protected columns = ['name'];
+  protected headers = ['Path'];
+  protected readonly isAuthenticated = true;
+  protected paths$: Observable<any[]>;
 
   ngOnInit() {
-    this.store.dispatch(pathsActions.loadPaths());
-    this.paths$ = this.store.pipe(select(pathsFeature.selectPaths));
+    this.#store.dispatch(pathsActions.loadPaths());
+    this.paths$ = this.#store.pipe(select(pathsFeature.selectPaths));
   }
 
   deletePath(id) {
@@ -68,17 +65,17 @@ export default class PathListComponent implements OnInit {
       body: 'All information associated to this source will be permanently deleted.',
       warning: 'This operation cannot be undone.',
     };
-    this.modalDataService.setDeleteModalOptions(modalOptions);
-    this.modal.open(DeleteComponent).result.then((_result) => {
-      this.store.dispatch(pathsActions.deletePath({ id: id }));
+    this.#modalDataService.setDeleteModalOptions(modalOptions);
+    this.#modal.open(DeleteComponent).result.then((_result) => {
+      this.#store.dispatch(pathsActions.deletePath({ id: id }));
     });
   }
 
   editPath(id: number) {
-    this.router.navigate(['/admin/paths', id]);
+    this.#router.navigate(['/admin/paths', id]);
   }
 
   newPath() {
-    this.router.navigate(['/admin/paths/new']);
+    this.#router.navigate(['/admin/paths/new']);
   }
 }

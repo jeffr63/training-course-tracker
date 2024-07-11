@@ -21,28 +21,14 @@ import { coursesFeature } from '@store/course/course.state';
           <div class="card col-xm-12 col-sm-6">
             <div class="card-body">
               <h4 class="card-title">Completed Courses - Paths</h4>
-              <ngx-charts-pie-chart
-                [view]="[400, 400]"
-                [results]="courses()"
-                [labels]="true"
-                [doughnut]="true"
-                [arcWidth]="0.5"
-              >
-              </ngx-charts-pie-chart>
+              <ngx-charts-pie-chart [view]="[400, 400]" [results]="courses()" [labels]="true" [doughnut]="true" [arcWidth]="0.5"> </ngx-charts-pie-chart>
             </div>
           </div>
 
           <div class="card col-xm-12 col-sm-6">
             <div class="card-body">
               <h4 class="card-title">Completed Courses - Sources</h4>
-              <ngx-charts-pie-chart
-                [view]="[400, 400]"
-                [results]="sources()"
-                [labels]="true"
-                [doughnut]="true"
-                [arcWidth]="0.5"
-              >
-              </ngx-charts-pie-chart>
+              <ngx-charts-pie-chart [view]="[400, 400]" [results]="sources()" [labels]="true" [doughnut]="true" [arcWidth]="0.5"> </ngx-charts-pie-chart>
             </div>
           </div>
         </div>
@@ -53,12 +39,12 @@ import { coursesFeature } from '@store/course/course.state';
   styles: [],
 })
 export class DashboardComponent implements OnInit {
-  private store = inject(Store<fromRoot.State>);
+  readonly #store = inject(Store<fromRoot.State>);
 
-  courses = toSignal(this.store.pipe(select(coursesFeature.selectCoursesByPath)), { initialValue: [] });
-  sources = toSignal(this.store.pipe(select(coursesFeature.selectCoursesBySource)), { initialValue: [] });
+  protected readonly courses = toSignal(this.#store.pipe(select(coursesFeature.selectCoursesByPath)), { initialValue: [] });
+  protected readonly sources = toSignal(this.#store.pipe(select(coursesFeature.selectCoursesBySource)), { initialValue: [] });
 
   ngOnInit() {
-    this.store.dispatch(coursesActions.getTotalCourses());
+    this.#store.dispatch(coursesActions.getTotalCourses());
   }
 }

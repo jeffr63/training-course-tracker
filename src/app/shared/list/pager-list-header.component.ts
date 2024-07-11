@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, computed, Input, input, model, output } from '@angular/core';
 
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,15 +11,15 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     <header class="row">
       <div class="col">
         <ngb-pagination
-          [collectionSize]="total"
+          [collectionSize]="total()"
           [boundaryLinks]="true"
-          [pageSize]="pageSize"
-          [maxSize]="maxSize"
+          [pageSize]="pageSize()"
+          [maxSize]="maxSize()"
           [rotate]="true"
           [(page)]="current"
           (pageChange)="onPageChange()"></ngb-pagination>
       </div>
-      @if (isAuthenticated) {
+      @if (isAuthenticated()) {
       <div class="col">
         <button class="btn btn-sm" (click)="newClicked()" title="Add">
           <i class="bi bi-plus-circle-fill display-6 text-success"></i>
@@ -32,17 +32,15 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   styles: [],
 })
 export class PagerListHeaderComponent {
-  @Input() current: number = 1;
-  @Input() isAuthenticated: boolean = false;
-  @Input() maxSize: number = 5;
-  @Input() pageSize: number = 10;
-  @Input() total: number = 0;
-  @Output() currentChange: EventEmitter<number> = new EventEmitter<number>();
-  @Output() newCourse = new EventEmitter();
-  @Output() refreshTable = new EventEmitter();
+  public readonly current = model<number>(1);
+  public readonly isAuthenticated = input<boolean>(false);
+  public readonly maxSize = input<number>(5);
+  public readonly pageSize = input<number>(10);
+  public readonly total = input<number>(0);
+  protected readonly newCourse = output();
+  protected readonly refreshTable = output();
 
   onPageChange() {
-    this.currentChange.emit(this.current);
     this.refreshTable.emit();
   }
 

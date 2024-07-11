@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, inject, Input } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReplaySubject } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { takeUntil } from 'rxjs/operators';
 
 import * as fromRoot from '@store/index';
 import { pathsActions } from '@store/paths/paths.actions';
@@ -34,12 +33,8 @@ import { Path } from '@models/paths';
           </fieldset>
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid">
-              <i class="bi bi-save"></i> Save
-            </button>
-            <a class="btn btn-secondary" [routerLink]="['/admin/paths']" title="Cancel">
-              <i class="bi bi-x-circle"></i> Cancel
-            </a>
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid"><i class="bi bi-save"></i> Save</button>
+            <a class="btn btn-secondary" [routerLink]="['/admin/paths']" title="Cancel"> <i class="bi bi-x-circle"></i> Cancel </a>
           </div>
         </form>
         }
@@ -60,40 +55,36 @@ import { Path } from '@models/paths';
     `,
   ],
 })
-export default class PathEditComponent implements OnInit, OnDestroy {
-  private fb = inject(FormBuilder);
-  private location = inject(Location);
-  private store = inject(Store<fromRoot.State>);
+export default class PathEditComponent implements OnInit {
+  readonly #fb = inject(FormBuilder);
+  readonly #location = inject(Location);
+  readonly #store = inject(Store<fromRoot.State>);
+  readonly #ref = inject(DestroyRef);
 
-  @Input() id;
-  destroy$ = new ReplaySubject<void>(1);
-  pathEditForm!: FormGroup;
-  path = <Path>{};
+  protected readonly id = input.required<string>();
+  protected pathEditForm!: FormGroup;
+  #path = <Path>{};
 
   ngOnInit() {
-    this.pathEditForm = this.fb.group({
+    this.pathEditForm = this.#fb.group({
       name: ['', Validators.required],
     });
 
-    if (this.id === 'new') return;
+    if (this.id() === 'new') return;
 
-    this.store.dispatch(pathsActions.getPath({ id: +this.id }));
-    this.store
+    this.#store.dispatch(pathsActions.getPath({ id: +this.id() }));
+    this.#store
       .pipe(select(pathsFeature.selectCurrentPath))
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.#ref))
       .subscribe((path: Path) => {
-        this.path = { ...path };
-        this.pathEditForm.get('name').setValue(this.path.name);
+        this.#path = { ...path };
+        this.pathEditForm.get('name').setValue(this.#path.name);
       });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-  }
-
   save() {
-    this.path.name = this.pathEditForm.controls.name.value;
-    this.store.dispatch(pathsActions.savePath({ path: this.path }));
-    this.location.back();
+    this.#path.name = this.pathEditForm.controls.name.value;
+    this.#store.dispatch(pathsActions.savePath({ path: this.#path }));
+    this.#location.back();
   }
 }

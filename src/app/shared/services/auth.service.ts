@@ -14,15 +14,15 @@ class AuthToken {
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
+  readonly #http = inject(HttpClient);
 
-  #isAdmin = signal(false);
-  #isLoggedIn = signal(false);
-  isLoggedIn = this.#isLoggedIn.asReadonly();
-  isLoggedInAsAdmin = computed(() => this.#isLoggedIn() && this.#isAdmin());
+  readonly #isAdmin = signal(false);
+  readonly #isLoggedIn = signal(false);
+  readonly isLoggedIn = this.#isLoggedIn.asReadonly();
+  readonly isLoggedInAsAdmin = computed(() => this.#isLoggedIn() && this.#isAdmin());
 
   login(email: string, password: string) {
-    return this.http.post<any>('http://localhost:3000/login', { email, password }).pipe(
+    return this.#http.post<any>('http://localhost:3000/login', { email, password }).pipe(
       map((response) => {
         // login successful if there's a jwt token in the response and if that token is valid
         if (response && response.accessToken) {
