@@ -1,7 +1,7 @@
 import { Component, DestroyRef, OnInit, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 import { Store, select } from '@ngrx/store';
@@ -17,11 +17,9 @@ import { sourcesActions } from '@store/sources/sources.actions';
 import { sourcesFeature } from '@store/sources/sources.state';
 
 @Component({
-  selector: 'app-course-edit',
-  standalone: true,
-  imports: [AsyncPipe, NgbModule, ReactiveFormsModule, RouterLink],
-
-  template: `
+    selector: 'app-course-edit',
+    imports: [NgbModule, ReactiveFormsModule, RouterLink],
+    template: `
     <section class="container">
       <section class="card">
         @if (courseEditForm) {
@@ -85,9 +83,8 @@ import { sourcesFeature } from '@store/sources/sources.state';
       </section>
     </section>
   `,
-
-  styles: [
-    `
+    styles: [
+        `
       section .card {
         margin-top: 30px;
         padding-left: 15px;
@@ -98,7 +95,7 @@ import { sourcesFeature } from '@store/sources/sources.state';
         margin-left: 3px;
       }
     `,
-  ],
+    ]
 })
 export default class CourseEditComponent implements OnInit {
   readonly #fb = inject(FormBuilder);

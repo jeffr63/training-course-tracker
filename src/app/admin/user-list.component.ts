@@ -15,11 +15,9 @@ import { ModalDataService } from '@modals/modal-data.service';
 import { User } from '@models/user';
 
 @Component({
-  selector: 'app-users-list',
-  standalone: true,
-  imports: [AsyncPipe, NgbModule, ListDisplayComponent],
-
-  template: `
+    selector: 'app-users-list',
+    imports: [AsyncPipe, NgbModule, ListDisplayComponent],
+    template: `
     <section>
       <section class="card">
         <header>
@@ -38,14 +36,13 @@ import { User } from '@models/user';
       </section>
     </section>
   `,
-
-  styles: [
-    `
+    styles: [
+        `
       header {
         padding-bottom: 10px;
       }
     `,
-  ],
+    ]
 })
 export default class UserListComponent implements OnInit {
   readonly #modal = inject(NgbModal);

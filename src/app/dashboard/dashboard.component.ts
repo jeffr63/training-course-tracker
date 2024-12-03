@@ -10,11 +10,9 @@ import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [NgbModule, NgxChartsModule],
-
-  template: `
+    selector: 'app-dashboard',
+    imports: [NgbModule, NgxChartsModule],
+    template: `
     <section>
       <div class="container-fluid">
         <div class="row first-row">
@@ -35,8 +33,7 @@ import { coursesFeature } from '@store/course/course.state';
       </div>
     </section>
   `,
-
-  styles: [],
+    styles: []
 })
 export class DashboardComponent implements OnInit {
   readonly #store = inject(Store<fromRoot.State>);

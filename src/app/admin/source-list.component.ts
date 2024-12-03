@@ -16,11 +16,9 @@ import { ModalDataService } from '@modals/modal-data.service';
 import { Source } from '@models/sources';
 
 @Component({
-  selector: 'app-source-list',
-  standalone: true,
-  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
-
-  template: `
+    selector: 'app-source-list',
+    imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
+    template: `
     <section>
       <section class="card">
         <header>
@@ -41,14 +39,13 @@ import { Source } from '@models/sources';
       </section>
     </section>
   `,
-
-  styles: [
-    `
+    styles: [
+        `
       header {
         padding-bottom: 10px;
       }
     `,
-  ],
+    ]
 })
 export default class SourceListComponent implements OnInit {
   readonly #modal = inject(NgbModal);

@@ -15,11 +15,9 @@ import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
 
 @Component({
-  selector: 'app-path-list',
-  standalone: true,
-  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
-
-  template: `
+    selector: 'app-path-list',
+    imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
+    template: `
     <section>
       <section class="card">
         <header>
@@ -40,8 +38,7 @@ import { ModalDataService } from '@modals/modal-data.service';
       </section>
     </section>
   `,
-
-  styles: ['header { padding-bottom: 10px; }'],
+    styles: ['header { padding-bottom: 10px; }']
 })
 export default class PathListComponent implements OnInit {
   readonly #modal = inject(NgbModal);
