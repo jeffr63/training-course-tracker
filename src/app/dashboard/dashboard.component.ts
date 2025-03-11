@@ -16,10 +16,10 @@ import { DashboardContentComponent } from './dashboard-content.component';
 export class DashboardComponent implements OnInit {
   readonly #store = inject(Store<fromRoot.State>);
 
-  protected readonly paths = toSignal(this.#store.pipe(select(coursesFeature.selectCoursesByPath)), {
+  readonly paths = toSignal(this.#store.pipe(select(coursesFeature.selectCoursesByPath)), {
     initialValue: [],
   });
-  protected readonly sources = toSignal(this.#store.pipe(select(coursesFeature.selectCoursesBySource)), {
+  readonly sources = toSignal(this.#store.pipe(select(coursesFeature.selectCoursesBySource)), {
     initialValue: [],
   });
 

@@ -67,7 +67,7 @@ describe('DashboardComponent', () => {
       ];
       store.overrideSelector(coursesFeature.selectCoursesByPath, paths);
       store.refreshState();
-      expect(component.courses()).toEqual(paths);
+      expect(component.paths()).toEqual(paths);
     });
 
     it('should declare the sourses signal property', () => {

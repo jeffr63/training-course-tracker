@@ -13,7 +13,7 @@ export interface State {
   error: string;
 }
 
-const initialState: State = {
+export const initialState: State = {
   courses: [],
   currentCourse: null,
   totalCourses: 0,
