@@ -16,18 +16,6 @@ import { PathEditCardComponent } from './path-edit-card.component';
   selector: 'app-path-edit',
   imports: [PathEditCardComponent],
   template: `<app-path-edit-card [(pathEditForm)]="pathEditForm" (cancel)="cancel()" (save)="save()" />`,
-  styles: [
-    `
-      section .card {
-        margin-top: 30px;
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-      .form-buttons {
-        margin-left: 3px;
-      }
-    `,
-  ],
 })
 export default class PathEditComponent implements OnInit {
   readonly #fb = inject(FormBuilder);
