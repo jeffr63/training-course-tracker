@@ -7,17 +7,17 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import { pathsFeature } from '@store/paths/paths.state';
-import { pathsActions } from '@store/paths/paths.actions';
+import { pathsFeature } from '@store/path/paths.state';
+import { pathsActions } from '@store/path/paths.actions';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@shared/list/list-display.component';
-import { ListHeaderComponent } from '@shared/list/list-header.component';
+import { ListDisplayComponent } from '@shared/components/list-display.component';
+import { ListHeaderComponent } from '@shared/components/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
 
 @Component({
-    selector: 'app-path-list',
-    imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
-    template: `
+  selector: 'app-path-list',
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
+  template: `
     <section>
       <section class="card">
         <header>
@@ -38,7 +38,7 @@ import { ModalDataService } from '@modals/modal-data.service';
       </section>
     </section>
   `,
-    styles: ['header { padding-bottom: 10px; }']
+  styles: ['header { padding-bottom: 10px; }'],
 })
 export default class PathListComponent implements OnInit {
   readonly #modal = inject(NgbModal);

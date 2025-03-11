@@ -2,7 +2,7 @@ import { of, skip, take, throwError } from 'rxjs';
 
 import { pathsActions } from './paths.actions';
 import { pathsEffects } from './paths.effects';
-import { PathsService } from '@services/paths.service';
+import { PathsService } from '@services/path/paths.service';
 
 const path = { id: 1, name: 'ABC' };
 

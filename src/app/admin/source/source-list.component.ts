@@ -7,18 +7,18 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import { sourcesActions } from '@store/sources/sources.actions';
-import { sourcesFeature } from '@store/sources/sources.state';
+import { sourcesActions } from '@store/source/sources.actions';
+import { sourcesFeature } from '@store/source/sources.state';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@shared/list/list-display.component';
-import { ListHeaderComponent } from '@shared/list/list-header.component';
+import { ListDisplayComponent } from '@shared/components/list-display.component';
+import { ListHeaderComponent } from '@shared/components/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
 import { Source } from '@models/sources';
 
 @Component({
-    selector: 'app-source-list',
-    imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
-    template: `
+  selector: 'app-source-list',
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
+  template: `
     <section>
       <section class="card">
         <header>
@@ -39,13 +39,13 @@ import { Source } from '@models/sources';
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       header {
         padding-bottom: 10px;
       }
     `,
-    ]
+  ],
 })
 export default class SourceListComponent implements OnInit {
   readonly #modal = inject(NgbModal);

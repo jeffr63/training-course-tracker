@@ -6,7 +6,7 @@ import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import { sourcesActions } from './sources.actions';
 import { Source } from '@models/sources';
-import { SourcesService } from '@services/sources.service';
+import { SourcesService } from '@services/source/sources.service';
 
 const deleteSource$ = createEffect(
   (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {

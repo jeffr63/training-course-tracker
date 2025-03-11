@@ -31,9 +31,6 @@
       "@models/*": [
         "./src/app/shared/models/*"
       ],
-      "@resolvers/*": [
-        "./src/app/shared/resolvers/*"
-      ],
       "@shared/*": [
         "./src/app/shared/*"
       ],

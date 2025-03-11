@@ -6,7 +6,7 @@ import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import { pathsActions } from './paths.actions';
 import { Path } from '@models/paths';
-import { PathsService } from '@services/paths.service';
+import { PathsService } from '@services/path/paths.service';
 
 const deletePath$ = createEffect(
   (actions$ = inject(Actions), pathsService = inject(PathsService)) => {

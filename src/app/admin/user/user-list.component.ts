@@ -7,17 +7,17 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import { usersActions } from '@store/users/users.actions';
-import { usersFeature } from '@store/users/users.state';
+import { usersActions } from '@store/user/users.actions';
+import { usersFeature } from '@store/user/users.state';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListDisplayComponent } from '@shared/components/list-display.component';
 import { ModalDataService } from '@modals/modal-data.service';
 import { User } from '@models/user';
 
 @Component({
-    selector: 'app-users-list',
-    imports: [AsyncPipe, NgbModule, ListDisplayComponent],
-    template: `
+  selector: 'app-users-list',
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent],
+  template: `
     <section>
       <section class="card">
         <header>
@@ -36,13 +36,13 @@ import { User } from '@models/user';
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       header {
         padding-bottom: 10px;
       }
     `,
-    ]
+  ],
 })
 export default class UserListComponent implements OnInit {
   readonly #modal = inject(NgbModal);
