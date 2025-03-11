@@ -10,8 +10,8 @@ import * as fromRoot from '@store/index';
 import { sourcesActions } from '@store/source/sources.actions';
 import { sourcesFeature } from '@store/source/sources.state';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@shared/list/list-display.component';
-import { ListHeaderComponent } from '@shared/list/list-header.component';
+import { ListDisplayComponent } from '@shared/components/list-display.component';
+import { ListHeaderComponent } from '@shared/components/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
 import { Source } from '@models/sources';
 

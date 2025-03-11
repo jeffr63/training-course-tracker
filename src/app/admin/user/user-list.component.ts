@@ -10,7 +10,7 @@ import * as fromRoot from '@store/index';
 import { usersActions } from '@store/user/users.actions';
 import { usersFeature } from '@store/user/users.state';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListDisplayComponent } from '@shared/components/list-display.component';
 import { ModalDataService } from '@modals/modal-data.service';
 import { User } from '@models/user';
 

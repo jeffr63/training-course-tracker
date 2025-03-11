@@ -12,9 +12,9 @@ import { Course } from '@models/course';
 import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
 import { DeleteComponent } from '@modals/delete.component';
-import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListDisplayComponent } from '@shared/components/list-display.component';
 import { ModalDataService } from '@modals/modal-data.service';
-import { PagerListHeaderComponent } from '@shared/list/pager-list-header.component';
+import { PagerListHeaderComponent } from '@shared/components/pager-list-header.component';
 
 @Component({
   selector: 'app-course-list',
