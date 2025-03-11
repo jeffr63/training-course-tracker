@@ -2,77 +2,77 @@ import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import { usersActions } from '@store/users/users.actions';
-import { usersFeature } from '@store/users/users.state';
+import { pathsFeature } from '@store/path/paths.state';
+import { pathsActions } from '@store/path/paths.actions';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
+import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
-import { User } from '@models/user';
 
 @Component({
-    selector: 'app-users-list',
-    imports: [AsyncPipe, NgbModule, ListDisplayComponent],
-    template: `
+  selector: 'app-path-list',
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
+  template: `
     <section>
       <section class="card">
         <header>
-          <h1 class="card-header">Users</h1>
+          <h1 class="card-header">Paths</h1>
         </header>
 
         <section class="card-body">
+          <app-list-header (newItem)="newPath()"></app-list-header>
+
           <app-list-display
             [headers]="headers"
             [columns]="columns"
-            [items]="users$ | async"
+            [items]="paths$ | async"
             [isAuthenticated]="isAuthenticated"
-            (deleteItem)="deleteUser($event)"
-            (editItem)="editUser($event)"></app-list-display>
+            (deleteItem)="deletePath($event)"
+            (editItem)="editPath($event)"></app-list-display>
         </section>
       </section>
     </section>
   `,
-    styles: [
-        `
-      header {
-        padding-bottom: 10px;
-      }
-    `,
-    ]
+  styles: ['header { padding-bottom: 10px; }'],
 })
-export default class UserListComponent implements OnInit {
+export default class PathListComponent implements OnInit {
   readonly #modal = inject(NgbModal);
   readonly #modalDataService = inject(ModalDataService);
   readonly #router = inject(Router);
   readonly #store = inject(Store<fromRoot.State>);
 
-  protected readonly columns = ['name', 'email', 'role'];
-  protected readonly headers = ['Name', 'Email', 'Role'];
+  protected columns = ['name'];
+  protected headers = ['Path'];
   protected readonly isAuthenticated = true;
-  protected users$: Observable<any[]>;
+  protected paths$: Observable<any[]>;
 
   ngOnInit() {
-    this.#store.dispatch(usersActions.loadUsers());
-    this.users$ = this.#store.pipe(select(usersFeature.selectUsers));
+    this.#store.dispatch(pathsActions.loadPaths());
+    this.paths$ = this.#store.pipe(select(pathsFeature.selectPaths));
   }
 
-  deleteUser(id) {
+  deletePath(id) {
     const modalOptions = {
-      title: 'Are you sure you want to delete this user?',
+      title: 'Are you sure you want to delete this path?',
       body: 'All information associated to this source will be permanently deleted.',
       warning: 'This operation cannot be undone.',
     };
     this.#modalDataService.setDeleteModalOptions(modalOptions);
     this.#modal.open(DeleteComponent).result.then((_result) => {
-      this.#store.dispatch(usersActions.deleteUser({ id }));
+      this.#store.dispatch(pathsActions.deletePath({ id: id }));
     });
   }
 
-  editUser(id: number) {
-    this.#router.navigate(['/admin/users', id]);
+  editPath(id: number) {
+    this.#router.navigate(['/admin/paths', id]);
+  }
+
+  newPath() {
+    this.#router.navigate(['/admin/paths/new']);
   }
 }

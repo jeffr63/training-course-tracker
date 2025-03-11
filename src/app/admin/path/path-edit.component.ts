@@ -8,14 +8,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import { pathsActions } from '@store/paths/paths.actions';
-import { pathsFeature } from '@store/paths/paths.state';
+import { pathsActions } from '@store/path/paths.actions';
+import { pathsFeature } from '@store/path/paths.state';
 import { Path } from '@models/paths';
 
 @Component({
-    selector: 'app-path-edit',
-    imports: [NgbModule, ReactiveFormsModule, RouterLink],
-    template: `
+  selector: 'app-path-edit',
+  imports: [NgbModule, ReactiveFormsModule, RouterLink],
+  template: `
     <section class="container">
       <section class="card">
         @if (pathEditForm) {
@@ -31,16 +31,20 @@ import { Path } from '@models/paths';
           </fieldset>
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid"><i class="bi bi-save"></i> Save</button>
-            <a class="btn btn-secondary" [routerLink]="['/admin/paths']" title="Cancel"> <i class="bi bi-x-circle"></i> Cancel </a>
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!pathEditForm.valid">
+              <i class="bi bi-save"></i> Save
+            </button>
+            <a class="btn btn-secondary" [routerLink]="['/admin/paths']" title="Cancel">
+              <i class="bi bi-x-circle"></i> Cancel
+            </a>
           </div>
         </form>
         }
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       section .card {
         margin-top: 30px;
         padding-left: 15px;
@@ -50,7 +54,7 @@ import { Path } from '@models/paths';
         margin-left: 3px;
       }
     `,
-    ]
+  ],
 })
 export default class PathEditComponent implements OnInit {
   readonly #fb = inject(FormBuilder);

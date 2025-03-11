@@ -8,14 +8,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import { sourcesActions } from '@store/sources/sources.actions';
-import { sourcesFeature } from '@store/sources/sources.state';
+import { sourcesActions } from '@store/source/sources.actions';
+import { sourcesFeature } from '@store/source/sources.state';
 import { Source } from '@models/sources';
 
 @Component({
-    selector: 'app-source-edit',
-    imports: [NgbModule, ReactiveFormsModule, RouterLink],
-    template: `
+  selector: 'app-source-edit',
+  imports: [NgbModule, ReactiveFormsModule, RouterLink],
+  template: `
     <section class="container">
       <section class="card">
         @if (sourceEditForm) {
@@ -31,16 +31,20 @@ import { Source } from '@models/sources';
           </fieldset>
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!sourceEditForm.valid"><i class="bi bi-save"></i> Save</button>
-            <a class="btn btn-secondary" [routerLink]="['/admin/sources']" title="Cancel"> <i class="bi bi-x-circle"></i> Cancel </a>
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!sourceEditForm.valid">
+              <i class="bi bi-save"></i> Save
+            </button>
+            <a class="btn btn-secondary" [routerLink]="['/admin/sources']" title="Cancel">
+              <i class="bi bi-x-circle"></i> Cancel
+            </a>
           </div>
         </form>
         }
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       section .card {
         margin-top: 30px;
         padding-left: 15px;
@@ -50,7 +54,7 @@ import { Source } from '@models/sources';
         margin-left: 3px;
       }
     `,
-    ]
+  ],
 })
 export default class SourceEditComponent implements OnInit {
   readonly #fb = inject(FormBuilder);

@@ -7,7 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import * as fromRoot from '@store/index';
-import { AuthService } from '@services/auth.service';
+import { AuthService } from '@services/auth/auth.service';
 import { Course } from '@models/course';
 import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
@@ -17,9 +17,9 @@ import { ModalDataService } from '@modals/modal-data.service';
 import { PagerListHeaderComponent } from '@shared/list/pager-list-header.component';
 
 @Component({
-    selector: 'app-course-list',
-    imports: [AsyncPipe, NgbModule, PagerListHeaderComponent, ListDisplayComponent],
-    template: `
+  selector: 'app-course-list',
+  imports: [AsyncPipe, NgbModule, PagerListHeaderComponent, ListDisplayComponent],
+  template: `
     <section>
       <section class="card">
         <header>
@@ -48,7 +48,7 @@ import { PagerListHeaderComponent } from '@shared/list/pager-list-header.compone
       </section>
     </section>
   `,
-    styles: []
+  styles: [],
 })
 export default class CourseListComponent implements OnInit {
   readonly #store = inject(Store<fromRoot.State>);

@@ -7,79 +7,72 @@ import { Store, select } from '@ngrx/store';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import { sourcesActions } from '@store/sources/sources.actions';
-import { sourcesFeature } from '@store/sources/sources.state';
+import { usersActions } from '@store/user/users.actions';
+import { usersFeature } from '@store/user/users.state';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
-import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
-import { Source } from '@models/sources';
+import { User } from '@models/user';
 
 @Component({
-    selector: 'app-source-list',
-    imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
-    template: `
+  selector: 'app-users-list',
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent],
+  template: `
     <section>
       <section class="card">
         <header>
-          <h1 class="card-header">Sources</h1>
+          <h1 class="card-header">Users</h1>
         </header>
 
         <section class="card-body">
-          <app-list-header (newItem)="newSource()"></app-list-header>
-
           <app-list-display
             [headers]="headers"
             [columns]="columns"
-            [items]="source$ | async"
+            [items]="users$ | async"
             [isAuthenticated]="isAuthenticated"
-            (deleteItem)="deleteSource($event)"
-            (editItem)="editSource($event)"></app-list-display>
+            (deleteItem)="deleteUser($event)"
+            (editItem)="editUser($event)"></app-list-display>
         </section>
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       header {
         padding-bottom: 10px;
       }
     `,
-    ]
+  ],
 })
-export default class SourceListComponent implements OnInit {
+export default class UserListComponent implements OnInit {
   readonly #modal = inject(NgbModal);
   readonly #modalDataService = inject(ModalDataService);
   readonly #router = inject(Router);
   readonly #store = inject(Store<fromRoot.State>);
 
-  protected columns = ['name'];
-  protected headers = ['Source'];
+  protected readonly columns = ['name', 'email', 'role'];
+  protected readonly headers = ['Name', 'Email', 'Role'];
   protected readonly isAuthenticated = true;
-  protected source$: Observable<any[]>;
+  protected users$: Observable<any[]>;
 
   ngOnInit() {
-    this.#store.dispatch(sourcesActions.loadSources());
-    this.source$ = this.#store.pipe(select(sourcesFeature.selectSources));
+    this.#store.dispatch(usersActions.loadUsers());
+    this.users$ = this.#store.pipe(select(usersFeature.selectUsers));
   }
 
-  deleteSource(id) {
+  deleteUser(id) {
     const modalOptions = {
-      title: 'Are you sure you want to delete this source?',
+      title: 'Are you sure you want to delete this user?',
       body: 'All information associated to this source will be permanently deleted.',
       warning: 'This operation cannot be undone.',
     };
     this.#modalDataService.setDeleteModalOptions(modalOptions);
     this.#modal.open(DeleteComponent).result.then((_result) => {
-      this.#store.dispatch(sourcesActions.deleteSource({ id }));
+      this.#store.dispatch(usersActions.deleteUser({ id }));
     });
   }
 
-  editSource(id: number) {
-    this.#router.navigate(['/admin/sources', id]);
-  }
-
-  newSource() {
-    this.#router.navigate(['/admin/sources/new']);
+  editUser(id: number) {
+    this.#router.navigate(['/admin/users', id]);
   }
 }

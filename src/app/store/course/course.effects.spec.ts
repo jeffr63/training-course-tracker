@@ -3,7 +3,7 @@ import { Observable, of, skip, take, throwError } from 'rxjs';
 import { coursesActions } from './course.actions';
 import { Course } from '@models/course';
 import { courseEffects } from './course.effects';
-import { CoursesService } from '@services/courses.service';
+import { CoursesService } from '@services/course/courses.service';
 
 const course: Course = {
   id: 1,

@@ -2,77 +2,84 @@ import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import * as fromRoot from '@store/index';
-import { pathsFeature } from '@store/paths/paths.state';
-import { pathsActions } from '@store/paths/paths.actions';
+import { sourcesActions } from '@store/source/sources.actions';
+import { sourcesFeature } from '@store/source/sources.state';
 import { DeleteComponent } from '@modals/delete.component';
 import { ListDisplayComponent } from '@shared/list/list-display.component';
 import { ListHeaderComponent } from '@shared/list/list-header.component';
 import { ModalDataService } from '@modals/modal-data.service';
+import { Source } from '@models/sources';
 
 @Component({
-    selector: 'app-path-list',
-    imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
-    template: `
+  selector: 'app-source-list',
+  imports: [AsyncPipe, NgbModule, ListDisplayComponent, ListHeaderComponent],
+  template: `
     <section>
       <section class="card">
         <header>
-          <h1 class="card-header">Paths</h1>
+          <h1 class="card-header">Sources</h1>
         </header>
 
         <section class="card-body">
-          <app-list-header (newItem)="newPath()"></app-list-header>
+          <app-list-header (newItem)="newSource()"></app-list-header>
 
           <app-list-display
             [headers]="headers"
             [columns]="columns"
-            [items]="paths$ | async"
+            [items]="source$ | async"
             [isAuthenticated]="isAuthenticated"
-            (deleteItem)="deletePath($event)"
-            (editItem)="editPath($event)"></app-list-display>
+            (deleteItem)="deleteSource($event)"
+            (editItem)="editSource($event)"></app-list-display>
         </section>
       </section>
     </section>
   `,
-    styles: ['header { padding-bottom: 10px; }']
+  styles: [
+    `
+      header {
+        padding-bottom: 10px;
+      }
+    `,
+  ],
 })
-export default class PathListComponent implements OnInit {
+export default class SourceListComponent implements OnInit {
   readonly #modal = inject(NgbModal);
   readonly #modalDataService = inject(ModalDataService);
   readonly #router = inject(Router);
   readonly #store = inject(Store<fromRoot.State>);
 
   protected columns = ['name'];
-  protected headers = ['Path'];
+  protected headers = ['Source'];
   protected readonly isAuthenticated = true;
-  protected paths$: Observable<any[]>;
+  protected source$: Observable<any[]>;
 
   ngOnInit() {
-    this.#store.dispatch(pathsActions.loadPaths());
-    this.paths$ = this.#store.pipe(select(pathsFeature.selectPaths));
+    this.#store.dispatch(sourcesActions.loadSources());
+    this.source$ = this.#store.pipe(select(sourcesFeature.selectSources));
   }
 
-  deletePath(id) {
+  deleteSource(id) {
     const modalOptions = {
-      title: 'Are you sure you want to delete this path?',
+      title: 'Are you sure you want to delete this source?',
       body: 'All information associated to this source will be permanently deleted.',
       warning: 'This operation cannot be undone.',
     };
     this.#modalDataService.setDeleteModalOptions(modalOptions);
     this.#modal.open(DeleteComponent).result.then((_result) => {
-      this.#store.dispatch(pathsActions.deletePath({ id: id }));
+      this.#store.dispatch(sourcesActions.deleteSource({ id }));
     });
   }
 
-  editPath(id: number) {
-    this.#router.navigate(['/admin/paths', id]);
+  editSource(id: number) {
+    this.#router.navigate(['/admin/sources', id]);
   }
 
-  newPath() {
-    this.#router.navigate(['/admin/paths/new']);
+  newSource() {
+    this.#router.navigate(['/admin/sources/new']);
   }
 }

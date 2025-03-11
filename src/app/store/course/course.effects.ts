@@ -6,7 +6,7 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 
 import { coursesActions } from './course.actions';
 import { Course } from '@models/course';
-import { CoursesService } from '@services/courses.service';
+import { CoursesService } from '@services/course/courses.service';
 
 const deleteCourse$ = createEffect(
   (actions$ = inject(Actions), courseService = inject(CoursesService)) => {

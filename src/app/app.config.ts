@@ -8,15 +8,15 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { APP_ROUTES } from './app.routes';
-import { CustomTitleStrategyService } from '@resolvers/custom-title-strategy.service';
+import { CustomTitleStrategyService } from '@services/common/custom-title-strategy.service';
 import { courseEffects } from '@store/course/course.effects';
 import { coursesFeature } from '@store/course/course.state';
-import { pathsEffects } from '@store/paths/paths.effects';
-import { pathsFeature } from '@store/paths/paths.state';
-import { sourcesEffects } from '@store/sources/sources.effects';
-import { sourcesFeature } from '@store/sources/sources.state';
-import { usersEffects } from '@store/users/users.effects';
-import { usersFeature } from '@store/users/users.state';
+import { pathsEffects } from '@store/path/paths.effects';
+import { pathsFeature } from '@store/path/paths.state';
+import { sourcesEffects } from '@store/source/sources.effects';
+import { sourcesFeature } from '@store/source/sources.state';
+import { usersEffects } from '@store/user/users.effects';
+import { usersFeature } from '@store/user/users.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -11,15 +11,15 @@ import * as fromRoot from '@store/index';
 import { Course } from '@models/course';
 import { coursesActions } from '@store/course/course.actions';
 import { coursesFeature } from '@store/course/course.state';
-import { pathsActions } from '@store/paths/paths.actions';
-import { pathsFeature } from '@store/paths/paths.state';
-import { sourcesActions } from '@store/sources/sources.actions';
-import { sourcesFeature } from '@store/sources/sources.state';
+import { pathsActions } from '@store/path/paths.actions';
+import { pathsFeature } from '@store/path/paths.state';
+import { sourcesActions } from '@store/source/sources.actions';
+import { sourcesFeature } from '@store/source/sources.state';
 
 @Component({
-    selector: 'app-course-edit',
-    imports: [NgbModule, ReactiveFormsModule, RouterLink],
-    template: `
+  selector: 'app-course-edit',
+  imports: [NgbModule, ReactiveFormsModule, RouterLink],
+  template: `
     <section class="container">
       <section class="card">
         @if (courseEditForm) {
@@ -27,7 +27,11 @@ import { sourcesFeature } from '@store/sources/sources.state';
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="title">Title</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="title" placeholder="Enter title of course taken" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="title"
+                placeholder="Enter title of course taken" />
               @if (courseEditForm.controls.title.errors?.required && courseEditForm.controls.title.touched) {
               <small class="text-danger">Title is required</small>
               }
@@ -37,7 +41,11 @@ import { sourcesFeature } from '@store/sources/sources.state';
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="instructor">Instructor</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="instructor" placeholder="Enter name of course's intructor" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="instructor"
+                placeholder="Enter name of course's intructor" />
               @if (courseEditForm.controls.instructor.errors?.required && courseEditForm.controls.instructor.touched) {
               <small class="text-danger">Instructor is required</small>
               }
@@ -47,7 +55,12 @@ import { sourcesFeature } from '@store/sources/sources.state';
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="path">Path</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="path" list="path-helpers" placeholder="Enter techical path of course (ex: Angular or React)" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="path"
+                list="path-helpers"
+                placeholder="Enter techical path of course (ex: Angular or React)" />
               <datalist id="path-helpers">
                 @for (path of paths(); track path.id) {
                 <option value="{{ path.name }}"></option>
@@ -62,7 +75,12 @@ import { sourcesFeature } from '@store/sources/sources.state';
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="source">Source</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" formControlName="source" list="source-helpers" placeholder="Enter where the course was sourced from (ex: Pluralsite)" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="source"
+                list="source-helpers"
+                placeholder="Enter where the course was sourced from (ex: Pluralsite)" />
               <datalist id="source-helpers">
                 @for (source of sources(); track source.id) {
                 <option value="{{ source.name }}"></option>
@@ -75,7 +93,9 @@ import { sourcesFeature } from '@store/sources/sources.state';
           </fieldset>
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!courseEditForm.valid"><i class="bi bi-save"></i> Save</button>
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!courseEditForm.valid">
+              <i class="bi bi-save"></i> Save
+            </button>
             <a class="btn btn-secondary" [routerLink]="['/courses']"> <i class="bi bi-x-circle"></i> Cancel </a>
           </div>
         </form>
@@ -83,8 +103,8 @@ import { sourcesFeature } from '@store/sources/sources.state';
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       section .card {
         margin-top: 30px;
         padding-left: 15px;
@@ -95,7 +115,7 @@ import { sourcesFeature } from '@store/sources/sources.state';
         margin-left: 3px;
       }
     `,
-    ]
+  ],
 })
 export default class CourseEditComponent implements OnInit {
   readonly #fb = inject(FormBuilder);

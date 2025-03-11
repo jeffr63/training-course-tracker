@@ -8,14 +8,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
-import { usersActions } from '@store/users/users.actions';
-import { usersFeature } from '@store/users/users.state';
+import { usersActions } from '@store/user/users.actions';
+import { usersFeature } from '@store/user/users.state';
 import { User } from '@models/user';
 
 @Component({
-    selector: 'app-user-edit',
-    imports: [NgbModule, ReactiveFormsModule, RouterLink],
-    template: `
+  selector: 'app-user-edit',
+  imports: [NgbModule, ReactiveFormsModule, RouterLink],
+  template: `
     <section class="container">
       <section class="card">
         @if (userEditForm) {
@@ -58,16 +58,20 @@ import { User } from '@models/user';
           </fieldset>
 
           <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!userEditForm.valid"><i class="bi bi-save"></i> Save</button>
-            <a class="btn btn-secondary" [routerLink]="['/admin/users']" title="Cancel"> <i class="bi bi-x-circle"></i> Cancel </a>
+            <button class="btn btn-primary me-sm-2" (click)="save()" title="Save" [disabled]="!userEditForm.valid">
+              <i class="bi bi-save"></i> Save
+            </button>
+            <a class="btn btn-secondary" [routerLink]="['/admin/users']" title="Cancel">
+              <i class="bi bi-x-circle"></i> Cancel
+            </a>
           </div>
         </form>
         }
       </section>
     </section>
   `,
-    styles: [
-        `
+  styles: [
+    `
       section .card {
         margin-top: 30px;
         padding-left: 15px;
@@ -77,7 +81,7 @@ import { User } from '@models/user';
         margin-left: 3px;
       }
     `,
-    ]
+  ],
 })
 export default class UserEditComponent implements OnInit {
   readonly #fb = inject(FormBuilder);

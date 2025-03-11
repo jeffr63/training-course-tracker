@@ -6,7 +6,7 @@ import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import { usersActions } from './users.actions';
 import { User } from '@models/user';
-import { UsersService } from '@services/user.service';
+import { UsersService } from '@services/user/user.service';
 
 const deleteUser$ = createEffect(
   (actions$ = inject(Actions), usersService = inject(UsersService)) => {
