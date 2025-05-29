@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { Path } from '@models/paths';
+import { Path } from '@models/paths-interface';
 
 export const pathsActions = createActionGroup({
   source: 'Paths',

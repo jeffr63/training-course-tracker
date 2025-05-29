@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 import { sourcesActions } from './sources.actions';
-import { Source } from '@models/sources';
+import { Source } from '@models/sources-interface';
 
 export interface State {
   sources: Source[];

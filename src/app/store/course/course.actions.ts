@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import { Course } from '@models/course';
+import { Course } from '@models/course-interface';
 
 export const coursesActions = createActionGroup({
   source: 'Courses',
