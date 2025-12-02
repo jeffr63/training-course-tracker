@@ -5,11 +5,11 @@ import { map, catchError, concatMap } from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 
 import { coursesActions } from './course.actions';
-import { Course } from '@models/course';
-import { CoursesService } from '@services/course/courses.service';
+import { Course } from '@models/course-interface';
+import { CoursesData } from '@shared/services/course/courses-data';
 
 const deleteCourse$ = createEffect(
-  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
+  (actions$ = inject(Actions), courseService = inject(CoursesData)) => {
     return actions$.pipe(
       ofType(coursesActions.deleteCourse),
       concatMap(({ id, current, pageSize }) =>
@@ -28,7 +28,7 @@ const deleteCourse$ = createEffect(
 );
 
 const getCourse$ = createEffect(
-  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
+  (actions$ = inject(Actions), courseService = inject(CoursesData)) => {
     return actions$.pipe(
       ofType(coursesActions.getCourse),
       concatMap(({ id }) =>
@@ -43,7 +43,7 @@ const getCourse$ = createEffect(
 );
 
 const loadCourses$ = createEffect(
-  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
+  (actions$ = inject(Actions), courseService = inject(CoursesData)) => {
     return actions$.pipe(
       ofType(coursesActions.loadCourses),
       concatMap(({ current, pageSize }) =>
@@ -58,7 +58,7 @@ const loadCourses$ = createEffect(
 );
 
 const saveCourse$ = createEffect(
-  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
+  (actions$ = inject(Actions), courseService = inject(CoursesData)) => {
     return actions$.pipe(
       ofType(coursesActions.saveCourse),
       concatMap(({ course }) =>
@@ -73,7 +73,7 @@ const saveCourse$ = createEffect(
 );
 
 const totalCourses$ = createEffect(
-  (actions$ = inject(Actions), courseService = inject(CoursesService)) => {
+  (actions$ = inject(Actions), courseService = inject(CoursesData)) => {
     return actions$.pipe(
       ofType(coursesActions.getTotalCourses),
       concatMap(() =>

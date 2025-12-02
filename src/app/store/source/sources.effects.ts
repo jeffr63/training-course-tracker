@@ -5,11 +5,11 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import { sourcesActions } from './sources.actions';
-import { Source } from '@models/sources';
-import { SourcesService } from '@services/source/sources.service';
+import { Source } from '@models/sources-interface';
+import { SourcesData } from '@shared/services/source/sources-data';
 
 const deleteSource$ = createEffect(
-  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
+  (actions$ = inject(Actions), sourcesService = inject(SourcesData)) => {
     return actions$.pipe(
       ofType(sourcesActions.deleteSource),
       switchMap(({ id }) =>
@@ -24,7 +24,7 @@ const deleteSource$ = createEffect(
 );
 
 const getSource$ = createEffect(
-  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
+  (actions$ = inject(Actions), sourcesService = inject(SourcesData)) => {
     return actions$.pipe(
       ofType(sourcesActions.getSource),
       concatMap(({ id }) =>
@@ -39,7 +39,7 @@ const getSource$ = createEffect(
 );
 
 const loadSources$ = createEffect(
-  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
+  (actions$ = inject(Actions), sourcesService = inject(SourcesData)) => {
     return actions$.pipe(
       ofType(sourcesActions.loadSources),
       switchMap(() =>
@@ -54,7 +54,7 @@ const loadSources$ = createEffect(
 );
 
 const saveSource$ = createEffect(
-  (actions$ = inject(Actions), sourcesService = inject(SourcesService)) => {
+  (actions$ = inject(Actions), sourcesService = inject(SourcesData)) => {
     return actions$.pipe(
       ofType(sourcesActions.saveSource),
       concatMap(({ source }) =>

@@ -3,7 +3,7 @@ import { of, skip, take, throwError } from 'rxjs';
 import { usersActions } from './users.actions';
 import { usersEffects } from './users.effects';
 import { UsersService } from '@services/user.service';
-import { User } from '@models/user';
+import { User } from '@models/user-interface';
 
 const user = { id: 1, name: 'Joe', email: 'joe@joe.com', password: 'abc', role: 'admin' };
 

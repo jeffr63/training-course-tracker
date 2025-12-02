@@ -1,7 +1,7 @@
 import { usersActions } from './users.actions';
 import { reducer } from './users.state';
 import { initialState } from './users.state';
-import { User } from '@models/user';
+import { User } from '@models/user-interface';
 
 describe('Users Reducer', () => {
   describe('an unknown action', () => {

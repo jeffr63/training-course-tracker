@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 import { usersActions } from './users.actions';
-import { User } from '@models/user';
+import { User } from '@models/user-interface';
 
 export interface State {
   users: User[];

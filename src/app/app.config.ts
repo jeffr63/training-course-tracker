@@ -8,7 +8,7 @@ import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { APP_ROUTES } from './app.routes';
-import { CustomTitleStrategyService } from '@services/common/custom-title-strategy.service';
+import { CustomTitleStrategy } from '@shared/services/common/custom-title-strategy';
 import { courseEffects } from '@store/course/course.effects';
 import { coursesFeature } from '@store/course/course.state';
 import { pathsEffects } from '@store/path/paths.effects';
@@ -21,7 +21,7 @@ import { usersFeature } from '@store/user/users.state';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    { provide: TitleStrategy, useClass: CustomTitleStrategyService },
+    { provide: TitleStrategy, useClass: CustomTitleStrategy },
     provideAnimations(),
     provideHttpClient(),
     provideStore(),

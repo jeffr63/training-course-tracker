@@ -5,11 +5,11 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map, concatMap } from 'rxjs/operators';
 
 import { usersActions } from './users.actions';
-import { User } from '@models/user';
-import { UsersService } from '@services/user/user.service';
+import { User } from '@models/user-interface';
+import { UsersData } from '@shared/services/user/user-data';
 
 const deleteUser$ = createEffect(
-  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
+  (actions$ = inject(Actions), usersService = inject(UsersData)) => {
     return actions$.pipe(
       ofType(usersActions.deleteUser),
       switchMap(({ id }) =>
@@ -24,7 +24,7 @@ const deleteUser$ = createEffect(
 );
 
 const getUser$ = createEffect(
-  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
+  (actions$ = inject(Actions), usersService = inject(UsersData)) => {
     return actions$.pipe(
       ofType(usersActions.getUser),
       concatMap(({ id }) =>
@@ -39,7 +39,7 @@ const getUser$ = createEffect(
 );
 
 const loadUsers$ = createEffect(
-  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
+  (actions$ = inject(Actions), usersService = inject(UsersData)) => {
     return actions$.pipe(
       ofType(usersActions.loadUsers),
       switchMap(() =>
@@ -54,7 +54,7 @@ const loadUsers$ = createEffect(
 );
 
 const patchUser$ = createEffect(
-  (actions$ = inject(Actions), usersService = inject(UsersService)) => {
+  (actions$ = inject(Actions), usersService = inject(UsersData)) => {
     return actions$.pipe(
       ofType(usersActions.patchUser),
       concatMap(({ id, user }) =>

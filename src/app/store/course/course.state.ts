@@ -2,7 +2,7 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { coursesActions } from './course.actions';
-import { Course, CourseData } from '@models/course';
+import { Course, CourseData } from '@models/course-interface';
 
 export interface State {
   courses: Course[];

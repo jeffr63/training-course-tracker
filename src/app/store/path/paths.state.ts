@@ -1,7 +1,7 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 
 import { pathsActions } from './paths.actions';
-import { Path } from '@models/paths';
+import { Path } from '@models/paths-interface';
 
 export interface State {
   paths: Path[];

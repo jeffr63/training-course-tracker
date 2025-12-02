@@ -1,7 +1,7 @@
 import { sourcesActions } from './sources.actions';
 import { reducer } from './sources.state';
 import { initialState } from './sources.state';
-import { Source } from '@models/sources';
+import { Source } from '@models/sources-interface';
 
 describe('Sources Reducer', () => {
   describe('an unknown action', () => {

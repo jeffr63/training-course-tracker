@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthService } from '@services/auth/auth.service';
-import { LoginComponent } from '@modals/login.component';
-import { MenuToolbarComponent } from './menu-toolbar.component';
+import { AuthService } from '@shared/services/auth/auth-service';
+import { LoginModal } from '@modals/login-modal';
+import { MenuToolbar } from './menu-toolbar';
 
 @Component({
   selector: 'app-menu',
-  imports: [MenuToolbarComponent],
+  imports: [MenuToolbar],
   template: `<app-menu-toolbar
     [isAdmin]="isAdmin()"
     [isLoggedIn]="isLoggedIn()"
@@ -18,7 +18,7 @@ import { MenuToolbarComponent } from './menu-toolbar.component';
     (logout)="logout()"
     (toggleNavigation)="toggleNavigation()" />`,
 })
-export class MenuComponent {
+export class Menu {
   readonly #auth = inject(AuthService);
   readonly #modalService = inject(NgbModal);
   readonly #router = inject(Router);
@@ -28,7 +28,7 @@ export class MenuComponent {
   protected readonly isAdmin = this.#auth.isLoggedInAsAdmin;
 
   login() {
-    this.#modalService.open(LoginComponent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    this.#modalService.open(LoginModal, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       if (result) {
         this.#auth.login(result.email, result.password).subscribe();
       }
