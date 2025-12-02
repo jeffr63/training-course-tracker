@@ -1,6 +1,6 @@
 # Training Course Tracker - ngrx
 
-[Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
+[Angular CLI](https://github.com/angular/angular-cli) version 21.0.1
 
 ## Technologies included
 
