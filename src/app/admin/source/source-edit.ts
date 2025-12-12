@@ -28,10 +28,10 @@ export default class SourceEdit {
     stream: ({ params: id }) => {
       if (id === 'new') return of({ name: '' });
 
-      this.#store.dispatch(sourcesActions.getSource({ id: +this.id() }));
+      this.#store.dispatch(sourcesActions.getSource({ id: +id }));
       return this.#store.select(sourcesFeature.selectCurrentSource);
-    }
-});
+    },
+  });
 
   readonly form = form<Source>(this.#source.value, SOURCE_EDIT_SCHEMA);
 

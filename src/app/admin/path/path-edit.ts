@@ -28,7 +28,7 @@ export default class PathEdit {
     stream: ({ params: id }) => {
       if (id === 'new') return of({ name: '' });
 
-      this.#store.dispatch(pathsActions.getPath({ id: +this.id() }));
+      this.#store.dispatch(pathsActions.getPath({ id: +id }));
       return this.#store.select(pathsFeature.selectCurrentPath);
     },
   });

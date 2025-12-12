@@ -27,6 +27,7 @@ export default class UserEdit {
     params: () => this.id(),
     stream: ({ params: id }) => {
       if (id === 'new') return of({ name: '', email: '', role: '', password: '' });
+
       this.#store.dispatch(usersActions.getUser({ id: +id }));
       return this.#store.select(usersFeature.selectCurrentUser);
     },
