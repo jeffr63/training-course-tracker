@@ -6,12 +6,14 @@ import { MaxValidationError, MinValidationError, ValidationError } from '@angula
   imports: [],
   template: `
     @if (errors()) {
+    <div style="display:flex: flex-direction: column;">
       @for (error of errors(); track error.kind) {
-        {{ getError(error) }}
+      <div style="flex:1;color:red">{{ getError(error) }}</div>
       }
+    </div>
     }
   `,
-  styles: ``,
+  styles: `  `,
 })
 export class ValidationErrors {
   errors = input<ValidationError[]>([]);
