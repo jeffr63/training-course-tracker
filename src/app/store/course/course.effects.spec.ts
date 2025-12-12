@@ -1,4 +1,6 @@
-import { Observable, of, skip, take, throwError } from 'rxjs';
+import { describe, it, expect } from 'vitest';
+
+import { of, skip, take, throwError } from 'rxjs';
 
 import { coursesActions } from './course.actions';
 import { Course } from '@models/course-interface';
@@ -25,7 +27,7 @@ const courses: Course[] = [
 
 describe(`Course Effects`, () => {
   describe(`deleteCourse$ effect`, () => {
-    it(`should return deleteCoursesSuccess, with courses, on success`, (done) => {
+    it(`should return deleteCoursesSuccess, with courses, on success`, async () => {
       const courseServiceMock = {
         deleteCourse: (id) => of(1),
       } as unknown as CoursesData;
@@ -48,10 +50,9 @@ describe(`Course Effects`, () => {
         .subscribe((action) => {
           expect(action).toEqual(coursesActions.deleteCourseSuccess());
         });
-      done();
     });
 
-    it(`should return deleteCoursesFailure, with error, on failure`, (done) => {
+    it(`should return deleteCoursesFailure, with error, on failure`, async () => {
       const courseServiceMock = {
         deleteCourse: (id) => throwError(() => 'Failure'),
       } as unknown as CoursesData;
@@ -59,12 +60,11 @@ describe(`Course Effects`, () => {
       courseEffects.deleteCourse$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.deleteCourseFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`getCourse$ effect`, () => {
-    it(`should return getCourseSuccess, with course, on success`, (done) => {
+    it(`should return getCourseSuccess, with course, on success`, async () => {
       const courseServiceMock = {
         getCourse: () => of(course),
       } as unknown as CoursesData;
@@ -72,10 +72,9 @@ describe(`Course Effects`, () => {
       courseEffects.getCourse$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.getCourseSuccess({ course }));
       });
-      done();
     });
 
-    it(`should return getCoursesFailure, with error, on failure`, (done) => {
+    it(`should return getCoursesFailure, with error, on failure`, async () => {
       const courseServiceMock = {
         getCourse: () => throwError(() => 'Failure'),
       } as unknown as CoursesData;
@@ -83,12 +82,11 @@ describe(`Course Effects`, () => {
       courseEffects.getCourse$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.getCourseFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`loadCourses$ effect`, () => {
-    it(`should return loadCoursesSuccess, with courses, on success`, (done) => {
+    it(`should return loadCoursesSuccess, with courses, on success`, async () => {
       const courseServiceMock = {
         getCoursesPaged: () => of(courses),
       } as unknown as CoursesData;
@@ -96,10 +94,9 @@ describe(`Course Effects`, () => {
       courseEffects.loadCourses$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.loadCoursesSuccess({ courses }));
       });
-      done();
     });
 
-    it(`should return loadCoursesFailure, with error, on failure`, (done) => {
+    it(`should return loadCoursesFailure, with error, on failure`, async () => {
       const courseServiceMock = {
         getCoursesPaged: () => throwError(() => 'Failure'),
       } as unknown as CoursesData;
@@ -107,12 +104,11 @@ describe(`Course Effects`, () => {
       courseEffects.loadCourses$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.loadCoursesFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`saveCourse$ effect`, () => {
-    it(`should return saveCoursesSuccess, with courses, on success`, (done) => {
+    it(`should return saveCoursesSuccess, with courses, on success`, async () => {
       const courseServiceMock = {
         saveCourse: () => of(course),
       } as unknown as CoursesData;
@@ -129,10 +125,9 @@ describe(`Course Effects`, () => {
         .subscribe((action) => {
           expect(action).toEqual(coursesActions.saveCourseSuccess({ course }));
         });
-      done();
     });
 
-    it(`should return saveCoursesFailure, with error, on failure`, (done) => {
+    it(`should return saveCoursesFailure, with error, on failure`, async () => {
       const courseServiceMock = {
         saveCourse: () => throwError(() => 'Failure'),
       } as unknown as CoursesData;
@@ -140,12 +135,11 @@ describe(`Course Effects`, () => {
       courseEffects.saveCourse$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.saveCourseFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`totalsCourses$ effect`, () => {
-    it(`should return totalCoursesSuccess, with courses, on success`, (done) => {
+    it(`should return totalCoursesSuccess, with courses, on success`, async () => {
       const courseServiceMock = {
         getCourses: () => of(courses),
       } as unknown as CoursesData;
@@ -153,7 +147,6 @@ describe(`Course Effects`, () => {
       courseEffects.totalCourses$(action$, courseServiceMock).subscribe((action) => {
         expect(action).toEqual(coursesActions.getTotalCoursesSuccess({ courses }));
       });
-      done();
     });
   });
 });

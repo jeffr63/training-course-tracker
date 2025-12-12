@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { describe, it, expect, beforeEach } from 'vitest';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -19,7 +19,7 @@ describe('DashboardComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [],
-      imports: [BrowserAnimationsModule, Dashboard, NgxChartsModule],
+      imports: [Dashboard, NgxChartsModule],
       providers: [provideMockStore({ initialState })],
     }).compileComponents();
   }));

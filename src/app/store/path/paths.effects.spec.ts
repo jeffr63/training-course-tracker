@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { of, skip, take, throwError } from 'rxjs';
 
 import { pathsActions } from './paths.actions';
@@ -13,7 +15,7 @@ const paths = [
 
 describe(`Paths Effects`, () => {
   describe(`deletePath$ effect`, () => {
-    it(`should return deletePathSuccess, with id, on success`, (done) => {
+    it(`should return deletePathSuccess, with id, on success`, async () => {
       const pathServiceMock = {
         delete: (id) => of(1),
       } as unknown as PathsData;
@@ -21,10 +23,9 @@ describe(`Paths Effects`, () => {
       pathsEffects.deletePath$(action$, pathServiceMock).subscribe((action) => {
         expect(action).toEqual(pathsActions.deletePathSuccess({ id: 1 }));
       });
-      done();
     });
 
-    it(`should return deletePathFailure, with error, on failure`, (done) => {
+    it(`should return deletePathFailure, with error, on failure`, async () => {
       const pathServiceMock = {
         delete: () => throwError(() => 'Failure'),
       } as unknown as PathsData;
@@ -32,12 +33,11 @@ describe(`Paths Effects`, () => {
       pathsEffects.deletePath$(action$, pathServiceMock).subscribe((action) => {
         expect(action).toEqual(pathsActions.deletePathFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`getPath$ effect`, () => {
-    it(`should return getPathSuccess, with path, on success`, (done) => {
+    it(`should return getPathSuccess, with path, on success`, async () => {
       const pathServiceMock = {
         get: (id) => of(path),
       } as unknown as PathsData;
@@ -45,10 +45,9 @@ describe(`Paths Effects`, () => {
       pathsEffects.getPath$(action$, pathServiceMock).subscribe((action) => {
         expect(action).toEqual(pathsActions.getPathSuccess({ path }));
       });
-      done();
     });
 
-    it(`should return getPathFailure, with error, on failure`, (done) => {
+    it(`should return getPathFailure, with error, on failure`, async () => {
       const pathServiceMock = {
         get: () => throwError(() => 'Failure'),
       } as unknown as PathsData;
@@ -56,7 +55,6 @@ describe(`Paths Effects`, () => {
       pathsEffects.getPath$(action$, pathServiceMock).subscribe((action) => {
         expect(action).toEqual(pathsActions.getPathFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
@@ -71,7 +69,7 @@ describe(`Paths Effects`, () => {
       });
     });
 
-    it(`should return loadPathFailure, with error, on failure`, (done) => {
+    it(`should return loadPathFailure, with error, on failure`, async () => {
       const pathServiceMock = {
         load: () => throwError(() => 'Failure'),
       } as unknown as PathsData;
@@ -79,12 +77,11 @@ describe(`Paths Effects`, () => {
       pathsEffects.loadPaths$(action$, pathServiceMock).subscribe((action) => {
         expect(action).toEqual(pathsActions.loadPathsFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`savePath$ effect`, () => {
-    it(`should return savePathSuccess, with path, on success`, (done) => {
+    it(`should return savePathSuccess, with path, on success`, async () => {
       const pathServiceMock = {
         save: () => of(path),
       } as unknown as PathsData;
@@ -101,10 +98,9 @@ describe(`Paths Effects`, () => {
         .subscribe((action) => {
           expect(action).toEqual(pathsActions.savePathSuccess({ path }));
         });
-      done();
     });
 
-    it(`should return savePathFailure, with error, on failure`, (done) => {
+    it(`should return savePathFailure, with error, on failure`, async () => {
       const pathServiceMock = {
         save: () => throwError(() => 'Failure'),
       } as unknown as PathsData;
@@ -112,7 +108,6 @@ describe(`Paths Effects`, () => {
       pathsEffects.savePath$(action$, pathServiceMock).subscribe((action) => {
         expect(action).toEqual(pathsActions.savePathFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 });

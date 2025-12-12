@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { sourcesActions } from './sources.actions';
 
 describe('Sources Actions', () => {

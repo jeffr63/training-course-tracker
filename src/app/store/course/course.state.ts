@@ -22,7 +22,7 @@ export const initialState: State = {
   error: '',
 };
 
-const reducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(coursesActions.deleteCourseFailure, (state, { error }) => ({
     ...state,

@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { coursesActions } from './course.actions';
 
 describe('Courses Actions', () => {

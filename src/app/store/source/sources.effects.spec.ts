@@ -1,8 +1,11 @@
+import { describe, it, expect } from 'vitest';
+
+
 import { of, skip, take, throwError } from 'rxjs';
 
 import { sourcesActions } from './sources.actions';
 import { sourcesEffects } from './sources.effects';
-import { SourcesService } from '@services/sources.service';
+import { SourcesData } from '@services/source/sources-data';
 
 const source = { id: 1, name: 'ABC' };
 
@@ -13,50 +16,46 @@ const sources = [
 
 describe(`Sources Effects`, () => {
   describe(`deleteSource$ effect`, () => {
-    it(`should return deleteSourcesSuccess, with id, on success`, (done) => {
+    it(`should return deleteSourcesSuccess, with id, on success`, async () => {
       const sourceServiceMock = {
         delete: (id) => of(id),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.deleteSource({ id: 1 }));
       sourcesEffects.deleteSource$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.deleteSourceSuccess({ id: 1 }));
       });
-      done();
     });
 
-    it(`should return deleteSourceFailure, with error, on failure`, (done) => {
+    it(`should return deleteSourceFailure, with error, on failure`, async () => {
       const sourceServiceMock = {
         delete: (id) => throwError(() => 'Failure'),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.deleteSource({ id: 1 }));
       sourcesEffects.deleteSource$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.deleteSourceFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`getSource$ effect`, () => {
-    it(`should return getSourceSuccess, with source, on success`, (done) => {
+    it(`should return getSourceSuccess, with source, on success`, async () => {
       const sourceServiceMock = {
         get: (id) => of(source),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.getSource({ id: 1 }));
       sourcesEffects.getSource$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.getSourceSuccess({ source }));
       });
-      done();
     });
 
-    it(`should return getSourceFailure, with error, on failure`, (done) => {
+    it(`should return getSourceFailure, with error, on failure`, async () => {
       const sourceServiceMock = {
         get: (id) => throwError(() => 'Failure'),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.getSource({ id: 1 }));
       sourcesEffects.getSource$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.getSourceFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
@@ -64,30 +63,29 @@ describe(`Sources Effects`, () => {
     it(`should return LoadSuccess, with sources, on success`, () => {
       const sourceServiceMock = {
         load: () => of(sources),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.loadSources());
       sourcesEffects.loadSources$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.loadSourcesSuccess({ sources }));
       });
     });
 
-    it(`should return loadSourcesFailure, with error, on failure`, (done) => {
+    it(`should return loadSourcesFailure, with error, on failure`, async () => {
       const sourceServiceMock = {
         load: () => throwError(() => 'Failure'),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.loadSources());
       sourcesEffects.loadSources$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.loadSourcesFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 
   describe(`saveSource$ effect`, () => {
-    it(`should return SaveSuccess, with source, on success`, (done) => {
+    it(`should return SaveSuccess, with source, on success`, async () => {
       const sourceServiceMock = {
         save: () => of(source),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.saveSource({ source }));
       sourcesEffects
         .saveSource$(action$, sourceServiceMock)
@@ -101,18 +99,16 @@ describe(`Sources Effects`, () => {
         .subscribe((action) => {
           expect(action).toEqual(sourcesActions.saveSourceSuccess({ source }));
         });
-      done();
     });
 
-    it(`should return deleteSourceFailure, with error, on failure`, (done) => {
+    it(`should return deleteSourceFailure, with error, on failure`, async () => {
       const sourceServiceMock = {
         save: () => throwError(() => 'Failure'),
-      } as unknown as SourcesService;
+      } as unknown as SourcesData;
       const action$ = of(sourcesActions.saveSource({ source }));
       sourcesEffects.saveSource$(action$, sourceServiceMock).subscribe((action) => {
         expect(action).toEqual(sourcesActions.saveSourceFailure({ error: 'Failure' }));
       });
-      done();
     });
   });
 });
