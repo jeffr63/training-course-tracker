@@ -9,13 +9,13 @@ export interface State {
   error: string;
 }
 
-const initialState: State = {
+export const initialState: State = {
   sources: [],
   currentSource: null,
   error: '',
 };
 
-const reducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(sourcesActions.deleteSourceFailure, (state, { error }) => ({
     ...state,

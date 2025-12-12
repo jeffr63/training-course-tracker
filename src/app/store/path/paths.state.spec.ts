@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { pathsActions } from './paths.actions';
 import { reducer } from './paths.state';
 import { initialState } from './paths.state';

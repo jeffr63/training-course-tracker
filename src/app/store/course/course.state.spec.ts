@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest';
+
 import { coursesActions } from '@store/course/course.actions';
 import { reducer, initialState } from '@store/course/course.state';
 

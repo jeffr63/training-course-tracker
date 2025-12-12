@@ -1,57 +1,46 @@
-import { Component, DestroyRef, OnInit, inject, input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject, input } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 import { Store, select } from '@ngrx/store';
 
 import * as fromRoot from '@store/index';
 import { sourcesActions } from '@store/source/sources.actions';
 import { sourcesFeature } from '@store/source/sources.state';
-import { Source } from '@models/sources-interface';
+import { Source, SOURCE_EDIT_SCHEMA } from '@models/sources-interface';
 import { Router } from '@angular/router';
 import { SourceEditCard } from './source-edit-card';
+import { form } from '@angular/forms/signals';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-source-edit',
   imports: [SourceEditCard],
-  template: `<app-source-edit-card [(sourceEditForm)]="sourceEditForm" (cancel)="cancel()" (save)="save()" />`,
+  template: `<app-source-edit-card [form]="form" (cancel)="cancel()" (save)="save()" />`,
 })
-export default class SourceEdit implements OnInit {
-  readonly #fb = inject(FormBuilder);
-  readonly #location = inject(Location);
+export default class SourceEdit {
   readonly #store = inject(Store<fromRoot.State>);
-  readonly #ref = inject(DestroyRef);
   readonly #router = inject(Router);
 
   protected readonly id = input.required<string>();
-  protected sourceEditForm: FormGroup;
-  #source = <Source>{};
 
-  ngOnInit() {
-    this.sourceEditForm = this.#fb.group({
-      name: ['', Validators.required],
-    });
+  readonly #source = rxResource<Source, string>({
+    params: () => this.id(),
+    stream: ({ params: id }) => {
+      if (id === 'new') return of({ name: '' });
 
-    if (this.id() === 'new') return;
+      this.#store.dispatch(sourcesActions.getSource({ id: +id }));
+      return this.#store.select(sourcesFeature.selectCurrentSource);
+    },
+  });
 
-    this.#store.dispatch(sourcesActions.getSource({ id: +this.id() }));
-    this.#store
-      .pipe(select(sourcesFeature.selectCurrentSource))
-      .pipe(takeUntilDestroyed(this.#ref))
-      .subscribe((source: Source) => {
-        this.#source = { ...source };
-        this.sourceEditForm.get('name').setValue(this.#source.name);
-      });
-  }
+  readonly form = form<Source>(this.#source.value, SOURCE_EDIT_SCHEMA);
 
   cancel() {
     this.#router.navigate(['/admin/sources']);
   }
 
   save() {
-    this.#source.name = this.sourceEditForm.controls.name.value;
-    this.#store.dispatch(sourcesActions.saveSource({ source: this.#source }));
-    this.#location.back();
+    this.#store.dispatch(sourcesActions.saveSource({ source: this.#source.value() }));
+    this.#router.navigate(['/admin/sources']);
   }
 }

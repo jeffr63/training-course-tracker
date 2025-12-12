@@ -1,56 +1,45 @@
-import { Component, DestroyRef, OnInit, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { form } from '@angular/forms/signals';
+import { rxResource } from '@angular/core/rxjs-interop';
 
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 
 import * as fromRoot from '@store/index';
 import { pathsActions } from '@store/path/paths.actions';
 import { pathsFeature } from '@store/path/paths.state';
-import { Path } from '@models/paths-interface';
+import { Path, PATH_EDIT_SCHEMA } from '@models/paths-interface';
 import { PathEditCard } from './path-edit-card';
 
 @Component({
   selector: 'app-path-edit',
   imports: [PathEditCard],
-  template: `<app-path-edit-card [(pathEditForm)]="pathEditForm" (cancel)="cancel()" (save)="save()" />`,
+  template: `<app-path-edit-card [form]="form" (cancel)="cancel()" (save)="save()" />`,
 })
-export default class PathEdit implements OnInit {
-  readonly #fb = inject(FormBuilder);
-  readonly #location = inject(Location);
+export default class PathEdit {
   readonly #store = inject(Store<fromRoot.State>);
-  readonly #ref = inject(DestroyRef);
   readonly #router = inject(Router);
 
   protected readonly id = input.required<string>();
-  protected pathEditForm!: FormGroup;
-  #path = <Path>{};
 
-  ngOnInit() {
-    this.pathEditForm = this.#fb.group({
-      name: ['', Validators.required],
-    });
+  readonly #path = rxResource<Path, string>({
+    params: () => this.id(),
+    stream: ({ params: id }) => {
+      if (id === 'new') return of({ name: '' });
 
-    if (this.id() === 'new') return;
+      this.#store.dispatch(pathsActions.getPath({ id: +id }));
+      return this.#store.select(pathsFeature.selectCurrentPath);
+    },
+  });
 
-    this.#store.dispatch(pathsActions.getPath({ id: +this.id() }));
-    this.#store
-      .pipe(select(pathsFeature.selectCurrentPath))
-      .pipe(takeUntilDestroyed(this.#ref))
-      .subscribe((path: Path) => {
-        this.#path = { ...path };
-        this.pathEditForm.get('name').setValue(this.#path.name);
-      });
-  }
+  protected form = form(this.#path.value, PATH_EDIT_SCHEMA);
 
   protected cancel() {
     this.#router.navigate(['/admin/paths']);
   }
   protected save() {
-    this.#path.name = this.pathEditForm.controls.name.value;
-    this.#store.dispatch(pathsActions.savePath({ path: this.#path }));
-    this.#location.back();
+    this.#store.dispatch(pathsActions.savePath({ path: this.#path.value() }));
+    this.#router.navigate(['/admin/paths']);
   }
 }
