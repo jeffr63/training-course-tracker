@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Field, FieldTree } from '@angular/forms/signals';
+import { FormField, FieldTree } from '@angular/forms/signals';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,7 +10,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
 
 @Component({
   selector: 'app-course-edit-card',
-  imports: [NgbModule, Field, ValidationErrors],
+  imports: [NgbModule, FormField, ValidationErrors],
   template: `
     <section class="container">
       <section class="card">
@@ -22,7 +22,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                 <input
                   type="text"
                   class="form-control"
-                  [field]="form().title"
+                  [formField]="form().title"
                   placeholder="Enter title of course taken" />
                 @let ftitle = form().title();
                 @if (ftitle.invalid() && ftitle.touched()) {
@@ -37,7 +37,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                 <input
                   type="text"
                   class="form-control"
-                  [field]="form().instructor"
+                  [formField]="form().instructor"
                   placeholder="Enter name of course's intructor" />
                 @let finstructor = form().instructor();
                 @if (finstructor.invalid() && finstructor.touched()) {
@@ -52,7 +52,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                 <input
                   type="text"
                   class="form-control"
-                  [field]="form().path"
+                  [formField]="form().path"
                   list="path-helpers"
                   placeholder="Enter techical path of course (ex: Angular or React)" />
                 <datalist id="path-helpers">
@@ -73,7 +73,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                 <input
                   type="text"
                   class="form-control"
-                  [field]="form().source"
+                  [formField]="form().source"
                   list="source-helpers"
                   placeholder="Enter where the course was sourced from (ex: Pluralsite)" />
                 <datalist id="source-helpers">

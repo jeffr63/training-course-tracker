@@ -1,5 +1,4 @@
-import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { TitleStrategy, provideRouter, withComponentInputBinding } from '@angular/router';
 
@@ -20,9 +19,7 @@ import { usersFeature } from '@store/user/users.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: TitleStrategy, useClass: CustomTitleStrategy },
-    provideAnimations(),
     provideHttpClient(),
     provideStore(),
     provideState(coursesFeature),
