@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Field, FieldTree } from '@angular/forms/signals';
+import { FormField, FieldTree } from '@angular/forms/signals';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,7 +8,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
 
 @Component({
   selector: 'app-source-edit-card',
-  imports: [NgbModule, ValidationErrors, Field],
+  imports: [NgbModule, ValidationErrors, FormField],
   template: `
     <section class="container">
       <section class="card">
@@ -17,7 +17,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
           <fieldset class="m-2 row">
             <label class="col-form-label col-sm-2" for="name">Source Name</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" [field]="form().name" placeholder="Enter source name" />
+              <input type="text" class="form-control" [formField]="form().name" placeholder="Enter source name" />
               @let fname = form().name(); @if (fname.invalid() && fname.touched()) {
               <app-validation-errors [errors]="fname.errors()" />
               }
