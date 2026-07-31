@@ -1,13 +1,20 @@
-import { Component, input, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { RouterLink } from "@angular/router";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-menu-toolbar',
+  selector: "app-menu-toolbar",
   imports: [NgbModule, RouterLink],
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" [routerLink]="['/']" id="brand">Training Courses Tracker</a>
+      <a class="navbar-brand" [routerLink]="['/']" id="brand"
+        >Training Courses Tracker</a
+      >
 
       <button
         class="navbar-toggler"
@@ -17,25 +24,42 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
-        (click)="toggleNavigation.emit()">
+        (click)="toggleNavigation.emit()"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div (ngbCollapse)="isNavbarCollapsed()" class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div
+        (ngbCollapse)="isNavbarCollapsed()"
+        class="collapse navbar-collapse"
+        id="navbarNavAltMarkup"
+      >
         <div class="navbar-nav ms-auto">
-          <a class="nav-item nav-link active" [routerLink]="['/']" id="home">Home</a>
-          <a class="nav-item nav-link" [routerLink]="['/courses']" id="courses">Courses</a>
-          @if (isLoggedIn()) { @if (isAdmin()) {
-          <a class="nav-item nav-link" [routerLink]="['/admin']" id="admin">Admin</a>
-          }
-          <a class="nav-item nav-link" (click)="logout.emit()" id="logout">Logout</a>
+          <a class="nav-item nav-link active" [routerLink]="['/']" id="home"
+            >Home</a
+          >
+          <a class="nav-item nav-link" [routerLink]="['/courses']" id="courses"
+            >Courses</a
+          >
+          @if (isLoggedIn()) {
+            @if (isAdmin()) {
+              <a class="nav-item nav-link" [routerLink]="['/admin']" id="admin"
+                >Admin</a
+              >
+            }
+            <a class="nav-item nav-link" (click)="logout.emit()" id="logout"
+              >Logout</a
+            >
           } @else {
-          <a class="nav-item nav-link" (click)="login.emit()" id="login">Login</a>
+            <a class="nav-item nav-link" (click)="login.emit()" id="login"
+              >Login</a
+            >
           }
         </div>
       </div>
     </nav>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     div .nav-item {
       cursor: pointer;

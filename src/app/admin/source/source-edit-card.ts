@@ -1,42 +1,65 @@
-import { Component, input, output } from '@angular/core';
-import { FormField, FieldTree } from '@angular/forms/signals';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { FormField, FieldTree } from "@angular/forms/signals";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { Source } from '@models/sources-interface';
-import { ValidationErrors } from '@shared/components/validation-errors';
+import { Source } from "@models/sources-interface";
+import { ValidationErrors } from "@shared/components/validation-errors";
 
 @Component({
-  selector: 'app-source-edit-card',
+  selector: "app-source-edit-card",
   imports: [NgbModule, ValidationErrors, FormField],
   template: `
     <section class="container">
       <section class="card">
         @if (form()) {
-        <form>
-          <fieldset class="m-2 row">
-            <label class="col-form-label col-sm-2" for="name">Source Name</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" [formField]="form().name" placeholder="Enter source name" />
-              @let fname = form().name(); @if (fname.invalid() && fname.touched()) {
-              <app-validation-errors [errors]="fname.errors()" />
-              }
-            </div>
-          </fieldset>
+          <form>
+            <fieldset class="m-2 row">
+              <label class="col-form-label col-sm-2" for="name"
+                >Source Name</label
+              >
+              <div class="col-sm-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formField]="form().name"
+                  placeholder="Enter source name"
+                />
+                @let fname = form().name();
+                @if (fname.invalid() && fname.touched()) {
+                  <app-validation-errors [errors]="fname.errors()" />
+                }
+              </div>
+            </fieldset>
 
-          <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
-            <button class="btn btn-primary me-sm-2" (click)="save.emit()" title="Save" [disabled]="form()().invalid()">
-              <i class="bi bi-save"></i> Save
-            </button>
-            <a class="btn btn-secondary" (click)="cancel.emit()" title="Cancel">
-              <i class="bi bi-x-circle"></i> Cancel
-            </a>
-          </div>
-        </form>
+            <div class="d-grid gap-2 m-2 d-sm-flex justify-content-sm-end">
+              <button
+                class="btn btn-primary me-sm-2"
+                (click)="save.emit()"
+                title="Save"
+                [disabled]="form()().invalid()"
+              >
+                <i class="bi bi-save"></i> Save
+              </button>
+              <a
+                class="btn btn-secondary"
+                (click)="cancel.emit()"
+                title="Cancel"
+              >
+                <i class="bi bi-x-circle"></i> Cancel
+              </a>
+            </div>
+          </form>
         }
       </section>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     section .card {
       margin-top: 30px;

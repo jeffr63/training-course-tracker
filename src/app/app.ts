@@ -1,16 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 
-import { Store } from '@ngrx/store';
+import { Store } from "@ngrx/store";
 
-import * as fromRoot from '@store/index';
-import { pathsActions } from '@store/path/paths.actions';
-import { sourcesActions } from '@store/source/sources.actions';
-import { AuthService } from '@shared/services/auth/auth-service';
-import { Menu } from './menu/menu.component';
+import * as fromRoot from "@store/index";
+import { pathsActions } from "@store/path/paths.actions";
+import { sourcesActions } from "@store/source/sources.actions";
+import { AuthService } from "@shared/services/auth/auth-service";
+import { Menu } from "./menu/menu.component";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   imports: [Menu, RouterOutlet],
   template: `
     <app-menu></app-menu>
@@ -18,6 +23,7 @@ import { Menu } from './menu/menu.component';
       <router-outlet></router-outlet>
     </main>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [],
 })
 export class App implements OnInit {

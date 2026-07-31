@@ -1,15 +1,30 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
 
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-login',
+  selector: "app-login",
   imports: [NgbModule, ReactiveFormsModule],
   template: `
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Login</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -22,27 +37,53 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
             id="email"
             class="form-control"
             placeholder="Enter email address"
-            formControlName="email" />
-          @if (loginForm.controls.email.errors?.required && loginForm.controls.email.touched) {
-          <small class="text-danger">Email is required</small>
-          } @if (loginForm.controls.email.errors?.email && loginForm.controls.email.touched) {
-          <small class="text-danger">Must enter a valid email</small>
+            formControlName="email"
+          />
+          @if (
+            loginForm.controls.email.errors?.required &&
+            loginForm.controls.email.touched
+          ) {
+            <small class="text-danger">Email is required</small>
+          }
+          @if (
+            loginForm.controls.email.errors?.email &&
+            loginForm.controls.email.touched
+          ) {
+            <small class="text-danger">Must enter a valid email</small>
           }
         </div>
         <div class="form-group">
           <label for="email">Password</label>
-          <input type="password" id="password" class="form-control" formControlName="password" />
-          @if (loginForm.controls.password.errors?.required && loginForm.controls.password.touched) {
-          <small class="text-danger">Password is required</small>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+          />
+          @if (
+            loginForm.controls.password.errors?.required &&
+            loginForm.controls.password.touched
+          ) {
+            <small class="text-danger">Password is required</small>
           }
         </div>
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="login()" [disabled]="!loginForm.valid">Login</button>
-      <button type="button" class="btn btn-warning" (click)="modal.dismiss()">Cancel</button>
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="login()"
+        [disabled]="!loginForm.valid"
+      >
+        Login
+      </button>
+      <button type="button" class="btn btn-warning" (click)="modal.dismiss()">
+        Cancel
+      </button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [],
 })
 export class LoginModal implements OnInit {
@@ -51,14 +92,14 @@ export class LoginModal implements OnInit {
 
   protected loginForm!: FormGroup;
   readonly #user = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   ngOnInit(): void {
     this.loginForm = this.#fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required],
     });
   }
 

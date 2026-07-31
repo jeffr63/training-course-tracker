@@ -1,15 +1,20 @@
-import { Component, input, output } from '@angular/core';
-import { FormField, FieldTree } from '@angular/forms/signals';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { FormField, FieldTree } from "@angular/forms/signals";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { Path } from '@models/paths-interface';
-import { Source } from '@models/sources-interface';
-import { Course } from '@models/course-interface';
-import { ValidationErrors } from '@shared/components/validation-errors';
+import { Path } from "@models/paths-interface";
+import { Source } from "@models/sources-interface";
+import { Course } from "@models/course-interface";
+import { ValidationErrors } from "@shared/components/validation-errors";
 
 @Component({
-  selector: 'app-course-edit-card',
+  selector: "app-course-edit-card",
   imports: [NgbModule, FormField, ValidationErrors],
   template: `
     <section class="container">
@@ -23,7 +28,8 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                   type="text"
                   class="form-control"
                   [formField]="form().title"
-                  placeholder="Enter title of course taken" />
+                  placeholder="Enter title of course taken"
+                />
                 @let ftitle = form().title();
                 @if (ftitle.invalid() && ftitle.touched()) {
                   <app-validation-errors [errors]="ftitle.errors()" />
@@ -32,13 +38,16 @@ import { ValidationErrors } from '@shared/components/validation-errors';
             </fieldset>
 
             <fieldset class="m-2 row">
-              <label class="col-form-label col-sm-2" for="instructor">Instructor</label>
+              <label class="col-form-label col-sm-2" for="instructor"
+                >Instructor</label
+              >
               <div class="col-sm-6">
                 <input
                   type="text"
                   class="form-control"
                   [formField]="form().instructor"
-                  placeholder="Enter name of course's intructor" />
+                  placeholder="Enter name of course's intructor"
+                />
                 @let finstructor = form().instructor();
                 @if (finstructor.invalid() && finstructor.touched()) {
                   <app-validation-errors [errors]="finstructor.errors()" />
@@ -54,7 +63,8 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                   class="form-control"
                   [formField]="form().path"
                   list="path-helpers"
-                  placeholder="Enter techical path of course (ex: Angular or React)" />
+                  placeholder="Enter techical path of course (ex: Angular or React)"
+                />
                 <datalist id="path-helpers">
                   @for (path of paths(); track path.id) {
                     <option value="{{ path.name }}"></option>
@@ -75,7 +85,8 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                   class="form-control"
                   [formField]="form().source"
                   list="source-helpers"
-                  placeholder="Enter where the course was sourced from (ex: Pluralsite)" />
+                  placeholder="Enter where the course was sourced from (ex: Pluralsite)"
+                />
                 <datalist id="source-helpers">
                   @for (source of sources(); track source.id) {
                     <option value="{{ source.name }}"></option>
@@ -93,16 +104,20 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                 class="btn btn-primary me-sm-2"
                 (click)="save.emit()"
                 title="Save"
-                [disabled]="form()().invalid()">
+                [disabled]="form()().invalid()"
+              >
                 <i class="bi bi-save"></i> Save
               </button>
-              <a class="btn btn-secondary" (click)="cancel.emit()"> <i class="bi bi-x-circle"></i> Cancel </a>
+              <a class="btn btn-secondary" (click)="cancel.emit()">
+                <i class="bi bi-x-circle"></i> Cancel
+              </a>
             </div>
           </form>
         }
       </section>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     section .card {
       margin-top: 30px;

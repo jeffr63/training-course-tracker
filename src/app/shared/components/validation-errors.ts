@@ -1,19 +1,24 @@
-import { Component, input } from '@angular/core';
-import { MaxValidationError, MinValidationError, ValidationError } from '@angular/forms/signals';
+import { Component, input, ChangeDetectionStrategy } from "@angular/core";
+import {
+  MaxValidationError,
+  MinValidationError,
+  ValidationError,
+} from "@angular/forms/signals";
 
 @Component({
-  selector: 'app-validation-errors',
+  selector: "app-validation-errors",
   imports: [],
   template: `
     @if (errors()) {
-    <div style="display:flex: flex-direction: column;">
-      @for (error of errors(); track error.kind) {
-      <div style="flex:1;color:red">{{ getError(error) }}</div>
-      }
-    </div>
+      <div style="display:flex: flex-direction: column;">
+        @for (error of errors(); track error.kind) {
+          <div style="flex:1;color:red">{{ getError(error) }}</div>
+        }
+      </div>
     }
   `,
-  styles: `  `,
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styles: ``,
 })
 export class ValidationErrors {
   errors = input<ValidationError[]>([]);
@@ -23,22 +28,22 @@ export class ValidationErrors {
       return error.message;
     }
 
-    let message = '';
+    let message = "";
 
     switch (error.kind) {
-      case 'required':
-        message = 'Value is required';
+      case "required":
+        message = "Value is required";
         break;
-      case 'min':
+      case "min":
         const eMin = error as MinValidationError;
         message = `Minimum amount: ${eMin.min}`;
         break;
-      case 'max':
+      case "max":
         const eMax = error as MaxValidationError;
         message = `Maximum amount: ${eMax.max}`;
         break;
       default:
-        message = error.kind ?? 'Validation Error';
+        message = error.kind ?? "Validation Error";
     }
     return message;
   }

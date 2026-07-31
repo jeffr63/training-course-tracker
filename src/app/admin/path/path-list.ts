@@ -1,21 +1,26 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { AsyncPipe } from "@angular/common";
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { Router } from "@angular/router";
 
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { NgbModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { Store, select } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import * as fromRoot from '@store/index';
-import { pathsFeature } from '@store/path/paths.state';
-import { pathsActions } from '@store/path/paths.actions';
-import { DeleteModal } from '@modals/delete-modal';
-import { ListDisplay } from '@shared/components/list-display';
-import { ListHeader } from '@shared/components/list-header';
-import { ModalService } from '@modals/modal-service';
+import * as fromRoot from "@store/index";
+import { pathsFeature } from "@store/path/paths.state";
+import { pathsActions } from "@store/path/paths.actions";
+import { DeleteModal } from "@modals/delete-modal";
+import { ListDisplay } from "@shared/components/list-display";
+import { ListHeader } from "@shared/components/list-header";
+import { ModalService } from "@modals/modal-service";
 
 @Component({
-  selector: 'app-path-list',
+  selector: "app-path-list",
   imports: [AsyncPipe, NgbModule, ListDisplay, ListHeader],
   template: `
     <section>
@@ -33,12 +38,14 @@ import { ModalService } from '@modals/modal-service';
             [items]="paths$ | async"
             [isAuthenticated]="isAuthenticated"
             (deleteItem)="deletePath($event)"
-            (editItem)="editPath($event)"></app-list-display>
+            (editItem)="editPath($event)"
+          ></app-list-display>
         </section>
       </section>
     </section>
   `,
-  styles: ['header { padding-bottom: 10px; }'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styles: ["header { padding-bottom: 10px; }"],
 })
 export default class PathList implements OnInit {
   readonly #modal = inject(NgbModal);
@@ -46,8 +53,8 @@ export default class PathList implements OnInit {
   readonly #router = inject(Router);
   readonly #store = inject(Store<fromRoot.State>);
 
-  protected columns = ['name'];
-  protected headers = ['Path'];
+  protected columns = ["name"];
+  protected headers = ["Path"];
   protected readonly isAuthenticated = true;
   protected paths$: Observable<any[]>;
 
@@ -58,9 +65,9 @@ export default class PathList implements OnInit {
 
   deletePath(id) {
     const modalOptions = {
-      title: 'Are you sure you want to delete this path?',
-      body: 'All information associated to this source will be permanently deleted.',
-      warning: 'This operation cannot be undone.',
+      title: "Are you sure you want to delete this path?",
+      body: "All information associated to this source will be permanently deleted.",
+      warning: "This operation cannot be undone.",
     };
     this.#modalDataService.setDeleteModalOptions(modalOptions);
     this.#modal.open(DeleteModal).result.then((_result) => {
@@ -69,10 +76,10 @@ export default class PathList implements OnInit {
   }
 
   editPath(id: number) {
-    this.#router.navigate(['/admin/paths', id]);
+    this.#router.navigate(["/admin/paths", id]);
   }
 
   newPath() {
-    this.#router.navigate(['/admin/paths/new']);
+    this.#router.navigate(["/admin/paths/new"]);
   }
 }

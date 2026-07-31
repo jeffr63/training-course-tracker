@@ -1,13 +1,18 @@
-import { Component, input, output } from '@angular/core';
-import { FormField, FieldTree } from '@angular/forms/signals';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { FormField, FieldTree } from "@angular/forms/signals";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { Path } from '@models/paths-interface';
-import { ValidationErrors } from '@shared/components/validation-errors';
+import { Path } from "@models/paths-interface";
+import { ValidationErrors } from "@shared/components/validation-errors";
 
 @Component({
-  selector: 'app-path-edit-card',
+  selector: "app-path-edit-card",
   imports: [NgbModule, FormField, ValidationErrors],
   template: `
     <section class="container">
@@ -15,9 +20,16 @@ import { ValidationErrors } from '@shared/components/validation-errors';
         @if (form()) {
           <form>
             <fieldset class="m-2 row">
-              <label class="col-form-label col-sm-2" for="name">Path Name</label>
+              <label class="col-form-label col-sm-2" for="name"
+                >Path Name</label
+              >
               <div class="col-sm-6">
-                <input type="text" class="form-control" [formField]="form().name" placeholder="Enter path name" />
+                <input
+                  type="text"
+                  class="form-control"
+                  [formField]="form().name"
+                  placeholder="Enter path name"
+                />
                 @let fname = form().name();
                 @if (fname.invalid() && fname.touched()) {
                   <app-validation-errors [errors]="fname.errors()" />
@@ -30,10 +42,15 @@ import { ValidationErrors } from '@shared/components/validation-errors';
                 class="btn btn-primary me-sm-2"
                 (click)="save.emit()"
                 title="Save"
-                [disabled]="form()().invalid()">
+                [disabled]="form()().invalid()"
+              >
                 <i class="bi bi-save"></i> Save
               </button>
-              <a class="btn btn-secondary" (click)="cancel.emit()" title="Cancel">
+              <a
+                class="btn btn-secondary"
+                (click)="cancel.emit()"
+                title="Cancel"
+              >
                 <i class="bi bi-x-circle"></i> Cancel
               </a>
             </div>
@@ -42,6 +59,7 @@ import { ValidationErrors } from '@shared/components/validation-errors';
       </section>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: `
     section .card {
       margin-top: 30px;

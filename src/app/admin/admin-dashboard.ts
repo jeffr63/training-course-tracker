@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { RouterLink } from "@angular/router";
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-    selector: 'app-admin',
-    imports: [NgbModule, RouterLink],
-    template: `
+  selector: "app-admin",
+  imports: [NgbModule, RouterLink],
+  template: `
     <section>
       <div class="p-2 m-3 mb-4 border bg-light rounded-3">
         <div class="container-fluid py-3">
@@ -19,8 +19,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
           <div class="card">
             <div class="card-header">Paths</div>
             <div class="card-body">
-              <p class="card-text">Pre-selections for the Paths field on Course edit form.</p>
-              <a [routerLink]="['/admin/paths']" class="btn btn-primary">Edit Paths</a>
+              <p class="card-text">
+                Pre-selections for the Paths field on Course edit form.
+              </p>
+              <a [routerLink]="['/admin/paths']" class="btn btn-primary"
+                >Edit Paths</a
+              >
             </div>
           </div>
         </div>
@@ -29,8 +33,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
           <div class="card ">
             <div class="card-header">Sources</div>
             <div class="card-body">
-              <p class="card-text">Pre-selections for the Sources field on Course edit form.</p>
-              <a [routerLink]="['/admin/sources']" class="btn btn-primary">Edit Sources</a>
+              <p class="card-text">
+                Pre-selections for the Sources field on Course edit form.
+              </p>
+              <a [routerLink]="['/admin/sources']" class="btn btn-primary"
+                >Edit Sources</a
+              >
             </div>
           </div>
         </div>
@@ -40,13 +48,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
             <div class="card-header">Users</div>
             <div class="card-body">
               <p class="card-text">Current users edit form.</p>
-              <a [routerLink]="['/admin/users']" class="btn btn-primary">Edit Sources</a>
+              <a [routerLink]="['/admin/users']" class="btn btn-primary"
+                >Edit Sources</a
+              >
             </div>
           </div>
         </div>
       </div>
     </section>
   `,
-    styles: `.jumbotron { padding: 10px; }`
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styles: `
+    .jumbotron {
+      padding: 10px;
+    }
+  `,
 })
 export default class AdminDashboard {}

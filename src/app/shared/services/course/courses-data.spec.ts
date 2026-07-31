@@ -1,31 +1,48 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from "vitest";
 
-import { TestBed } from '@angular/core/testing';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from "@angular/core/testing";
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
 
-import { CoursesData } from '@shared/services/course/courses-data';
-import { Course } from '@models/course-interface';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { CoursesData } from "@shared/services/course/courses-data";
+import { Course } from "@models/course-interface";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr,
+} from "@angular/common/http";
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = "http://localhost:3000";
 
-describe('CourseService', () => {
+describe("CourseService", () => {
   let httpTestingController: HttpTestingController;
   let service; //: CoursesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
-      providers: [CoursesData, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
+      providers: [
+        CoursesData,
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     });
 
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CoursesData);
   });
 
-  describe('addCourse', () => {
-    it('should return course passed, with a post call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("addCourse", () => {
+    it("should return course passed, with a post call to the correct URL", () => {
+      const course = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.addCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -34,14 +51,20 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses`);
       req.flush(course);
-      expect(req.request.method).toBe('POST');
+      expect(req.request.method).toBe("POST");
       httpTestingController.verify();
     });
   });
 
-  describe('deleteCourse', () => {
-    it('should return deleted course with a delete call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("deleteCourse", () => {
+    it("should return deleted course with a delete call to the correct URL", () => {
+      const course = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.deleteCourse(1).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -50,14 +73,20 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses/1`);
       req.flush(course);
-      expect(req.request.method).toBe('DELETE');
+      expect(req.request.method).toBe("DELETE");
       httpTestingController.verify();
     });
   });
 
-  describe('getCourse', () => {
-    it('should return requested course with a get call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("getCourse", () => {
+    it("should return requested course with a get call to the correct URL", () => {
+      const course = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.getCourse(1).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -66,17 +95,17 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses/1`);
       req.flush(course);
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe("GET");
       httpTestingController.verify();
     });
   });
 
-  describe('getCourses', () => {
-    it('should return courses with a get call to the correct URL', () => {
+  describe("getCourses", () => {
+    it("should return courses with a get call to the correct URL", () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' },
-        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B' },
-        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B' },
+        { id: 1, title: "ABC", instructor: "John", path: "A", source: "B" },
+        { id: 2, title: "GHI", instructor: "Jack", path: "A", source: "B" },
+        { id: 3, title: "DEF", instructor: "Jim", path: "A", source: "B" },
       ];
 
       service.getCourses().subscribe((data: Course[]) => {
@@ -89,17 +118,17 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses`);
       req.flush(courses);
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe("GET");
       httpTestingController.verify();
     });
   });
 
-  describe('getCoursesSorted', () => {
-    it('should return courses, sorted ascending by title with a get call to the correct URL', () => {
+  describe("getCoursesSorted", () => {
+    it("should return courses, sorted ascending by title with a get call to the correct URL", () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' },
-        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B' },
-        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B' },
+        { id: 1, title: "ABC", instructor: "John", path: "A", source: "B" },
+        { id: 3, title: "DEF", instructor: "Jim", path: "A", source: "B" },
+        { id: 2, title: "GHI", instructor: "Jack", path: "A", source: "B" },
       ];
 
       service.getCoursesSorted().subscribe((data: Course[]) => {
@@ -110,19 +139,21 @@ describe('CourseService', () => {
         expect(data).toEqual(courses);
       });
 
-      const req = httpTestingController.expectOne(`${baseUrl}/courses?_sort=title&_order=asc`);
+      const req = httpTestingController.expectOne(
+        `${baseUrl}/courses?_sort=title&_order=asc`,
+      );
       req.flush(courses);
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe("GET");
       httpTestingController.verify();
     });
   });
 
-  describe('getCoursesPaged', () => {
-    it('should return courses for the requested page and page size, sorted ascending by title with a get call to the correct URL', () => {
+  describe("getCoursesPaged", () => {
+    it("should return courses for the requested page and page size, sorted ascending by title with a get call to the correct URL", () => {
       const courses: Course[] = [
-        { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' },
-        { id: 3, title: 'DEF', instructor: 'Jim', path: 'A', source: 'B' },
-        { id: 2, title: 'GHI', instructor: 'Jack', path: 'A', source: 'B' },
+        { id: 1, title: "ABC", instructor: "John", path: "A", source: "B" },
+        { id: 3, title: "DEF", instructor: "Jim", path: "A", source: "B" },
+        { id: 2, title: "GHI", instructor: "Jack", path: "A", source: "B" },
       ];
       const current = 1;
       const pageSize = 3;
@@ -136,17 +167,23 @@ describe('CourseService', () => {
       });
 
       const req = httpTestingController.expectOne(
-        `${baseUrl}/courses?_sort=title&_order=asc&_page=${current}&_limit=${pageSize}`
+        `${baseUrl}/courses?_sort=title&_order=asc&_page=${current}&_limit=${pageSize}`,
       );
       req.flush(courses);
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe("GET");
       httpTestingController.verify();
     });
   });
 
-  describe('saveCourse, with id', () => {
-    it('should return requested course with a put call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("saveCourse, with id", () => {
+    it("should return requested course with a put call to the correct URL", () => {
+      const course = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.saveCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -155,15 +192,27 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses/1`);
       req.flush(course);
-      expect(req.request.method).toBe('PUT');
+      expect(req.request.method).toBe("PUT");
       httpTestingController.verify();
     });
   });
 
-  describe('saveCourse, without id', () => {
-    it('should return requested course with a post call to the correct URL', () => {
-      const course = { id: null, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
-      const returns = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("saveCourse, without id", () => {
+    it("should return requested course with a post call to the correct URL", () => {
+      const course = {
+        id: null,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
+      const returns = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.saveCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -172,14 +221,20 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses`);
       req.flush(returns);
-      expect(req.request.method).toBe('POST');
+      expect(req.request.method).toBe("POST");
       httpTestingController.verify();
     });
   });
 
-  describe('deleteCourse', () => {
-    it('should return requested course with a get call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("deleteCourse", () => {
+    it("should return requested course with a get call to the correct URL", () => {
+      const course = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.deleteCourse(1).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -188,14 +243,20 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses/1`);
       req.flush(course);
-      expect(req.request.method).toBe('DELETE');
+      expect(req.request.method).toBe("DELETE");
       httpTestingController.verify();
     });
   });
 
-  describe('updateCourse', () => {
-    it('should return updated course with a put call to the correct URL', () => {
-      const course = { id: 1, title: 'ABC', instructor: 'John', path: 'A', source: 'B' };
+  describe("updateCourse", () => {
+    it("should return updated course with a put call to the correct URL", () => {
+      const course = {
+        id: 1,
+        title: "ABC",
+        instructor: "John",
+        path: "A",
+        source: "B",
+      };
 
       service.updateCourse(course).subscribe((data: Course) => {
         expect(data.id).toBe(1);
@@ -204,7 +265,7 @@ describe('CourseService', () => {
 
       const req = httpTestingController.expectOne(`${baseUrl}/courses/1`);
       req.flush(course);
-      expect(req.request.method).toBe('PUT');
+      expect(req.request.method).toBe("PUT");
       httpTestingController.verify();
     });
   });

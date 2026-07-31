@@ -1,20 +1,25 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { AsyncPipe } from "@angular/common";
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { Router } from "@angular/router";
 
-import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from "rxjs";
+import { Store, select } from "@ngrx/store";
+import { NgbModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import * as fromRoot from '@store/index';
-import { usersActions } from '@store/user/users.actions';
-import { usersFeature } from '@store/user/users.state';
-import { DeleteModal } from '@modals/delete-modal';
-import { ListDisplay } from '@shared/components/list-display';
-import { ModalService } from '@modals/modal-service';
+import * as fromRoot from "@store/index";
+import { usersActions } from "@store/user/users.actions";
+import { usersFeature } from "@store/user/users.state";
+import { DeleteModal } from "@modals/delete-modal";
+import { ListDisplay } from "@shared/components/list-display";
+import { ModalService } from "@modals/modal-service";
 
 @Component({
-  selector: 'app-users-list',
+  selector: "app-users-list",
   imports: [AsyncPipe, NgbModule, ListDisplay],
   template: `
     <section>
@@ -30,11 +35,13 @@ import { ModalService } from '@modals/modal-service';
             [items]="users$ | async"
             [isAuthenticated]="isAuthenticated"
             (deleteItem)="deleteUser($event)"
-            (editItem)="editUser($event)"></app-list-display>
+            (editItem)="editUser($event)"
+          ></app-list-display>
         </section>
       </section>
     </section>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [
     `
       header {
@@ -49,8 +56,8 @@ export default class UserListComponent implements OnInit {
   readonly #router = inject(Router);
   readonly #store = inject(Store<fromRoot.State>);
 
-  protected readonly columns = ['name', 'email', 'role'];
-  protected readonly headers = ['Name', 'Email', 'Role'];
+  protected readonly columns = ["name", "email", "role"];
+  protected readonly headers = ["Name", "Email", "Role"];
   protected readonly isAuthenticated = true;
   protected users$: Observable<any[]>;
 
@@ -61,9 +68,9 @@ export default class UserListComponent implements OnInit {
 
   deleteUser(id) {
     const modalOptions = {
-      title: 'Are you sure you want to delete this user?',
-      body: 'All information associated to this source will be permanently deleted.',
-      warning: 'This operation cannot be undone.',
+      title: "Are you sure you want to delete this user?",
+      body: "All information associated to this source will be permanently deleted.",
+      warning: "This operation cannot be undone.",
     };
     this.#modalDataService.setDeleteModalOptions(modalOptions);
     this.#modal.open(DeleteModal).result.then((_result) => {
@@ -72,6 +79,6 @@ export default class UserListComponent implements OnInit {
   }
 
   editUser(id: number) {
-    this.#router.navigate(['/admin/users', id]);
+    this.#router.navigate(["/admin/users", id]);
   }
 }
